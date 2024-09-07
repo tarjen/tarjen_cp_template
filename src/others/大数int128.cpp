@@ -28,13 +28,6 @@ inline void write(__int128 x)
         write(x/10);
     putchar(x%10+'0');
 }
-int main()
-{
-    __int128 a = read();
-    __int128 b = read();
-    write(a + b);
-    return 0;
-}
 
 istream& operator >> (istream& in, __int128& num) {
     string s;in>>s;

@@ -3,9 +3,9 @@
 // Take a look at the file `template.typ` in the file panel
 // to customize this template and discover how it works.
 #show: project.with(
-  title: "Standard Code Library",
+  title: "Antiamuny Code Library",
   authors: (
-    "牛逼大学 塔尖",
+    "tarjen",
   ),
   logo: "logo.png",
 )
@@ -15,7 +15,6 @@
   pagebreak(weak: true)
   it
 }
-
 = 第零章
 
 - 安装 `typst`:
@@ -94,7 +93,7 @@
 #import_code("src/string/kmp.cpp")
 == Manacher
 #import_code("src/string/manacher.cpp")     
-== 倍增sa
+== 倍增SA
 #import_code("src/string/倍增sa.cpp")       
 == 后缀自动机SAM
 #import_code("src/string/后缀自动机SAM.cpp")
@@ -145,23 +144,23 @@
 #import_code("src/graph/欧拉回路.cpp")
 
 = 数学
+== 组合数
+#import_code("src/math/组合数带模运算ca.cpp")
 == BSGS指数方程余数问题(求a^x=b%p)
 #import_code("src/math/BSGS指数方程余数问题(求a^x=b%p).cpp")
-== exgcd
+== EXGCD
 #import_code("src/math/exgcd.cpp")
 == FFT
 #import_code("src/math/FFT.cpp")
 == FWT
 #import_code("src/math/FWT.cpp")
-== Meissel-Lehmer(求1-n质数数量)
-#import_code("src/math/Meissel-Lehmer(求1-n质数数量).cpp")
-== mob莫比乌斯反演
+== 莫比乌斯反演
 #import_code("src/math/mob莫比乌斯反演.cpp")
-== ntt
+== NTT
 #import_code("src/math/ntt.cpp")
-== 任意模数ntt
+== 任意模数NTT
 #import_code("src/math/任意模数ntt.cpp")
-== 大数分解质因数
+== Pollard_Rho
 #import_code("src/math/大数分解质因数.cpp")
 == 扩展中国剩余定理
 #import_code("src/math/扩展中国剩余定理.cpp")
@@ -175,12 +174,8 @@
 #import_code("src/math/线性筛质数.cpp")
 == 线性递推
 #import_code("src/math/线性递推.cpp")
-== 组合数带模运算ca
-#import_code("src/math/组合数带模运算ca.cpp")
 == 辛普森积分
 #import_code("src/math/辛普森积分.cpp")
-== 非固定模数fft
-#import_code("src/math/非固定模数fft.cpp")
 == 高斯消元(模意义)
 #import_code("src/math/高斯消元(模意义).cpp")
 == 高斯消元(浮点数)
