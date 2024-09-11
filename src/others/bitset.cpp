@@ -1,18 +1,3 @@
-int n;
-vector<tuple<int,int,int>>a,b;
-int sz;
-void solve(){
-    cin>>n;
-    for(int i=1,x,y,z,w;i<=n;i++){
-        cin>>x>>y>>z>>w;
-        if(y>w)swap(y,w);
-        if(x>z)swap(x,z);
-        if(x==z)a.emplace_back(x,y,w);
-        else b.emplace_back(y,x,z);
-    }
-    if(a.size()>b.size())swap(a,b);
-    solve<1>();
-}
 template<int LEN>void solve(){
     sz=a.size();
     if (LEN<=b.size()){
