@@ -60,7 +60,7 @@
 #import_code("src/others/bitset.cpp")
 == bitset手写
 #import_code("src/others/bitset手写.cpp")
-== lcslen(n2w)
+== lcslen(n2/w)
 #import_code("src/others/lcslen(n2w).cpp")
 == wqs二分
 #import_code("src/others/wqs二分.cpp")
@@ -68,7 +68,7 @@
 #import_code("src/others/判断异或方程组是否有解.cpp")
 == 可以判断不同或相同的并查集
 #import_code("src/others/可以判断不同或相同的并查集.cpp")
-== 大数int128
+== Int128
 #import_code("src/others/大数int128.cpp")
 == 树哈希
 #import_code("src/others/树哈希.cpp")
@@ -143,6 +143,40 @@
 == 欧拉回路
 #import_code("src/graph/欧拉回路.cpp")
 
+= 数据结构
+
+== SegmentSet
+#import_code("src/data_structure/SegmentSet.cpp") 
+== SegmentTree
+#import_code("src/data_structure/SegmentTree.cpp")
+== 三维偏序cdq
+#import_code("src/data_structure/三维偏序cdq.cpp")
+== 主席树
+#import_code("src/data_structure/主席树.cpp")     
+== 二维树状数组
+#import_code("src/data_structure/二维树状数组.cpp")
+== 动态开点线段树
+#import_code("src/data_structure/动态开点线段树.cpp")
+== 可持久化01trie
+#import_code("src/data_structure/可持久化01trie.cpp")
+== 最近公共祖先LCA
+#import_code("src/data_structure/最近公共祖先LCA.cpp")
+== 点分治
+#import_code("src/data_structure/点分治.cpp")
+== 珂朵莉树
+#import_code("src/data_structure/珂朵莉树.cpp")
+== 笛卡尔树
+#import_code("src/data_structure/笛卡尔树.cpp")
+== 线段树区间加区间历史最小值
+#import_code("src/data_structure/线段树区间加区间历史最小值.cpp")
+== 莫队
+#import_code("src/data_structure/莫队mo.cpp")
+== 虚树
+#import_code("src/data_structure/虚树xushu.cpp")
+== LCT维护联通性
+#import_code("src/data_structure/LCT维护联通性.cpp")
+
+
 = 数学
 == 组合数
 #import_code("src/math/组合数带模运算ca.cpp")
@@ -182,3 +216,34 @@
 #import_code("src/math/高斯消元(浮点数).cpp")
 
 = 计算几何
+== 开头
+#import_code("src/geometry/开头.cpp")
+== 点与向量
+#import_code("src/geometry/点与向量.cpp")
+== 极角排序
+#import_code("src/geometry/极角排序.cpp")
+== 直线
+#import_code("src/geometry/直线.cpp")
+== 线段
+#import_code("src/geometry/线段.cpp")
+== 多边形
+#import_code("src/geometry/多边形.cpp")
+== 凸多边形
+#import_code("src/geometry/凸多边形.cpp")
+== 圆
+#import_code("src/geometry/圆.cpp")
+== 判断多条线段是否有交点
+#import_code("src/geometry/判断多条线段是否有交点.cpp")
+== 半平面交
+#import_code("src/geometry/半平面交.cpp")
+== 圆面积并
+#import_code("src/geometry/圆面积并.cpp")
+== 多边形面积并
+#import_code("src/geometry/多边形面积并.cpp")
+== 点集形成的最小最大三角形
+#import_code("src/geometry/点集形成的最小最大三角形.cpp")
+== 点集的凸包
+#import_code("src/geometry/点集的凸包.cpp")
+
+== 给定三点求圆心
+#import_code("src/geometry/给定三点求圆心.cpp")
