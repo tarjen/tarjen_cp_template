@@ -46,9 +46,9 @@
 #import_code("src/prepare/duipai.bat")
 
 = 杂项
-== rand
+== Rand
 #import_code("src/others/rand.cpp")
-== time
+== Time
 #import_code("src/others/time.cpp")
 == 子集枚举
 #import_code("src/others/子集枚举.cpp")
@@ -56,11 +56,11 @@
 #import_code("src/others/高维前缀和.cpp")
 == 三分
 #import_code("src/others/三分.cpp")
-== bitset
+== Bitset
 #import_code("src/others/bitset.cpp")
-== bitset手写
+== Bitset手写
 #import_code("src/others/bitset手写.cpp")
-== lcslen(n2/w)
+== Lcslen(n2/w)
 #import_code("src/others/lcslen(n2w).cpp")
 == wqs二分
 #import_code("src/others/wqs二分.cpp")
@@ -72,7 +72,7 @@
 #import_code("src/others/大数int128.cpp")
 == 树哈希
 #import_code("src/others/树哈希.cpp")
-== 求s所有前缀对于t的所有子串的lcs长度
+== 求s所有前缀对于t的所有子串的最长公共子序列长度
 #import_code("src/others/求s所有前缀对于t的所有子串的lcs长度.cpp")
 == 线性基
 #import_code("src/others/线性基.cpp")
@@ -104,19 +104,17 @@
 
 
 = 图论
-== johnson全源最短路
+== Johnson全源最短路
 #import_code("src/graph/johnson全源最短路.cpp")
-== kosaraju
+== Kosaraju
 #import_code("src/graph/kosaraju.cpp")
 == K短路
 #import_code("src/graph/K短路.cpp")
-== lca(o1)
-#import_code("src/graph/lca(o1).cpp")
-== maxflow只算值版本
+== Maxflow只算值版本
 #import_code("src/graph/maxflow只算值版本.cpp")
-== maxflow网络流最大流
+== Maxflow网络流最大流
 #import_code("src/graph/maxflow网络流最大流.cpp")
-== tarjan缩点
+== Tarjan缩点
 #import_code("src/graph/tarjan缩点.cpp")
 == 二分图匹配
 #import_code("src/graph/二分图匹配.cpp")
@@ -161,6 +159,8 @@
 #import_code("src/data_structure/可持久化01trie.cpp")
 == 最近公共祖先LCA
 #import_code("src/data_structure/最近公共祖先LCA.cpp")
+== Lca(o1)
+#import_code("src/data_structure/lca(o1).cpp")
 == 点分治
 #import_code("src/data_structure/点分治.cpp")
 == 珂朵莉树
@@ -175,6 +175,8 @@
 #import_code("src/data_structure/虚树xushu.cpp")
 == LCT维护联通性
 #import_code("src/data_structure/LCT维护联通性.cpp")
+== 树链剖分
+#import_code("src/data_structure/树链剖分.cpp")
 
 
 = 数学
