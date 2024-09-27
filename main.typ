@@ -37,7 +37,6 @@
 == 测样例脚本(python版)
 #import_code("src/prepare/test.py")
 
-== 测样例脚本(bash版)
 
 == 对拍(cpp版本)
 #import_code("src/prepare/duipai.cpp")

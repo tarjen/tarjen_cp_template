@@ -1,7 +1,7 @@
 import os
 import sys
 import zipfile
-
+# linux下去掉.exe 和 加./
 c = sys.argv[1]
 code = c.capitalize()
 os.system(f'g++ {c}.cpp -O2 -Wall -o {c}.exe')
