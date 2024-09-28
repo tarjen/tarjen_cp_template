@@ -5,6 +5,7 @@ struct Suffix{
 	int ht[N],rk[N],sa[N],y[N],c[N];
     int n,m;
     char s[N];
+    int st[20][N];
 	void init(){
         n=strlen(s+1);
         m=300;
@@ -39,7 +40,34 @@ struct Suffix{
 			while(s[i+k] == s[j+k] )k++;
 			ht[rk[i]] = k;
 		}
+        for(int i=1;i<=n;i++)st[0][i]=ht[i];
+        for(int j=1;j<20;j++){
+            for(int i=1;i+(1<<j)-1<=n;i++)st[j][i]=min(st[j-1][i],st[j-1][i+(1<<(j-1))]);
+        }
 	}
+    int get(int l,int r){
+        int g=__lg(r-l+1);
+        return min(st[g][l],st[g][r-(1<<g)+1]);
+    }
+    int lcp(int x,int y){
+        x=rk[x],y=rk[y];
+        if(x==y)return n-x+1;
+        if(x>y)swap(x,y);
+        return get(x+1,y);
+    }
+    int query(int l1,int r1,int l2,int r2){
+        int len=lcp(l1,l2);
+        len=min({len,r1-l1+1,r2-l2+1});
+        if(len==min(r1-l1+1,r2-l2+1)){
+            if(r1-l1>r2-l2)return 1;
+            if(r1-l1<r2-l2)return -1;
+            if(r1-l1==r2-l2)return 0;
+        }
+        char p=s[l1+len],q=s[l2+len];
+        if(p>q)return 1;
+        if(p==q)return 0;
+        return -1;
+    }
     void writ()
     {
         printf("%s\n",s+1);
@@ -47,6 +75,6 @@ struct Suffix{
         for(int i=1;i<=n;i++)cout<<ht[i]<<" ";;cout<<"\n";
         for(int i=1;i<=n;i++)cout<<rk[i]<<" ";;cout<<"\n";
     }
-    
+
 };
 Suffix suf;
