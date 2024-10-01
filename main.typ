@@ -141,6 +141,8 @@
 #import_code("src/graph/最小费用最大流.cpp")
 == 欧拉回路
 #import_code("src/graph/欧拉回路.cpp")
+== 三四元环计数
+#import_code("src/graph/三四元环计数.cpp")
 
 = 数据结构
 
