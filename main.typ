@@ -4,11 +4,13 @@
 // to customize this template and discover how it works.
 #show: project.with(
   title: "Antiamuny Code Library",
-  authors: (
-    "tarjen",
-  ),
+  authors: ("tarjen",),
   logo: "logo.png",
+  twoside: false,
 )
+
+// for balck printing
+// #set raw(theme: "BW.tmtheme")
 
 // auto pagebreak after each section
 #show heading.where(level: 1): it => {
@@ -81,19 +83,19 @@
 
 = 字符串
 == AC自动机
-#import_code("src/string/AC自动机.cpp")     
+#import_code("src/string/AC自动机.cpp")
 == Dequehash
-#import_code("src/string/dequehash.cpp")    
+#import_code("src/string/dequehash.cpp")
 == Exkmp
-#import_code("src/string/exkmp.cpp")        
+#import_code("src/string/exkmp.cpp")
 == Hash
 #import_code("src/string/hash.cpp")
 == Kmp
 #import_code("src/string/kmp.cpp")
 == Manacher
-#import_code("src/string/manacher.cpp")     
+#import_code("src/string/manacher.cpp")
 == 倍增SA
-#import_code("src/string/倍增sa.cpp")       
+#import_code("src/string/倍增sa.cpp")
 == 后缀自动机SAM
 #import_code("src/string/后缀自动机SAM.cpp")
 == 回文自动机PAM
@@ -143,13 +145,13 @@
 = 数据结构
 
 == SegmentSet
-#import_code("src/data_structure/SegmentSet.cpp") 
+#import_code("src/data_structure/SegmentSet.cpp")
 == SegmentTree
 #import_code("src/data_structure/SegmentTree.cpp")
 == 三维偏序cdq
 #import_code("src/data_structure/三维偏序cdq.cpp")
 == 主席树
-#import_code("src/data_structure/主席树.cpp")     
+#import_code("src/data_structure/主席树.cpp")
 == 二维树状数组
 #import_code("src/data_structure/二维树状数组.cpp")
 == 动态开点线段树

@@ -3,15 +3,53 @@
 // Go ahead and customize it to your liking!
 
 #let fonts = (
-  serif: ("Times New Roman", "Source Han Serif SC", "Source Han Serif", "Noto Serif CJK SC", "SimSun", "Songti SC", "STSongti"),
-  sans-serif: ("Arial", "Source Han Sans SC", "Source Han Sans", "Noto Sans CJK SC", "SimHei", "Heiti SC", "STHeiti"),
-  monospace: ("Courier New", "Menlo", "IBM Plex Mono", "Source Han Sans HW SC", "Source Han Sans HW", "Noto Sans Mono CJK SC", "SimHei", "Heiti SC", "STHeiti"),
+  serif: (
+    "Times New Roman",
+    "Source Han Serif SC",
+    "Source Han Serif",
+    "Noto Serif CJK SC",
+    "SimSun",
+    "Songti SC",
+    "STSongti",
+  ),
+  sans-serif: (
+    "Arial",
+    "Source Han Sans SC",
+    "Source Han Sans",
+    "Noto Sans CJK SC",
+    "SimHei",
+    "Heiti SC",
+    "STHeiti",
+  ),
+  monospace: (
+    "Courier New",
+    "Menlo",
+    "IBM Plex Mono",
+    "Source Han Sans HW SC",
+    "Source Han Sans HW",
+    "Noto Sans Mono CJK SC",
+    "SimHei",
+    "Heiti SC",
+    "STHeiti",
+  ),
 )
 
-#let project(title: "", authors: (), logo: none, fonts: fonts.serif + fonts.monospace, body) = {
+#let project(
+  title: "",
+  authors: (),
+  logo: none,
+  fonts: fonts.serif + fonts.monospace,
+  twoside: false,
+  body,
+) = {
   // Set the document's basic properties.
   set document(author: authors, title: title)
   set text(font: fonts, lang: "zh", region: "cn")
+  set page(margin: if twoside {
+    (inside: 2.5cm, outside: 2.8cm)
+  } else {
+    auto
+  })
   show math.equation: set text(weight: 400)
 
   // Title page.
@@ -36,32 +74,49 @@
   )
 
   v(2.4fr)
-  pagebreak()
+  pagebreak(
+    weak: true,
+    to: if twoside {
+      "odd"
+    },
+  )
 
 
   // Table of contents.
+  set page(numbering: "I", number-align: center)
+  counter(page).update(1)
   outline(depth: 3, indent: 2em)
-  pagebreak()
+  pagebreak(
+    weak: true,
+    to: if twoside {
+      "odd"
+    },
+  )
+
 
 
   // Main body.
   set par(justify: true)
-
-  
 
   set page(numbering: "1", number-align: center)
   counter(page).update(1)
   body
 }
 
-
-
 #let import_code(path, lang: none, ..args) = {
   show raw.where(block: true): code => {
     show raw.line: line => {
-      text(fill: gray)[#line.number]
-      h(1em)
-      line.body
+      box(
+        stack(
+          dir: ltr,
+          box(
+            width: 0em,
+            align(right, text(fill: gray)[#line.number]),
+          ),
+          h(1em),
+          line.body,
+        ),
+      )
     }
     code
   }
