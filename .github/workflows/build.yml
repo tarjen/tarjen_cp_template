@@ -1,0 +1,29 @@
+name: Build Typst document
+on: [push, workflow_dispatch]    
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: fontist/setup-fontist@v2
+      - run: fontist install --formula "Noto Sans CJK"
+      - uses: typst-community/setup-typst@v3
+        id: setup-typst
+      - name: Build PDF
+        run: typst compile main.typ main.pdf --font-path ~/.fontist/fonts
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: template-pdf
+          path: "*.pdf"
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            *.pdf
