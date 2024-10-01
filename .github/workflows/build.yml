@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - uses: fontist/setup-fontist@v2
-      - run: fontist install --formula "Noto Sans CJK"
+      - run: fontist install --formula "Source"
       - uses: typst-community/setup-typst@v3
         id: setup-typst
       - name: Build PDF
