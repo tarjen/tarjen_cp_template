@@ -6,7 +6,7 @@
   title: "Antiamuny Code Library",
   authors: ("tarjen",),
   logo: "logo.png",
-  twoside: false,
+  twoside: true,
 )
 
 // for balck printing
@@ -38,11 +38,10 @@
 = 赛前准备
 == 测样例脚本(python版)
 #import_code("src/prepare/test.py")
-
+#pagebreak(weak: true)
 
 == 对拍(cpp版本)
 #import_code("src/prepare/duipai.cpp")
-
 == 对拍(bat版本)
 #import_code("src/prepare/duipai.bat")
 
@@ -102,6 +101,8 @@
 #import_code("src/string/回文自动机PAM.cpp")
 == 最小表示
 #import_code("src/string/最小表示.cpp")
+== Runs
+#import_code("src/string/runs.cpp")
 
 
 = 图论
