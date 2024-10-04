@@ -1,25 +1,10 @@
-#define int long long 
 const int maxn=1e5+10;//注意开两倍大小的空间 在dp上
 vector<pair<int,int>>ve[maxn];
 int dep[maxn];
-pair<int,int>dp[21][maxn*3];
-int red[maxn],d[maxn];
-int Dep[maxn];
+pair<int,int>dp[21][maxn*2];
 int dfn[maxn];
-void dfs(int x,int fa,int l,int dis)
-{
-    if(red[x])dis=0;
-    d[x]=dis;
-	dep[x]=dep[fa]+1;
-	Dep[x]=Dep[fa]+l;
-    for(auto [it,len]:ve[x])
-	{
-		if(it==fa) continue;
-		dfs(it,x,len,dis+len);
-	}
-}
 vector<int> sp;
-void dfs2(int u, int fa)
+void dfs(int u, int fa)
 {
 
     dfn[u] = sp.size();
@@ -27,7 +12,7 @@ void dfs2(int u, int fa)
     for (auto& e : ve[u])if(e.first!=fa)
     {
         int& v = e.first;
-        dfs2(v, u);
+        dfs(v, u);
         sp.push_back(u);
     }
 }
