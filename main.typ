@@ -181,6 +181,8 @@
 #import_code("src/data_structure/LCT维护联通性.cpp")
 == 树链剖分
 #import_code("src/data_structure/树链剖分.cpp")
+== 树上k级祖先
+#import_code("src/data_structure/树上k级祖先.cpp")
 == Splay
 #import_code("src/data_structure/Splay.cpp")
 
