@@ -16,21 +16,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - uses: fontist/setup-fontist@v2
-      - run: fontist install --formula "Source"
+        with:
+          cache-dependency-path: manifest.yml
+      - run: fontist manifest-install manifest.yml
       - uses: typst-community/setup-typst@v3
         id: setup-typst
       - name: Build PDF
         run: typst compile main.typ main.pdf --font-path ~/.fontist/fonts
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: template-pdf
           path: "*.pdf"
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+
+  release:
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
         with:
-          files: |
-            *.pdf
+          name: template-pdf
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: "*.pdf"
