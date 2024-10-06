@@ -1,4 +1,12 @@
 # 结论
+### 概率
+设 $P\lbrace X=1\rbrace=p$, $P\lbrace X=0\rbrace=1-p.$
+$$
+P\lbrace|\frac{1}{n}\sum_{i=1}^n X_i-p|\leq\delta\rbrace=1-2P\lbrace\frac{1}{n}\sum_{i=1}^n X_i>p+\delta\rbrace\geq 1-2e^{-np}(\frac{enp}{p+\delta})^{p+\delta}
+$$
+
+
+
 
 ### 异或
 
