@@ -2,7 +2,7 @@
 ### 概率
 设 \mathbb{P}\lbrace X=1\rbrace=p, \mathbb{P}\lbrace X=0\rbrace=1-p.
 $$
-\mathbb{P}\lbrace|\frac{1}{n}\sum_{i=1}^n X_i-p|\leq\delta\rbrace\geq 1-\mathbb{P}\lbrace\frac{1}{n}\sum_{i=1}^n X_i>p+\delta\rbrace-\mathbb{P}\lbrace\frac{1}{n}\sum_{i=1}^n X_i<p-\delta\rbrace\geq 1-2e^{-np}(\frac{ep}{p+\delta})^{np+n\delta}\\=1-2(\frac{p^{p+\delta}e^{\delta}}{(p+\delta)^{p+\delta}})^n
+\mathbb{P}\lbrace|\frac{1}{n}\sum_{i=1}^n X_i-p|\leq\delta\rbrace\geq 1-2\exp(-\frac{\delta^2n}{2p(1-p)})
 $$
 
 
