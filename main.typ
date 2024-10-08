@@ -259,5 +259,4 @@
 == 给定三点求圆心
 #import_code("src/geometry/给定三点求圆心.cpp")
 
-= 结论/经典模型
-== 网络流
+#include "src/note/note.typ"
