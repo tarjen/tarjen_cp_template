@@ -223,6 +223,9 @@
 #import_code("src/math/高斯消元(模意义).cpp")
 == 高斯消元(浮点数)
 #import_code("src/math/高斯消元(浮点数).cpp")
+== MIN25
+#import_code("src/math/min25(质数幂次和).cpp")
+
 
 = 计算几何
 == 开头
@@ -253,6 +256,8 @@
 #import_code("src/geometry/点集形成的最小最大三角形.cpp")
 == 点集的凸包
 #import_code("src/geometry/点集的凸包.cpp")
-
 == 给定三点求圆心
 #import_code("src/geometry/给定三点求圆心.cpp")
+
+= 结论/经典模型
+== 网络流
