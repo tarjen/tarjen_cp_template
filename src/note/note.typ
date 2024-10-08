@@ -1,14 +1,14 @@
 = 结论
 
 == 异或
-​$ a xor b+a xor c >= xor c $
+$ a xor b+a xor c >= xor c $
 $ a xor b>=abs(a-b)>=gcd(a,b) $
 
 == 绝对值等式/不等式
 
-$ min(a, b) = a + b − max(a, b) $
+$ min(a, b) = a + b - max(a, b) $
 
-$ max(abs(p_i − p_j),abs(q_i − q_j)) = 1 /2 (abs(p_i + q_i − p_j − q_j) + abs(p_i − q_i − p_j + q_j)) $
+$ max(abs(p_i - p_j),abs(q_i - q_j)) = 1 / 2 (abs(p_i + q_i - p_j - q_j) + abs(p_i - q_i - p_j + q_j)) $
 
 == 数论
 
@@ -17,7 +17,7 @@ $ max(abs(p_i − p_j),abs(q_i − q_j)) = 1 /2 (abs(p_i + q_i − p_j − q_j) 
 
 $ ceil(m/n) = floor((m-1)/n) +1 $
 
-对于函数 $g(x)=sum_(i=1)^L floor(x/i) $，对于任意的$B >= sqrt(x)$ ，都有
+对于函数 $g(x)=sum_(i=1)^L floor(x/i) $，对于任意的 $B >= sqrt(x)$ ，都有
 
 $ g(x)=sum_(i=1)^(min(L,B)) floor(x/i) + sum_(i=1)^(B)max(0,min(floor(x/i) ,L)-B) $
 
@@ -25,13 +25,13 @@ $ g(x)=sum_(i=1)^(min(L,B)) floor(x/i) + sum_(i=1)^(B)max(0,min(floor(x/i) ,L)-B
 
 二分完全图生成树数量 $ n_1^(n_2-1) n_2^(n_1-1)$
 
-n个节点,k个树,生成树数量$n^(k-2) product_(1)^(k)a_i$    
+$n$ 个节点，$k$ 个树，生成树数量 $n^(k-2) product_(1)^(k)a_i$
 
-完全k分图生成树个数是 $n^(k-2) product (n-a_i)^(a_i-1)$
+完全 $k$ 分图生成树个数是 $n^(k-2) product (n-a_i)^(a_i-1)$
 
 == Kummer 定理
 
-$V(x)$表示最大的2的几次幂整除x，$binom(i+j,j)$的 $V(x)=i+j$ 在2进制下的进位次数
+$V(x)$ 表示最大的 $2$ 的几次幂整除 $x$， $binom(i+j,j) $的 $V(x)=i+j$ 在二进制下的进位次数
 
 #pagebreak(weak: true)
 
@@ -41,19 +41,19 @@ $V(x)$表示最大的2的几次幂整除x，$binom(i+j,j)$的 $V(x)=i+j$ 在2进
 
 $ T(n,k)=sum_(j=0)^(k)T(n-1,j) $
 
-$ T(n,k)=binom(n+k,n) times (n-k+1)/(n+1) $
+$ T(n,k)=binom(n+k,n) times (n-k+1) / (n+1) $
 
 == 二项式反演
 
-$ f(n)=sum_(i=0)^(n)binom(n,i)g(i) <=> g(n)=sum_(i=0)^(n)(−1)^(n−i)binom(n,i)f(i) $
+$ f(n)=sum_(i=0)^(n)binom(n,i)g(i) <=> g(n)=sum_(i=0)^(n)(-1)^(n-i)binom(n,i)f(i) $
 
-$ f(k)=sum_(i=k)^(n)binom(i,k)g(i) <=> g(k)=sum_(i=k)^(n)(−1)^(i-k)binom(i,k)f(i) $
+$ f(k)=sum_(i=k)^(n)binom(i,k)g(i) <=> g(k)=sum_(i=k)^(n)(-1)^(i-k)binom(i,k)f(i) $
 
 == 区间划分
 
-给出一个序列（有正有负），给出上下界要求把序列划分成k个区间，使得所有的区间和在上下界内。
+给出一个序列（有正有负），给出上下界要求把序列划分成 $k$ 个区间，使得所有的区间和在上下界内。
 
-这个k一定是个区间。
+这个 $k$ 一定是个区间。
 
 == 竞赛图
 
@@ -68,7 +68,7 @@ $ f(k)=sum_(i=k)^(n)binom(i,k)g(i) <=> g(k)=sum_(i=k)^(n)(−1)^(i-k)binom(i,k)f
 
 指数定义一个 $"run"(l,r,p)$ 的指数是 $frac(r-l+1,p)$，即 Period_p 在 $s[l,r]$ 中的出现次数。记作 $e(l,r,p)$。
 
-因为一个平方子串一定会出现在某个 $r u n(l, r, p)$ 中，且长度一定是 $2p$的倍数，所以可以枚举所有 $r u n s$ ，枚举平方子串的长度 $2 k p$ ，再枚举左端点 $L in [l, l + p )$，就可以覆盖所有的平方子串，这样枚举的平方子串都可以对应到不同的本原平方子串 $[L + 2(k − 1)p, L + 2 k p − 1]$，然后一个串的本原平方子串个数是 $O(n log n)$ 的，所以上述方式枚举平方子串的复杂度是 $O(n log n)$ 的。还
+因为一个平方子串一定会出现在某个 $"run"(l, r, p)$ 中，且长度一定是 $2p$ 的倍数，所以可以枚举所有 $"runs"$ ，枚举平方子串的长度 $2 k p$ ，再枚举左端点 $L in [l, l + p )$，就可以覆盖所有的平方子串，这样枚举的平方子串都可以对应到不同的本原平方子串 $[L + 2(k - 1)p, L + 2 k p - 1]$，然后一个串的本原平方子串个数是 $O(n log n)$ 的，所以上述方式枚举平方子串的复杂度是 $O(n log n)$ 的。还
 
 一个串的本质不同的平方子串的个数是 $O(n)$ 的
 
@@ -90,5 +90,4 @@ $ f(k)=sum_(i=k)^(n)binom(i,k)g(i) <=> g(k)=sum_(i=k)^(n)(−1)^(i-k)binom(i,k)f
 
 新建一个源点 $S$ 和汇点 $T$，从源点 $S$ 向 $w_i>0$ 的点连一条边权为 $w_i$ 的边，从所有 $w_i<0$ 的点向汇点 $T$ 连一条边权为 $-w_i$ 的边，原图中点与点之间的边不变，流量设为 $inf$
 
-对新图求一遍最小割，最大权 $=sum_{w_i>0}w_i$ 减去最小割 
-
+对新图求一遍最小割，最大权 $=sum_{w_i>0}w_i$ 减去最小割
