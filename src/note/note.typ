@@ -1,7 +1,6 @@
 = 结论
 
 == 异或
-$ a xor b+a xor c >= xor c $
 $ a xor b>=abs(a-b)>=gcd(a,b) $
 
 == 绝对值等式/不等式
@@ -33,8 +32,6 @@ $n$ 个节点，$k$ 个树，生成树数量 $n^(k-2) product_(1)^(k)a_i$
 
 $V(x)$ 表示最大的 $2$ 的几次幂整除 $x$， $binom(i+j,j) $的 $V(x)=i+j$ 在二进制下的进位次数
 
-#pagebreak(weak: true)
-
 == 卡特兰三角
 
 前缀和的前缀和的通项
@@ -48,6 +45,8 @@ $ T(n,k)=binom(n+k,n) times (n-k+1) / (n+1) $
 $ f(n)=sum_(i=0)^(n)binom(n,i)g(i) <=> g(n)=sum_(i=0)^(n)(-1)^(n-i)binom(n,i)f(i) $
 
 $ f(k)=sum_(i=k)^(n)binom(i,k)g(i) <=> g(k)=sum_(i=k)^(n)(-1)^(i-k)binom(i,k)f(i) $
+
+#pagebreak(weak: true)
 
 == 区间划分
 
