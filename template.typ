@@ -38,7 +38,7 @@
   title: "",
   authors: (),
   logo: none,
-  fonts: fonts.serif + fonts.monospace,
+  fonts: fonts.serif,
   twoside: false,
   body,
 ) = {

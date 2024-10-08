@@ -1,4 +1,10 @@
 # 结论
+### 概率
+设 \mathbb{P}\lbrace X=1\rbrace=p, \mathbb{P}\lbrace X=0\rbrace=1-p.
+$$
+\mathbb{P}\lbrace|\frac{1}{n}\sum_{i=1}^n X_i-p|\leq\delta\rbrace\geq 1-2\exp(-\frac{\delta^2n}{2p(1-p)})
+$$
+
 
 ### 异或
 
