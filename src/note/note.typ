@@ -1,10 +1,9 @@
 = 结论
 
 == 异或
-
 ​$ a xor b+a xor c >= xor c $
+$ a xor b>=abs(a-b)>=gcd(a,b) $
 
-​$ a xor b>=abs(a-b)>=gcd(a,b) $
 == 绝对值等式/不等式
 
 $ min(a, b) = a + b − max(a, b) $
