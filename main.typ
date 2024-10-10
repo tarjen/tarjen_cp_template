@@ -225,6 +225,8 @@
 #import_code("src/math/高斯消元(模意义).cpp")
 == 高斯消元(浮点数)
 #import_code("src/math/高斯消元(浮点数).cpp")
+== Matrix
+#import_code("src/math/matrix.cpp")
 == MIN25
 #import_code("src/math/min25(质数幂次和).cpp")
 
