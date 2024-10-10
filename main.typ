@@ -185,6 +185,8 @@
 #import_code("src/data_structure/树上k级祖先.cpp")
 == Splay
 #import_code("src/data_structure/Splay.cpp")
+== 楼房重建
+#import_code("src/data_structure/楼房重建.cpp")
 
 = 数学
 == 组合数
