@@ -14,7 +14,9 @@
 
 // auto pagebreak after each section
 #show heading.where(level: 1): it => {
-  pagebreak(weak: true)
+  if counter(page).at(here()).first()  != 1 {
+    pagebreak(weak: true)
+  }
   it
 }
 

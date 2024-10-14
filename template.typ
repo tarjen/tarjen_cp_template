@@ -46,7 +46,7 @@
   set document(author: authors, title: title)
   set text(font: fonts, lang: "zh", region: "cn")
   set page(margin: if twoside {
-    (inside: 2.5cm, outside: 2.8cm)
+    (inside: 2.8cm, outside: 2.5cm)
   } else {
     auto
   })
