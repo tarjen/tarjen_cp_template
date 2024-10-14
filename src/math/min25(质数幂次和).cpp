@@ -1,3 +1,4 @@
+//seive 和 init 要求的 n  
 #include<bits/stdc++.h>
 #define rep(i,l,r) for(int i=l;i<=r;++i)
 #define repd(i,l,r) for(int i=l;i>=r;--i)
