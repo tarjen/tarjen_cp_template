@@ -23,7 +23,7 @@ struct point {
     int toleft(const point &a) const {
         const auto t = (*this) ^ a;
         return (t > eps) - (t < -eps);
-    }                                             // to-left 测试
+    }  // to-left 测试
     T len2() const { return (*this) * (*this); }  // 向量长度的平方
     T dis2(const point &a) const {
         return (a - (*this)).len2();

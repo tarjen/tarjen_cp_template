@@ -8,7 +8,7 @@ struct line {
     }
     int toleft(const point<T> &a) const {
         return v.toleft(a - p);
-    }                                    // to-left 测试
+    }  // to-left 测试
     bool operator<(const line &a) const  // 半平面交算法定义的排序
     {
         if (abs(v ^ a.v) <= eps && v * a.v >= -eps) return toleft(a.p) == -1;

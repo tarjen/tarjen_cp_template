@@ -227,6 +227,8 @@
 #import_code("src/geometry/直线.cpp")
 == 线段
 #import_code("src/geometry/线段.cpp")
+== 射线判交
+#import_code("src/geometry/射线判交.cpp")
 == 多边形
 #import_code("src/geometry/多边形.cpp")
 == 凸多边形
