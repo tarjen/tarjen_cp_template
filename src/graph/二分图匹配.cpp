@@ -3,9 +3,7 @@ using namespace std;
 int const N = 1510 * 4, M = 75010;
 int e[M], ne[M], h[N], idx;
 int n, m, k, match[N], backup[N], st[N];
-void add(int a, int b) {
-    e[idx] = b, ne[idx] = h[a], h[a] = idx++;
-}
+void add(int a, int b) { e[idx] = b, ne[idx] = h[a], h[a] = idx++; }
 int find(int x) {
     for (int i = h[x]; ~i; i = ne[i]) {
         int j = e[i];
@@ -31,6 +29,6 @@ int main() {
         memset(st, 0, sizeof st);
         if (find(i)) maxMatch++;
     }
-    cout<<maxMatch<<endl;
+    cout << maxMatch << endl;
     return 0;
 }

@@ -5,7 +5,7 @@ struct PairLCS {
     int n = 0, m = 0;
     PairLCS(string s, string t) : n(s.size()), m(t.size()) {
         ih = iv = vector<vector<int>>(n + 1, vector<int>(m + 1));
-        iota(ih[0].begin(),ih[0].end(), 0);
+        iota(ih[0].begin(), ih[0].end(), 0);
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= m; j++) {
                 if (s[i - 1] == t[j - 1]) {
@@ -25,25 +25,22 @@ struct PairLCS {
     }  // s[0,a) t[b,c)
 };
 
-
-
 int cas;
 
 void solution() {
-  int q;
-  std::string s, t;
-  std::cin >> q >> s >> t;
+    int q;
+    std::string s, t;
+    std::cin >> q >> s >> t;
 
-  // int n = s.size(), m = t.size();
-  PairLCS solver(s, t);
+    // int n = s.size(), m = t.size();
+    PairLCS solver(s, t);
 
-  for (int _ = 0; _ < q; _++) {
-    int a, b, c;
-    std::cin >> a >> b >> c;
-    std::cout << solver.query(a, b, c) << '\n';
-  }
+    for (int _ = 0; _ < q; _++) {
+        int a, b, c;
+        std::cin >> a >> b >> c;
+        std::cout << solver.query(a, b, c) << '\n';
+    }
 }
-
 
 int main() {
     ios::sync_with_stdio(false);

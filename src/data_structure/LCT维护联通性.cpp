@@ -13,9 +13,11 @@ struct LCT {
 
     void pushdown(int x) {
         if (tag[x]) {
-        if (ch[x][0]) swap(ch[ch[x][0]][0], ch[ch[x][0]][1]), tag[ch[x][0]] ^= 1;
-        if (ch[x][1]) swap(ch[ch[x][1]][0], ch[ch[x][1]][1]), tag[ch[x][1]] ^= 1;
-        tag[x] = 0;
+            if (ch[x][0])
+                swap(ch[ch[x][0]][0], ch[ch[x][0]][1]), tag[ch[x][0]] ^= 1;
+            if (ch[x][1])
+                swap(ch[ch[x][1]][0], ch[ch[x][1]][1]), tag[ch[x][1]] ^= 1;
+            tag[x] = 0;
         }
     }
 
@@ -37,7 +39,7 @@ struct LCT {
     void splay(int x) {
         update(x);
         for (int f = fa[x]; f = fa[x], !isroot(x); rotate(x))
-        if (!isroot(f)) rotate(getch(x) == getch(f) ? f : x);
+            if (!isroot(f)) rotate(getch(x) == getch(f) ? f : x);
     }
 
     void access(int x) {
@@ -58,14 +60,14 @@ struct LCT {
         splay(x);
         return x;
     }
-/*------------------------------------------------------*/
-    bool query(int x,int y){//查询是否为同一颗树
-        return find(x)==find(y);
+    /*------------------------------------------------------*/
+    bool query(int x, int y) {  // 查询是否为同一颗树
+        return find(x) == find(y);
     }
-    void addedge(int x,int y){
+    void addedge(int x, int y) {
         if (find(x) != find(y)) makeroot(x), fa[x] = y;
     }
-    void deledge(int x,int y){
+    void deledge(int x, int y) {
         makeroot(x);
         access(y);
         splay(y);
@@ -81,13 +83,13 @@ int main() {
     while (q--) {
         scanf("%s%d%d", op, &x, &y);
         if (op[0] == 'Q') {
-            if (st.query(x,y))
-            printf("Yes\n");
-        else
-            printf("No\n");
+            if (st.query(x, y))
+                printf("Yes\n");
+            else
+                printf("No\n");
         }
-        if (op[0] == 'C')st.addedge(x,y);
-        if (op[0] == 'D')st.deledge(x,y);
+        if (op[0] == 'C') st.addedge(x, y);
+        if (op[0] == 'D') st.deledge(x, y);
     }
     return 0;
 }

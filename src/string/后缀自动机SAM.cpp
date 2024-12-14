@@ -1,15 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int N=2e6;
+const int N = 2e6;
 struct SAM {
     struct Node {
         int tr[26];
         int len, fa;
-        Node() { memset(tr, 0, sizeof(tr)); len = fa = 0; }
-    }ep[N << 1];
+        Node() {
+            memset(tr, 0, sizeof(tr));
+            len = fa = 0;
+        }
+    } ep[N << 1];
     int last, tot, n;
     char base;
-    vector<int> edg[N << 1]; 
+    vector<int> edg[N << 1];
     int siz[N << 1];
     void init(int _n) {
         last = tot = 1;
@@ -26,19 +29,19 @@ struct SAM {
         int np = last = ++tot;
         siz[np] = 1;
         ep[np].len = ep[p].len + 1;
-        for (; p && !ep[p].tr[c]; p = ep[p].fa)
-            ep[p].tr[c] = np;
-        if (!p) ep[np].fa = 1;
+        for (; p && !ep[p].tr[c]; p = ep[p].fa) ep[p].tr[c] = np;
+        if (!p)
+            ep[np].fa = 1;
         else {
             int q = ep[p].tr[c];
-            if (ep[q].len == ep[p].len + 1) ep[np].fa = q;
+            if (ep[q].len == ep[p].len + 1)
+                ep[np].fa = q;
             else {
                 int nq = ++tot;
                 ep[nq] = ep[q];
                 ep[nq].len = ep[p].len + 1;
                 ep[q].fa = ep[np].fa = nq;
-                for (; p && ep[p].tr[c] == q; p = ep[p].fa)
-                    ep[p].tr[c] = nq;
+                for (; p && ep[p].tr[c] == q; p = ep[p].fa) ep[p].tr[c] = nq;
             }
         }
     }
@@ -62,5 +65,5 @@ struct SAM {
         construct();
         dfs(1);
     }
-    
+
 } sam;

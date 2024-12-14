@@ -1,7 +1,7 @@
+#include <algorithm>
+#include <cmath>
 #include <cstdio>
 #include <cstring>
-#include <cmath>
-#include <algorithm>
 #include <unordered_map>
 
 using namespace std;
@@ -56,8 +56,10 @@ int exBSGS(int a, int b, int p) {
 int main() {
     while (~scanf("%d%d%d", &a, &p, &b), a || b || p) {
         int res = exBSGS(a, b, p);
-        if (res < 0) puts("No Solution");
-        else printf("%d\n", res);
+        if (res < 0)
+            puts("No Solution");
+        else
+            printf("%d\n", res);
     }
     return 0;
 }

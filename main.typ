@@ -49,8 +49,6 @@
 #import_code("src/others/lcslen(n2w).cpp")
 == wqs二分
 #import_code("src/others/wqs二分.cpp")
-== 判断异或方程组是否有解
-#import_code("src/others/判断异或方程组是否有解.cpp")
 == 可以判断不同或相同的并查集
 #import_code("src/others/可以判断不同或相同的并查集.cpp")
 == Int128
@@ -189,7 +187,7 @@
 == 莫比乌斯反演
 #import_code("src/math/mob莫比乌斯反演.cpp")
 == NTT
-#import_code("src/math/ntt.cpp")
+#import_code("src/math/NTT.cpp")
 == 任意模数NTT
 #import_code("src/math/任意模数ntt.cpp")
 == Pollard_Rho

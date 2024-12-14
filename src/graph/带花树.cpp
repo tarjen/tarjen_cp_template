@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-struct blossom {//0base
+struct blossom {  // 0base
     int n, vis_t;
     vector<vector<int>> E;
     vector<int> match, label, org, vis, parent;
@@ -97,8 +97,7 @@ struct blossom {//0base
         }
     }
 };
-int main()
-{
+int main() {
     blossom G(n);
     for (int i = 0; i < n; ++i) {
         for (int j = i + 1; j < n; ++j) {
