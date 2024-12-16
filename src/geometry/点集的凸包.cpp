@@ -1,5 +1,6 @@
 // 点集的凸包
 // Andrew 算法，复杂度 O(nlogn)
+// 注意p内点数<=2的情况
 Convex convexhull(vector<Point> p) {
     vector<Point> st;
     if (p.empty()) return Convex{st};
