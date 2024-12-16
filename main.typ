@@ -29,6 +29,8 @@
 #import_code("src/prepare/duipai.cpp")
 == 对拍(bat版本)
 #import_code("src/prepare/duipai.bat")
+== Solve
+#import_code("src/prepare/solve.cpp")
 
 = 杂项
 == Rand
