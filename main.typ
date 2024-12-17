@@ -131,6 +131,8 @@
 #import_code("src/graph/欧拉回路.cpp")
 == 三四元环计数
 #import_code("src/graph/三四元环计数.cpp")
+== 有向图动态加边缩点
+#import_code("src/graph/有向图动态加边缩点.cpp")
 
 = 数据结构
 
