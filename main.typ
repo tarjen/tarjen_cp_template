@@ -160,6 +160,12 @@
 #import_code("src/data_structure/笛卡尔树.cpp")
 == 线段树区间加区间历史最小值
 #import_code("src/data_structure/线段树区间加区间历史最小值.cpp")
+== 线段树合并
+#import_code("src/data_structure/线段树合并.cpp")
+== 可持久化线段树
+#import_code("src/data_structure/可持久化线段树.cpp")
+== 动态树直径
+#import_code("src/data_structure/动态树直径.cpp")
 == 莫队
 #import_code("src/data_structure/莫队mo.cpp")
 == 虚树
