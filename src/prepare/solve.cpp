@@ -1,38 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
-template <class T, size_t size = tuple_size<T>::value>
-string to_debug(T, string s = "")
-    requires(not ranges::range<T>);
-string to_debug(auto x)
-    requires requires(ostream& os) { os << x; }
-{
-    return static_cast<ostringstream>(ostringstream() << x).str();
+template <typename T1, typename T2>
+ostream &operator<<(ostream &out, pair<T1, T2> p) {
+    out << "(" << p.first << "," << p.second << ")";
+    return out;
 }
-string to_debug(ranges::range auto x, string s = "")
-    requires(not is_same_v<decltype(x), string>)
-{
-    for (auto xi : x) {
-        s += ", " + to_debug(xi);
-    }
-    return "[" + s.substr(s.empty() ? 0 : 2) + "]";
+template <typename T>
+ostream &operator<<(ostream &out, vector<T> v) {
+    out << "[";
+    if (!v.empty()) out << v[0];
+    for (int i = 1; i < (int)v.size(); i++) out << "," << v[i];
+    out << "]";
+    return out;
 }
-template <class T, size_t size>
-string to_debug(T x, string s)
-    requires(not ranges::range<T>)
-{
-    [&]<size_t... I>(index_sequence<I...>) {
-        ((s += ", " + to_debug(get<I>(x))), ...);
-    }(make_index_sequence<size>());
-    return "(" + s.substr(s.empty() ? 0 : 2) + ")";
-}
-#ifndef ONLINE_JUDGE
-#define debug(...)              \
-    cerr << "line:" << __LINE__ \
-         << ": (" #__VA_ARGS__ ") = " << to_debug(tuple(__VA_ARGS__)) << "\n"
-#else
-#define debug(...)
-
-#endif
 int solve() {}
 int main() {
     ios::sync_with_stdio(false);
