@@ -3,20 +3,6 @@
 == 异或
 $ a xor b>=abs(a-b)>=gcd(a,b) $
 
-== (-a,+b)的贪心
-
-```cpp
- if((a<=b)^(x.a<=x.b))return a<=b;
-        if(a<=b){
-            if(a==x.a)return b<x.b;
-            return a<x.a;
-        }
-        else {
-            if(b==x.b)return a>x.a;
-            return b>x.b;
-        }
-```
-
 == 绝对值等式/不等式
 
 $ min(a, b) = a + b - max(a, b) $

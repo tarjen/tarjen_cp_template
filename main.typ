@@ -63,7 +63,10 @@
 #import_code("src/others/线性基.cpp")
 == 维护多个二维向量能够表示的范围
 #import_code("src/others/维护多个二维向量能够表示的范围.cpp")
-
+== relu
+#import_code("src/others/relu.cpp")
+== (-a,+b)贪心
+#import_code("src/others/(-a,+b).cpp")
 
 = 字符串
 == AC自动机
