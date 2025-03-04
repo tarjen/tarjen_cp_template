@@ -3,7 +3,7 @@
 // 注意p内点数<=2的情况
 Convex convexhull(vector<Point> p) {
     vector<Point> st;
-    if (p.empty()) return Convex{st};
+    if (p.size() <= 2) return Convex{st};
     sort(p.begin(), p.end());
     const auto check = [](const vector<Point> &st, const Point &u) {
         const auto back1 = st.back(), back2 = *prev(st.end(), 2);
