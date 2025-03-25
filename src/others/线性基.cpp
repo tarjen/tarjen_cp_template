@@ -26,7 +26,7 @@ struct LinearBasis {
                 t ^= a[i];
             }
         }
-        if (t == 0) flag = true;
+        if (t == 0) flag = true, tot++;
         return t;
     }
     bool query(ll t) {
