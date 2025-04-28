@@ -4,6 +4,7 @@
 
 #let fonts = (
   serif: (
+    "Libertinus Serif",
     "Times New Roman",
     "Source Han Serif SC",
     "Source Han Serif",
@@ -13,6 +14,7 @@
     "STSongti",
   ),
   sans-serif: (
+    "Libertinus Sans",
     "Arial",
     "Source Han Sans SC",
     "Source Han Sans",
@@ -38,13 +40,12 @@
   title: "",
   authors: (),
   logo: none,
-  fonts: fonts.serif,
   twoside: false,
   body,
 ) = {
   // Set the document's basic properties.
   set document(author: authors, title: title)
-  set text(font: fonts, lang: "zh", region: "cn")
+  set text(font: fonts.serif, lang: "zh", region: "cn")
   set page(margin: if twoside {
     (inside: 2.8cm, outside: 2.5cm)
   } else {
@@ -102,6 +103,61 @@
   counter(page).update(1)
   body
 }
+
+
+#let wf_trd(
+  title: "",
+  authors: (),
+  logo: none,
+  header: none,
+  body
+) = {
+  set document(author: authors, title: title)
+  set text(font: fonts.serif, lang: "zh", region: "cn")
+
+  show math.equation: set text(weight: 400)
+
+  set page(
+    flipped: true,
+    margin: (
+      left: 1.5cm,
+      right: 1.5cm,
+      top: 2cm,
+      bottom: 1.5cm
+    ),
+  )
+  v(0.6fr)
+  if logo != none {
+    align(right, image(logo, width: 30%))
+  }
+  v(9.6fr)
+
+  text(2em, weight: 700, title)
+  pad(
+    top: 0.7em,
+    right: 20%,
+    grid(
+      columns: (1fr,) * calc.min(3, authors.len()),
+      gutter: 1em,
+      ..authors.map(author => align(start, strong(author))),
+    ),
+  )
+  // Main body.
+
+  counter(page).update(0)
+  set par(justify: true)
+  set text(size: 8pt)
+  set page(
+    columns: 3,
+    header: header
+  )
+
+  align(center, text(2em, weight: 700, title))
+  outline(depth: 1, indent: 2em)  
+  body
+  
+}
+
 
 #let import_code(path, lang: none, ..args) = {
   show raw.where(block: true): code => {

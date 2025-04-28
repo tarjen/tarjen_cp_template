@@ -2,28 +2,29 @@
 
 // Take a look at the file `template.typ` in the file panel
 // to customize this template and discover how it works.
-#show: project.with(
+#show: wf_trd.with(
   title: "Antiamuny Code Library",
   authors: ("tarjen",),
   logo: "logo.png",
-  twoside: true,
+  header: [
+    _Shanghai University_ Team Reference Document#h(1fr)#context counter(page).display("1 / 1", both: true)
+  ]
 )
 
 // for balck printing
 // #set raw(theme: "BW.tmtheme")
 
 // auto pagebreak after each section
-#show heading.where(level: 1): it => {
-  if counter(page).at(here()).first()  != 1 {
-    pagebreak(weak: true)
-  }
-  it
-}
+// #show heading.where(level: 1): it => {
+//   if counter(page).at(here()).first()  != 1 {
+//     pagebreak(weak: true)
+//   }
+//   it
+// }
 
 = 赛前准备
 == 测样例脚本(python版)
 #import_code("src/prepare/test.py")
-#pagebreak(weak: true)
 
 == 对拍(cpp版本)
 #import_code("src/prepare/duipai.cpp")
@@ -202,7 +203,7 @@
 == 莫比乌斯反演
 #import_code("src/math/mob莫比乌斯反演.cpp")
 == NTT
-#import_code("src/math/NTT.cpp")
+#import_code("src/math/ntt.cpp")
 == 任意模数NTT
 #import_code("src/math/任意模数ntt.cpp")
 == Pollard_Rho
