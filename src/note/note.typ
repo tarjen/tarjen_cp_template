@@ -86,7 +86,7 @@ $ A_(i j)(G)=A_(j i)(G)=e(i,j), i != j $
 
 一个串的本质不同的平方子串的个数是 $O(n)$ 的
 
-#pagebreak(weak: true)
+// #pagebreak(weak: true)
 
 = 计算几何
 

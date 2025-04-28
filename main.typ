@@ -7,7 +7,7 @@
   authors: ("tarjen",),
   logo: "logo.png",
   header: [
-    _Shanghai University_ Team Reference Document#h(1fr)#context counter(page).display("1 / 1", both: true)
+    _Shanghai University_#h(1fr)#context counter(page).display("1 / 1", both: true)
   ]
 )
 
