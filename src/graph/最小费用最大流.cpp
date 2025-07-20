@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 const int N = 1e4, M = 1e6;
 struct SSP {
     int cnt = 1, hd[N], nxt[M << 1], to[M << 1], limit[M << 1], cst[M << 1];

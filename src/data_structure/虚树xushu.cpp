@@ -4,12 +4,6 @@
 // 用的时候就addintoxs(x)丢进去，每次init就全部删除
 // add是加原边，ADD不用管它
 // solve 里面是必备的几步，不能去除
-#include <bits/stdc++.h>
-using namespace std;
-#define int long long
-const int maxn = 1e5 + 10;
-const int inf = 1e18;
-int n, m;
 struct XS {
     struct kkk {
         int to, len;

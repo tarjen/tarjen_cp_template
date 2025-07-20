@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 struct SegmentMap {
     map<int, int> ma;
     int sum = 0;

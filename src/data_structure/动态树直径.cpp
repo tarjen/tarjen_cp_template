@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-typedef long long ll;
-const int maxn = 2e5 + 10;
 struct info {
     ll w, lm, m, mr, lmr;
 };
@@ -89,12 +85,6 @@ void dfs(int x, int h) {
     R[x] = tot;
 }
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    int n, q;
-    ll ww;
-    cin >> n >> q >> ww;
-    vector<tuple<int, int, ll>> edges(n - 1);
     for (int i = 1; i < n; i++) {
         int x, y;
         ll w;
@@ -104,14 +94,10 @@ int main() {
         edges[i - 1] = make_tuple(x, y, w);
     }
     dfs(1, 0);
-    // for (int i = 1; i <= tot; i++) cout << dfn[i] << " \n"[i == tot];
-    // for (int i = 1; i <= n; i++) cout << L[i] << " \n"[i == n];
-    // for (int i = 1; i <= n; i++) cout << R[i] << " \n"[i == n];
     tri.build(1, 1, 2 * n);
     for (int i = 1; i <= n; i++) {
         for (auto [it, w] : ve[i])
             if (dep[it] > dep[i]) {
-                // cout << "i=" << i << " it=" << it << " w=" << w << endl;
                 tri.update(1, L[it], R[it], w);
             }
     }
@@ -124,7 +110,6 @@ int main() {
         auto &[x, y, w] = edges[d];
         if (dep[x] > dep[y]) swap(x, y);
         ll delta = e - w;
-        // cout << "x=" << x << " y=" << y << " w=" << w << " e=" << e << endl;
         w += delta;
         tri.update(1, L[y], R[y], delta);
         info ans = tri.query(1, 1, 2 * n);

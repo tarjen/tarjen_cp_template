@@ -1,17 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-const int maxn = 1e2 + 10;
-const int inf = 2e7 + 10;
-int a[maxn][maxn], b[maxn][maxn];
 int main() {
-    int n;
-    cin >> n;
-    int m;
-    cin >> m;
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= n; j++) a[i][j] = b[i][j] = inf;
-        a[i][i] = b[i][i] = 0;
-    }
     while (m--) {
         int x, y;
         cin >> x >> y;
@@ -34,8 +21,4 @@ int main() {
                 b[j][k] = min(b[j][i] + b[i][k], b[j][k]);
         }
     }
-    if (ans == inf)
-        cout << "No solution.";
-    else
-        cout << ans;
 }

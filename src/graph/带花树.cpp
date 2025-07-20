@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 struct blossom {  // 0base
     int n, vis_t;
     vector<vector<int>> E;

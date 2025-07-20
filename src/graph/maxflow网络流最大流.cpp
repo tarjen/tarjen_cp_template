@@ -3,9 +3,6 @@
 // init 慎用
 // S必须是0
 // 输出方案注意是head开头
-#include <bits/stdc++.h>
-using namespace std;
-const int N = 2510, M = 2510 * 10;
 class Maxflow {
    private:
     int nedge = 1, p[2 * M], nex[2 * M], head[N], c[2 * M], cur[2 * M];

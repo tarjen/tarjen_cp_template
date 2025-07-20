@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-typedef long long ll;
-typedef double lf;
 const int maxn = 40000 + 10;
 struct Line {
     lf k, b;

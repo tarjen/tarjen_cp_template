@@ -1,11 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-typedef long long ll;
-const int maxn = 1e5 + 10;
-int mod;
-void add(int &x, int y) {
-    if ((x += y) >= mod) x -= mod;
-}
 struct Node {
     int l, r, res, tag;
 };

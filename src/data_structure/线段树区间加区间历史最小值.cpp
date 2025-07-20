@@ -1,8 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define int long long
-const int maxn = 1e6 + 10;
-const int inf = 2e9;
 struct Node {
     int l, r, res, tag, tag2, res2;
 };

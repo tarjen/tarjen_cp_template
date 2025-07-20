@@ -1,10 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-const int maxn = 5e5 + 10;
-typedef long long ll;
-void gmax(ll& x, ll y) {
-    if (y > x) x = y;
-}
 struct SegmentTree {
     struct Node {
         int ls, rs;

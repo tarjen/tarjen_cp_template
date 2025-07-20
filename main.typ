@@ -2,14 +2,9 @@
 
 // Take a look at the file `template.typ` in the file panel
 // to customize this template and discover how it works.
-#show: wf_trd.with(
-  title: "Antiamuny Code Library",
-  authors: ("tarjen",),
-  logo: "logo.png",
-  header: [
-    _Shanghai University_#h(1fr)#context counter(page).display("1 / 1", both: true)
-  ]
-)
+#show: wf_trd.with(title: "Antiamuny Code Library", authors: ("tarjen",), logo: "logo.png", header: [
+  _Shanghai University_#h(1fr)#context counter(page).display("1 / 1", both: true)
+])
 
 // for balck printing
 // #set raw(theme: "BW.tmtheme")
@@ -22,30 +17,7 @@
 //   it
 // }
 
-= 赛前准备
-== 测样例脚本(python版)
-#import_code("src/prepare/test.py")
-
-== 对拍(cpp版本)
-#import_code("src/prepare/duipai.cpp")
-== 对拍(bat版本)
-#import_code("src/prepare/duipai.bat")
-== Solve
-#import_code("src/prepare/solve.cpp")
-
 = 杂项
-== Rand
-#import_code("src/others/rand.cpp")
-== Time
-#import_code("src/others/time.cpp")
-== 子集枚举
-#import_code("src/others/子集枚举.cpp")
-== 高维前缀和
-#import_code("src/others/高维前缀和.cpp")
-== 三分
-#import_code("src/others/三分.cpp")
-== Bitset
-#import_code("src/others/bitset.cpp")
 == Bitset手写
 #import_code("src/others/bitset手写.cpp")
 == Lcslen(n2/w)
@@ -54,14 +26,10 @@
 #import_code("src/others/wqs二分.cpp")
 == 可以判断不同或相同的并查集
 #import_code("src/others/可以判断不同或相同的并查集.cpp")
-== Int128
-#import_code("src/others/大数int128.cpp")
 == 树哈希
 #import_code("src/others/树哈希.cpp")
 == 求s所有前缀对于t的所有子串的最长公共子序列长度
 #import_code("src/others/求s所有前缀对于t的所有子串的lcs长度.cpp")
-== 线性基
-#import_code("src/others/线性基.cpp")
 == 维护多个二维向量能够表示的范围
 #import_code("src/others/维护多个二维向量能够表示的范围.cpp")
 == relu
@@ -117,8 +85,6 @@
 #import_code("src/graph/二分图染色.cpp")
 == 圆方树
 #import_code("src/graph/圆方树.cpp")
-== 基环树
-#import_code("src/graph/基环树.cpp")
 == 带权并查集dsu
 #import_code("src/graph/带权并查集dsu.cpp")
 == 带花树
@@ -131,8 +97,6 @@
 #import_code("src/graph/最小环.cpp")
 == 最小费用最大流
 #import_code("src/graph/最小费用最大流.cpp")
-== 欧拉回路
-#import_code("src/graph/欧拉回路.cpp")
 == 三四元环计数
 #import_code("src/graph/三四元环计数.cpp")
 == 有向图动态加边缩点
@@ -140,12 +104,8 @@
 
 = 数据结构
 
-== SegmentSet
-#import_code("src/data_structure/SegmentSet.cpp")
 == SegmentTree
 #import_code("src/data_structure/SegmentTree.cpp")
-== 三维偏序cdq
-#import_code("src/data_structure/三维偏序cdq.cpp")
 == 主席树
 #import_code("src/data_structure/主席树.cpp")
 == 二维树状数组
@@ -172,8 +132,6 @@
 #import_code("src/data_structure/可持久化线段树.cpp")
 == 动态树直径
 #import_code("src/data_structure/动态树直径.cpp")
-== 莫队
-#import_code("src/data_structure/莫队mo.cpp")
 == 虚树
 #import_code("src/data_structure/虚树xushu.cpp")
 == LCT维护联通性
@@ -194,8 +152,6 @@
 #import_code("src/math/组合数带模运算ca.cpp")
 == BSGS指数方程余数问题(求a^x=b%p)
 #import_code("src/math/BSGS指数方程余数问题(求a^x=b%p).cpp")
-== EXGCD
-#import_code("src/math/exgcd.cpp")
 == FFT
 #import_code("src/math/FFT.cpp")
 == FWT
@@ -222,12 +178,6 @@
 #import_code("src/math/线性递推.cpp")
 == 辛普森积分
 #import_code("src/math/辛普森积分.cpp")
-== 高斯消元(模意义)
-#import_code("src/math/高斯消元(模意义).cpp")
-== 高斯消元(浮点数)
-#import_code("src/math/高斯消元(浮点数).cpp")
-== Matrix
-#import_code("src/math/matrix.cpp")
 == MIN25
 #import_code("src/math/min25(质数幂次和).cpp")
 

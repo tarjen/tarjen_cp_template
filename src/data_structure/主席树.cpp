@@ -1,6 +1,4 @@
 // 注意Sum和cnt的区别
-#include <bits/stdc++.h>
-using namespace std;
 const int maxn = 1e5;  // 数据范围
 int n, m;
 struct Persistent_SegmentTree {
@@ -33,7 +31,6 @@ struct Persistent_SegmentTree {
         if (r > mid) res += getcnt(rch[s], rch[t], mid + 1, R, l, r);
         return res;
     }
-
     int getsum(
         int s, int t, int L, int R, int l,
         int r)  // s,t为root[l],root[r]的根节点 中所有大小在[l,r]之间数字的和

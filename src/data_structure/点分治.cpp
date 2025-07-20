@@ -1,12 +1,6 @@
-#include <bits/stdc++.h>
-using namespace std;
-const int maxn = 100010;
-const int inf = 2e9;
 int n, siz[maxn], dist[maxn], vis[maxn], maxx[maxn];
 vector<pair<int, int>> ve[maxn];
-
 void add_edge(int x, int y, int z) { ve[x].emplace_back(y, z); }
-
 void calcsiz(int x, int fa, int sum, int &rt) {
     siz[x] = 1;
     maxx[x] = 0;
@@ -19,7 +13,6 @@ void calcsiz(int x, int fa, int sum, int &rt) {
     maxx[x] = max(maxx[x], sum - siz[x]);
     if (maxx[x] < maxx[rt]) rt = x;
 }
-
 void calcdist(int x, int fa) {
     for (auto &[to, len] : ve[x])
         if (to != fa && !vis[to]) {

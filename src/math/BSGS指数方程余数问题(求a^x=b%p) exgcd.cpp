@@ -1,18 +1,4 @@
-#include <algorithm>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include <unordered_map>
-
-using namespace std;
-
-typedef long long LL;
-
-const int INF = 0x3f3f3f3f;
-
-int a, b, p;
 unordered_map<int, int> hs;
-
 int exgcd(int a, int b, int &x, int &y) {
     if (!b) {
         x = 1, y = 0;
@@ -22,7 +8,6 @@ int exgcd(int a, int b, int &x, int &y) {
     y -= a / b * x;
     return d;
 }
-
 int BSGS(int a, int b, int p) {
     if (1 % p == b % p) return 0;
     int k = sqrt(p) + 1;
@@ -39,7 +24,6 @@ int BSGS(int a, int b, int p) {
     }
     return -INF;
 }
-
 int exBSGS(int a, int b, int p) {
     b = (b % p + p) % p;
     if (1 % p == b % p) return 0;
@@ -51,15 +35,4 @@ int exBSGS(int a, int b, int p) {
         return exBSGS(a, (LL)b / d * x % (p / d), p / d) + 1;
     }
     return BSGS(a, b, p);
-}
-
-int main() {
-    while (~scanf("%d%d%d", &a, &p, &b), a || b || p) {
-        int res = exBSGS(a, b, p);
-        if (res < 0)
-            puts("No Solution");
-        else
-            printf("%d\n", res);
-    }
-    return 0;
 }

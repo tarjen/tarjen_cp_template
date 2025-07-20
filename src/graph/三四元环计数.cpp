@@ -1,9 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-const int mod = 1e9 + 7;
-void add(int &x, int y) {
-    if ((x += y) >= mod) x -= mod;
-}
 void solve() {
     int ans3 = 0, ans4 = 0;
     int n, m;
@@ -44,15 +38,3 @@ void solve() {
     }
     cout << ans3 << " " << ans4 << endl;
 }
-/*
-5 7
-1 2
-2 3
-4 2
-5 1
-1 4
-3 5
-3 1
-
-ans3=3 ans4=2
-*/

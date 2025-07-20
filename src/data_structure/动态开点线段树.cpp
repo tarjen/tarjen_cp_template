@@ -2,7 +2,6 @@
 const int maxn = 1e5 + 10;
 int n, cnt, root;
 int sum[maxn * 20], ls[maxn * 20], rs[maxn * 20];
-
 // 用法：update(root, 1, n, x, f); 其中 x 为待修改节点的编号
 void update(int& p, int L, int R, int x, int f) {  // 引用传参
     if (!p) p = ++cnt;  // 当结点为空时，创建一个新的结点

@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-const int maxn = 1e5 + 10;
 struct Splay {
     int val[maxn];
     int c[maxn][2];
@@ -91,42 +88,3 @@ struct Splay {
         return ans;
     }
 } sol;
-int n;
-int main() {
-    scanf("%d", &n);
-    int r = 0;
-    while (n--) {
-        int opt;
-        scanf("%d", &opt);
-        if (opt == 1) {
-            int v;
-            scanf("%d", &v);
-            sol.insert(v);
-        }
-        if (opt == 2) {
-            int v;
-            scanf("%d", &v);
-            sol.del(v);
-        }
-        if (opt == 3) {
-            int v;
-            scanf("%d", &v);
-            printf("%d\n", sol.queryrk(v));
-        }
-        if (opt == 4) {
-            int v;
-            scanf("%d", &v);
-            printf("%d\n", sol.querynum(v));
-        }
-        if (opt == 5) {
-            int v;
-            scanf("%d", &v);
-            printf("%d\n", sol.query_pre(v));
-        }
-        if (opt == 6) {
-            int v;
-            scanf("%d", &v);
-            printf("%d\n", sol.query_suf(v));
-        }
-    }
-}

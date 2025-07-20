@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-const int maxn = 1.5e6;  // 数据范围
-int n, m;
 struct Persistent_SegmentTree {
     struct node {
         int l, r, ls, rs, tag;
@@ -45,7 +41,6 @@ struct Persistent_SegmentTree {
         return now;
     }
     int update(int x, int l, int r, int w) {
-        // cout<<"update x="<<x<<" l="<<l<<" r="<<r<<" w="<<w<<endl;
         if (a[x].l > r || a[x].r < l) return x;
         if (l <= a[x].l && a[x].r <= r) return addtag(x, w);
         int now = pushdown(x);
@@ -54,7 +49,6 @@ struct Persistent_SegmentTree {
         return now;
     }
     int merge(int x, int y, int p) {  // x[1-p] y[p+1-~]
-        // cout<<"merge x="<<x<<" y="<<y<<" p="<<p<<endl;
         if (a[x].r <= p) return x;
         if (a[y].l > p) return y;
         int xx = pushdown(x), yy = pushdown(y);

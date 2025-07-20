@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-const int maxn = 110;
 int n, m;
 int a[maxn][maxn];
 int lx[maxn], ly[maxn], link[maxn];

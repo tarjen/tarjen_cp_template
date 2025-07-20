@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 const int maxn = 5e5 + 10;
 int n, m, u, v, cnt, f[20][maxn], w[maxn], h[maxn];
 int top[maxn], dep[maxn], id[maxn], U[maxn], D[maxn];

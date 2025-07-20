@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-const int maxn = 1010;
-int n, m;
 vector<int> ve[maxn];
 int col[maxn][maxn], ans[maxn * 2];
 void dfs(int x, int y, int c1, int c2) {
@@ -17,10 +13,6 @@ void dfs(int x, int y, int c1, int c2) {
 }
 map<pair<int, int>, int> ma;
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    cin >> n >> m;
-    int anss = 0;
     for (int i = 1; i <= m; i++) {
         int x, y;
         cin >> x >> y;
