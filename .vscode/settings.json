@@ -22,5 +22,5 @@
         "cmath": "cpp",
         "complex": "cpp"
     }
-    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, BreakBeforeBraces: Attach}",
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 2, BreakBeforeBraces: Attach}",
 }

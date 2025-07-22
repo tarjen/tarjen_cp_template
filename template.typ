@@ -64,36 +64,25 @@
   text(2em, weight: 700, title)
 
   // Author information.
-  pad(
-    top: 0.7em,
-    right: 20%,
-    grid(
-      columns: (1fr,) * calc.min(3, authors.len()),
-      gutter: 1em,
-      ..authors.map(author => align(start, strong(author))),
-    ),
-  )
+  pad(top: 0.7em, right: 20%, grid(
+    columns: (1fr,) * calc.min(3, authors.len()),
+    gutter: 1em,
+    ..authors.map(author => align(start, strong(author))),
+  ))
 
   v(2.4fr)
-  pagebreak(
-    weak: true,
-    to: if twoside {
-      "odd"
-    },
-  )
+  pagebreak(weak: true, to: if twoside {
+    "odd"
+  })
 
 
   // Table of contents.
   set page(numbering: "I", number-align: center)
   counter(page).update(1)
   outline(depth: 3, indent: 2em)
-  pagebreak(
-    weak: true,
-    to: if twoside {
-      "odd"
-    },
-  )
-
+  pagebreak(weak: true, to: if twoside {
+    "odd"
+  })
 
 
   // Main body.
@@ -110,22 +99,19 @@
   authors: (),
   logo: none,
   header: none,
-  body
+  body,
 ) = {
   set document(author: authors, title: title)
   set text(font: fonts.serif, lang: "zh", region: "cn")
 
   show math.equation: set text(weight: 400)
 
-  set page(
-    flipped: true,
-    margin: (
-      left: 1.5cm,
-      right: 1.5cm,
-      top: 2cm,
-      bottom: 1.5cm
-    ),
-  )
+  set page(flipped: true, margin: (
+    left: 1.5cm,
+    right: 0.5cm,
+    top: 0.5cm,
+    bottom: 0.5cm,
+  ))
   v(0.6fr)
   if logo != none {
     align(right, image(logo, width: 30%))
@@ -133,15 +119,11 @@
   v(9.6fr)
 
   text(2em, weight: 700, title)
-  pad(
-    top: 0.7em,
-    right: 20%,
-    grid(
-      columns: (1fr,) * calc.min(3, authors.len()),
-      gutter: 1em,
-      ..authors.map(author => align(start, strong(author))),
-    ),
-  )
+  pad(top: 0.7em, right: 20%, grid(
+    columns: (1fr,) * calc.min(3, authors.len()),
+    gutter: 1em,
+    ..authors.map(author => align(start, strong(author))),
+  ))
   // Main body.
 
   counter(page).update(0)
@@ -149,30 +131,25 @@
   set text(size: 8pt)
   set page(
     columns: 3,
-    header: header
+    header: header,
   )
+  set columns(gutter: 10pt)
 
   align(center, text(2em, weight: 700, title))
-  outline(depth: 1, indent: 2em)  
+  outline(depth: 1, indent: 2em)
   body
-  
 }
 
 
 #let import_code(path, lang: none, ..args) = {
   show raw.where(block: true): code => {
     show raw.line: line => {
-      box(
-        stack(
-          dir: ltr,
-          box(
-            width: 0em,
-            align(right, text(fill: gray)[#line.number]),
-          ),
-          h(1em),
-          line.body,
-        ),
-      )
+      box(stack(
+        dir: ltr,
+        box(width: 0em, align(right, text(fill: gray)[#line.number])),
+        h(1em),
+        line.body,
+      ))
     }
     code
   }

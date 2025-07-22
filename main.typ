@@ -20,8 +20,6 @@
 = 杂项
 == Bitset手写
 #import_code("src/others/bitset手写.cpp")
-== Lcslen(n2/w)
-#import_code("src/others/lcslen(n2w).cpp")
 == wqs二分
 #import_code("src/others/wqs二分.cpp")
 == 可以判断不同或相同的并查集
@@ -44,8 +42,6 @@
 #import_code("src/string/dequehash.cpp")
 == Exkmp
 #import_code("src/string/exkmp.cpp")
-== Hash
-#import_code("src/string/hash.cpp")
 == Kmp
 #import_code("src/string/kmp.cpp")
 == Manacher
@@ -69,24 +65,14 @@
 #import_code("src/graph/kosaraju.cpp")
 == K短路
 #import_code("src/graph/K短路.cpp")
-== Maxflow只算值版本
-#import_code("src/graph/maxflow只算值版本.cpp")
 == Maxflow网络流最大流
 #import_code("src/graph/maxflow网络流最大流.cpp")
 == Tarjan缩点
 #import_code("src/graph/tarjan缩点.cpp")
-== 点双边双
-#import_code("src/graph/点双边双.cpp")
-== 二分图匹配
-#import_code("src/graph/二分图匹配.cpp")
 == 二分图最优匹配
 #import_code("src/graph/二分图最优匹配.cpp")
 == 二分图染色
 #import_code("src/graph/二分图染色.cpp")
-== 圆方树
-#import_code("src/graph/圆方树.cpp")
-== 带权并查集dsu
-#import_code("src/graph/带权并查集dsu.cpp")
 == 带花树
 #import_code("src/graph/带花树.cpp")
 == 带负环最小费用最大流
@@ -99,8 +85,6 @@
 #import_code("src/graph/最小费用最大流.cpp")
 == 三四元环计数
 #import_code("src/graph/三四元环计数.cpp")
-== 有向图动态加边缩点
-#import_code("src/graph/有向图动态加边缩点.cpp")
 
 = 数据结构
 
@@ -114,8 +98,6 @@
 #import_code("src/data_structure/动态开点线段树.cpp")
 == 可持久化01trie
 #import_code("src/data_structure/可持久化01trie.cpp")
-== 最近公共祖先LCA
-#import_code("src/data_structure/最近公共祖先LCA.cpp")
 == Lca(o1)
 #import_code("src/data_structure/lca(o1).cpp")
 == 点分治
@@ -148,16 +130,12 @@
 #import_code("src/data_structure/李超树.cpp")
 
 = 数学
-== 组合数
-#import_code("src/math/组合数带模运算ca.cpp")
-== BSGS指数方程余数问题(求a^x=b%p)
-#import_code("src/math/BSGS指数方程余数问题(求a^x=b%p).cpp")
+== BSGS指数方程余数问题(求a^x=b%p) exgcd
+#import_code("src/math/BSGS指数方程余数问题(求a^x=b%p) exgcd.cpp")
 == FFT
 #import_code("src/math/FFT.cpp")
 == FWT
 #import_code("src/math/FWT.cpp")
-== 莫比乌斯反演
-#import_code("src/math/mob莫比乌斯反演.cpp")
 == NTT
 #import_code("src/math/ntt.cpp")
 == 任意模数NTT
@@ -170,16 +148,8 @@
 #import_code("src/math/拉格朗日插值.cpp")
 == 拉格朗日插值没有模数
 #import_code("src/math/拉格朗日插值没有模数.cpp")
-== 杜教筛
-#import_code("src/math/杜教筛.cpp")
-== 线性筛质数
-#import_code("src/math/线性筛质数.cpp")
-== 线性递推
-#import_code("src/math/线性递推.cpp")
 == 辛普森积分
 #import_code("src/math/辛普森积分.cpp")
-== MIN25
-#import_code("src/math/min25(质数幂次和).cpp")
 
 
 = 计算几何
