@@ -15,15 +15,9 @@ void dfs2(int x, int p) {
   id[x] = ++cnt;
   D[cnt] = x;
   U[cnt] = p;
-  if (w[x]) {
-    top[w[x]] = top[x];
-    dfs2(w[x], f[0][p]);
-  }
+  if (w[x]) { top[w[x]] = top[x];dfs2(w[x], f[0][p]);}
   for (auto it : ve[x])
-    if (it != w[x]) {
-      top[it] = it;
-      dfs2(it, it);
-    }
+    if (it != w[x]) {top[it] = it;dfs2(it, it);}
 }
 int rt;
 int ask(int x, int k) {
@@ -38,14 +32,10 @@ int ask(int x, int k) {
 int main() {
   for (int i = 1; i <= n; ++i) {
     cin >> f[0][i];
-    if (!f[0][i])
-      rt = i;
-    else
-      ve[f[0][i]].push_back(i);
+    if (!f[0][i]) rt = i;
+    else ve[f[0][i]].push_back(i);
   }
-  dep[rt] = 1;
-  dfs1(rt);
-  top[rt] = rt;
-  dfs2(rt, rt);
+  dep[rt] = 1; dfs1(rt);
+  top[rt] = rt; dfs2(rt, rt);
   return 0;
 }

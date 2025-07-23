@@ -1,4 +1,3 @@
-
 using namespace std;
 const int maxn = 1.1e7 + 5;
 struct ST {

@@ -1,4 +1,3 @@
-
 using namespace std;
 const int N = 2e6;
 struct SAM {

@@ -7,13 +7,9 @@ struct LCT {
     if (tag[x]) {
       if (ch[x][0]) swap(ch[ch[x][0]][0], ch[ch[x][0]][1]), tag[ch[x][0]] ^= 1;
       if (ch[x][1]) swap(ch[ch[x][1]][0], ch[ch[x][1]][1]), tag[ch[x][1]] ^= 1;
-      tag[x] = 0;
-    }
-  }
+      tag[x] = 0;}}
   void update(int x) {
-    if (!isroot(x)) update(fa[x]);
-    pushdown(x);
-  }
+    if (!isroot(x)) update(fa[x]); pushdown(x);}
   void rotate(int x) {
     int y = fa[x], z = fa[y], chx = getch(x), chy = getch(y);
     fa[x] = z;
@@ -26,30 +22,19 @@ struct LCT {
   void splay(int x) {
     update(x);
     for (int f = fa[x]; f = fa[x], !isroot(x); rotate(x))
-      if (!isroot(f)) rotate(getch(x) == getch(f) ? f : x);
-  }
+      if (!isroot(f)) rotate(getch(x) == getch(f) ? f : x);}
   void access(int x) {
-    for (int f = 0; x; f = x, x = fa[x]) splay(x), ch[x][1] = f;
-  }
+    for (int f = 0; x; f = x, x = fa[x]) splay(x), ch[x][1] = f;}
   void makeroot(int x) {
-    access(x); splay(x); swap(ch[x][0], ch[x][1]);
-    tag[x] ^= 1;
-  }
+    access(x); splay(x); swap(ch[x][0], ch[x][1]); tag[x] ^= 1;}
   int find(int x) {
     access(x); splay(x);
     while (ch[x][0]) x = ch[x][0];
-    splay(x);
-    return x;
-  }
+    splay(x); return x;}
   /*------------------------------------------------------*/
-  bool query(int x, int y) {  // 查询是否为同一颗树
-    return find(x) == find(y);
-  }
-  void addedge(int x, int y) {
-    if (find(x) != find(y)) makeroot(x), fa[x] = y;
-  }
+  bool query(int x, int y) { return find(x) == find(y);}  // 查询是否为同一颗树
+  void addedge(int x, int y) { if (find(x) != find(y)) makeroot(x), fa[x] = y;}
   void deledge(int x, int y) {
     makeroot(x); access(y); splay(y);
-    if (ch[y][0] == x && !ch[x][1]) ch[y][0] = fa[x] = 0;
-  }
+    if (ch[y][0] == x && !ch[x][1]) ch[y][0] = fa[x] = 0;}
 } st;

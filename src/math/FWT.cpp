@@ -3,20 +3,16 @@ void fwtor(int a[], int m, int opt)  //(1,-1)
   for (int len = 2; len <= m; len <<= 1)
     for (int p = len >> 1, i = 0; i < m; i += len)
       for (int j = i; j < i + p; j++)
-        if (opt > 0)
-          add(a[j + p], a[j]);
-        else
-          del(a[j + p], a[j]);
+        if (opt > 0) add(a[j + p], a[j]);
+        else del(a[j + p], a[j]);
 }
 void fwtand(int a[], int m, int opt)  //(1,-1)
 {
   for (int len = 2; len <= m; len <<= 1)
     for (int p = len >> 1, i = 0; i < m; i += len)
       for (int j = i; j < i + p; j++)
-        if (opt > 0)
-          add(a[j], a[j + p]);
-        else
-          del(a[j], a[j + p]);
+        if (opt > 0) add(a[j], a[j + p]);
+        else del(a[j], a[j + p]);
 }
 void fwtxor(int a[], int m, int opt)  //(1,1/2)
 {
@@ -35,9 +31,7 @@ void mul(int a[], int b[], int c[], int m) {
 void print(int a[], int m) {
   for (int i = 0; i < m; i++) cout << a[i] << " \n"[i == m - 1];}
 int main() {
-  int n;
-  cin >> n;
-  int m = 1 << n;
+  int n; cin >> n; int m = 1 << n;
   for (int i = 0; i < m; i++) cin >> a[i];
   for (int i = 0; i < m; i++) cin >> b[i];
 

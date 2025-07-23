@@ -9,12 +9,10 @@ struct node {
 node operator+(node a, node b) {
   if (a.lv >= b.r) {
     auto mid = b.get(a.lv);
-    return node{a.l, mid, a.l, mid};
-  }
+    return node{a.l, mid, a.l, mid};}
   if (a.rv <= b.l) {
     auto mid = b.get(a.rv);
-    return node{a.r, mid, a.r, mid};
-  }
+    return node{a.r, mid, a.r, mid};}
   if (a.lv <= b.l) {
     int d = b.l - a.lv;
     a.l += d;

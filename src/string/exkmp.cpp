@@ -1,4 +1,3 @@
-
 using namespace std;
 const int maxn = 1e6 + 1e3;
 struct EXKMP {  // S里找T

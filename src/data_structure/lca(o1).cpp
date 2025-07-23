@@ -22,8 +22,5 @@ void initrmq() {
       dp[i][j] = min(dp[i - 1][j], dp[i - 1][j + (1 << (i - 1))]);
 }
 int lca(int u, int v) {
-  int l = dfn[u], r = dfn[v];
-  if (l > r) swap(l, r);
-  int k = __lg(r - l + 1);
-  return min(dp[k][l], dp[k][r - (1 << k) + 1]).second;
-}
+  int l = dfn[u], r = dfn[v]; if (l > r) swap(l, r);int k = __lg(r - l + 1);
+  return min(dp[k][l], dp[k][r - (1 << k) + 1]).second;}

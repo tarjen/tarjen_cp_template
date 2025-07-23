@@ -15,26 +15,17 @@ struct Persistent_SegmentTree {
     cnt[rot] = cnt[pr] + 1;
     if (L == R) return;
     int mid = (L + R) >> 1;
-    if (k <= mid)
-      update(lch[rot], lch[pr], L, mid, k);
-    else
-      update(rch[rot], rch[pr], mid + 1, R, k);
+    if (k <= mid) update(lch[rot], lch[pr], L, mid, k);
+    else update(rch[rot], rch[pr], mid + 1, R, k);
   }
-  int getcnt(int s, int t, int L, int R, int l,
-             int r)  // s,t为root[l],root[r]的根节点
-                     // 中所有大小在[l,r]之间数字出现次数
-  {
+  int getcnt(int s, int t, int L, int R, int l,int r){  // s,t为root[l],root[r]的根节点中所有大小在[l,r]之间数字出现次数
     if (l <= L && R <= r) return cnt[t] - cnt[s];
-    int res = 0;
-    int mid = (L + R) >> 1;
+    int res = 0; int mid = (L + R) >> 1;
     if (l <= mid) res += getcnt(lch[s], lch[t], L, mid, l, r);
     if (r > mid) res += getcnt(rch[s], rch[t], mid + 1, R, l, r);
     return res;
   }
-  int getsum(
-      int s, int t, int L, int R, int l,
-      int r)  // s,t为root[l],root[r]的根节点 中所有大小在[l,r]之间数字的和
-  {
+  int getsum(int s, int t, int L, int R, int l,int r){  // s,t为root[l],root[r]的根节点 中所有大小在[l,r]之间数字的和
     if (l <= L && R <= r) return sum[t] - sum[s];
     int res = 0;
     int mid = (L + R) >> 1;
@@ -42,35 +33,23 @@ struct Persistent_SegmentTree {
     if (r > mid) res += getsum(rch[s], rch[t], mid + 1, R, l, r);
     return res;
   }
-  int get_Kth_min_Sum(int s, int t, int l, int r, int k, int &nowsum,
-                      int &ans) {  // return 第k小的值
+  int get_Kth_min_Sum(int s, int t, int l, int r, int k, int &nowsum,int &ans) {  // return 第k小的值
     int ss = nowsum + cnt[t] - cnt[s];
     if (ss < k) {
-      nowsum = ss;
-      ans += sum[t] - sum[s];
-      return -1;
-    }
-    if (l == r) {
-      ans += (k - nowsum) * l;
-      return l;
-    }
+      nowsum = ss; ans += sum[t] - sum[s];
+      return -1;}
+    if (l == r) {ans += (k - nowsum) * l; return l;}
     int mid = (l + r) / 2;
     int pos = get_Kth_min_Sum(lch[s], lch[t], l, mid, k, nowsum, ans);
     if (pos != -1) return pos;
     return get_Kth_min_Sum(rch[s], rch[t], mid + 1, r, k, nowsum, ans);
   }
-  int get_Kth_max_Sum(int s, int t, int l, int r, int k, int &nowsum,
-                      int &ans) {  // return 第k大的值
+  int get_Kth_max_Sum(int s, int t, int l, int r, int k, int &nowsum,int &ans) {  // return 第k大的值
     int ss = nowsum + cnt[t] - cnt[s];
     if (ss < k) {
-      nowsum = ss;
-      ans += sum[t] - sum[s];
-      return -1;
-    }
-    if (l == r) {
-      ans += (k - nowsum) * l;
-      return l;
-    }
+      nowsum = ss; ans += sum[t] - sum[s];
+      return -1;}
+    if (l == r) { ans += (k - nowsum) * l; return l;}
     int mid = (l + r) / 2;
     int pos = get_Kth_max_Sum(rch[s], rch[t], mid + 1, r, k, nowsum, ans);
     if (pos != -1) return pos;
@@ -80,11 +59,8 @@ struct Persistent_SegmentTree {
     if (r < x) return -1;
     if (x <= l) {
       int ss = cnt[t] - cnt[s];
-      if (ss == 0) {
-        return -1;
-      }
-      if (l == r) return l;
-    }
+      if (ss == 0) {return -1;}
+      if (l == r) return l;}
     int mid = (l + r) / 2;
     int pos = get_upper(lch[s], lch[t], l, mid, x);
     if (pos != -1) return pos;
@@ -94,9 +70,7 @@ struct Persistent_SegmentTree {
     if (l > x) return -1;
     if (x >= r) {
       int ss = cnt[t] - cnt[s];
-      if (ss == 0) {
-        return -1;
-      }
+      if (ss == 0) {return -1;}
       if (l == r) return r;
     }
     int mid = (l + r) / 2;
@@ -107,11 +81,9 @@ struct Persistent_SegmentTree {
 };
 Persistent_SegmentTree tri;
 int main() {
-  int n, q;
-  cin >> n >> q;
+  int n, q; cin >> n >> q;
   for (int i = 1; i <= n; i++) {
-    int x;
-    cin >> x;
+    int x; cin >> x;
     tri.update(tri.root[i], tri.root[i - 1], 1, n, x);
     assert(1 <= x && x <= n);
   }

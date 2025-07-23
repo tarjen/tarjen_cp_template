@@ -2,8 +2,7 @@ int n, siz[maxn], dist[maxn], vis[maxn], maxx[maxn];
 vector<pair<int, int>> ve[maxn];
 void add_edge(int x, int y, int z) { ve[x].emplace_back(y, z); }
 void calcsiz(int x, int fa, int sum, int &rt) {
-  siz[x] = 1;
-  maxx[x] = 0;
+  siz[x] = 1; maxx[x] = 0;
   for (auto &[to, len] : ve[x])
     if (to != fa && !vis[to]) {
       calcsiz(to, x, sum, rt);
@@ -42,14 +41,11 @@ int main() {
   cin.tie(0);
   cin >> n;
   for (int i = 1; i < n; i++) {
-    int a, b, c;
-    cin >> a >> b >> c, add_edge(a, b, c), add_edge(b, a, c);
+    int a, b, c; cin >> a >> b >> c, add_edge(a, b, c), add_edge(b, a, c);
   }
-  int rt = 0;
-  maxx[rt] = inf;
+  int rt = 0; maxx[rt] = inf;
   int sum = n;
-  calcsiz(1, -1, sum, rt);
-  calcsiz(rt, -1, sum, rt);
+  calcsiz(1, -1, sum, rt); calcsiz(rt, -1, sum, rt);
   dfs(rt, -1);
   return 0;
 }

@@ -10,8 +10,7 @@ struct XS {
   };
   int dep[maxn], f[maxn][21], id[maxn];
   int mlen[maxn][21], ans[maxn][21];
-  int state[maxn];
-  int sum[maxn], all;
+  int state[maxn]; int sum[maxn], all;
   vector<kkk> ve[maxn], ve2[maxn];
   int now;  // 统计dfs序
   void dfs(int u, int fa) {
@@ -68,16 +67,13 @@ struct XS {
     for (auto it : vis) {
       ve2[it].clear();
       b[it] = false;
-      sum[it] = 0;
-    }
-    vis.clear();
-    v1.clear();
+      sum[it] = 0;}
+    vis.clear(); v1.clear();
   }
   void makexs() {
     sort(v1.begin(), v1.end(), [&](int x, int y) { return id[x] < id[y]; });
     sta[0] = 0;
-    int top = 1;
-    sta[top] = 1;
+    int top = 1; sta[top] = 1;
     vis.push_back(1);
     for (auto it : v1) {
       int l = lca(it, sta[top]);
@@ -115,8 +111,7 @@ struct XS {
     now = 0;
     dfs(1, 0);
     for (int i = 1; i <= n; i++) {
-      makexs();
-      init();
+      makexs(); init();
     }
   }
 };

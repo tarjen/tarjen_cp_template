@@ -13,10 +13,8 @@ struct treearray {
     }
   }
   inline void update(int a, int b, int x, int y, int k) {
-    Update(a, b, k);
-    Update(a, y + 1, -k);
-    Update(x + 1, b, -k);
-    Update(x + 1, y + 1, k);
+    Update(a, b, k); Update(a, y + 1, -k);
+    Update(x + 1, b, -k); Update(x + 1, y + 1, k);
   }
   inline int Query(int x, int y) {
     int ans = 0;
@@ -29,9 +27,7 @@ struct treearray {
     return ans;
   }
   inline int query(int a, int b, int x, int y) {
-    return Query(x, y) + Query(a - 1, b - 1) - Query(x, b - 1) -
-           Query(a - 1, y);
-  }
+    return Query(x, y) + Query(a - 1, b - 1) - Query(x, b - 1) - Query(a - 1, y);}
 };
 treearray tri;
 int main() {}

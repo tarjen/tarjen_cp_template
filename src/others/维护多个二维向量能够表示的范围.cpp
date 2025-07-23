@@ -8,11 +8,8 @@ struct vec {
   void insert(int x, int y) {
     while (x != 0) {
       int t = a00 / x;
-      a00 -= x * t;
-      a01 -= y * t;
-      swap(a00, x);
-      swap(a01, y);
-    }
+      a00 -= x * t; a01 -= y * t;
+      swap(a00, x); swap(a01, y);}
     a11 = gcd(a11, abs(y));
     if (a11 != 0) a01 %= a11;
   }

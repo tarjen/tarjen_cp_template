@@ -1,5 +1,4 @@
-
-using namespace std;
+sing namespace std;
 struct PairLCS {
   vector<vector<int>> ih, iv;
   int n = 0, m = 0;
@@ -27,13 +26,11 @@ struct PairLCS {
 int cas;
 void solution() {
   int q;
-  std::string s, t;
-  std::cin >> q >> s >> t;
+  std::string s, t; std::cin >> q >> s >> t;
   // int n = s.size(), m = t.size();
   PairLCS solver(s, t);
   for (int _ = 0; _ < q; _++) {
-    int a, b, c;
-    std::cin >> a >> b >> c;
+    int a, b, c; std::cin >> a >> b >> c;
     std::cout << solver.query(a, b, c) << '\n';
   }
 }

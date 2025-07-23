@@ -4,9 +4,7 @@ struct LR {
     int ans = 0;
     for (int i = 0; i <= n; ++i) {
       int div = 1;
-      for (int j = 0; j <= n; ++j) {
-        if (i != j) div *= (i - j);
-      }
+      for (int j = 0; j <= n; ++j) {if (i != j) div *= (i - j);}
       bool flag = div < 0;
       div = std::abs(div);
       int prod = vec[i];

@@ -1,7 +1,6 @@
 void solve() {
   int ans3 = 0, ans4 = 0;
-  int n, m;
-  cin >> n >> m;
+  int n, m; cin >> n >> m;
   vector<pair<int, int>> edges(m);
   vector<int> d(n + 1), flg(n + 1), id(n + 1), rk(n + 1), c(n + 1);
   vector<vector<int>> ve(n + 1), f(n + 1), g(n + 1);
@@ -14,10 +13,8 @@ void solve() {
   }
   for (int i = 1; i <= n; i++) d[id[i] = i] = (int)ve[i].size();
   for (auto [u, v] : edges) {
-    if (d[u] > d[v] || (d[u] == d[v] && u > v))
-      g[u].push_back(v);
-    else
-      g[v].push_back(u);
+    if (d[u] > d[v] || (d[u] == d[v] && u > v)) g[u].push_back(v);
+    else g[v].push_back(u);
   }
   sort(id.begin() + 1, id.end(), [&](int x, int y) { return d[x] < d[y]; });
   for (int i = 1; i <= n; i++) rk[id[i]] = i;

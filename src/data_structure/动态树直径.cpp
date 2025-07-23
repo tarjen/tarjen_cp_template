@@ -11,9 +11,7 @@ info operator+(info a, info b) {
   return c;
 }
 struct Node {
-  int l, r;
-  ll tag = 0;
-  info res;
+  int l, r; ll tag = 0; info res;
 };
 struct SegmentTree {
   Node a[maxn * 4];
@@ -28,15 +26,12 @@ struct SegmentTree {
   void pushdown(int i) {
     tag_cal(i);
     if (a[i].l != a[i].r) {
-      tag_union(i, i * 2);
-      tag_union(i, i * 2 + 1);
-    }
+      tag_union(i, i * 2); tag_union(i, i * 2 + 1);}
     tag_init(i);
   }
   void pushup(int i) {
     if (a[i].l == a[i].r) return;
-    pushdown(i * 2);
-    pushdown(i * 2 + 1);
+    pushdown(i * 2); pushdown(i * 2 + 1);
     a[i].res = a[i * 2].res + a[i * 2 + 1].res;
   }
   void build(int i, int l, int r) {
@@ -45,26 +40,19 @@ struct SegmentTree {
     a[i].res = {0, 0, 0, 0, 0};
     if (l >= r) return;
     int mid = (l + r) / 2;
-    build(i * 2, l, mid);
-    build(i * 2 + 1, mid + 1, r);
+    build(i * 2, l, mid); build(i * 2 + 1, mid + 1, r);
   }
   void update(int i, int l, int r, ll w) {
     pushdown(i);
     if (a[i].r < l || a[i].l > r || l > r) return;
-    if (a[i].l >= l && a[i].r <= r) {
-      a[i].tag = w;
-      return;
-    }
-    update(i * 2, l, r, w);
-    update(i * 2 + 1, l, r, w);
+    if (a[i].l >= l && a[i].r <= r) {a[i].tag = w; return;}
+    update(i * 2, l, r, w); update(i * 2 + 1, l, r, w);
     pushup(i);
   }
   info query(int i, int l, int r) {
     pushdown(i);
     if (a[i].r < l || a[i].l > r || l > r) return info{0, 0, 0, 0, 0};
-    if (a[i].l >= l && a[i].r <= r) {
-      return a[i].res;
-    }
+    if (a[i].l >= l && a[i].r <= r) {return a[i].res;}
     return query(i * 2, l, r) + query(i * 2 + 1, l, r);
   }
 };
@@ -80,15 +68,12 @@ void dfs(int x, int h) {
     if (it != h) {
       dep[it] = dep[x] + w;
       dfs(it, x);
-      dfn[++tot] = x;
-    }
+      dfn[++tot] = x;}
   R[x] = tot;
 }
 int main() {
   for (int i = 1; i < n; i++) {
-    int x, y;
-    ll w;
-    cin >> x >> y >> w;
+    int x, y; ll w; cin >> x >> y >> w;
     ve[x].emplace_back(y, w);
     ve[y].emplace_back(x, w);
     edges[i - 1] = make_tuple(x, y, w);
@@ -103,14 +88,12 @@ int main() {
   }
   ll lastans = 0;
   while (q--) {
-    ll d, e;
-    cin >> d >> e;
+    ll d, e; cin >> d >> e;
     d = (lastans + d) % (n - 1);
     e = (lastans + e) % ww;
     auto &[x, y, w] = edges[d];
     if (dep[x] > dep[y]) swap(x, y);
-    ll delta = e - w;
-    w += delta;
+    ll delta = e - w; w += delta;
     tri.update(1, L[y], R[y], delta);
     info ans = tri.query(1, 1, 2 * n);
     lastans = ans.lmr;

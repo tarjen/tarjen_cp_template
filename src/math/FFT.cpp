@@ -1,5 +1,4 @@
 // 当vector用就可以了
-
 #define fp(i, a, b) for (int i = (a), i##_ = (b) + 1; i < i##_; ++i)
 #define fd(i, a, b) for (int i = (a), i##_ = (b) - 1; i > i##_; --i)
 using namespace std;

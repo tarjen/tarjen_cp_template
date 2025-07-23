@@ -32,20 +32,14 @@ struct SegmentTree {
   void update(int i, int l, int r, int w) {
     pushdown(i);
     if (a[i].r < l || a[i].l > r || l > r) return;
-    if (a[i].l >= l && a[i].r <= r) {
-      a[i].tag = w;
-      return;
-    }
-    update(i * 2, l, r, w);
-    update(i * 2 + 1, l, r, w);
+    if (a[i].l >= l && a[i].r <= r) {a[i].tag = w; return;}
+    update(i * 2, l, r, w); update(i * 2 + 1, l, r, w);
     pushup(i);
   }
   int query(int i, int l, int r) {
     pushdown(i);
     if (a[i].r < l || a[i].l > r || l > r) return 0;
-    if (a[i].l >= l && a[i].r <= r) {
-      return a[i].res;
-    }
+    if (a[i].l >= l && a[i].r <= r) {return a[i].res;}
     return (query(i * 2, l, r) + query(i * 2 + 1, l, r)) % mod;
   }
 };
@@ -95,13 +89,11 @@ int chain_sum(int x, int y) {  // query the length of chain
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
-  int n, q;
-  cin >> n >> q >> root >> mod;
+  int n, q; cin >> n >> q >> root >> mod;
   vector<int> a(n + 1);
   for (int i = 1; i <= n; i++) cin >> a[i], a[i] %= mod;
   for (int i = 1; i < n; i++) {
-    int x, y;
-    cin >> x >> y;
+    int x, y; cin >> x >> y;
     ve[x].push_back(y);
     ve[y].push_back(x);
   }
@@ -111,8 +103,7 @@ int main() {
   dfs_hld(root);
   for (int i = 1; i <= n; i++) {tri.update(1, L[i], L[i], a[i]);}
   while (q--) {
-    int op;
-    cin >> op;
+    int op; cin >> op;
     if (op == 1) {
       int x, y, w; cin >> x >> y >> w;
       chain_add(x, y, w);}
