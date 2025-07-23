@@ -9,15 +9,13 @@ struct SegmentTree {
   void pushdown(int i) {
     tag_cal(i);
     if (a[i].l != a[i].r) {
-      tag_union(i, i * 2);
-      tag_union(i, i * 2 + 1);
+      tag_union(i, i * 2); tag_union(i, i * 2 + 1);
     }
     tag_init(i);
   }
   void pushup(int i) {
     if (a[i].l == a[i].r) return;
-    pushdown(i * 2);
-    pushdown(i * 2 + 1);
+    pushdown(i * 2); pushdown(i * 2 + 1);
     a[i].res = a[i * 2].res + a[i * 2 + 1].res;
   }
   void build(int i, int l, int r) {
