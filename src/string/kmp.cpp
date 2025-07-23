@@ -10,16 +10,12 @@ struct KMP {               // 1base
     int x = 2, now = 1;  // x是s2当前搜索到的位置，now是前缀位置
     while (x <= n) {
       if (s[x] == s[now]) {
-        nxt[x] = now;
-        now++;
-        x++;
+        nxt[x] = now; now++; x++;
       } else {
         if (now > 1) {
           now = nxt[now - 1] + 1;
         } else {
-          nxt[x] = 0;
-          now = 1;
-          x++;
+          nxt[x] = 0; now = 1; x++;
         }
       }
     }
@@ -29,13 +25,9 @@ struct KMP {               // 1base
     len1 = strlen(s1 + 1);
     while (tar <= len1) {
       if (s1[tar] == s[now]) {
-        tar++;
-        now++;
+        tar++; now++;
       } else {
-        if (now > 1) {
-          now = nxt[now - 1] + 1;
-        } else
-          tar++;
+        if (now > 1) { now = nxt[now - 1] + 1;} else tar++;
       }
       if (now == n + 1) {
         printf("%d\n", tar - now + 1);

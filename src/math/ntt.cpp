@@ -12,7 +12,6 @@ int POW(ll a, int b = P - 2, ll x = 1) {
     if (b & 1) x = x * a % P;
   return x;
 }
-
 namespace NTT {
 const int g = 3;
 vector<int> Omega(int L) {
@@ -56,12 +55,10 @@ void DFT(Poly &a) { NTT::DIF(a.data(), a.size()); }
 void IDFT(Poly &a) { NTT::IDIT(a.data(), a.size()); }
 int norm(int n) { return 1 << (32 - __builtin_clz(n - 1)); }
 void norm(Poly &a) {
-  if (!a.empty()) a.resize(norm(a.size()), 0);
-}
+  if (!a.empty()) a.resize(norm(a.size()), 0);}
 Poly &dot(Poly &a, Poly &b) {
   fp(i, 0, a.size() - 1) a[i] = MUL(a[i], b[i]);
-  return a;
-}
+  return a;}
 Poly operator*(Poly a, Poly b) {
   int n = a.size() + b.size() - 1, L = norm(n);
   if (a.size() <= 8 || b.size() <= 8) {

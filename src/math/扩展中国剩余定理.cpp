@@ -3,10 +3,7 @@ int mul(int a, int b, int mod) {  // O(1)取模快速乘，不会爆long long
   return (a * b - (int)((long double)a / mod * b) * mod + mod) % mod;
 }
 int exgcd(int a, int b, int& x, int& y) {
-  if (!b) {
-    x = 1, y = 0;
-    return a;
-  }
+  if (!b) {x = 1, y = 0;return a;}
   int d = exgcd(b, a % b, y, x);
   y -= a / b * x;
   return d;
@@ -27,8 +24,6 @@ int solve(int n, vector<int>& mo, vector<int>& res) {
       m1 = abs(m1 / d * m2);
     }
   }
-  if (ok)
-    return (a1 % m1 + m1) % m1;
-  else
-    return -1;
+  if (ok) return (a1 % m1 + m1) % m1;
+  else return -1;
 }

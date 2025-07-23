@@ -10,19 +10,13 @@ struct PAM {
   int n, length, last, cnt;
   char s[N];
   PAM() {
-    b[0].len = 0;
-    b[1].len = -1;
-    b[0].fail = 1;
-    b[1].fail = 0;
+    b[0].len = 0;  b[1].len = -1;
+    b[0].fail = 1; b[1].fail = 0;
     last = 0;
-    cnt = 1;
-  }
+    cnt = 1;}
   int get_fail(int x) {
-    while (s[n - b[x].len - 1] != s[n]) {
-      x = b[x].fail;
-    }
-    return x;
-  }
+    while (s[n - b[x].len - 1] != s[n]) {x = b[x].fail;}
+    return x;}
   void insert() {
     int p = get_fail(last);
     if (!b[p].ch[s[n] - 'a']) {
@@ -38,9 +32,7 @@ struct PAM {
   }
   void init() {
     length = strlen(s + 1);
-    for (n = 1; n <= length; n++) {
-      insert();
-    }
+    for (n = 1; n <= length; n++) {insert();}
   }
 } pa;
 int main() {

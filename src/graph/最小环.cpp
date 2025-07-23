@@ -1,9 +1,7 @@
 int main() {
   while (m--) {
-    int x, y;
-    cin >> x >> y;
-    int w;
-    cin >> w;
+    int x, y; cin >> x >> y;
+    int w; cin >> w;
     a[x][y] = min(a[x][y], w);
     a[y][x] = min(a[y][x], w);
     b[x][y] = min(b[x][y], w);

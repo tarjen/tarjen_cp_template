@@ -11,14 +11,10 @@ using LL = long long;
 using PII = std::pair<int, int>;
 constexpr int N(2.5e5 + 5);
 using T = LL;
-struct Edge {
-  int x, y;
-  T z;
-};
+struct Edge {int x, y; T z;};
 struct Heap {
   struct Node {
-    int ls, rs, h, v;
-    T w;
+    int ls, rs, h, v; T w;
   } t[N * 40];
   int cnt;
   int newNode(int v, T w) {
@@ -52,10 +48,8 @@ std::vector<T> kShortestPath(int n, int k, int s, int t,
     d[t] = 0, q.push({0, t});
     std::vector<bool> vis(n);
     while (!q.empty()) {
-      int x = q.top().second;
-      q.pop();
-      if (vis[x]) continue;
-      vis[x] = true;
+      int x = q.top().second; q.pop();
+      if (vis[x]) continue; vis[x] = true;
       p.push_back(x);
       for (int i = deg[x]; i < deg[x + 1]; i++) {
         auto &[y, _, z] = e[g[i]];
@@ -76,20 +70,16 @@ std::vector<T> kShortestPath(int n, int k, int s, int t,
     }
   }
   for (int x : p) {
-    if (x != t) heap[x] = h.merge(heap[x], heap[e[fa[x]].y]);
-  }
+    if (x != t) heap[x] = h.merge(heap[x], heap[e[fa[x]].y]);}
   if (heap[s]) q.push({d[s] + h.t[heap[s]].w, heap[s]});
   std::vector<T> res = {d[s]};
   for (int i = 1; i < k && !q.empty(); i++) {
-    auto [w, o] = q.top();
-    q.pop();
-    res.push_back(w);
-    int j = h.t[o].v;
+    auto [w, o] = q.top(); q.pop();
+    res.push_back(w); int j = h.t[o].v;
     if (heap[j]) q.push({w + h.t[heap[j]].w, heap[j]});
     for (auto s : {h.t[o].ls, h.t[o].rs}) {
       if (s) q.push({w + h.t[s].w - h.t[o].w, s});
     }
   }
-  res.resize(k, -1);
-  return res;
+  res.resize(k, -1); return res;
 }

@@ -1,6 +1,4 @@
-struct Node {
-  int l, r, res, tag;
-};
+struct Node { int l, r, res, tag; };
 struct SegmentTree {
   Node a[maxn * 4];
   void tag_init(int i) { a[i].tag = 0; }
@@ -63,10 +61,7 @@ void dfs_sz(int x, int h) {
   for (auto &it : ve[x]) {
     dfs_sz(it, x);
     siz[x] += siz[it];
-    if (siz[it] > siz[ve[x][0]]) {
-      swap(it, ve[x][0]);
-    }
-  }
+    if (siz[it] > siz[ve[x][0]]) {swap(it, ve[x][0]);}}
 }
 void dfs_hld(int x) {
   L[x] = ++tot;
@@ -114,31 +109,21 @@ int main() {
   tri.build(1, 1, n);
   dfs_sz(root, 0);
   dfs_hld(root);
-  for (int i = 1; i <= n; i++) {
-    tri.update(1, L[i], L[i], a[i]);
-  }
+  for (int i = 1; i <= n; i++) {tri.update(1, L[i], L[i], a[i]);}
   while (q--) {
     int op;
     cin >> op;
     if (op == 1) {
-      int x, y, w;
-      cin >> x >> y >> w;
-      chain_add(x, y, w);
-    }
+      int x, y, w; cin >> x >> y >> w;
+      chain_add(x, y, w);}
     if (op == 2) {
-      int x, y;
-      cin >> x >> y;
-      cout << chain_sum(x, y) << "\n";
-    }
+      int x, y; cin >> x >> y;
+      cout << chain_sum(x, y) << "\n";}
     if (op == 3) {  // update the subtree of root x +=y
-      int x, y;
-      cin >> x >> y;
-      tri.update(1, L[x], R[x], y);
-    }
+      int x, y; cin >> x >> y;
+      tri.update(1, L[x], R[x], y);}
     if (op == 4) {
-      int x;
-      cin >> x;
-      cout << tri.query(1, L[x], R[x]) << "\n";
-    }
+      int x; cin >> x;
+      cout << tri.query(1, L[x], R[x]) << "\n";}
   }
 }

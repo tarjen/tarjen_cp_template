@@ -10,28 +10,19 @@ struct SAM {
       len = fa = 0;
     }
   } ep[N << 1];
-  int last, tot, n;
-  char base;
-  vector<int> edg[N << 1];
-  int siz[N << 1];
+  int last, tot, n; char base;
+  vector<int> edg[N << 1]; int siz[N << 1];
   void init(int _n) {
     last = tot = 1;
     base = 'a';
     for (int i = 0; i <= 2 * _n; i++) {
-      ep[i] = Node();
-      edg[i].clear();
-      siz[i] = 0;
-    }
+      ep[i] = Node(); edg[i].clear(); siz[i] = 0;}
   }
   void insert(char x) {
-    int c = x - base;
-    int p = last;
-    int np = last = ++tot;
-    siz[np] = 1;
-    ep[np].len = ep[p].len + 1;
+    int c = x - base; int p = last; int np = last = ++tot;
+    siz[np] = 1; ep[np].len = ep[p].len + 1;
     for (; p && !ep[p].tr[c]; p = ep[p].fa) ep[p].tr[c] = np;
-    if (!p)
-      ep[np].fa = 1;
+    if (!p) ep[np].fa = 1;
     else {
       int q = ep[p].tr[c];
       if (ep[q].len == ep[p].len + 1)
@@ -52,18 +43,12 @@ struct SAM {
   }
   void dfs(int u) {
     for (auto v : edg[u]) {
-      dfs(v);
-      siz[u] += siz[v];
-    }
+      dfs(v);siz[u] += siz[v];}
   }
   void build(string& s) {
     n = s.size();
     init(n);
-    for (int i = 0; i < n; i++) {
-      insert(s[i]);
-    }
-    construct();
-    dfs(1);
+    for (int i = 0; i < n; i++) {insert(s[i]);}
+    construct(); dfs(1);
   }
-
 } sam;

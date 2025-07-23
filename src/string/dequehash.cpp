@@ -15,11 +15,9 @@ int fpow(int n, int k, int p = mod) {
   return r;
 }
 void add(int& a, int val, int p = mod) {
-  if ((a = (a + val)) >= p) a -= p;
-}
+  if ((a = (a + val)) >= p) a -= p;}
 void sub(int& a, int val, int p = mod) {
-  if ((a = (a - val)) < 0) a += p;
-}
+  if ((a = (a - val)) < 0) a += p;}
 int mul(int a, int b, int p = mod) { return (int)a * b % p; }
 int inv(int a, int p = mod) { return fpow(a, p - 2, p); }
 int p[maxn], ip[maxn];
@@ -31,16 +29,11 @@ void init() {
 struct extendable_sequence {
   deque<pair<int, int>> dq;
   int pow_offset;
-
   extendable_sequence() {
     pow_offset = 0;
-    dq.push_back(make_pair(0, 0));
-  }
-
+    dq.push_back(make_pair(0, 0));}
   int size() { return sz(dq) - 1; }
-
   pair<int, int>& operator[](int i) { return dq[i + 1]; }
-
   void add_back(vector<int> vals) {
     int t = dq.back().first;
     for (int i = 0; i < sz(vals); i++) {
@@ -48,7 +41,6 @@ struct extendable_sequence {
       dq.push_back(make_pair(t, vals[i]));
     }
   }
-
   void add_front(vector<int> vals) {
     pow_offset += sz(vals);
     int t = dq.front().first;
@@ -58,10 +50,8 @@ struct extendable_sequence {
       dq.push_front(make_pair(t, 0));
     }
   }
-
   int calc(int l, int r) {
-    l++, r++;
-    if (l > r) return 0;
+    l++, r++; if (l > r) return 0;
     int res = dq[r].first;
     sub(res, dq[l - 1].first, mod);
     res = mul(res, ip[l - 1], mod);
@@ -77,11 +67,7 @@ int calc(extendable_sequence& x, extendable_sequence& y, int l, int r) {
 }
 // 返回(x+y)[i]单个元素的值
 int calc(extendable_sequence& x, extendable_sequence& y, int i) {
-  if (i < sz(x)) {
-    return x[i].second;
-  }
-  if (i - sz(x) < sz(y)) {
-    return y[i - sz(x)].second;
-  }
+  if (i < sz(x)) {return x[i].second;}
+  if (i - sz(x) < sz(y)) {return y[i - sz(x)].second;}
   return -1;
 }
