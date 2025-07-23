@@ -2,8 +2,8 @@
 
 // Take a look at the file `template.typ` in the file panel
 // to customize this template and discover how it works.
-#show: wf_trd.with(title: "Antiamuny Code Library", authors: ("tarjen",), logo: "logo.png", header: [
-  _Shanghai University_#h(1fr)#context counter(page).display("1 / 1", both: true)
+#show: wf_trd.with(title: "Team Reference Document", team: "Mako, suki", school: "Shanghai University", authors: ("Tao Jun","Geng Pengcheng", "Song Haoran", "Shen Jun (Coach)", "Cai Shengliang (Co-coach)"), logo: "shu_logo.svg", header: [
+  _Mako, suki \@ Shanghai University_#h(1fr)#context counter(page).display("1 / 1", both: true)
 ])
 
 // for balck printing

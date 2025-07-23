@@ -96,6 +96,8 @@
 
 #let wf_trd(
   title: "",
+  team: "",
+  school: "",
   authors: (),
   logo: none,
   header: none,
@@ -113,7 +115,11 @@
   }
   v(9.6fr)
 
-  text(2em, weight: 700, title)
+  text(3.5em, weight: 700, title)
+  v(8fr)
+  text(2.5em, weight: 700, team)
+  v(4fr)
+  text(2em, weight: 700, emph(school))
   pad(top: 0.7em, right: 20%, grid(
     columns: (1fr,) * calc.min(3, authors.len()),
     gutter: 1em,
@@ -136,7 +142,7 @@
   )
   set columns(gutter: 2em)
 
-  align(center, text(2em, weight: 700, title))
+  // align(center, text(2em, weight: 700, title))
   outline(depth: 1, indent: 2em)
   body
 }
