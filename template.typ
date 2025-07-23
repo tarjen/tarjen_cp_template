@@ -106,12 +106,7 @@
 
   show math.equation: set text(weight: 400)
 
-  set page(flipped: true, margin: (
-    left: 1.5cm,
-    right: 0.5cm,
-    top: 0.5cm,
-    bottom: 0.5cm,
-  ))
+  set page(flipped: true)
   v(0.6fr)
   if logo != none {
     align(right, image(logo, width: 30%))
@@ -128,12 +123,18 @@
 
   counter(page).update(0)
   set par(justify: true)
-  set text(size: 8pt)
+  set text(size: 7pt)
   set page(
     columns: 3,
     header: header,
+    margin: (
+      left: 3em,
+      right: 3em,
+      top: 4em,
+      bottom: 2em,
+    )
   )
-  set columns(gutter: 10pt)
+  set columns(gutter: 2em)
 
   align(center, text(2em, weight: 700, title))
   outline(depth: 1, indent: 2em)

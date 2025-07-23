@@ -1,5 +1,3 @@
-
-using namespace std;
 const int maxn = 1e6 + 10;
 struct KMP {               // 1base
   int len1, n, nxt[maxn];  // nxt表示以i为结尾的前缀与后缀相同的长度

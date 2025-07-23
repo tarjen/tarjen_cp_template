@@ -1,5 +1,3 @@
-
-using namespace std;
 const int N = 2e6 + 10;
 struct PAM_Trie {
   int ch[26];

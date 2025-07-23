@@ -1,5 +1,3 @@
-
-using namespace std;
 struct PairLCS {
   vector<vector<int>> ih, iv;
   int n = 0, m = 0;
