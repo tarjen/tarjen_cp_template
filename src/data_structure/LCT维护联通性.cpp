@@ -32,14 +32,11 @@ struct LCT {
     for (int f = 0; x; f = x, x = fa[x]) splay(x), ch[x][1] = f;
   }
   void makeroot(int x) {
-    access(x);
-    splay(x);
-    swap(ch[x][0], ch[x][1]);
+    access(x); splay(x); swap(ch[x][0], ch[x][1]);
     tag[x] ^= 1;
   }
   int find(int x) {
-    access(x);
-    splay(x);
+    access(x); splay(x);
     while (ch[x][0]) x = ch[x][0];
     splay(x);
     return x;
@@ -52,9 +49,7 @@ struct LCT {
     if (find(x) != find(y)) makeroot(x), fa[x] = y;
   }
   void deledge(int x, int y) {
-    makeroot(x);
-    access(y);
-    splay(y);
+    makeroot(x); access(y); splay(y);
     if (ch[y][0] == x && !ch[x][1]) ch[y][0] = fa[x] = 0;
   }
 } st;

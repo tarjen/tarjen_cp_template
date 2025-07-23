@@ -50,10 +50,8 @@ struct LR {
       p = facinv[n - i] % mod * facinv[i] % mod;
       if (i > 0) p = p * pre[i - 1] % mod;
       if (i < n) p = p * suf[i + 1] % mod;
-      if ((n - i) & 1)
-        s = (s - p * f[i] % mod + mod) % mod;
-      else
-        s = (s + p * f[i] % mod) % mod;
+      if ((n - i) & 1) s = (s - p * f[i] % mod + mod) % mod;
+      else s = (s + p * f[i] % mod) % mod;
     }
     return (s % mod + mod) % mod;
   }

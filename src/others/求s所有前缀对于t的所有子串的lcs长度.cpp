@@ -22,30 +22,24 @@ struct PairLCS {
     return res;
   }  // s[0,a) t[b,c)
 };
-
 int cas;
-
 void solution() {
   int q;
   std::string s, t;
   std::cin >> q >> s >> t;
-
   // int n = s.size(), m = t.size();
   PairLCS solver(s, t);
-
   for (int _ = 0; _ < q; _++) {
     int a, b, c;
     std::cin >> a >> b >> c;
     std::cout << solver.query(a, b, c) << '\n';
   }
 }
-
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
   int T = 1;
   // std::cin >> T;
   for (cas = 1; cas <= T; cas++) solution();
-
   return 0;
 }

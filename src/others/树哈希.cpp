@@ -6,15 +6,11 @@ ull f(ull x) {
 }
 ull shift(ull x) {
   x ^= mask;
-  x ^= x << 13;
-  x ^= x >> 7;
-  x ^= x << 17;
-  x ^= mask;
-  return x;
+  x ^= x << 13; x ^= x >> 7; x ^= x << 17;
+  x ^= mask; return x;
 }
 const int N = 1e6 + 10;
-int n;
-ull hash[N];
+int n; ull hash[N];
 std::vector<int> edge[N];
 std::set<ull> trees;
 void getHash(int x, int p) {

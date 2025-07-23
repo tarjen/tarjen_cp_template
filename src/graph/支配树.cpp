@@ -6,10 +6,8 @@
 namespace dtree {
 const int MAXN = 200020;
 vector<int> E[MAXN], RE[MAXN], rdom[MAXN];
-
 int S[MAXN], RS[MAXN], cs;
 int par[MAXN], val[MAXN], sdom[MAXN], rp[MAXN], dom[MAXN];
-
 void clear(int n) {
   cs = 0;
   for (int i = 0; i <= n; i++) {

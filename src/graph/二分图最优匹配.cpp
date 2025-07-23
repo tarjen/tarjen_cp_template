@@ -3,15 +3,13 @@ int a[maxn][maxn];
 int lx[maxn], ly[maxn], link[maxn];
 bool vx[maxn], vy[maxn];
 int dfs(int x) {
-  if (x == -1) return 0;
-  vx[x] = 1;
+  if (x == -1) return 0; vx[x] = 1;
   for (int i = 1; i <= n; i++) {
     if (!vy[i] && lx[x] + ly[i] == a[x][i]) {
       vy[i] = 1;
       if (link[i] == -1 || dfs(link[i])) {
         link[i] = x;
-        return 1;
-      }
+        return 1;}
     }
   }
   return 0;
@@ -46,10 +44,7 @@ bool deal() {
 int main() {
   if (deal() == 1) {
     int ans = 0;
-    for (int i = 1; i <= n; i++) {
-      ans += a[link[i]][i];
-    }
-    cout << ans << '\n';  // 取最小就把所有边权取负再跑
-  }
+    for (int i = 1; i <= n; i++) {ans += a[link[i]][i];}
+    cout << ans << '\n';  // 取最小就把所有边权取负再跑}
   return 0;
 }

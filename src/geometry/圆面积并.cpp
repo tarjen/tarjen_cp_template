@@ -11,7 +11,6 @@ vector<long double> area_union(const vector<Circle> &circs) {
     return u1 == v1 && abs(u2 - v2) <= eps && abs(u3 - v3) <= eps &&
            abs(u4 - v4) <= eps;
   };
-
   auto cut_circ = [&](const Circle &ci, const size_t i) {
     vector<pair<long double, int>> evt;
     evt.push_back({-PI, 0});
@@ -56,7 +55,6 @@ vector<long double> area_union(const vector<Circle> &circs) {
     return cr * cr * (r - l) + cc.x * cr * (sin(r) - sin(l)) -
            cc.y * cr * (cos(r) - cos(l));
   };
-
   for (size_t i = 0; i < circs.size(); i++) {
     const auto &ci = circs[i];
     cut_circ(ci, i);
@@ -73,6 +71,5 @@ vector<long double> area_union(const vector<Circle> &circs) {
         cnt = 0, sum += oint(arcs[i][j]);
     }
     ans[i] = sum / 2;
-  }
-  return ans;
+  } return ans;
 }

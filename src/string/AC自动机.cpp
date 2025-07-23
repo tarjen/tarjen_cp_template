@@ -40,9 +40,7 @@ struct AC {
       }
     }
   }
-  int query(
-      char *
-          t) {  // 这里是统计有多少模板串出现在了文本串之中，所以统计到了就要变成-1
+  int query(char * t) {  // 这里是统计有多少模板串出现在了文本串之中，所以统计到了就要变成-1
     int x = 0, res = 0;
     for (int i = 1; t[i]; i++) {
       x = trie[x][t[i] - 'a'];

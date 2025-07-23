@@ -31,11 +31,9 @@ void fwtxor(int a[], int m, int opt)  //(1,1/2)
 }
 int a[1 << 17], b[1 << 17], c[1 << 17];
 void mul(int a[], int b[], int c[], int m) {
-  for (int i = 0; i < m; i++) c[i] = 1ll * a[i] * b[i] % mod;
-}
+  for (int i = 0; i < m; i++) c[i] = 1ll * a[i] * b[i] % mod;}
 void print(int a[], int m) {
-  for (int i = 0; i < m; i++) cout << a[i] << " \n"[i == m - 1];
-}
+  for (int i = 0; i < m; i++) cout << a[i] << " \n"[i == m - 1];}
 int main() {
   int n;
   cin >> n;

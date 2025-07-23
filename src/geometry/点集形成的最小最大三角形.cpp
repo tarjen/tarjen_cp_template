@@ -9,10 +9,8 @@ pair<point_t, point_t> minmax_triangle(const vector<Point> &vec) {
   for (size_t i = 0; i < vec.size(); i++) {
     for (size_t j = 0; j < vec.size(); j++) {
       if (i == j) continue;
-      if (vec[i] == vec[j])
-        minans = 0;
-      else
-        evt.push_back({i, j});
+      if (vec[i] == vec[j]) minans = 0;
+      else evt.push_back({i, j});
     }
   }
   sort(evt.begin(), evt.end(),
@@ -29,12 +27,8 @@ pair<point_t, point_t> minmax_triangle(const vector<Point> &vec) {
     const size_t i = pos[u], j = pos[v];
     const size_t l = min(i, j), r = max(i, j);
     const Point vecu = vec[u], vecv = vec[v];
-    if (l > 0)
-      minans =
-          min(minans, abs((vec[vx[l - 1]] - vecu) ^ (vec[vx[l - 1]] - vecv)));
-    if (r < vx.size() - 1)
-      minans =
-          min(minans, abs((vec[vx[r + 1]] - vecu) ^ (vec[vx[r + 1]] - vecv)));
+    if (l > 0) minans = min(minans, abs((vec[vx[l - 1]] - vecu) ^ (vec[vx[l - 1]] - vecv)));
+    if (r < vx.size() - 1) minans = min(minans, abs((vec[vx[r + 1]] - vecu) ^ (vec[vx[r + 1]] - vecv)));
     maxans = max({maxans, abs((vec[vx[0]] - vecu) ^ (vec[vx[0]] - vecv)),
                   abs((vec[vx.back()] - vecu) ^ (vec[vx.back()] - vecv))});
     if (i < j) swap(vx[i], vx[j]), pos[u] = j, pos[v] = i;

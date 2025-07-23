@@ -19,8 +19,7 @@ struct polygon {
       if (u.y > v.y + eps && uv.toleft(a) >= 0) continue;
       if (u.y < a.y - eps && v.y >= a.y - eps) cnt++;
       if (u.y >= a.y - eps && v.y < a.y - eps) cnt--;
-    }
-    return {false, cnt};
+    } return {false, cnt};
   }
   // 多边形面积的两倍
   // 可用于判断点的存储顺序是顺时针或逆时针

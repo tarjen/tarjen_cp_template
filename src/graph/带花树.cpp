@@ -46,22 +46,15 @@ struct blossom {  // 0base
   }
   void flower(int v, int u, int a) {
     while (org[v] != a) {
-      parent[v] = u;
-      u = match[v];
-      if (label[u] == 1) {
-        label[u] = 0;
-        Q.emplace(u);
-      }
-      org[v] = org[u] = a;
-      v = parent[u];
+      parent[v] = u; u = match[v];
+      if (label[u] == 1) {label[u] = 0; Q.emplace(u);}
+      org[v] = org[u] = a; v = parent[u];
     }
   }
   auto bfs(int root) {
     fill(label.begin(), label.end(), -1);
     iota(org.begin(), org.end(), 0);
-    while (!Q.empty()) {
-      Q.pop();
-    }
+    while (!Q.empty()) {Q.pop();}
     Q.emplace(root);
     label[root] = 0;
     while (!Q.empty()) {
@@ -80,8 +73,7 @@ struct blossom {  // 0base
           continue;
         } else if (label[v] == 0 && org[v] != org[u]) {
           auto a = lca(org[u], org[v]);
-          flower(v, u, a);
-          flower(u, v, a);
+          flower(v, u, a); flower(u, v, a);
         }
       }
     }
@@ -89,10 +81,7 @@ struct blossom {  // 0base
   }
   void solve() {
     for (int i = 0; i < n; ++i) {
-      if (match[i] == -1) {
-        bfs(i);
-      }
-    }
+      if (match[i] == -1) {bfs(i);}}
   }
 };
 int main() {
@@ -101,16 +90,11 @@ int main() {
     for (int j = i + 1; j < n; ++j) {
       auto [xi, yi] = stone[i];
       auto [xj, yj] = stone[j];
-      if (abs(xi - xj) + abs(yi - yj) <= L) {
-        G.addEdge(i, j);
-      }
+      if (abs(xi - xj) + abs(yi - yj) <= L) {G.addEdge(i, j);}
     }
   }
   G.solve();
   int num = 0;
   for (int i = 0; i < n; ++i) {
-    if (G.match[i] != -1) {
-      num++;
-    }
-  }
+    if (G.match[i] != -1) {num++;}}
 }

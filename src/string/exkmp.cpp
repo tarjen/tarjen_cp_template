@@ -1,6 +1,5 @@
 const int maxn = 1e6 + 1e3;
 struct EXKMP {  // S里找T
-
   char S[maxn], T[maxn];
   int next[maxn], extend[maxn];
   void Get_Next() {
@@ -14,10 +13,8 @@ struct EXKMP {  // S里找T
       if (len + i < p + 1)
         next[i] = len;  // 对应上面第一种情况
       else {
-        int j = max(p - i + 1,
-                    0);  // 找到前面对于 子串 最靠后已经匹配的位置
-        while (i + j <= lenT && T[j + 1] == T[i + j])
-          ++j;                            // 第二种需要暴力匹配
+        int j = max(p - i + 1, 0);  // 找到前面对于 子串 最靠后已经匹配的位置
+        while (i + j <= lenT && T[j + 1] == T[i + j])++j; // 第二种需要暴力匹配
         p = i + (next[pos = i] = j) - 1;  // 记得更新 p, pos
       }
     }
@@ -41,13 +38,10 @@ struct EXKMP {  // S里找T
   }
 } sol;
 int main() {
-  scanf("%s", sol.S + 1);
-  scanf("%s", sol.T + 1);
-
+  scanf("%s", sol.S + 1); scanf("%s", sol.T + 1);
   sol.ExKMP();
   int len = strlen(sol.S + 1);
   for (int i = 1; i <= len; i++)
     printf("%d%c", sol.extend[i], i == len ? '\n' : ' ');
-
   return 0;
 }
