@@ -45,7 +45,7 @@ struct SegmentTree {
     }
     return query(i * 2, l, r) + query(i * 2 + 1, l, r);
   }
-  int min_right(int qL, int& nowsum, int querysum, int i) {  //???????>=sum???
+  int min_right(int qL, int& nowsum, int querysum, int i) { //???????>=sum???
     pushdown(i);
     if (a[i].r < qL) return -1;
     if (qL <= a[i].l) {

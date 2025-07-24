@@ -25,7 +25,7 @@ struct KMP {               // 1base
       if (s1[tar] == s[now]) {
         tar++; now++;
       } else {
-        if (now > 1) { now = nxt[now - 1] + 1;} else tar++;
+        if (now > 1) { now = nxt[now - 1] + 1; } else tar++;
       }
       if (now == n + 1) {
         printf("%d\n", tar - now + 1);

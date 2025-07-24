@@ -140,7 +140,7 @@
       bottom: 2em,
     )
   )
-  set columns(gutter: 2em)
+  set columns(gutter: 1.5em)
 
   // align(center, text(2em, weight: 700, title))
   outline(depth: 1, indent: 2em)

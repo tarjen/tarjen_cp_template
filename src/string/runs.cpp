@@ -53,10 +53,8 @@ struct LongestCommonPrefix {
     return min(st[k][i + 1], st[k][j - (1 << k) + 1]);
   }
 };
-/*
-    input 0 base
-    output [l,r,p] 1base
-*/
+// input 0 base
+// output [l,r,p] 1base
 vector<tuple<int, int, int>> run(const string &s) {
   int n = s.size();
   auto r = s;

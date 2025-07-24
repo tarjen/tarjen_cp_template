@@ -1,4 +1,3 @@
-// 点与向量
 template <typename T>
 struct point {
   T x, y;
@@ -24,8 +23,7 @@ struct point {
     return (t > eps) - (t < -eps);
   }  // to-left 测试
   T len2() const { return (*this) * (*this); }  // 向量长度的平方
-  T dis2(const point &a) const {return (a - (*this)).len2();}  // 两点距离的平方
-
+  T dis2(const point &a) const { return (a - (*this)).len2(); }  // 两点距离的平方
   // 涉及浮点数
   long double len() const { return sqrtl(len2()); }  // 向量长度
   long double dis(const point &a) const { return sqrtl(dis2(a)); }  // 两点距离

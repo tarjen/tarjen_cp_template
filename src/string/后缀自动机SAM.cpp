@@ -46,7 +46,7 @@ struct SAM {
   void build(string& s) {
     n = s.size();
     init(n);
-    for (int i = 0; i < n; i++) {insert(s[i]);}
+    for (int i = 0; i < n; i++) { insert(s[i]); }
     construct(); dfs(1);
   }
 } sam;

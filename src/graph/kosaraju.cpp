@@ -13,11 +13,10 @@ void dfs2(int x) {
   for (auto it : ve[x]) if (!col[it]) dfs2(it);
 }
 void Kosaraju(int n) {
-  cnt = 0;
-  sta.clear();
-  memset(vis, 0, sizeof(vis));
-  memset(col, 0, sizeof(col));
+  cnt = 0; sta.clear();
+  memset(vis, 0, sizeof(vis)); memset(col, 0, sizeof(col));
   for (int i = 1; i <= n; i++) dfs1(i); // 搜索所有点
   for (int i = n - 1; i >= 0; i--) {
-    if (!col[sta[i]]) {cnt++;dfs2(sta[i]);}}
+    if (!col[sta[i]]) { cnt++; dfs2(sta[i]); }
+  }
 }

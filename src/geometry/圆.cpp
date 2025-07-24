@@ -1,4 +1,3 @@
-// 圆
 struct Circle {
   Point c; long double r;
   bool operator==(const Circle &a) const {
@@ -182,5 +181,6 @@ long double area_inter(const Circle &circ, const Polygon &poly) {
   for (size_t i = 0; i < poly.p.size(); i++) {
     const Point a = poly.p[i], b = poly.p[poly.nxt(i)];
     ans += cal(circ, a, b);
-  } return ans;
+  }
+  return ans;
 }

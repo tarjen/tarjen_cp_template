@@ -3,12 +3,9 @@ int col[maxn][maxn], ans[maxn * 2];
 void dfs(int x, int y, int c1, int c2) {
   if (col[y][c1]) {
     dfs(y, col[y][c1], c2, c1);
-    col[x][c1] = y;
-    col[y][c1] = x;
+    col[x][c1] = y; col[y][c1] = x;
   } else {
-    col[x][c1] = y;
-    col[y][c1] = x;
-    col[y][c2] = 0;
+    col[x][c1] = y; col[y][c1] = x; col[y][c2] = 0;
   }
 }
 map<pair<int, int>, int> ma;
@@ -21,8 +18,8 @@ int main() {
     while (col[x][c1]) c1++;
     while (col[y][c2]) c2++;
     anss = max({c1, c2, anss});
-    if (c1 > c2) {swap(x, y); swap(c1, c2);}
-    if (c1 == c2) {col[x][c1] = y; col[y][c1] = x;}
+    if (c1 > c2) { swap(x, y); swap(c1, c2); }
+    if (c1 == c2) { col[x][c1] = y; col[y][c1] = x; }
     else {dfs(x, y, c1, c2);}
   }
   cout << anss << "\n";

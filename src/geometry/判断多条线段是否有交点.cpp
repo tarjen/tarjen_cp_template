@@ -1,4 +1,3 @@
-// 判断多条线段是否有交点
 // 扫描线，复杂度 O(nlogn)
 bool segs_inter(const vector<Segment> &segs) {
   if (segs.empty()) return false;

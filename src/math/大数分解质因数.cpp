@@ -3,8 +3,7 @@ map<ll, bool> P;
 mt19937_64 rnd(time(0));
 namespace Pollard_Rho {
 #define ldb long double
-ll mul(ll x, ll y, ll mod) {
-  return ((x * y - (ll)((ldb)x / mod * y) * mod) + mod) % mod;}
+ll mul(ll x, ll y, ll mod) { return ((x * y - (ll)((ldb)x / mod * y) * mod) + mod) % mod; }
 ll gcd(ll a, ll b) { return (b == 0 ? a : gcd(b, a % b)); }
 ll ksm(ll a, ll b, ll mod) {
   ll ans = 1;
@@ -54,10 +53,10 @@ ll Pollard_Rho(ll n) {
 }
 void Find(ll n) {
   if (n == 1) return;
-  if (Miller_Rabin(n)) {P[n] = 1;return;}
+  if (Miller_Rabin(n)) { P[n] = 1; return; }
   ll p = Pollard_Rho(n);
   int c = 0;
-  while (!(n % p)) {n /= p, c++;}
+  while (!(n % p)) { n /= p, c++; }
   Find(p); Find(n);
 }
 }  // namespace Pollard_Rho

@@ -21,9 +21,8 @@ struct Persistent_SegmentTree {
       update(rch[rot], rch[pr], mid + 1, R, k);
   }
   int getcnt(int s, int t, int L, int R, int l,
-             int r)  // s,t为root[l],root[r]的根节点
-                     // 中所有大小在[l,r]之间数字出现次数
-  {
+             int r) ｛ // s,t为root[l],root[r]的根节点
+                      // 中所有大小在[l,r]之间数字出现次数
     if (l <= L && R <= r) return cnt[t] - cnt[s];
     int res = 0;
     int mid = (L + R) >> 1;
@@ -33,8 +32,7 @@ struct Persistent_SegmentTree {
   }
   int getsum(
       int s, int t, int L, int R, int l,
-      int r)  // s,t为root[l],root[r]的根节点 中所有大小在[l,r]之间数字的和
-  {
+      int r)  { // s,t为root[l],root[r]的根节点 中所有大小在[l,r]之间数字的和
     if (l <= L && R <= r) return sum[t] - sum[s];
     int res = 0;
     int mid = (L + R) >> 1;
@@ -110,27 +108,28 @@ int main() {
   int n, q;
   cin >> n >> q;
   for (int i = 1; i <= n; i++) {
-    int x;
-    cin >> x;
+    int x; cin >> x;
     tri.update(tri.root[i], tri.root[i - 1], 1, n, x);
     assert(1 <= x && x <= n);
   }
   while (q--) {
-    int ops;
-    cin >> ops;
+    int ops; cin >> ops;
     int l, r, k, L, R;
     if (ops == 1) {
       cin >> l >> r >> L >> R;
-      cout << tri.getsum(tri.root[l - 1], tri.root[r], 1, n, L, R) << "\n";}
+      cout << tri.getsum(tri.root[l - 1], tri.root[r], 1, n, L, R) << "\n";
+    }
     if (ops == 2) {  // get kth max no output -1
       cin >> l >> r >> k;
       int nowsum = 0, ans = 0;
-      cout << tri.get_Kth_max_Sum(tri.root[l - 1], tri.root[r], 1, n, k, nowsum,ans) << "\n";}
+      cout << tri.get_Kth_max_Sum(tri.root[l - 1], tri.root[r], 1, n, k, nowsum,ans) << "\n";
+    }
     if (ops == 3) {  // get kth max sum siz<k return allsum
       cin >> l >> r >> k;
       int nowsum = 0, ans = 0;
       tri.get_Kth_max_Sum(tri.root[l - 1], tri.root[r], 1, n, k, nowsum, ans);
-      cout << ans << "\n";}
+      cout << ans << "\n";
+    }
     if (ops == 4) {  // get kth min no output -1
       cin >> l >> r >> k;
       int nowsum = 0, ans = 0;

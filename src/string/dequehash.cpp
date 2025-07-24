@@ -1,7 +1,5 @@
-/*
-严格0base，不用管任何函数里面的东西，用就可以了，不要越界
-pair<int,int> first表示哈希sum，second表示当前位置的值
-*/
+// 严格0base，不用管任何函数里面的东西，用就可以了，不要越界
+// pair<int,int> first表示哈希sum，second表示当前位置的值
 #define int long long
 #define sz(a) (int)((a).size())
 const int maxn = 3e5 + 10;
@@ -14,10 +12,8 @@ int fpow(int n, int k, int p = mod) {
   }
   return r;
 }
-void add(int& a, int val, int p = mod) {
-  if ((a = (a + val)) >= p) a -= p;}
-void sub(int& a, int val, int p = mod) {
-  if ((a = (a - val)) < 0) a += p;}
+void add(int& a, int val, int p = mod) { if ((a = (a + val)) >= p) a -= p;}
+void sub(int& a, int val, int p = mod) { if ((a = (a - val)) < 0) a += p;}
 int mul(int a, int b, int p = mod) { return (int)a * b % p; }
 int inv(int a, int p = mod) { return fpow(a, p - 2, p); }
 int p[maxn], ip[maxn];
@@ -31,7 +27,8 @@ struct extendable_sequence {
   int pow_offset;
   extendable_sequence() {
     pow_offset = 0;
-    dq.push_back(make_pair(0, 0));}
+    dq.push_back(make_pair(0, 0));
+  }
   int size() { return sz(dq) - 1; }
   pair<int, int>& operator[](int i) { return dq[i + 1]; }
   void add_back(vector<int> vals) {
@@ -67,7 +64,7 @@ int calc(extendable_sequence& x, extendable_sequence& y, int l, int r) {
 }
 // 返回(x+y)[i]单个元素的值
 int calc(extendable_sequence& x, extendable_sequence& y, int i) {
-  if (i < sz(x)) {return x[i].second;}
-  if (i - sz(x) < sz(y)) {return y[i - sz(x)].second;}
+  if (i < sz(x)) return x[i].second;
+  if (i - sz(x) < sz(y)) return y[i - sz(x)].second;
   return -1;
 }

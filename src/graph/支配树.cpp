@@ -1,8 +1,6 @@
-/*
-1base
-注意up是数组需要外界导入
-使用的时候直接dtree::即可
-*/
+// 1base
+// 注意up是数组需要外界导入
+// 使用的时候直接dtree::即可
 namespace dtree {
 const int MAXN = 200020;
 vector<int> E[MAXN], RE[MAXN], rdom[MAXN];

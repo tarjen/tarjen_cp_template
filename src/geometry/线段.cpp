@@ -1,8 +1,7 @@
-// 线段
 template <typename T>
 struct segment {
   point<T> a, b;
-  bool operator<(const segment &s) const {return make_pair(a, b) < make_pair(s.a, s.b);}
+  bool operator<(const segment &s) const { return make_pair(a, b) < make_pair(s.a, s.b); }
   // 判定性函数建议在整数域使用
   // 判断点是否在线段上
   // -1 点在线段端点 | 0 点不在线段上 | 1 点严格在线段上

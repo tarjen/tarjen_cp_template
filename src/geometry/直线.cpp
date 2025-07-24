@@ -1,4 +1,3 @@
-// 直线
 template <typename T>
 struct line {
   point<T> p, v;  // p 为直线上一点，v 为方向向量

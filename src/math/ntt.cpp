@@ -53,11 +53,11 @@ Poly operator*(int a, Poly b) { return b * a; }
 void DFT(Poly &a) { NTT::DIF(a.data(), a.size()); }
 void IDFT(Poly &a) { NTT::IDIT(a.data(), a.size()); }
 int norm(int n) { return 1 << (32 - __builtin_clz(n - 1)); }
-void norm(Poly &a) {
-  if (!a.empty()) a.resize(norm(a.size()), 0);}
+void norm(Poly &a) { if (!a.empty()) a.resize(norm(a.size()), 0); }
 Poly &dot(Poly &a, Poly &b) {
   fp(i, 0, a.size() - 1) a[i] = MUL(a[i], b[i]);
-  return a;}
+  return a;
+}
 Poly operator*(Poly a, Poly b) {
   int n = a.size() + b.size() - 1, L = norm(n);
   if (a.size() <= 8 || b.size() <= 8) {

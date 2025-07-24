@@ -1,5 +1,4 @@
-void fwtor(int a[], int m, int opt)  //(1,-1)
-{
+void fwtor(int a[], int m, int opt) { //(1,-1)
   for (int len = 2; len <= m; len <<= 1)
     for (int p = len >> 1, i = 0; i < m; i += len)
       for (int j = i; j < i + p; j++)
@@ -8,8 +7,7 @@ void fwtor(int a[], int m, int opt)  //(1,-1)
         else
           del(a[j + p], a[j]);
 }
-void fwtand(int a[], int m, int opt)  //(1,-1)
-{
+void fwtand(int a[], int m, int opt) { //(1,-1)
   for (int len = 2; len <= m; len <<= 1)
     for (int p = len >> 1, i = 0; i < m; i += len)
       for (int j = i; j < i + p; j++)
@@ -18,8 +16,7 @@ void fwtand(int a[], int m, int opt)  //(1,-1)
         else
           del(a[j], a[j + p]);
 }
-void fwtxor(int a[], int m, int opt)  //(1,1/2)
-{
+void fwtxor(int a[], int m, int opt) { //(1,1/2)
   for (int len = 2; len <= m; len <<= 1)
     for (int p = len >> 1, i = 0; i < m; i += len)
       for (int j = i; j < i + p; j++) {
@@ -31,12 +28,13 @@ void fwtxor(int a[], int m, int opt)  //(1,1/2)
 }
 int a[1 << 17], b[1 << 17], c[1 << 17];
 void mul(int a[], int b[], int c[], int m) {
-  for (int i = 0; i < m; i++) c[i] = 1ll * a[i] * b[i] % mod;}
+  for (int i = 0; i < m; i++) c[i] = 1ll * a[i] * b[i] % mod;
+}
 void print(int a[], int m) {
-  for (int i = 0; i < m; i++) cout << a[i] << " \n"[i == m - 1];}
+  for (int i = 0; i < m; i++) cout << a[i] << " \n"[i == m - 1];
+}
 int main() {
-  int n;
-  cin >> n;
+  int n; cin >> n;
   int m = 1 << n;
   for (int i = 0; i < m; i++) cin >> a[i];
   for (int i = 0; i < m; i++) cin >> b[i];

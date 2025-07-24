@@ -1,4 +1,3 @@
-// 多边形
 template <typename T>
 struct polygon {
   vector<point<T>> p;  // 以逆时针顺序存储

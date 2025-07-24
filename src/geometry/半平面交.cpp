@@ -1,4 +1,3 @@
-// 半平面交
 // 排序增量法，复杂度 O(nlogn)
 // 输入与返回值都是用直线表示的半平面集合
 vector<Line> halfinter(vector<Line> l, const point_t lim = 1e9) {

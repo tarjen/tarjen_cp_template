@@ -35,11 +35,3 @@ void solution() {
     std::cout << solver.query(a, b, c) << '\n';
   }
 }
-int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(0);
-  int T = 1;
-  // std::cin >> T;
-  for (cas = 1; cas <= T; cas++) solution();
-  return 0;
-}

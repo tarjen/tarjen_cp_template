@@ -1,4 +1,3 @@
-// 点集形成的最小最大三角形
 // 极角序扫描线，复杂度 O(n^2logn)
 // 最大三角形问题可以使用凸包与旋转卡壳做到 O(n^2)
 pair<point_t, point_t> minmax_triangle(const vector<Point> &vec) {

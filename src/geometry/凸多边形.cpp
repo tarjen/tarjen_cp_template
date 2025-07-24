@@ -1,4 +1,3 @@
-// 凸多边形
 template <typename T>
 struct convex : polygon<T> {
   // 闵可夫斯基和

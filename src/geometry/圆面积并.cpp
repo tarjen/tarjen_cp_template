@@ -1,4 +1,3 @@
-// 圆面积并
 // 轮廓积分，复杂度 O(n^2logn)
 // ans[i] 表示被至少覆盖了 i+1 次的区域的面积
 vector<long double> area_union(const vector<Circle> &circs) {
@@ -71,5 +70,6 @@ vector<long double> area_union(const vector<Circle> &circs) {
         cnt = 0, sum += oint(arcs[i][j]);
     }
     ans[i] = sum / 2;
-  } return ans;
+  }
+  return ans;
 }

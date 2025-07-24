@@ -1,4 +1,3 @@
-// 多边形面积并
 // 轮廓积分，复杂度 O(n^2logn)，n为边数
 // ans[i] 表示被至少覆盖了 i+1 次的区域的面积
 vector<long double> area_union(const vector<Polygon> &polys) {
