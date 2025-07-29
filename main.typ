@@ -2,9 +2,16 @@
 
 // Take a look at the file `template.typ` in the file panel
 // to customize this template and discover how it works.
-#show: wf_trd.with(title: "Team Reference Document", team: "Mako, suki", school: "Shanghai University", authors: ("Tao Jun","Geng Pengcheng", "Song Haoran", "Shen Jun (Coach)", "Cai Shengliang (Co-coach)"), logo: "shu_logo.svg", header: [
-  _Mako, suki \@ Shanghai University_#h(1fr)#context counter(page).display("1 / 1", both: true)
-])
+#show: wf_trd.with(
+  title: "Team Reference Document",
+  team: "Mako, suki",
+  school: "Shanghai University",
+  authors: ("Tao Jun", "Geng Pengcheng", "Song Haoran", "Shen Jun (Coach)", "Cai Shengliang (Co-coach)"),
+  logo: "shu_logo.svg",
+  header: [
+    _Mako, suki \@ Shanghai University_#h(1fr)#context counter(page).display("1 / 1", both: true)
+  ],
+)
 
 // for balck printing
 // #set raw(theme: "BW.tmtheme")
@@ -69,6 +76,8 @@
 #import_code("src/graph/maxflow网络流最大流.cpp")
 == Tarjan缩点
 #import_code("src/graph/tarjan缩点.cpp")
+== 二分图匹配
+#import_code("src/graph/二分图匹配.cpp")
 == 二分图最优匹配
 #import_code("src/graph/二分图最优匹配.cpp")
 == 二分图染色
@@ -85,9 +94,15 @@
 #import_code("src/graph/最小费用最大流.cpp")
 == 三四元环计数
 #import_code("src/graph/三四元环计数.cpp")
+== 点双边双
+#import_code("src/graph/点双边双.cpp")
+== 有向图动态加边缩点
+#import_code("src/graph/有向图动态加边缩点.cpp")
 
 = 数据结构
 
+== SegmentSet
+#import_code("src/data_structure/SegmentSet.cpp")
 == SegmentTree
 #import_code("src/data_structure/SegmentTree.cpp")
 == 主席树
@@ -150,7 +165,10 @@
 #import_code("src/math/拉格朗日插值没有模数.cpp")
 == 辛普森积分
 #import_code("src/math/辛普森积分.cpp")
-
+== min25(质数幂次和)
+#import_code("src/math/min25(质数幂次和).cpp")
+== 高斯消元(浮点数)
+#import_code("src/math/高斯消元(浮点数).cpp")
 
 = 计算几何
 == 开头
