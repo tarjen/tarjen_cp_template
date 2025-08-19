@@ -31,6 +31,8 @@
 #import_code("src/others/wqs二分.cpp")
 == 可以判断不同或相同的并查集
 #import_code("src/others/可以判断不同或相同的并查集.cpp")
+== 可撤销并查集
+#import_code("src/others/可撤销并查集.cpp")
 == 树哈希
 #import_code("src/others/树哈希.cpp")
 == 求s所有前缀对于t的所有子串的最长公共子序列长度
