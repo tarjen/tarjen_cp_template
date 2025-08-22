@@ -150,6 +150,8 @@
 #import_code("src/math/拉格朗日插值没有模数.cpp")
 == 辛普森积分
 #import_code("src/math/辛普森积分.cpp")
+== 线性筛
+#import_code("src/math/线性筛.cpp")
 
 
 = 计算几何
