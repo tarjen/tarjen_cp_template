@@ -24,6 +24,7 @@
     "STHeiti",
   ),
   monospace: (
+    "DejaVu Sans Mono",
     "Courier New",
     "Menlo",
     "IBM Plex Mono",
@@ -107,6 +108,7 @@
   set text(font: fonts.serif, lang: "zh", region: "cn")
 
   show math.equation: set text(weight: 400)
+  show raw: set text(font: fonts.monospace, lang: "zh", region: "cn")
 
   set page(flipped: true)
   v(0.6fr)
@@ -147,23 +149,11 @@
   body
 }
 
-
 #let import_code(path, lang: none, ..args) = {
-  show raw.where(block: true): code => {
-    show raw.line: line => {
-      box(stack(
-        dir: ltr,
-        box(width: 0em, align(right, text(fill: gray)[#line.number])),
-        h(1em),
-        line.body,
-      ))
-    }
-    code
-  }
   if lang == none {
     // Guess the language from the file extension.
     lang = path.split(".").last()
   }
-  raw(read(path), lang: lang, block: true, ..args)
+  raw(read(path).trim(), lang: lang, block: true, ..args)
 }
 

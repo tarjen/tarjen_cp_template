@@ -19,11 +19,8 @@ bool segs_inter(const vector<Segment> &segs) {
   auto cmp = [&](const Segment &u, const Segment &v) {
     if (abs(u.a.x - u.b.x) <= eps || abs(v.a.x - v.b.x) <= eps)
       return u.a.y < v.a.y - eps;
-    return ((x_now - u.a.x) * (u.b.y - u.a.y) + u.a.y * (u.b.x - u.a.x)) *
-               (v.b.x - v.a.x) <
-           ((x_now - v.a.x) * (v.b.y - v.a.y) + v.a.y * (v.b.x - v.a.x)) *
-                   (u.b.x - u.a.x) -
-               eps;
+    return ((x_now - u.a.x) * (u.b.y - u.a.y) + u.a.y * (u.b.x - u.a.x)) * (v.b.x - v.a.x) <
+           ((x_now - v.a.x) * (v.b.y - v.a.y) + v.a.y * (v.b.x - v.a.x)) * (u.b.x - u.a.x) - eps;
   };
   multiset<Segment, decltype(cmp)> s{cmp};
   for (const auto [x, o, seg] : seq) {

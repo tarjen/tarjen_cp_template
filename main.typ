@@ -1,5 +1,11 @@
 #import "template.typ": *
-
+#import "@preview/zebraw:0.5.5": *
+#show: zebraw.with(
+  inset: (top: 0.3em, bottom: 0.3em),
+  indentation: 2,
+  hanging-indent: true,
+  ..zebraw-themes.zebra
+) 
 // Take a look at the file `template.typ` in the file panel
 // to customize this template and discover how it works.
 #show: wf_trd.with(
