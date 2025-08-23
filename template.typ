@@ -103,13 +103,13 @@
     header: header,
     footer: none,
     margin: (
-      left: 3em,
-      right: 3em,
-      top: 4em,
+      left: 2.5em,
+      right: 2.5em,
+      top: 3em,
       bottom: 2em,
     ),
   )
-  set columns(gutter: 1em)
+  set columns(gutter: 0.75em)
   // align(center, text(2em, weight: 700, title))
   body
 }

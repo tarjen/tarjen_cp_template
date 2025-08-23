@@ -215,7 +215,7 @@
 #[
   #show heading.where(level: 2): set heading(outlined: false)
   #include "src/note/note.typ"
-  #include "src/note/calc.typ"
   #include "src/note/table.typ"
+  #include "src/note/calc.typ"
 ]
 

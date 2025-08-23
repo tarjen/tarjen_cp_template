@@ -43,8 +43,8 @@
 
 == $a x^2 + b x + c$ ($a > 0$)
 + $integral frac(dif x, a x^2 + b x + c) = cases(
-    2 / sqrt(4 a c - b^2) arctan frac(2 a x + b, sqrt(4 a c - b^2)) + C (b^2 < 4 a c),
-    1 / sqrt(b^2 - 4 a c) ln lr(|frac(2 a x + b - sqrt(b^2 - 4 a c), 2 a x + b + sqrt(b^2 - 4 a c))|) + C (b^2 > 4 a c)
+    2 / sqrt(4 a c - b^2) arctan frac(2 a x + b, sqrt(4 a c - b^2)) + C & (b^2 < 4 a c),
+    1 / sqrt(b^2 - 4 a c) ln lr(|frac(2 a x + b - sqrt(b^2 - 4 a c), 2 a x + b + sqrt(b^2 - 4 a c))|) + C & (b^2 > 4 a c)
   )$
 + $integral frac(x, a x^2 + b x + c) dif x = frac(1, 2 a) ln | a x^2 + b x + c | - frac(b, 2 a) integral frac(dif x, a x^2 + b x + c)$
 
@@ -84,8 +84,8 @@
     1 / sqrt(b^2 - a^2) ln lr(|frac(a tan x / 2 + b - sqrt(b^2 - a^2), a tan x / 2 + b + sqrt(b^2 - a^2))|) + C & (a^2 < b^2 )
   )$
 + $integral frac(dif x, a + b cos x) = cases(
-    frac(2, a + b) √frac(a + b, a - b) arctan (√frac(a - b, a + b) tan x / 2) + C (a^2 > b^2 ),
-    frac(1, a + b) √frac(a + b, a - b) ln lr(|frac(tan x / 2 + √frac(a + b, b - a), tan x / 2 - √frac(a + b, b - a))|) + C (a^2 < b^2 )
+    frac(2, a + b) √frac(a + b, a - b) arctan (√frac(a - b, a + b) tan x / 2) + C & (a^2 > b^2 ),
+    frac(1, a + b) √frac(a + b, a - b) ln lr(|frac(tan x / 2 + √frac(a + b, b - a), tan x / 2 - √frac(a + b, b - a))|) + C & (a^2 < b^2 )
   )$
 + $integral frac(dif x, a^2 cos^2 x + b^2 sin^2 x) = frac(1, a b) arctan (b / a tan x) + C$
 + $integral frac(dif x, a^2 cos^2 x - b^2 sin^2 x) = frac(1, 2 a b) ln lr(|frac(b tan x + a, b tan x - a)|) + C$
@@ -127,7 +127,7 @@
 == STL 积分/求和 (need `std::`)
 + $integral_0^1 t^(x - 1) (1 - t)^(y - 1) dif t = mono("beta(x, y)") = frac(Gamma (x) Gamma (y), Gamma (x + y))$
 + $integral_0^(+ oo) t^("num" - 1) e^(- t) dif t = mono("tgamma(num)") = e^(mono("lgamma(num)")) = Gamma ("num")$
-+ $integral_0^(phi) frac(dif theta, sqrt(1 - k^2 sin^2 theta)) = "ellint_1"(k, phi)$
++ $integral_0^(phi) frac(dif theta, sqrt(1 - k^2 sin^2 theta)) = mono("ellint_1(k, phi)")$
 + $integral_0^(phi) sqrt(1 - k^2 sin^2 theta) dif theta = mono("ellint_ 2(k , phi)")$
 + $integral_("num")^(+ oo) e^(- t) / t dif t = - mono("expint(-num)")$
 + $sum_(n = 1)^(+ oo) n^(- "num") = mono("riemann_zeta(num)")$
