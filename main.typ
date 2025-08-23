@@ -1,14 +1,9 @@
 #import "template.typ": *
-#import "@preview/zebraw:0.5.5": *
-#show: zebraw.with(
-  inset: (top: 0.3em, bottom: 0.3em),
-  indentation: 2,
-  hanging-indent: true,
-  ..zebraw-themes.zebra
-) 
+#let preview = sys.inputs.at("x-preview", default: none) != none
+
 // Take a look at the file `template.typ` in the file panel
 // to customize this template and discover how it works.
-#show: wf_trd.with(
+#show: template.with(
   title: "Team Reference Document",
   team: "Mako, suki",
   school: "Shanghai University",
@@ -17,6 +12,7 @@
   header: [
     _Mako, suki \@ Shanghai University_#h(1fr)#context counter(page).display("1 / 1", both: true)
   ],
+  preview: preview,
 )
 
 // for balck printing
@@ -29,8 +25,12 @@
 //   }
 //   it
 // }
+// TODO: Typst cannot yet balance columns automatically.
+// CHAGEME: adjust the height of the block below to fit your content.
+#block(height: 67em, columns(2, outline(depth: 2, indent: 1em)))
 
 = 杂项
+#include "src/note/misc.typ"
 == Bitset手写
 #import_code("src/others/bitset手写.cpp")
 == wqs二分
@@ -212,4 +212,10 @@
 == 给定三点求圆心
 #import_code("src/geometry/给定三点求圆心.cpp")
 
-#include "src/note/note.typ"
+#[
+  #show heading.where(level: 2): set heading(outlined: false)
+  #include "src/note/note.typ"
+  #include "src/note/calc.typ"
+  #include "src/note/table.typ"
+]
+

@@ -1,7 +1,7 @@
 // The project function defines how your document looks.
 // It takes your content and some metadata and formats it.
 // Go ahead and customize it to your liking!
-
+#import "@preview/zebraw:0.5.5": *
 #let fonts = (
   serif: (
     "Libertinus Serif",
@@ -37,71 +37,14 @@
   ),
 )
 
-#let project(
-  title: "",
-  authors: (),
-  logo: none,
-  twoside: false,
-  body,
-) = {
-  // Set the document's basic properties.
-  set document(author: authors, title: title)
-  set text(font: fonts.serif, lang: "zh", region: "cn")
-  set page(margin: if twoside {
-    (inside: 2.8cm, outside: 2.5cm)
-  } else {
-    auto
-  })
-  show math.equation: set text(weight: 400)
-
-  // Title page.
-  // The page can contain a logo if you pass one with `logo: "logo.png"`.
-  v(0.6fr)
-  if logo != none {
-    align(right, image(logo, width: 60%))
-  }
-  v(9.6fr)
-
-  text(2em, weight: 700, title)
-
-  // Author information.
-  pad(top: 0.7em, right: 20%, grid(
-    columns: (1fr,) * calc.min(3, authors.len()),
-    gutter: 1em,
-    ..authors.map(author => align(start, strong(author))),
-  ))
-
-  v(2.4fr)
-  pagebreak(weak: true, to: if twoside {
-    "odd"
-  })
-
-
-  // Table of contents.
-  set page(numbering: "I", number-align: center)
-  counter(page).update(1)
-  outline(depth: 3, indent: 2em)
-  pagebreak(weak: true, to: if twoside {
-    "odd"
-  })
-
-
-  // Main body.
-  set par(justify: true)
-
-  set page(numbering: "1", number-align: center)
-  counter(page).update(1)
-  body
-}
-
-
-#let wf_trd(
+#let template(
   title: "",
   team: "",
   school: "",
   authors: (),
   logo: none,
   header: none,
+  preview: false,
   body,
 ) = {
   set document(author: authors, title: title)
@@ -110,7 +53,30 @@
   show math.equation: set text(weight: 400)
   show raw: set text(font: fonts.monospace, lang: "zh", region: "cn")
 
-  set page(flipped: true)
+  show: zebraw-init.with(fast-preview: preview)
+  show: zebraw.with(
+    indentation: 2,
+    inset: (top: 0.3em, bottom: 0.3em),
+    hanging-indent: true,
+    ..zebraw-themes.zebra,
+  )
+  set page(
+    flipped: true, 
+    footer: [
+      #set text(fill: gray, size: 10pt)
+       #grid(
+        columns: (1fr, 1fr),
+        align(left)[
+          #if preview [
+            #text(red)[*Preview Build*]
+           ] else {
+            "Production Build"
+          }
+        ],
+        align(right)[Last update: #datetime.today().display("[month repr:short]. [day], [year]")]
+       )
+    ]
+  )
   v(0.6fr)
   if logo != none {
     align(right, image(logo, width: 30%))
@@ -135,17 +101,16 @@
   set page(
     columns: 3,
     header: header,
+    footer: none,
     margin: (
       left: 3em,
       right: 3em,
       top: 4em,
       bottom: 2em,
-    )
+    ),
   )
-  set columns(gutter: 1.5em)
-
+  set columns(gutter: 1em)
   // align(center, text(2em, weight: 700, title))
-  outline(depth: 1, indent: 2em)
   body
 }
 
