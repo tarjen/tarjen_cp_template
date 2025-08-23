@@ -45,6 +45,7 @@
   logo: none,
   header: none,
   preview: false,
+  commit: none,
   body,
 ) = {
   set document(author: authors, title: title)
@@ -70,7 +71,7 @@
           #if preview [
             #text(red)[*Preview Build*]
            ] else {
-            "Production Build"
+            "Production Build" + (if commit != none { " - Commit " + commit } else { "" })
           }
         ],
         align(right)[Last update: #datetime.today().display("[month repr:short]. [day], [year]")]
