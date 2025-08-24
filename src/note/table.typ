@@ -26,7 +26,7 @@
 )
 #table(
   columns: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
-  inset: (top: 0.45em, bottom: 0.45em, left: 0.5em, right: 0.5em),
+  inset: (top: 0.42em, bottom: 0.42em, left: 0.5em, right: 0.5em),
   align: (center, center, center, center, center, center, center),
   fill: (x, y) => if calc.rem(y, 4) == 0 { luma(240) },
   [$n lt.eq$], [$10$], [$100$], [$10^3$], [$10^4$], [$10^5$], [$10^6$],

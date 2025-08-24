@@ -114,10 +114,7 @@
 
 + $display(integral frac(dif x, cos^n x) = frac(1, n - 1) frac(sin x, cos^(n - 1) x) + frac(n - 2, n - 1) integral frac(dif x, cos^(n - 2) x))$
 
-+ $&integral cos^m x sin^n x dif x
-
-  & = frac(1, m + n) cos^(m - 1) x sin^(n + 1) x + frac(m - 1, m + n) integral cos^(m - 2) x sin^n x dif x
-
++ $display(integral cos^m x sin^n x dif x & = frac(1, m + n) cos^(m - 1) x sin^(n + 1) x + frac(m - 1, m + n) integral cos^(m - 2) x sin^n x dif x \
   & = - frac(1, m + n) cos^(m + 1) x sin^(n - 1) x + frac(n - 1, m + 1) integral cos^m x sin^(n - 2) x dif x)$
 
 + $display(integral frac(dif x, a + b sin x) = cases(
