@@ -1,6 +1,3 @@
-const int N = 3000;
-typedef unsigned long long ull;
-
 int lim = N / 64 + 3;
 struct Bitset {
   ull v[N / 64 + 5];
@@ -8,24 +5,46 @@ struct Bitset {
     memset(v, 0, sizeof(v));
     return;
   }
-  void add(int x) {
-    v[x >> 6] |= (1ull << (x & 63));
-    return;
-  }
-  void shift1() {
-    int lst = 0;
-    for (int i = 0; i <= lim; i++) {
-      int cur = v[i] >> 63;
-      v[i] <<= 1;
-      v[i] |= lst;
-      lst = cur;
+  bool getBit(int pos) const { return (v[pos >> 6] >> (pos & 63)) & 1; }
+  void setBit(int pos, bool val) {
+    if (val) {
+      v[pos >> 6] |= (1ull << (pos & 63));
+    } else {
+      v[pos >> 6] &= ~(1ull << (pos & 63));
     }
-    return;
   }
   int count() {
     int res = 0;
     for (int i = 0; i <= lim; i++) res += __builtin_popcountll(v[i]);
     return res;
+  }
+  Bitset operator<<(const int t) const {
+    Bitset ret;
+    ret.init();
+    ull last = 0;
+    int high = t >> 6, low = t & 63;
+    for (int i = 0; i + high <= lim; i++) {
+      ret.v[i + high] = last | (v[i] << low);
+      if (low && i < lim)
+        last = v[i] >> (64 - low);
+      else
+        last = 0;
+    }
+    return ret;
+  }
+  Bitset operator>>(const int t) const {
+    Bitset ret;
+    ret.init();
+    ull last = 0;
+    int high = t >> 6, low = t & 63;
+    for (int i = lim; i >= high; i--) {
+      ret.v[i - high] = last | (v[i] >> low);
+      if (low && i > 0)
+        last = v[i] << (64 - low);
+      else
+        last = 0;
+    }
+    return ret;
   }
   Bitset operator|(const Bitset &x) const {
     Bitset res;
@@ -52,4 +71,4 @@ struct Bitset {
     }
     return res;
   }
-}
+};
