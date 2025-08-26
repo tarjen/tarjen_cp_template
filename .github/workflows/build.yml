@@ -34,9 +34,27 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v5
         with:
           name: template-pdf
       - uses: softprops/action-gh-release@v2
         with:
           files: "*.pdf"
+  
+  wf-trd:
+    if: ${{ github.ref == 'refs/heads/wf-trd' }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          name: template-pdf
+      - name: Create WF-TRD Nightly Release
+        uses: 'marvinpinto/action-automatic-releases@latest'
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          title: "WF-TRD Nightly Build"
+          automatic_release_tag: wf-trd-nightly
+          prerelease: true
+          files: "*.pdf"
+
