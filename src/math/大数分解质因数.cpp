@@ -13,7 +13,8 @@ ll ksm(ll a, ll b, ll mod) {
     b >>= 1;
     a = mul(a, a, mod);
   }
-  return ans;}
+  return ans;
+}
 int pr[15] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
 bool Miller_Rabin(ll n) {
   if (n == 2 || n == 3) return 1;

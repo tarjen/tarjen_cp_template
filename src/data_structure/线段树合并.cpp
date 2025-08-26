@@ -6,8 +6,7 @@ struct SegmentTree {
   };
   vector<Node> a;
   SegmentTree() {
-    a.clear();
-    a.emplace_back();
+    a.clear(); a.emplace_back();
   }
   int newnode() {
     a.emplace_back();
@@ -46,12 +45,8 @@ struct SegmentTree {
   }
   int merge(int i, int j, int L, int R, ll adi, ll adj, ll& ans) {
     if (!i || !j) {
-      if (i == 0) {
-        a[j].add(adj);
-      }
-      if (j == 0) {
-        a[i].add(adi);
-      }
+      if (i == 0) { a[j].add(adj); }
+      if (j == 0) { a[i].add(adi); }
       return i | j;
     }
     pushdown(i);

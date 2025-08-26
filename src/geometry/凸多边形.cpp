@@ -33,13 +33,11 @@ struct convex : polygon<T> {
   template <typename F>
   void rotcaliper(const F &func) const {
     const auto &p = this->p;
-    const auto area = [](const point<T> &u, const point<T> &v,
-                         const point<T> &w) { return (w - u) ^ (w - v); };
+    const auto area = [](const point<T> &u, const point<T> &v, const point<T> &w) { return (w - u) ^ (w - v); };
     for (size_t i = 0, j = 1; i < p.size(); i++) {
       const auto nxti = this->nxt(i);
       func(p[i], p[nxti], p[j]);
-      while (area(p[this->nxt(j)], p[i], p[nxti]) >=
-             area(p[j], p[i], p[nxti])) {
+      while (area(p[this->nxt(j)], p[i], p[nxti]) >= area(p[j], p[i], p[nxti])) {
         j = this->nxt(j);
         func(p[i], p[nxti], p[j]);
       }

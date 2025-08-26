@@ -36,10 +36,7 @@ void dfs(int x, int fa) {
       dfs(rt, x);
     }
 }
-
 int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(0);
   cin >> n;
   for (int i = 1; i < n; i++) {
     int a, b, c;

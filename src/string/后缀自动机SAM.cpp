@@ -1,8 +1,7 @@
 const int N = 2e6;
 struct SAM {
   struct Node {
-    int tr[26];
-    int len, fa;
+    int tr[26]; int len, fa;
     Node() {
       memset(tr, 0, sizeof(tr));
       len = fa = 0;
@@ -14,7 +13,8 @@ struct SAM {
     last = tot = 1;
     base = 'a';
     for (int i = 0; i <= 2 * _n; i++) {
-      ep[i] = Node(); edg[i].clear(); siz[i] = 0;}
+      ep[i] = Node(); edg[i].clear(); siz[i] = 0;
+    }
   }
   void insert(char x) {
     int c = x - base; int p = last; int np = last = ++tot;
@@ -35,13 +35,14 @@ struct SAM {
     }
   }
   void construct() {
-    for (int i = 2; i <= tot; i++) {
+    for (int i = 2; i <= tot; i++)
       edg[ep[i].fa].push_back(i);
-    }
   }
   void dfs(int u) {
-    for (auto v : edg[u]) {
-      dfs(v);siz[u] += siz[v];}
+    for (auto v : edg[u]){
+      dfs(v);
+      siz[u] += siz[v];
+    }
   }
   void build(string& s) {
     n = s.size();

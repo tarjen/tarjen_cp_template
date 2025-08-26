@@ -12,5 +12,4 @@ double asr(double l, double r, double eps, double ans,
          asr(mid, r, eps / 2, fr, step - 1);  // 否则分割成两段递归求解
 }
 double calc(double l, double r, double eps) {
-  return asr(l, r, eps, simpson(l, r), 12);
-}
+  return asr(l, r, eps, simpson(l, r), 12); }

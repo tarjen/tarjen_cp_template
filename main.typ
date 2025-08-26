@@ -106,6 +106,8 @@
 #import_code("src/graph/点双边双.cpp")
 == 有向图动态加边缩点
 #import_code("src/graph/有向图动态加边缩点.cpp")
+== Prufer序列生成树
+#import_code("src/graph/Prufer序列生成树.cpp")
 
 = 数据结构
 
@@ -177,6 +179,8 @@
 #import_code("src/math/min25(质数幂次和).cpp")
 == 高斯消元(浮点数)
 #import_code("src/math/高斯消元(浮点数).cpp")
+== 线性筛
+#import_code("src/math/线性筛.cpp")
 
 = 计算几何
 == 开头

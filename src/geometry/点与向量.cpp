@@ -15,9 +15,7 @@ struct point {
   point operator*(const T k) const { return {k * x, k * y}; }
   point operator/(const T k) const { return {x / k, y / k}; }
   T operator*(const point &a) const { return x * a.x + y * a.y; }  // 点积
-  T operator^(const point &a) const {
-    return x * a.y - y * a.x;
-  }  // 叉积，注意优先级
+  T operator^(const point &a) const { return x * a.y - y * a.x; }  // 叉积，注意优先级
   int toleft(const point &a) const {
     const auto t = (*this) ^ a;
     return (t > eps) - (t < -eps);

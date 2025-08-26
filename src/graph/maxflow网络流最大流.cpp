@@ -45,16 +45,13 @@ class Maxflow {
     if (used == 0) dist[x] = -1;
     return used;
   }
-
  public:
   void init(int s, int t) {
     for (int i = S; i <= T; i++) head[i] = 0;
-    S = s, T = t;
-    nedge = 1;
+    S = s, T = t; nedge = 1;
   }
   void addedge(int a, int b, int v) {
-    Addedge(a, b, v);
-    Addedge(b, a, 0);
+    Addedge(a, b, v); Addedge(b, a, 0);
   }
   int dinic() {
     int flow = 0;

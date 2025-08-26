@@ -1,6 +1,5 @@
-bool ray_inter_judge(
-    Segment a,
-    Segment b) {  // 射线判交,这里用segment但实际是射线 p_a->p_b
+bool ray_inter_judge(Segment a,Segment b) {  
+  // 射线判交,这里用segment但实际是射线 p_a->p_b
   point_t s1, s2;
   s1 = (a.b - a.a) ^ (b.a - a.a);
   s2 = (a.b - a.a) ^ (b.b - a.a);

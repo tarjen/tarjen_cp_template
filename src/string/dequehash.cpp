@@ -12,8 +12,8 @@ int fpow(int n, int k, int p = mod) {
   }
   return r;
 }
-void add(int& a, int val, int p = mod) { if ((a = (a + val)) >= p) a -= p;}
-void sub(int& a, int val, int p = mod) { if ((a = (a - val)) < 0) a += p;}
+void add(int& a, int val, int p = mod){if ((a = (a+val)) >= p) a -= p;}
+void sub(int& a, int val, int p = mod){if ((a = (a-val)) <  0) a += p;}
 int mul(int a, int b, int p = mod) { return (int)a * b % p; }
 int inv(int a, int p = mod) { return fpow(a, p - 2, p); }
 int p[maxn], ip[maxn];

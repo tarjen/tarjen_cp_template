@@ -69,8 +69,8 @@ std::vector<T> kShortestPath(int n, int k, int s, int t,
       heap[x] = h.merge(heap[x], h.newNode(y, d[y] + z - d[x]));
     }
   }
-  for (int x : p) {
-    if (x != t) heap[x] = h.merge(heap[x], heap[e[fa[x]].y]);}
+  for (int x : p)
+    if (x != t) heap[x] = h.merge(heap[x], heap[e[fa[x]].y]);
   if (heap[s]) q.push({d[s] + h.t[heap[s]].w, heap[s]});
   std::vector<T> res = {d[s]};
   for (int i = 1; i < k && !q.empty(); i++) {
