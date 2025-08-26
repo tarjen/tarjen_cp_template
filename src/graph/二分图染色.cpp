@@ -20,7 +20,7 @@ int main() {
     anss = max({c1, c2, anss});
     if (c1 > c2) { swap(x, y); swap(c1, c2); }
     if (c1 == c2) { col[x][c1] = y; col[y][c1] = x; }
-    else {dfs(x, y, c1, c2);}
+    else { dfs(x, y, c1, c2); }
   }
   cout << anss << "\n";
   for (int i = 1; i <= n; i++) {

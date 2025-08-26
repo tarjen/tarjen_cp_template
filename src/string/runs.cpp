@@ -14,8 +14,7 @@ struct LongestCommonPrefix {
     for (int m = 1; m < n; m *= 2) {
       q.resize(m);
       for (int i = 0; i < m; i += 1) q[i] = n - m + i;
-      for (int i : p)
-        if (i >= m) q.push_back(i - m);
+      for (int i : p) if (i >= m) q.push_back(i - m);
       count.assign(k, 0);
       for (int i : rank) count[i] += 1;
       for (int i = 1; i < k; i += 1) count[i] += count[i - 1];
@@ -69,8 +68,7 @@ vector<tuple<int, int, int>> run(const string &s) {
       stack.push_back(i);
     }
     for (int i = 0; i < n; i += 1) {
-      int j = lyn[i], t = j - i, l = i - lcs.get(n - i, n - j),
-          r = j + lcp.get(i, j);
+      int j = lyn[i], t = j - i, l = i - lcs.get(n - i, n - j), r = j + lcp.get(i, j);
       if (r - l >= 2 * t) runs.emplace_back(l + 1, r, t);
     }
   }

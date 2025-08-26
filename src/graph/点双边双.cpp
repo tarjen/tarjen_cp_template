@@ -8,7 +8,7 @@ namespace G {
     to[tot] = v, nxt[tot] = head[u], head[u] = tot++;
     to[tot] = u, nxt[tot] = head[v], head[v] = tot++;
   }
-  }  // namespace G
+}  // namespace G
 /// vertex
 namespace VBCC {
   int dfn[N], dfs_clock, low[N], bcc_cnt, iscut[N];
@@ -86,8 +86,7 @@ namespace EBCC {
     if (low[u] >= dfn[u]) {
       ++bcc_cnt;
       while (1) {
-        int nod = stk.top();
-        stk.pop();
+        int nod = stk.top(); stk.pop();
         bccno[nod] = bcc_cnt;
         if (nod == u) break;
       }

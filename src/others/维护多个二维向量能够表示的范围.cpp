@@ -22,7 +22,7 @@ struct vec {
       int t = x / a00;
       y -= a01 * t;
     }
-    if (y == 0) {return true;} 
+    if (y == 0) return true;
     else return a11 != 0 && y % a11 == 0;
   }
 };

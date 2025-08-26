@@ -15,7 +15,7 @@ std::vector<int> edge[N]; std::set<ull> trees;
 void getHash(int x, int p) {
   hash[x] = 1;
   for (int i : edge[x]) {
-    if (i == p) { continue; }
+    if (i == p) continue;
     getHash(i, x);
     hash[x] += shift(hash[i]);
   }

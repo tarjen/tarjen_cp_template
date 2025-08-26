@@ -131,17 +131,21 @@ int main() {
     if (ops == 4) {  // get kth min no output -1
       cin >> l >> r >> k;
       int nowsum = 0, ans = 0;
-      cout << tri.get_Kth_min_Sum(tri.root[l - 1], tri.root[r], 1, n, k, nowsum,ans) << "\n";}
+      cout << tri.get_Kth_min_Sum(tri.root[l - 1], tri.root[r], 1, n, k, nowsum,ans) << "\n";
+    }
     if (ops == 5) {  // get kth min sum siz<k return allsum
       cin >> l >> r >> k;
       int nowsum = 0, ans = 0;
       tri.get_Kth_min_Sum(tri.root[l - 1], tri.root[r], 1, n, k, nowsum, ans);
-      cout << ans << "\n";}
+      cout << ans << "\n";
+    }
     if (ops == 6) {  // get the min element >= k no return -1
       cin >> l >> r >> k;
-      cout << tri.get_upper(tri.root[l - 1], tri.root[r], 1, n, k) << "\n";}
+      cout << tri.get_upper(tri.root[l - 1], tri.root[r], 1, n, k) << "\n";
+    }
     if (ops == 7) {  // get the max element <= k no return -1
       cin >> l >> r >> k;
-      cout << tri.get_lower(tri.root[l - 1], tri.root[r], 1, n, k) << "\n";}
+      cout << tri.get_lower(tri.root[l - 1], tri.root[r], 1, n, k) << "\n";
+    }
   }
 }

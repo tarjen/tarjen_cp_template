@@ -32,8 +32,9 @@ struct AC {
         if (trie[x][i]) {
           fail[trie[x][i]] = trie[fail[x]][i];
           qu.push(trie[x][i]);
-        } else
+        } else {
           trie[x][i] = trie[fail[x]][i];
+        }
         old[trie[x][i]] = e[fail[trie[x][i]]] ? fail[trie[x][i]] : old[fail[trie[x][i]]];
       }
     }

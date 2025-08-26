@@ -27,7 +27,7 @@ void fft(vector<cplx> &p, const vector<cplx> &w) {
     do {
       s >>= 1; j ^= s;
     } while (~j & s);
-    if (i < j) { swap(p[i], p[j]);}
+    if (i < j) { swap(p[i], p[j]); }
   }
   for (int d = 0; (1 << d) < n; ++d) {
     int m = 1 << d, m2 = m * 2, rm = n >> (d + 1);

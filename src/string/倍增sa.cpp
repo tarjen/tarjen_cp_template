@@ -14,9 +14,7 @@ struct Suffix {
       int p = 0;
       for (int i = n - k + 1; i <= n; i++) y[++p] = i;
       for (int i = 1; i <= n; i++) {
-        if (sa[i] > k) {
-          y[++p] = sa[i] - k;
-        }
+        if (sa[i] > k) { y[++p] = sa[i] - k; }
       }
       for (int i = 0; i <= m; i++) c[i] = 0;
       for (int i = 1; i <= n; i++) c[rk[i]]++;
@@ -25,9 +23,7 @@ struct Suffix {
       for (int i = 0; i <= n; i++) swap(rk[i], y[i]);
       rk[sa[1]] = p = 1;
       for (int i = 2; i <= n; i++) {
-        rk[sa[i]] =
-            (y[sa[i]] == y[sa[i - 1]] && y[sa[i] + k] == y[sa[i - 1] + k]
-                 ? p : ++p);
+        rk[sa[i]] = (y[sa[i]] == y[sa[i - 1]] && y[sa[i] + k] == y[sa[i - 1] + k] ? p : ++p);
       }
       if (p >= n) break;
       m = p;
