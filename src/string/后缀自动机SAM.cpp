@@ -39,8 +39,10 @@ struct SAM {
       edg[ep[i].fa].push_back(i);
   }
   void dfs(int u) {
-    for (auto v : edg[u])
-      dfs(v);siz[u] += siz[v];
+    for (auto v : edg[u]){
+      dfs(v);
+      siz[u] += siz[v];
+    }
   }
   void build(string& s) {
     n = s.size();
