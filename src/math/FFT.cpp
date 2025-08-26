@@ -80,5 +80,4 @@ Poly operator*(Poly a, Poly b) {
   return a;
 }
 }  // namespace Polynomial
-/*---------------------------------------------------------------------------*/
 using namespace Polynomial;

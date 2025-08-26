@@ -36,5 +36,4 @@ struct segment {
     return min({dis(s.a), dis(s.b), s.dis(a), s.dis(b)});
   }
 };
-
 using Segment = segment<point_t>;
