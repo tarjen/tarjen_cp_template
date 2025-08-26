@@ -65,8 +65,6 @@ struct Persistent_SegmentTree {
 };
 Persistent_SegmentTree tri;
 int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(0);
   int lastans = 0;
   int n; cin >> n;
   int q; cin >> q;
@@ -83,16 +81,11 @@ int main() {
       nd[i] = tri.update(nd[i], i, pr[a[i]] - 1, 1);
     }
     pr[a[i]] = i;
-    // cout<<"nd[i]="<<nd[i]<<endl;
   }
-  // for(int i=1;i<=n;i++){
-  //     for(int j=1;j<=n;j++)cout<<tri.val(nd[i],j)<<" \n"[j==n];
-  // }
   while (q--) {
     int l, r;
     cin >> l >> r;
     l ^= lastans, r ^= lastans;
-    // cout<<"l="<<l<<" r="<<r<<endl;
     lastans = tri.val(nd[l], r);
     cout << lastans << "\n";
   }

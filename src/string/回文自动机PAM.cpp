@@ -10,8 +10,8 @@ struct PAM {
   PAM() {
     b[0].len = 0;  b[1].len = -1;
     b[0].fail = 1; b[1].fail = 0;
-    last = 0;
-    cnt = 1;}
+    last = 0; cnt = 1;
+  }
   int get_fail(int x) {
     while (s[n - b[x].len - 1] != s[n]) {x = b[x].fail;}
     return x;}

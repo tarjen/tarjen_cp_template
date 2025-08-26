@@ -66,18 +66,14 @@ struct XS {
   void init()  // 删除虚树
   {
     for (auto it : vis) {
-      ve2[it].clear();
-      b[it] = false;
-      sum[it] = 0;
+      ve2[it].clear(); b[it] = false; sum[it] = 0;
     }
-    vis.clear();
-    v1.clear();
+    vis.clear(); v1.clear();
   }
   void makexs() {
     sort(v1.begin(), v1.end(), [&](int x, int y) { return id[x] < id[y]; });
     sta[0] = 0;
-    int top = 1;
-    sta[top] = 1;
+    int top = 1; sta[top] = 1;
     vis.push_back(1);
     for (auto it : v1) {
       int l = lca(it, sta[top]);
@@ -108,15 +104,12 @@ struct XS {
   }
   void addintoxs(int x) {
     if (x == 1) return;
-    v1.push_back(x);
-    b[x] = true;
+    v1.push_back(x); b[x] = true;
   }
   void solve() {
-    now = 0;
-    dfs(1, 0);
+    now = 0; dfs(1, 0);
     for (int i = 1; i <= n; i++) {
-      makexs();
-      init();
+      makexs(); init();
     }
   }
 };

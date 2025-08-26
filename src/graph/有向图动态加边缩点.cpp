@@ -15,12 +15,10 @@ void merge(int x, int y) {
   f[x] = y; siz[y] += siz[x];
   ans += (ll)siz[y] * siz[y];
 }
-int n, m, q;
-int ti[maxn];
+int n, m, q; int ti[maxn];
 ll anss[maxn];
 Edges edge;
-stack<int> s;
-vector<int> ve[maxn];
+stack<int> s; vector<int> ve[maxn];
 int col[maxn], num, dfn[maxn], low[maxn], dfstime;
 void tarjan(int u) {
   s.push(u);
@@ -43,11 +41,9 @@ void tarjan(int u) {
 }
 void color(Edges &edges, Edges &e1, Edges &e2, int mid) {
   for (auto &[x, y, t] : edges)
-    if (x != y)
-      ve[x].push_back(y);
+    if (x != y) ve[x].push_back(y);
   for (auto &[x, y, t] : edges)
-    if (!dfn[x])
-      tarjan(x);
+    if (!dfn[x]) tarjan(x);
   for (auto &[x, y, t] : edges)
     if (x != y) {
     }
@@ -66,8 +62,7 @@ void color(Edges &edges, Edges &e1, Edges &e2, int mid) {
   num = dfstime = 0;
 }
 void solve(int l, int r, Edges edges) {
-  if (l > r)
-    return;
+  if (l > r) return;
   if (l == r) {
     if (l == q)
       return;
@@ -87,8 +82,6 @@ void solve(int l, int r, Edges edges) {
   solve(mid + 1, r, e2);
 }
 int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(0);
   memset(ti, -1, sizeof(ti));
   int n, m, q; cin >> n >> m >> q;
   iota(f, f + n + m + 1, 0);

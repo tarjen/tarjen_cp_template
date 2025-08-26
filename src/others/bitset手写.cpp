@@ -2,8 +2,7 @@ int lim = N / 64 + 3;
 struct Bitset {
   ull v[N / 64 + 5];
   void init() {
-    memset(v, 0, sizeof(v));
-    return;
+    memset(v, 0, sizeof(v)); return;
   }
   bool getBit(int pos) const { return (v[pos >> 6] >> (pos & 63)) & 1; }
   void setBit(int pos, bool val) {

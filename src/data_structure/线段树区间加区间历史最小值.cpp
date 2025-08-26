@@ -15,21 +15,17 @@ struct SegmentTree {
   void pushdown(int i) {
     tag_cal(i);
     if (a[i].l != a[i].r) {
-      tag_union(i, i * 2);
-      tag_union(i, i * 2 + 1);
-    }
+      tag_union(i, i * 2); tag_union(i, i * 2 + 1); }
     tag_init(i);
   }
   void pushup(int i) {
     if (a[i].l == a[i].r) return;
-    pushdown(i * 2);
-    pushdown(i * 2 + 1);
+    pushdown(i * 2); pushdown(i * 2 + 1);
     a[i].res = min(a[i * 2].res, a[i * 2 + 1].res);
     a[i].res2 = min(a[i * 2].res2, a[i * 2 + 1].res2);
   }
   void build(int i, int l, int r) {
-    a[i].l = l, a[i].r = r;
-    tag_init(i);
+    a[i].l = l, a[i].r = r; tag_init(i);
     if (l >= r) return;
     int mid = (l + r) / 2;
     build(i * 2, l, mid);
@@ -43,8 +39,7 @@ struct SegmentTree {
       a[i].tag2 = min(a[i].tag2, a[i].tag);
       return;
     }
-    update(i * 2, l, r, w);
-    update(i * 2 + 1, l, r, w);
+    update(i * 2, l, r, w); update(i * 2 + 1, l, r, w);
     pushup(i);
   }
   int query(int i, int l, int r) {
@@ -58,12 +53,10 @@ struct SegmentTree {
 };
 SegmentTree tri;
 signed main() {
-  int n, m;
-  cin >> n >> m;
+  int n, m; cin >> n >> m;
   tri.build(1, 1, n);
   for (int i = 1; i <= m; i++) {
-    int ops;
-    cin >> ops;
+    int ops; cin >> ops;
     if (ops == 1) {
       int l, r, x;
       cin >> l >> r >> x;
@@ -73,6 +66,5 @@ signed main() {
       cin >> l >> r;
       cout << tri.query(1, l, r) << "\n";
     }
-  }
-  return 0;
+  }return 0;
 }

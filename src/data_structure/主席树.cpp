@@ -20,9 +20,8 @@ struct Persistent_SegmentTree {
     else
       update(rch[rot], rch[pr], mid + 1, R, k);
   }
-  int getcnt(int s, int t, int L, int R, int l,
-             int r) ｛ // s,t为root[l],root[r]的根节点
-                      // 中所有大小在[l,r]之间数字出现次数
+  int getcnt(int s, int t, int L, int R, int l,int r) { 
+    // s,t为root[l],root[r]的根节点中所有大小在[l,r]之间数字出现次数
     if (l <= L && R <= r) return cnt[t] - cnt[s];
     int res = 0;
     int mid = (L + R) >> 1;
@@ -30,9 +29,8 @@ struct Persistent_SegmentTree {
     if (r > mid) res += getcnt(rch[s], rch[t], mid + 1, R, l, r);
     return res;
   }
-  int getsum(
-      int s, int t, int L, int R, int l,
-      int r)  { // s,t为root[l],root[r]的根节点 中所有大小在[l,r]之间数字的和
+  int getsum(int s, int t, int L, int R, int l,int r)  { 
+    // s,t为root[l],root[r]的根节点 中所有大小在[l,r]之间数字的和
     if (l <= L && R <= r) return sum[t] - sum[s];
     int res = 0;
     int mid = (L + R) >> 1;

@@ -1,8 +1,7 @@
 const int N = 2e6;
 struct SAM {
   struct Node {
-    int tr[26];
-    int len, fa;
+    int tr[26]; int len, fa;
     Node() {
       memset(tr, 0, sizeof(tr));
       len = fa = 0;

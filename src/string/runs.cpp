@@ -24,10 +24,7 @@ struct LongestCommonPrefix {
       cur.resize(2 * n, -1);
       k = 0;
       for (int i = 0; i < n; i += 1)
-        rank[p[i]] = i and cur[p[i]] == cur[p[i - 1]] and
-                             cur[p[i] + m] == cur[p[i - 1] + m]
-                         ? rank[p[i - 1]]
-                         : k++;
+        rank[p[i]] = i and cur[p[i]] == cur[p[i - 1]] and cur[p[i] + m] == cur[p[i - 1] + m] ? rank[p[i - 1]] : k++;
     }
     st.emplace_back(n);
     for (int i = 0, k = 0; i < n; i += 1) {
@@ -46,8 +43,7 @@ struct LongestCommonPrefix {
   int get(int i, int j) {
     if (i == j) return n - i;
     if (i == n or j == n) return 0;
-    i = rank[i];
-    j = rank[j];
+    i = rank[i]; j = rank[j];
     if (i > j) swap(i, j);
     int k = 64 - __builtin_clzll(u64(j - i)) - 1;
     return min(st[k][i + 1], st[k][j - (1 << k) + 1]);

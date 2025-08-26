@@ -7,9 +7,8 @@ struct KMP {               // 1base
     nxt[1] = 0;
     int x = 2, now = 1;  // x是s2当前搜索到的位置，now是前缀位置
     while (x <= n) {
-      if (s[x] == s[now]) {
-        nxt[x] = now; now++; x++;
-      } else {
+      if (s[x] == s[now]) {nxt[x] = now; now++; x++;}
+      else {
         if (now > 1) {
           now = nxt[now - 1] + 1;
         } else {
@@ -22,9 +21,8 @@ struct KMP {               // 1base
     int now = 1, tar = 1;
     len1 = strlen(s1 + 1);
     while (tar <= len1) {
-      if (s1[tar] == s[now]) {
-        tar++; now++;
-      } else {
+      if (s1[tar] == s[now]) {tar++; now++;} 
+      else {
         if (now > 1) { now = nxt[now - 1] + 1; } else tar++;
       }
       if (now == n + 1) {
@@ -36,8 +34,7 @@ struct KMP {               // 1base
 KMP sol;
 int main() {
   scanf("%s%s", sol.s1 + 1, sol.s + 1);
-  sol.build();
-  sol.find();
+  sol.build(); sol.find();
   for (int i = 1; i <= sol.n; i++) cout << sol.nxt[i] << " ";
   return 0;
 }

@@ -24,8 +24,7 @@ struct PairLCS {
 };
 int cas;
 void solution() {
-  int q;
-  std::string s, t;
+  int q; std::string s, t;
   std::cin >> q >> s >> t;
   // int n = s.size(), m = t.size();
   PairLCS solver(s, t);

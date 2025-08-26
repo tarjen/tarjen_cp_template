@@ -1,6 +1,5 @@
 const int maxn = 1e6 + 10;
-int n;
-char c[maxn];
+int n; char c[maxn];
 struct AC {
   int trie[maxn][26], tot;
   int e[maxn], fail[maxn], old[maxn];
@@ -35,8 +34,7 @@ struct AC {
           qu.push(trie[x][i]);
         } else
           trie[x][i] = trie[fail[x]][i];
-        old[trie[x][i]] =
-            e[fail[trie[x][i]]] ? fail[trie[x][i]] : old[fail[trie[x][i]]];
+        old[trie[x][i]] = e[fail[trie[x][i]]] ? fail[trie[x][i]] : old[fail[trie[x][i]]];
       }
     }
   }
@@ -45,8 +43,7 @@ struct AC {
     for (int i = 1; t[i]; i++) {
       x = trie[x][t[i] - 'a'];
       for (int j = x; j && e[j] != -1; j = old[j]) {
-        res += e[j];
-        e[j] = -1;
+        res += e[j]; e[j] = -1;
       }
     }
     return res;

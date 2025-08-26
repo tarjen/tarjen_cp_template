@@ -6,8 +6,7 @@ struct SegmentTree {
   Node a[maxn * 4];
   int qry(int x, int i) {  // 起点大过x
     if (a[i].l == a[i].r) {
-      return a[i].mx > x;
-    }
+      return a[i].mx > x; }
     if (a[i * 2].mx > x) {
       return a[i].len - a[i * 2].len + qry(x, 2 * i);
     } else

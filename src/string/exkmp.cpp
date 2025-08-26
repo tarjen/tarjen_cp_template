@@ -10,8 +10,7 @@ struct EXKMP {  // S里找T
 
     for (int i = 3; i <= lenT; i++) {  // 注意此时 k + 1 = i
       int len = next[i - pos + 1];
-      if (len + i < p + 1)
-        next[i] = len;  // 对应上面第一种情况
+      if (len + i < p + 1) next[i] = len;  // 对应上面第一种情况
       else {
         int j = max(p - i + 1, 0);  // 找到前面对于 子串 最靠后已经匹配的位置
         while (i + j <= lenT && T[j + 1] == T[i + j])++j; // 第二种需要暴力匹配
@@ -27,8 +26,7 @@ struct EXKMP {  // S里找T
 
     for (int i = 2; i <= lenS; i++) {
       int len = next[i - pos + 1];
-      if (len + i < p + 1)
-        extend[i] = len;
+      if (len + i < p + 1) extend[i] = len;
       else {
         int j = max(p - i + 1, 0);
         while (i + j <= lenS && j <= lenT && T[j + 1] == S[i + j]) ++j;

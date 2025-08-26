@@ -1,9 +1,7 @@
 const int N = 1e6 + 10;  // 2*strlen
 struct Suffix {
   int ht[N], rk[N], sa[N], y[N], c[N];
-  int n, m;
-  char s[N];
-  int st[20][N];
+  int n, m; char s[N]; int st[20][N];
   void init() {
     n = strlen(s + 1);
     m = 300;
@@ -29,8 +27,7 @@ struct Suffix {
       for (int i = 2; i <= n; i++) {
         rk[sa[i]] =
             (y[sa[i]] == y[sa[i - 1]] && y[sa[i] + k] == y[sa[i - 1] + k]
-                 ? p
-                 : ++p);
+                 ? p : ++p);
       }
       if (p >= n) break;
       m = p;

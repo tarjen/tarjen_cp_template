@@ -3,23 +3,17 @@ struct SegmentMap {
   int sum = 0;
   int n;
   SegmentMap(int _n = 0) {
-    n = _n;
-    ma[1] = 0;
-    ma[n + 1] = -1;
+    n = _n; ma[1] = 0; ma[n + 1] = -1;
   }
   void del(int l, int r, int x) {  // 减去当前 (l,r,x) 的贡献
-    sum -= (r - l + 1) * x;
-  }
+    sum -= (r - l + 1) * x; }
   void add(int l, int r, int x) {  // 加上当前 (l,r,x) 的贡献
-    sum += (r - l + 1) * x;
-  }
+    sum += (r - l + 1) * x; }
   void split(int x) {
     auto t = prev(ma.upper_bound(x))->second;
-    ma[x] = t;
-  }
+    ma[x] = t; }
   void update(int l, int r, auto&& T) {
-    split(l);
-    split(r + 1);
+    split(l); split(r + 1);
     auto it = prev(ma.upper_bound(l));
     int pr = -1;
     while (it->first <= r) {
