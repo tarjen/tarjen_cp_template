@@ -27,7 +27,7 @@
 // }
 // TODO: Typst cannot yet balance columns automatically.
 // CHANGE ME: adjust the height of the block below to fit your content.
-#block(height: 67em, columns(2, outline(depth: 2, indent: 1em)))
+#block(height: 68em, columns(2, outline(depth: 2, indent: 1em)))
 
 = 杂项
 #include "src/note/misc.typ"

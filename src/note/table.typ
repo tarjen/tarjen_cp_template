@@ -2,7 +2,7 @@
 
 #table(
   columns: (0.5fr, 1fr, 1fr, 1fr, 1fr, 1fr),
-  inset: (top: 0.45em, bottom: 0.45em, left: 0.5em, right: 0.5em),
+  inset: (top: 0.42em, bottom: 0.42em, left: 0.5em, right: 0.5em),
   align: (right, right, right, right, right, right),
   fill: (x, y) => if y == 0 { luma(240) },
   table.header([$n$], [$log_10 n$], [$n!$], [$C(n, n/2)$], [$lcm(1 dots.h n)$], [$P_n$]),
