@@ -38,7 +38,7 @@ int merge(int a, int b, int l, int r) {
   sum[a] = sum[ls[a]] + sum[rs[a]];
   return a;
 }
-void split(int& p, int& q, int L, int R, int l, int r) {  // p 原树 q新树
+void split(int& p, int& q, int L, int R, int l, int r) { // p 原树 q新树
   if (R < l || r < L) return;
   if (!p) return;
   if (l <= L && R <= r) {
@@ -51,7 +51,7 @@ void split(int& p, int& q, int L, int R, int l, int r) {  // p 原树 q新树
   sum[p] = sum[ls[p]] + sum[rs[p]];
   sum[q] = sum[ls[q]] + sum[rs[q]];
 }
-int query1(int& Sum, int Up, int rt, int l, int r) {  // min_x of f(x)+x>Up
+int query1(int& Sum, int Up, int rt, int l, int r) { // min_x of f(x)+x>Up
   if (!rt) {
     if (r + Sum <= Up) return -1;
     else return r - (r + Sum - Up) + 1;

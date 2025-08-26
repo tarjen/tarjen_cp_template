@@ -78,7 +78,6 @@ void solve(int l, int r, Edges edges) {
   color(e, e1, e2, mid);
   solve(l, mid - 1, e1);
   for (auto [x, y, t] : e1) merge(x, y);
-
   solve(mid + 1, r, e2);
 }
 int main() {

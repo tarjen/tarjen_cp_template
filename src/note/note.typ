@@ -20,7 +20,7 @@ $ ceil(m/n) = floor((m-1)/n) +1 $
 
 $ g(x)=sum_(i=1)^(min(L,B)) floor(x/i) + sum_(i=1)^(B)max(0,min(floor(x/i) ,L)-B) $
 
-== Prufer序列
+== Prufer 序列
 
 二分完全图生成树数量 $ n_1^(n_2-1) n_2^(n_1-1)$
 

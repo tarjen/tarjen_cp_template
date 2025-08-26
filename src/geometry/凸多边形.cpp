@@ -112,5 +112,4 @@ struct convex : polygon<T> {
     return {i, j};
   }
 };
-
 using Convex = convex<point_t>;

@@ -20,5 +20,4 @@ struct line {
     return p + v * ((v * (a - p)) / (v * v));
   }  // 点在直线上的投影
 };
-
 using Line = line<point_t>;
