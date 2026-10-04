@@ -1,110 +1,74 @@
-// seive 和 init 要求的 n
+// min25 sieve(n,prime_mod); cal0..cal3查询分块点上的质数幂和；积性函数部分需显式提供系数与prime-power回调。
 #include <bits/stdc++.h>
-#define rep(i, l, r) for (int i = l; i <= r; ++i)
-#define repd(i, l, r) for (int i = l; i >= r; --i)
 using namespace std;
-typedef long long ll;
-#define int long long
-const int N = 1e5 + 100;
-const int M = 1e4;
-const ll mod = 1e9 + 7;
-ll p[M];
-int cnt;
-ll getmi(ll x, ll y) {
-    ll ret = 1;
-    while (y) {
-        if (y & 1) ret = ret * x % mod;
-        x = x * x % mod;
-        y = y >> 1;
-    }
-    return ret;
-}
-const ll inv2 = getmi(2, mod - 2);
-const ll inv4 = getmi(4, mod - 2);
-const ll inv6 = getmi(6, mod - 2);
-bitset<N> v;
-void seive() {
-    for (int i = 2; i < N; ++i) {
-        if (!v[i]) p[++cnt] = i;
-        for (int j = 1; j <= cnt && i * p[j] < N; ++j) {
-            v[i * p[j]] = true;
-            if (i % p[j] == 0) break;
-        }
-    }
-}
+
 struct min25 {
-    ll n, sum0[M], sum1[M], sum2[M], sum3[M];
-    ll w[N << 1], g0[N << 1], g1[N << 1], g2[N << 1], g3[N << 1], G[N << 1];
-    int id1[N], id2[N], tot, sq;
-    // min25使用条件：积性函数前缀和&&素数幂次值的点可以快速求
-    ll calc(ll j, ll x)  // f(p^x)的值 是一个积性函数
-    {
-        return p[j] ^ x;
-    }
-
-    int getid(ll x) {
-        if (x <= sq) return id1[x];
-        return id2[n / x];
-    }
-    void init(ll nn) {
-        for (int i = 1; i <= cnt; ++i) {
-            sum0[i] = (sum0[i - 1] + 1) % mod;
-            sum1[i] = (sum1[i - 1] + p[i]) % mod;
-            sum2[i] = (sum2[i - 1] + p[i] * p[i] % mod) % mod;
-            sum3[i] = (sum3[i - 1] + p[i] * p[i] % mod * p[i] % mod) % mod;
-        }  // 前i个素数幂和
-        tot = 0;
-        n = nn;
-        sq = sqrt(n);
-        for (ll r, mm, m, l = 1; l <= n; l = r + 1) {
-            r = n / (n / l);
-
-            w[tot] = m = mm = n / l;
-            mm %= mod;
-            g0[tot] = (mm - 1) % mod;
-            g1[tot] = mm * (mm + 1) % mod * inv2 % mod - 1;
-            g2[tot] =
-                mm * (mm + 1) % mod * (2 * mm % mod + 1) % mod * inv6 % mod - 1;
-            g3[tot] =
-                mm * mm % mod * (mm + 1) % mod * (mm + 1) % mod * inv4 % mod -
-                1;
-            if (m <= sq)
-                id1[m] = tot;
-            else
-                id2[n / m] = tot;
-            ++tot;
-        }
-        for (int i = 1; i <= cnt; ++i) {
-            for (int j = 0; j < tot && p[i] * p[i] <= w[j]; ++j) {
-                ll t = getid(w[j] / p[i]);
-                g0[j] = (g0[j] - (g0[t] - sum0[i - 1]) % mod) % mod;
-                g1[j] = (g1[j] - p[i] * (g1[t] - sum1[i - 1]) % mod) % mod;
-                g2[j] =
-                    (g2[j] - p[i] * p[i] % mod * (g2[t] - sum2[i - 1]) % mod) %
-                    mod;
-                g3[j] = (g3[j] - p[i] * p[i] % mod * p[i] % mod *
-                                     (g3[t] - sum3[i - 1]) % mod) %
-                        mod;
+    using ll=long long;
+    ll n;
+    int sq,mod;
+    vector<int> p,id1,id2;
+    vector<ll> w,G;
+    array<vector<ll>,4> g,sum;
+    bool multiplicative_ready=false;
+    explicit min25(ll n,int mod=1000000007): n(n),sq(sqrt((long double)n)),mod(mod) {
+        assert(n>=1&&mod>3); // mod为质数。
+        while(1LL*(sq+1)*(sq+1)<=n) sq++;
+        while(1LL*sq*sq>n) sq--;
+        vector<char> composite(sq+1); p.push_back(0);
+        for(int i=2;i<=sq;i++) {
+            if(!composite[i]) p.push_back(i);
+            for(int j=1;j<(int)p.size()&&p[j]<=sq/i;j++) {
+                composite[i*p[j]]=true; if(i%p[j]==0) break;
             }
-        }  // g_i表示素数i次幂和
-        // 下面是积性函数求和部分
-        rep(i, 0, tot - 1) G[i] =
-            ((g1[i] - g0[i]) % mod + mod) %
-            mod;  // G[i]表示1到i中所有积性函数在素数点值的和
-        repd(j, cnt, 1) rep(i, 0, tot - 1) {
-            if ((ll)p[j] * p[j] > w[i]) break;
-            for (ll k = p[j], c = 1; k * p[j] <= w[i];
-                 ++c, k *= p[j], (G[i] += calc(j, c)) %= mod)
-                (G[i] += (calc(j, c)) % mod *
-                         (G[getid(w[i] / k)] -
-                          (g1[getid(p[j])] - g0[getid(p[j])]) % mod + mod) %
-                         mod) %=
-                    mod;  // 后面减掉的部分是函数在前j个数组处值的和
+        }
+        for(auto& s:sum) s.assign(p.size(),0);
+        for(int i=1;i<(int)p.size();i++) {
+            ll power=1;
+            for(int k=0;k<4;k++) sum[k][i]=(sum[k][i-1]+power)%mod,power=power*p[i]%mod;
+        }
+        id1.assign(sq+1,-1); id2.assign(sq+1,-1);
+        ll inv2=powmod(2,mod-2),inv4=powmod(4,mod-2),inv6=powmod(6,mod-2);
+        for(ll l=1,r;l<=n;l=r+1) {
+            ll value=n/l; r=n/value; int id=w.size(); w.push_back(value);
+            if(value<=sq) id1[value]=id; else id2[n/value]=id;
+            ll x=value%mod;
+            g[0].push_back(norm(x-1));
+            g[1].push_back(norm(x*(x+1)%mod*inv2%mod-1));
+            g[2].push_back(norm(x*(x+1)%mod*(2*x+1)%mod*inv6%mod-1));
+            g[3].push_back(norm(x*x%mod*(x+1)%mod*(x+1)%mod*inv4%mod-1));
+        }
+        for(int i=1;i<(int)p.size();i++) {
+            ll power[4]={1,p[i],1LL*p[i]*p[i]%mod,1LL*p[i]*p[i]%mod*p[i]%mod};
+            for(int j=0;j<(int)w.size()&&p[i]<=w[j]/p[i];j++) {
+                int t=getid(w[j]/p[i]);
+                for(int k=0;k<4;k++) g[k][j]=norm(g[k][j]-power[k]*norm(g[k][t]-sum[k][i-1])%mod);
+            }
         }
     }
-    ll get(ll x) { return G[getid(x)] + 1; }
-    ll cal0(ll r) { return (g0[getid(r)]) % mod; }
-    ll cal1(ll r) { return (g1[getid(r)]) % mod; }
-    ll cal2(ll r) { return (g2[getid(r)]) % mod; }
-    ll cal3(ll r) { return (g3[getid(r)]) % mod; }
-} m2;
+    ll norm(ll x) const { x%=mod; return x<0?x+mod:x; }
+    ll powmod(ll x,ll e) const { ll r=1; for(;e;e>>=1,x=x*x%mod) if(e&1) r=r*x%mod; return r; }
+    // 仅接受预处理的整除分块点x=floor(n/i)。
+    int getid(ll x) const {
+        assert(1<=x&&x<=n);
+        int id=x<=sq?id1[x]:id2[n/x]; assert(id>=0&&w[id]==x); return id;
+    }
+    ll cal0(ll x) const { return g[0][getid(x)]; }
+    ll cal1(ll x) const { return g[1][getid(x)]; }
+    ll cal2(ll x) const { return g[2][getid(x)]; }
+    ll cal3(ll x) const { return g[3][getid(x)]; }
+    // f(p)=coef[0]+coef[1]*p+coef[2]*p^2+coef[3]*p^3；calc(p,e)提供f(p^e)，f(1)=1。
+    template<class Calc> void build_multiplicative(array<ll,4> coef,Calc calc) {
+        G.assign(w.size(),0);
+        for(int i=0;i<(int)w.size();i++) for(int k=0;k<4;k++) G[i]=norm(G[i]+norm(coef[k])*g[k][i]%mod);
+        vector<ll> prefix=G;
+        for(int j=(int)p.size()-1;j>=1;j--) {
+            ll prime=p[j];
+            for(int i=0;i<(int)w.size()&&prime<=w[i]/prime;i++) {
+                for(ll power=prime,e=1;power<=w[i]/prime;power*=prime,e++)
+                    G[i]=norm(G[i]+norm(calc(prime,e))*norm(G[getid(w[i]/power)]-prefix[getid(prime)])%mod+norm(calc(prime,e+1)));
+            }
+        }
+        multiplicative_ready=true;
+    }
+    ll get(ll x) const { assert(multiplicative_ready); return norm(G[getid(x)]+1); }
+};

@@ -1,38 +1,34 @@
 // 1base；SegmentTree tr(n)初值为0，或tr(a)接收1base数组；update/query省略根编号。
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
-const long long inf = numeric_limits<long long>::max();
 struct Node{
-    int l,r; long long res=0,tag=0,tag2=0,res2=0;
+    int l,r; long long res=0,tag=0;
 };
 struct SegmentTree{
     int n;
     vector<Node> a;
     explicit SegmentTree(int n): n(n),a(4*n+4) { if(n) build(1,1,n); }
-    // 输入a为1base；历史最小值也从输入值开始计算。
+    // 输入v为1base，v[0]不参与计算。
     explicit SegmentTree(const vector<long long>& v): SegmentTree((int)v.size()-1) {
         if(n) load(1,v);
     }
     void load(int i,const vector<long long>& v) {
         if(a[i].l==a[i].r) {
             a[i].res=v[a[i].l];
-            a[i].res2=a[i].res;
+
             return;
         }
         load(i*2,v); load(i*2+1,v); pushup(i);
     }
 
     void tag_init(int i){
-        a[i].tag=a[i].tag2=0;
+        a[i].tag=0;
     }
     void tag_union(int fa,int i){
-        if(a[fa].tag2<0)a[i].tag2=min(a[i].tag2,a[i].tag+a[fa].tag2);
         a[i].tag+=a[fa].tag;
     }
     void tag_cal(int i){
-        if(a[i].tag2<0)a[i].res2=min(a[i].res2,a[i].res+a[i].tag2);
-        a[i].res+=a[i].tag;
+        a[i].res+=a[i].tag*(a[i].r-a[i].l+1);
     }
     void pushdown(int i){
         tag_cal(i);
@@ -46,22 +42,20 @@ struct SegmentTree{
         if(a[i].l==a[i].r)return;
         pushdown(i*2);
         pushdown(i*2+1);
-        a[i].res=min(a[i*2].res,a[i*2+1].res);
-        a[i].res2=min(a[i*2].res2,a[i*2+1].res2);
+        a[i].res=a[i*2].res+a[i*2+1].res;
     }
     void build(int i,int l,int r){
-        a[i].l=l,a[i].r=r;tag_init(i);
+        a[i].l=l,a[i].r=r;tag_init(i);a[i].res=0;
         if(l>=r)return;
         int mid=(l+r)/2;
         build(i*2,l,mid);
         build(i*2+1,mid+1,r);
     }
     void update(int i,int l,int r,long long w){
-        if(a[i].r<l||a[i].l>r||l>r)return;
         pushdown(i);
+        if(a[i].r<l||a[i].l>r||l>r)return;
         if(a[i].l>=l&&a[i].r<=r){
-            a[i].tag+=w;
-            a[i].tag2=min(a[i].tag2,a[i].tag);
+            a[i].tag=w;
             return;
         }
         update(i*2,l,r,w);
@@ -70,12 +64,12 @@ struct SegmentTree{
     }
     long long query(int i,int l,int r){
         pushdown(i);
-        if(a[i].r<l||a[i].l>r||l>r)return inf;
+        if(a[i].r<l||a[i].l>r||l>r)return 0;
         if(a[i].l>=l&&a[i].r<=r){
-            return a[i].res2;
+            return a[i].res;
         }
-        return min(query(i*2,l,r),query(i*2+1,l,r));
+        return query(i*2,l,r)+query(i*2+1,l,r);
     }
 void update(int l,int r,long long w) { if(n) update(1,l,r,w); }
-    long long query(int l,int r) { return n?query(1,l,r):inf; }
+    long long query(int l,int r) { return n?query(1,l,r):0; }
 };

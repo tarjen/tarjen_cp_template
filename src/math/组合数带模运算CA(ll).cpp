@@ -1,11 +1,11 @@
-// Comb c(n,mod=1000000007); C(n,m)/A(n,m); mod为质数且预处理上界n<mod。
+// Comb c(n,mod=998244353); inv为阶乘逆元；非法选择数返回0。
 #include <bits/stdc++.h>
 using namespace std;
 
 struct Comb {
     int n,mod;
     vector<int> fac,inv;
-    Comb(int n,int mod=1000000007): n(n),mod(mod),fac(n+1,1),inv(n+1,1) {
+    Comb(int n,int mod=998244353): n(n),mod(mod),fac(n+1,1),inv(n+1,1) {
         assert(0<=n&&n<mod); // mod须为质数。
         for(int i=1;i<=n;i++) fac[i]=1LL*fac[i-1]*i%mod;
         inv[n]=ksm(fac[n],mod-2);

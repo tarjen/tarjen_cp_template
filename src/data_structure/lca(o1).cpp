@@ -1,29 +1,42 @@
-const int maxn = 1e5 + 10;  // 注意开两倍大小的空间 在dp上
-vector<pair<int, int>> ve[maxn];
-int dep[maxn];
-pair<int, int> dp[21][maxn * 2];
-int dfn[maxn];
-vector<int> sp;
-void dfs(int u, int fa) {
-    dfn[u] = sp.size();
-    sp.push_back(u);
-    for (auto& e : ve[u])
-        if (e.first != fa) {
-            int& v = e.first;
-            dfs(v, u);
-            sp.push_back(u);
+// 1base连通树；LCA t(n); addedge(u,v); build(root); lca(u,v)为O(1)。
+#include <bits/stdc++.h>
+using namespace std;
+
+struct LCA {
+    int n;
+    vector<vector<pair<int,int>>> ve;
+    vector<int> dep,dfn,sp;
+    vector<vector<pair<int,int>>> dp;
+    explicit LCA(int n): n(n),ve(n+1),dep(n+1),dfn(n+1) {}
+    LCA(const vector<vector<pair<int,int>>>& graph,int root=1): LCA((int)graph.size()-1) { ve=graph; build(root); }
+    void addedge(int u,int v,int w=1) { ve[u].push_back({v,w}); ve[v].push_back({u,w}); }
+    void build(int root=1) {
+        sp.clear(); fill(dep.begin(),dep.end(),0); fill(dfn.begin(),dfn.end(),0);
+        if(!n) { dp.clear(); return; }
+        struct Frame { int u,fa,next; };
+        vector<Frame> stack{{root,0,0}};
+        dfn[root]=0; sp.push_back(root);
+        while(!stack.empty()) {
+            auto& frame=stack.back(); int u=frame.u;
+            if(frame.next==(int)ve[u].size()) {
+                stack.pop_back(); if(!stack.empty()) sp.push_back(stack.back().u);
+            } else {
+                int v=ve[u][frame.next++].first;
+                if(v==frame.fa) continue;
+                dep[v]=dep[u]+1; dfn[v]=sp.size(); sp.push_back(v);
+                stack.push_back({v,u,0});
+            }
         }
-}
-void initrmq() {
-    int n = sp.size();
-    for (int i = 0; i < n; i++) dp[0][i] = {dfn[sp[i]], sp[i]};
-    for (int i = 1; (1 << i) <= n; i++)
-        for (int j = 0; j + (1 << i) - 1 < n; j++)
-            dp[i][j] = min(dp[i - 1][j], dp[i - 1][j + (1 << (i - 1))]);
-}
-int lca(int u, int v) {
-    int l = dfn[u], r = dfn[v];
-    if (l > r) swap(l, r);
-    int k = __lg(r - l + 1);
-    return min(dp[k][l], dp[k][r - (1 << k) + 1]).second;
-}
+        initrmq();
+    }
+    void initrmq() {
+        int m=sp.size(); dp.assign(__lg(m)+1,vector<pair<int,int>>(m));
+        for(int i=0;i<m;i++) dp[0][i]={dfn[sp[i]],sp[i]};
+        for(int k=1;k<(int)dp.size();k++)
+            for(int i=0;i+(1<<k)<=m;i++) dp[k][i]=min(dp[k-1][i],dp[k-1][i+(1<<(k-1))]);
+    }
+    int lca(int u,int v) const {
+        int l=dfn[u],r=dfn[v]; if(l>r) swap(l,r);
+        int k=__lg(r-l+1); return min(dp[k][l],dp[k][r-(1<<k)+1]).second;
+    }
+};

@@ -1,17 +1,20 @@
-const int maxn = 3e6 + 10;
-int sumf[maxn];
-int Sum(int n) {  // 这是 f * g 的 n 项前缀和
-}
-int Sumg(int n) {  // g 的 n 项前缀和
-}
-map<int, int> f;
-int F(int n) {
-    if (n <= 3000'000) return sumf[n];  // 预处理出 n 较小时的前缀和
-    if (f.find(n) != f.end())
-        return f[n];  // 记忆化，如果求过这个值，就不需要再递归一遍了
-    int ans = Sum(n);
-    for (int l = 2, r; l <= n; l = r + 1)  // 整除分块
-        r = n / (n / l), ans -= (Sumg(r) - Sumg(l - 1)) * F(n / l);
-    // [l,r] 的 F (n / l) 是一样的，对 g(x) 求个和即可
-    return f[n] = ans / Sumg(1);  // 别忘了除上 g(1)
-}
+// DuJiaoSieve d(prefix,sum_fg,sum_g); F(n)；prefix为0base已知前缀和，两个回调提供卷积和g的前缀和。
+#include <bits/stdc++.h>
+using namespace std;
+
+struct DuJiaoSieve {
+    using ll=long long;
+    vector<ll> sumf;
+    function<ll(ll)> convolution_prefix,g_prefix;
+    unordered_map<ll,ll> cache;
+    DuJiaoSieve(vector<ll> prefix,function<ll(ll)> sum,function<ll(ll)> sumg):
+        sumf(move(prefix)),convolution_prefix(move(sum)),g_prefix(move(sumg)) { assert(!sumf.empty()&&g_prefix(1)!=0); }
+    ll F(ll n) {
+        assert(n>=0);
+        if(n<(ll)sumf.size()) return sumf[n];
+        auto it=cache.find(n); if(it!=cache.end()) return it->second;
+        ll ans=convolution_prefix(n);
+        for(ll l=2,r;l<=n;l=r+1) { r=n/(n/l); ans-=(g_prefix(r)-g_prefix(l-1))*F(n/l); }
+        return cache[n]=ans/g_prefix(1);
+    }
+};

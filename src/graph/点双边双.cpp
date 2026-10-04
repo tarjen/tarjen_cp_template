@@ -1,167 +1,73 @@
+// 1base无向图；BCC b(n); link(u,v); build(); bcc为点双，ebcc为边双，均1base；孤立点单独成分量。
 #include <bits/stdc++.h>
- 
 using namespace std;
-typedef pair<int,int> pii;
-const int N = 1010;
-const int M = N*N;
-int _w;
- 
-int n, m;
- 
-namespace G {
-	int head[N], nxt[M], to[M], tot;
-	void init() {
-		tot = 0;
-		memset(head, -1, sizeof head);
-	}
-	void link( int u, int v ) {
-		to[tot] = v, nxt[tot] = head[u], head[u] = tot++;
-		to[tot] = u, nxt[tot] = head[v], head[v] = tot++;
-	}
-}
- 
-///vertex
-namespace VBCC {
-	int dfn[N], dfs_clock, low[N], bcc_cnt, iscut[N];
-	vector<int> bcc[N];
-	set<int> bccno[N];
-	stack<pii> stk;
-	int bcc_edge[N];
- 
-	void dfs( int u, int fa ) {
-		using namespace G;
-		low[u] = dfn[u] = ++dfs_clock;
-		int child = 0;
-		for( int e = head[u]; ~e; e = nxt[e] ) {
-			int v = to[e];
-			if( v == fa ) continue;
-			if( !dfn[v] ) {
-				stk.push( pii(u, v) );
-				dfs(v, u);
-				++child;
-				low[u] = min( low[u], low[v] );
-				if( low[v] >= dfn[u] ) {
-					iscut[u] = true;
-					++bcc_cnt;
-					bcc[bcc_cnt].clear();
-					while(1) {
-						pii e = stk.top(); stk.pop();
-						++bcc_edge[bcc_cnt];
-						if( bccno[e.first].count(bcc_cnt) == 0 ) {
-							bccno[e.first].insert(bcc_cnt);
-							bcc[bcc_cnt].push_back(e.first);
-						}
-						if( bccno[e.second].count(bcc_cnt) == 0 ) {
-							bccno[e.second].insert(bcc_cnt);
-							bcc[bcc_cnt].push_back(e.second);
-						}
-						if( e.first == u && e.second == v ) break;
-					}
-				}
-			} else if( dfn[v] < dfn[u] ) {
-				stk.push( pii(u, v) );
-				low[u] = min( low[u], dfn[v] );
-			}
-		}
-		if( fa == -1 && child == 1 ) iscut[u] = false;
-	}
-	void find_bcc() {
-		memset(dfn, 0, sizeof dfn);
-		dfs_clock = 0;
-		for( int i = 0; i < N; ++i )
-			bccno[i].clear();
-		bcc_cnt = 0;
-		memset(iscut, 0, sizeof iscut);
-		memset(bcc_edge, 0, sizeof bcc_edge);
-		for( int i = 1; i <= n; ++i )
-			if( !dfn[i] )
-				dfs(i, -1);
-	}
-}
- 
-///edge
-namespace EBCC {
-	int dfn[N], low[N], dfs_clock, bcc_cnt, bccno[N];
-	stack<int> stk;
- 
-	void dfs( int u, int fa ) {
-		using namespace G;
-		dfn[u] = low[u] = ++dfs_clock;
-		stk.push(u);
-		for( int e = head[u]; ~e; e = nxt[e] ) {
-			int v = to[e];
-			if( v == fa ) continue;
-			if( dfn[v] ) {
-				low[u] = min( low[u], dfn[v] );
-			} else {
-				dfs(v, u);
-				low[u] = min( low[u], low[v] );
-			}
-		}
-		if( low[u] >= dfn[u] ) {
-			++bcc_cnt;
-			while(1) {
-				int nod = stk.top(); stk.pop();
-				bccno[nod] = bcc_cnt;
-				if( nod == u ) break;
-			}
-		}
-	}
-	void find_bcc() {
-		memset(dfn, 0, sizeof dfn);
-		memset(low, 0, sizeof low);
-		dfs_clock = bcc_cnt = 0;
-		memset(bccno, 0, sizeof bccno);
-		for( int i = 1; i <= n; ++i )
-			if( !dfn[i] )
-				dfs(1, -1);
-	}
-}
- 
-void cnode() {
-	int ans = 0;
-	for( int i = 1; i <= n; ++i )
-		ans += (int)VBCC::iscut[i];
-	printf( "%d ", ans );
-}
- 
-void clink() {
-	printf( "%d ", EBCC::bcc_cnt-1 );
-}
- 
-int number_comp() {
-	using namespace VBCC;
-	return bcc_cnt;
-}
- 
-int large_comp() {
-	using namespace VBCC;
-	int ans = 0;
-	for( int i = 1; i <= bcc_cnt; ++i )
-		ans = max(ans, bcc_edge[i]);
-	return ans;
-}
- 
-int main() {
-	int T;
-	_w = scanf( "%d", &T );
-	while( T-- ) {
-		_w = scanf( "%d%d", &n, &m );
-		G::init();
-		for( int i = 0; i < m; ++i ) {
-			int u, v;
-			_w = scanf( "%d%d", &u, &v );
-			G::link(u, v);
-		}
-		VBCC::find_bcc();
-		EBCC::find_bcc();
-		cnode();
-		clink();
-		int p = number_comp();
-		int q = large_comp();
-		int g = __gcd(p, q);
-		if( g != 0 ) p /= g, q /= g;
-		printf( "%d %d\n", p, q );
-	}
-	return 0;
-}
+
+struct BCC {
+    int n,dfs_clock=0,bcc_cnt=0,ebcc_cnt=0;
+    vector<pair<int,int>> edges;
+    vector<vector<pair<int,int>>> ve;
+    vector<int> dfn,low,iscut,bcc_edge,bccno;
+    vector<char> bridge;
+    vector<vector<int>> bcc,ebcc;
+    vector<set<int>> vbccno;
+    explicit BCC(int n): n(n),ve(n+1) {}
+    // 支持重边，不接受自环；边编号从0开始。
+    int link(int u,int v) {
+        assert(u!=v);
+        int id=edges.size(); edges.push_back({u,v});
+        ve[u].push_back({v,id}); ve[v].push_back({u,id}); return id;
+    }
+    void build() {
+        dfs_clock=bcc_cnt=ebcc_cnt=0;
+        dfn.assign(n+1,0); low.assign(n+1,0); iscut.assign(n+1,0); bccno.assign(n+1,0);
+        bridge.assign(edges.size(),0); vbccno.assign(n+1,{});
+        bcc.assign(1,{}); bcc_edge.assign(1,0); ebcc.assign(1,{});
+        vector<int> edge_stack;
+        struct Frame { int u,parent_edge,next,child; };
+        vector<Frame> stack;
+        auto component=[&](vector<int> nodes,int edge_count) {
+            sort(nodes.begin(),nodes.end()); nodes.erase(unique(nodes.begin(),nodes.end()),nodes.end());
+            bcc.push_back(nodes); bcc_edge.push_back(edge_count); ++bcc_cnt;
+            for(int v:nodes) vbccno[v].insert(bcc_cnt);
+        };
+        for(int root=1;root<=n;root++) if(!dfn[root]) {
+            if(ve[root].empty()) { dfn[root]=low[root]=++dfs_clock; component({root},0); continue; }
+            dfn[root]=low[root]=++dfs_clock; stack.push_back({root,-1,0,0});
+            while(!stack.empty()) {
+                auto& f=stack.back(); int u=f.u;
+                if(f.next<(int)ve[u].size()) {
+                    auto [v,id]=ve[u][f.next++];
+                    if(id==f.parent_edge) continue;
+                    if(!dfn[v]) {
+                        f.child++; edge_stack.push_back(id);
+                        dfn[v]=low[v]=++dfs_clock; stack.push_back({v,id,0,0});
+                    } else if(dfn[v]<dfn[u]) low[u]=min(low[u],dfn[v]),edge_stack.push_back(id);
+                } else {
+                    int parent_edge=f.parent_edge,child=f.child; stack.pop_back();
+                    if(parent_edge==-1) iscut[u]=child>1;
+                    else {
+                        int p=stack.back().u;
+                        low[p]=min(low[p],low[u]);
+                        bridge[parent_edge]=low[u]>dfn[p];
+                        if(low[u]>=dfn[p]) {
+                            iscut[p]=1; vector<int> nodes; int count=0;
+                            while(true) {
+                                int id=edge_stack.back(); edge_stack.pop_back(); count++;
+                                nodes.push_back(edges[id].first); nodes.push_back(edges[id].second);
+                                if(id==parent_edge) break;
+                            }
+                            component(nodes,count);
+                        }
+                    }
+                }
+            }
+        }
+        for(int root=1;root<=n;root++) if(!bccno[root]) {
+            ++ebcc_cnt; ebcc.push_back({}); vector<int> todo{root}; bccno[root]=ebcc_cnt;
+            while(!todo.empty()) {
+                int u=todo.back(); todo.pop_back(); ebcc.back().push_back(u);
+                for(auto [v,id]:ve[u]) if(!bridge[id]&&!bccno[v]) bccno[v]=ebcc_cnt,todo.push_back(v);
+            }
+        }
+    }
+};

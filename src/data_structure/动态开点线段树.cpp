@@ -1,77 +1,67 @@
-// root 表示整棵线段树的根结点；cnt 表示当前结点个数
-const int maxn = 1e5 + 10;
-int n, cnt, root;
-int sum[maxn * 20], ls[maxn * 20], rs[maxn * 20];
+// DynamicSegmentTree tr(n)或tr(lo,hi); update(x,delta); query(l,r); split/merge使用同一节点池。
+#include <bits/stdc++.h>
+using namespace std;
 
-// 用法：update(root, 1, n, x, f); 其中 x 为待修改节点的编号
-void update(int& p, int L, int R, int x, int f) {  // 引用传参
-    if (!p) p = ++cnt;  // 当结点为空时，创建一个新的结点
-    if (L == R) {
-        sum[p] += f;
-        return;
+struct DynamicSegmentTree {
+    struct Node { int ls=0,rs=0; long long sum=0; };
+    int lo,hi,root=0;
+    vector<Node> a{Node()};
+    DynamicSegmentTree(int lo,int hi): lo(lo),hi(hi) { assert(lo<=hi); }
+    explicit DynamicSegmentTree(int n): DynamicSegmentTree(1,n) {}
+    int newnode() { a.emplace_back(); return (int)a.size()-1; }
+    // 多棵树须属于同一对象的节点池；返回根编号，递归期间不保存vector元素引用。
+    int update(int p,int L,int R,int x,long long delta) {
+        if(!p) p=newnode();
+        if(L==R) { a[p].sum+=delta; return p; }
+        int mid=L+(int)(((long long)R-L)/2);
+        if(x<=mid) a[p].ls=update(a[p].ls,L,mid,x,delta);
+        else a[p].rs=update(a[p].rs,mid+1,R,x,delta);
+        a[p].sum=a[a[p].ls].sum+a[a[p].rs].sum;
+        return p;
     }
-    int m = L + ((R - L) >> 1);
-    if (x <= m)
-        update(ls[p], L, m, x, f);
-    else
-        update(rs[p], m + 1, R, x, f);
-    sum[p] = sum[ls[p]] + sum[rs[p]];  // pushup
-}
-// 用法：query(root, 1, n, l, r);
-int query(int p, int L, int R, int l, int r) {
-    if (!p) return 0;  // 如果结点为空，返回 0
-    if (L >= l && R <= r) return sum[p];
-    int m = L + ((R - L) >> 1), ans = 0;
-    if (l <= m) ans += query(ls[p], L, m, l, r);
-    if (r > m) ans += query(rs[p], m + 1, R, l, r);
-    return ans;
-}
-int merge(int a, int b, int l, int r) {
-    if (!a) return b;
-    if (!b) return a;
-    if (l == r) {
-        sum[a] += sum[b];
-        return a;
+    void update(int x,long long delta) { assert(lo<=x&&x<=hi); root=update(root,lo,hi,x,delta); }
+    int update_root(int p,int x,long long delta) { assert(lo<=x&&x<=hi); return update(p,lo,hi,x,delta); }
+    long long query(int p,int L,int R,int l,int r) const {
+        if(!p||r<L||R<l||l>r) return 0;
+        if(l<=L&&R<=r) return a[p].sum;
+        int mid=L+(int)(((long long)R-L)/2);
+        return query(a[p].ls,L,mid,l,r)+query(a[p].rs,mid+1,R,l,r);
     }
-    int mid = (l + r) >> 1;
-    ls[a] = merge(ls[a], ls[b], l, mid);
-    rs[a] = merge(rs[a], rs[b], mid + 1, r);
-    sum[a] = sum[ls[a]] + sum[rs[a]];
-    return a;
-}
-void split(int& p, int& q, int L, int R, int l, int r) {  // p 原树 q新树
-    if (R < l || r < L) return;
-    if (!p) return;
-    if (l <= L && R <= r) {
-        q = p;
-        p = 0;
-        return;
+    long long query(int l,int r) const { return query(root,lo,hi,l,r); }
+    long long query_root(int p,int l,int r) const { return query(p,lo,hi,l,r); }
+    // 合并会消耗两棵树；合并后的根不可再与旧根同时作为独立树使用。
+    int merge(int p,int q,int L,int R) {
+        if(!p||!q) return p|q;
+        if(L==R) { a[p].sum+=a[q].sum; return p; }
+        int mid=L+(int)(((long long)R-L)/2);
+        a[p].ls=merge(a[p].ls,a[q].ls,L,mid);
+        a[p].rs=merge(a[p].rs,a[q].rs,mid+1,R);
+        a[p].sum=a[a[p].ls].sum+a[a[p].rs].sum;
+        return p;
     }
-    if (!q) q = ++cnt;
-    int m = L + R >> 1;
-    if (l <= m) split(ls[p], ls[q], L, m, l, r);
-    if (m < r) split(rs[p], rs[q], m + 1, R, l, r);
-    sum[p] = sum[ls[p]] + sum[rs[p]];
-    sum[q] = sum[ls[q]] + sum[rs[q]];
-}
-int query1(int& Sum, int Up, int rt, int l, int r) {  // min_x of f(x)+x>Up
-    // cout<<"Sum="<<Sum<<" Up="<<Up<<" rt="<<rt<<" l="<<l<<" r="<<r<<"\n";
-    if (!rt) {
-        if (r + Sum <= Up)
-            return -1;
-        else
-            return r - (r + Sum - Up) + 1;
+    int merge(int p,int q) { return merge(p,q,lo,hi); }
+    // 将[l,r]分离到新树，返回{剩余根,分离根}。
+    pair<int,int> split(int p,int L,int R,int l,int r) {
+        if(!p||r<L||R<l||l>r) return {p,0};
+        if(l<=L&&R<=r) return {0,p};
+        int q=newnode(),mid=L+(int)(((long long)R-L)/2);
+        auto left=split(a[p].ls,L,mid,l,r);
+        auto right=split(a[p].rs,mid+1,R,l,r);
+        a[p].ls=left.first; a[q].ls=left.second;
+        a[p].rs=right.first; a[q].rs=right.second;
+        a[p].sum=a[a[p].ls].sum+a[a[p].rs].sum;
+        a[q].sum=a[a[q].ls].sum+a[a[q].rs].sum;
+        return {p,q};
     }
-    if (true) {
-        int ss = Sum + sum[rt];
-        if (ss + r <= Up) {
-            Sum = ss;
-            return -1;
-        }
-        if (l == r) return l;
+    pair<int,int> split_root(int p,int l,int r) { return split(p,lo,hi,l,r); }
+    int split(int l,int r) { auto result=split(root,lo,hi,l,r); root=result.first; return result.second; }
+    // 原query1：非负计数下，找最小x使前缀和+x>up；不存在返回nullopt。
+    optional<int> query1(long long& prefix,long long up,int p,int L,int R) const {
+        if(prefix+a[p].sum+R<=up) { prefix+=a[p].sum; return {}; }
+        if(L==R) return L;
+        int mid=L+(int)(((long long)R-L)/2);
+        auto result=query1(prefix,up,a[p].ls,L,mid);
+        return result?result:query1(prefix,up,a[p].rs,mid+1,R);
     }
-    int mid = (l + r) / 2;
-    int pos = query1(Sum, Up, ls[rt], l, mid);
-    if (pos != -1) return pos;
-    return query1(Sum, Up, rs[rt], mid + 1, r);
-}
+    optional<int> query1(long long up) const { long long prefix=0; return query1(prefix,up,root,lo,hi); }
+};

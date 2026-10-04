@@ -1,10 +1,28 @@
+// 1base；IncrementalSCC s(n,edges); edges为按时间添加的有向边；anss[i]保留原统计：大小>1的SCC的大小平方和。
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
 using Edges = vector<tuple<int, int, int>>;
-const int maxn = 4e5 + 10;
-int f[maxn], siz[maxn];
-ll ans = 0;
+struct IncrementalSCC {
+int n,q;
+vector<int> f,siz,ti,col,dfn,low;
+vector<long long> anss;
+long long ans=0;
+int num=0,dfstime=0;
+Edges edge;
+stack<int> s;
+vector<vector<int>> ve;
+IncrementalSCC(int n,const vector<pair<int,int>>& additions): n(n),q(additions.size()),
+    f(n+1),siz(n+1,1),ti(q,-1),col(n+1),dfn(n+1),low(n+1),anss(q),ve(n+1) {
+    iota(f.begin(),f.end(),0);
+    for(int i=0;i<q;i++) edge.emplace_back(additions[i].first,additions[i].second,i);
+    solve(0,q,edge);
+    iota(f.begin(),f.end(),0); fill(siz.begin(),siz.end(),1); ans=0;
+    vector<int> order(q); iota(order.begin(),order.end(),0);
+    sort(order.begin(),order.end(),[&](int x,int y) { return ti[x]<ti[y]; });
+    for(int i:order) if(ti[i]>=0) { merge(get<0>(edge[i]),get<1>(edge[i])); anss[ti[i]]=ans; }
+    for(int i=1;i<q;i++) anss[i]=max(anss[i],anss[i-1]);
+}
 int getf(int x) {
     if (x == f[x])
         return x;
@@ -20,13 +38,6 @@ void merge(int x, int y) {
     siz[y] += siz[x];
     ans += (ll)siz[y] * siz[y];
 }
-int n, m, q;
-int ti[maxn];
-ll anss[maxn];
-Edges edge;
-stack<int> s;
-vector<int> ve[maxn];
-int col[maxn], num, dfn[maxn], low[maxn], dfstime;
 void tarjan(int u) {
     s.push(u);
     dfn[u] = low[u] = ++dfstime;
@@ -51,9 +62,6 @@ void color(Edges &edges, Edges &e1, Edges &e2, int mid) {
         if (x != y) ve[x].push_back(y);
     for (auto &[x, y, t] : edges)
         if (!dfn[x]) tarjan(x);
-    for (auto &[x, y, t] : edges)
-        if (x != y) {
-        }
 
     for (auto &[x, y, t] : edges)
         if (x != y) {
@@ -91,37 +99,4 @@ void solve(int l, int r, Edges edges) {
 
     solve(mid + 1, r, e2);
 }
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    memset(ti, -1, sizeof(ti));
-    int n, m, q;
-    cin >> n >> m >> q;
-    iota(f, f + n + m + 1, 0);
-    edge.resize(q);
-    for (int i = 0; i < q; i++) {
-        int x, y;
-        cin >> x >> y;
-        y += n;
-        char c;
-        cin >> c;
-        if (c == 'R') swap(x, y);
-        edge[i] = make_tuple(x, y, i);
-        // cout<<"edge["<<i<<"]="<<"("<<x<<","<<y<<")"<<endl;
-    }
-    solve(0, q, edge);
-    iota(f, f + n + m + 1, 0);
-    // for(int i=0;i<q;i++)cout<<"ti["<<i<<"]="<<ti[i]<<endl;
-    for (int i = 1; i <= n + m; i++) siz[i] = 1;
-    vector<int> v(q);
-    iota(v.begin(), v.end(), 0);
-    sort(v.begin(), v.end(), [&](int x, int y) { return ti[x] < ti[y]; });
-    for (auto i : v)
-        if (ti[i] >= 0) {
-            merge(get<0>(edge[i]), get<1>(edge[i]));
-            anss[ti[i]] = ans;
-        }
-    for (int i = 1; i < q; i++)
-        if (anss[i] < anss[i - 1]) anss[i] = anss[i - 1];
-    for (int i = 0; i < q; i++) cout << anss[i] << "\n";
-}
+};

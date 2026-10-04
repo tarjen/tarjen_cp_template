@@ -1,78 +1,83 @@
+// bounded_flow f(n,s,t); add(u,v,cap,cost); mincost()；结果optional{最大流,最小费用}；编号0..n。
 #include <bits/stdc++.h>
 using namespace std;
-const int N = 200 + 5, M = 2e4 + N;
 struct flow {
-  int cnt = 1, hd[N], nxt[M << 1], to[M << 1], limit[M << 1], cst[M << 1];
-  void add(int u, int v, int w, int c) {
-    nxt[++cnt] = hd[u], hd[u] = cnt, to[cnt] = v, limit[cnt] = w, cst[cnt] = c;
-    nxt[++cnt] = hd[v], hd[v] = cnt, to[cnt] = u, limit[cnt] = 0, cst[cnt] = -c;
-  }
-  int fl[N], fr[N], dis[N], in[N];
-  pair<int, int> mincost(int s, int t) {
-    int flow = 0, cost = 0;
-    while (1) {
-      queue<int> q;
-      memset(dis, 0x3f, sizeof(dis));
-      q.push(s), fl[s] = 1e9, dis[s] = 0;
-      while (!q.empty()) {
-        int t = q.front();
-        q.pop(), in[t] = 0;
-        for (int i = hd[t]; i; i = nxt[i]) {
-          int it = to[i], d = dis[t] + cst[i];
-          if (limit[i] && d < dis[it]) {
-            dis[it] = d, fl[it] = min(fl[t], limit[i]), fr[it] = i;
-            if (!in[it]) in[it] = 1, q.push(it);
-          }
+    struct E { int to; long long cap,cost; };
+    int n,S,T;
+    vector<E> edges;
+    vector<vector<int>> g;
+    vector<int> fr,in;
+    vector<long long> dis;
+    flow(int n,int s=-1,int t=-1): n(n),S(s),T(t),g(n+1),fr(n+1),in(n+1),dis(n+1) {}
+    int add(int u,int v,long long w,long long c) {
+        int id=edges.size();
+        g[u].push_back(id); edges.push_back({v,w,c});
+        g[v].push_back(id+1); edges.push_back({u,0,-c});
+        return id;
+    }
+    // 要求残量网络中没有可达负费用环；流量和费用须在long long范围内。
+    // 在当前残量网络上增广，重复调用不恢复原容量。
+    pair<long long,long long> mincost(int s,int t) {
+        assert(s!=t);
+        const long long inf=numeric_limits<long long>::max()/4;
+        long long flow=0,cost=0;
+        while(true) {
+            fill(dis.begin(),dis.end(),inf); fill(in.begin(),in.end(),0);
+            queue<int> q; q.push(s); in[s]=1; dis[s]=0;
+            while(!q.empty()) {
+                int u=q.front(); q.pop(); in[u]=0;
+                for(int id:g[u]) {
+                    auto e=edges[id];
+                    if(e.cap>0&&dis[u]+e.cost<dis[e.to]) {
+                        dis[e.to]=dis[u]+e.cost; fr[e.to]=id;
+                        if(!in[e.to]) in[e.to]=1,q.push(e.to);
+                    }
+                }
+            }
+            if(dis[t]==inf) return {flow,cost};
+            long long f=inf;
+            for(int u=t;u!=s;u=edges[fr[u]^1].to) f=min(f,edges[fr[u]].cap);
+            flow+=f; cost+=dis[t]*f;
+            for(int u=t;u!=s;u=edges[fr[u]^1].to) edges[fr[u]].cap-=f,edges[fr[u]^1].cap+=f;
         }
-      }
-      if (dis[t] > 1e9) return make_pair(flow, cost);
-      flow += fl[t], cost += dis[t] * fl[t];
-      for (int u = t; u != s; u = to[fr[u] ^ 1])
-        limit[fr[u]] -= fl[t], limit[fr[u] ^ 1] += fl[t];
     }
-  }
+    pair<long long,long long> mincost() { return mincost(S,T); }
 };
+
 struct bounded_flow {
-  int e, u[M], v[M], lo[M], hi[M], cst[M];
-  void add(int _u, int _v, int w, int c) {
-    if (c < 0) {
-      u[++e] = _u, v[e] = _v, lo[e] = w, hi[e] = w, cst[e] = c;
-      u[++e] = _v, v[e] = _u, lo[e] = 0, hi[e] = w, cst[e] = -c;
-    } else
-      u[++e] = _u, v[e] = _v, lo[e] = 0, hi[e] = w, cst[e] = c;
-  }
-  flow g;
-  pair<int, int> mincost(int n, int s, int t, int ss, int tt) {
-    static int w[N];
-    memset(w, 0, sizeof(w));
-    int flow = 0, cost = 0, tot = 0;
-    for (int i = 1; i <= e; i++) {
-      w[u[i]] -= lo[i], w[v[i]] += lo[i];
-      cost += lo[i] * cst[i];
-      g.add(u[i], v[i], hi[i] - lo[i], cst[i]);
+    struct Edge { int u,v; long long lo,hi,cost; };
+    int n,S,T;
+    vector<Edge> edges;
+    bounded_flow(int n,int s=-1,int t=-1): n(n),S(s),T(t) {}
+    // 负费用边先取满流，再用非负费用反向边撤销，保留原模板的变换。
+    void add(int u,int v,long long cap,long long cost) { add_bounds(u,v,0,cap,cost); }
+    void add_bounds(int u,int v,long long lo,long long hi,long long cost) {
+        assert(0<=lo&&lo<=hi);
+        if(cost<0) {
+            edges.push_back({u,v,hi,hi,cost}); edges.push_back({v,u,0,hi-lo,-cost});
+        } else edges.push_back({u,v,lo,hi,cost});
     }
-    for (int i = 1; i <= n; i++)
-      if (w[i] > 0)
-        g.add(ss, i, w[i], 0), tot += w[i];
-      else if (w[i] < 0)
-        g.add(i, tt, -w[i], 0);
-    g.add(t, s, 1e9, 0);
-    pair<int, int> res = g.mincost(ss, tt);
-    cost += res.second;
-    flow += g.limit[g.hd[s]];
-    g.hd[s] = g.nxt[g.hd[s]], g.hd[t] = g.nxt[g.hd[t]];
-    res = g.mincost(s, t);
-    return make_pair(flow + res.first, cost + res.second);
-  }
-} f;
-int n, m, s, t;
-int main() {
-  cin >> n >> m >> s >> t;
-  for (int i = 1; i <= m; i++) {
-    int u, v, w, c;
-    cin >> u >> v >> w >> c, f.add(u, v, w, c);
-  }
-  pair<int, int> res = f.mincost(n, s, t, 0, n + 1);
-  cout << res.first << " " << res.second << endl;
-  return 0;
-}
+    // 返回nullopt表示上下界无可行非负s-t流；允许任意负费用环。
+    optional<pair<long long,long long>> mincost(int s,int t) const {
+        assert(s!=t);
+        int ss=n+1,tt=n+2; flow g(n+2); vector<long long> balance(n+1);
+        long long cost=0,required=0,total_cap=0;
+        for(auto e:edges) {
+            balance[e.u]-=e.lo; balance[e.v]+=e.lo; cost+=e.lo*e.cost;
+            g.add(e.u,e.v,e.hi-e.lo,e.cost); total_cap+=e.hi;
+        }
+        int back=g.add(t,s,total_cap,0);
+        vector<int> auxiliary{back};
+        for(int u=0;u<=n;u++) {
+            if(balance[u]>0) auxiliary.push_back(g.add(ss,u,balance[u],0)),required+=balance[u];
+            else if(balance[u]<0) auxiliary.push_back(g.add(u,tt,-balance[u],0));
+        }
+        auto first=g.mincost(ss,tt);
+        if(first.first!=required) return nullopt;
+        long long initial=g.edges[back^1].cap; cost+=first.second;
+        for(int id:auxiliary) g.edges[id].cap=g.edges[id^1].cap=0;
+        auto second=g.mincost(s,t);
+        return pair<long long,long long>{initial+second.first,cost+second.second};
+    }
+    optional<pair<long long,long long>> mincost() const { return mincost(S,T); }
+};

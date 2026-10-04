@@ -71,6 +71,8 @@
 = 字符串
 == AC自动机
 #import_code("src/string/AC自动机.cpp")
+== 字典树Trie
+#import_code("src/string/字典树trie.cpp")
 == Dequehash
 #import_code("src/string/dequehash.cpp")
 == Exkmp
@@ -83,6 +85,8 @@
 #import_code("src/string/manacher.cpp")
 == 倍增SA
 #import_code("src/string/倍增sa.cpp")
+== DC3后缀数组
+#import_code("src/string/dc3.cpp")
 == 后缀自动机SAM
 #import_code("src/string/后缀自动机SAM.cpp")
 == 回文自动机PAM
@@ -143,6 +147,20 @@
 #import_code("src/data_structure/SegmentSet.cpp")
 == SegmentTree
 #import_code("src/data_structure/SegmentTree.cpp")
+== SegmentTree单点
+#import_code("src/data_structure/SegmentTree单点.cpp")
+== 线段树区间加区间求和
+#import_code("src/data_structure/线段树区间加区间求和getsum.cpp")
+== 线段树区间加区间最小值
+#import_code("src/data_structure/线段树区间加区间getmin.cpp")
+== 线段树区间赋值区间最小值
+#import_code("src/data_structure/线段树区间赋值区间getmin.cpp")
+== 01Trie
+#import_code("src/data_structure/01trie.cpp")
+== 树状数组单点修改区间查询
+#import_code("src/data_structure/树状数组单点修改区间查询tree.cpp")
+== 树状数组区间修改区间查询
+#import_code("src/data_structure/树状数组.cpp")
 == 三维偏序cdq
 #import_code("src/data_structure/三维偏序cdq.cpp")
 == 主席树
@@ -191,6 +209,8 @@
 = 数学
 == 组合数
 #import_code("src/math/组合数带模运算ca.cpp")
+== 组合数默认模数998244353
+#import_code("src/math/组合数带模运算CA(ll).cpp")
 == BSGS指数方程余数问题(求a^x=b%p)
 #import_code("src/math/BSGS指数方程余数问题(求a^x=b%p).cpp")
 == EXGCD
@@ -217,6 +237,8 @@
 #import_code("src/math/杜教筛.cpp")
 == 线性筛质数
 #import_code("src/math/线性筛质数.cpp")
+== Meissel Lehmer质数计数
+#import_code("src/math/Meissel-Lehmer(求1-n质数数量).cpp")
 == 线性递推
 #import_code("src/math/线性递推.cpp")
 == 辛普森积分

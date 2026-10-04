@@ -1,53 +1,37 @@
+// 1base连通树父亲数组，根的父亲为0；KthAncestor a(parent); ask(x,k)；超出根返回0，查询O(1)。
 #include <bits/stdc++.h>
 using namespace std;
-const int maxn = 5e5 + 10;
-int n, m, u, v, cnt, f[20][maxn], w[maxn], h[maxn];
-int top[maxn], dep[maxn], id[maxn], U[maxn], D[maxn];
-vector<int> ve[maxn];
-void dfs1(int x) {
-    for (int i = 1; i <= 19; ++i) f[i][x] = f[i - 1][f[i - 1][x]];
-    for (auto it : ve[x]) {
-        dep[it] = h[it] = dep[x] + 1;
-        dfs1(it);
-        h[x] = max(h[x], h[it]);
-        if (h[it] > h[w[x]]) w[x] = it;
-    }
-}
-void dfs2(int x, int p) {
-    id[x] = ++cnt;
-    D[cnt] = x;
-    U[cnt] = p;
-    if (w[x]) {
-        top[w[x]] = top[x];
-        dfs2(w[x], f[0][p]);
-    }
-    for (auto it : ve[x])
-        if (it != w[x]) {
-            top[it] = it;
-            dfs2(it, it);
+
+struct KthAncestor {
+    int n,root=0,lg;
+    vector<vector<int>> ve,f;
+    vector<int> dep,h,w,top,id,U,D;
+    explicit KthAncestor(const vector<int>& parent): n((int)parent.size()-1),lg(n?__lg(n)+1:1),
+        ve(n+1),f(lg,vector<int>(n+1)),dep(n+1),h(n+1),w(n+1),top(n+1),id(n+1),U(n+1),D(n+1) {
+        f[0]=parent;
+        for(int u=1;u<=n;u++) if(parent[u]) ve[parent[u]].push_back(u); else root=u;
+        if(!n) return;
+        vector<int> order{root}; dep[root]=h[root]=1;
+        for(int i=0;i<(int)order.size();i++) {
+            int u=order[i];
+            for(int k=1;k<lg;k++) f[k][u]=f[k-1][f[k-1][u]];
+            for(int v:ve[u]) dep[v]=h[v]=dep[u]+1,order.push_back(v);
         }
-}
-int rt;
-int ask(int x, int k) {
-    if (!k) return x;
-    x = f[__lg(k)][x];
-    k -= (1 << __lg(k));
-    k -= dep[x] - dep[top[x]];
-    x = top[x];
-    if (k >= 0) return U[id[x] + k];
-    return D[id[x] - k];
-}
-int main() {
-    for (int i = 1; i <= n; ++i) {
-        cin >> f[0][i];
-        if (!f[0][i])
-            rt = i;
-        else
-            ve[f[0][i]].push_back(i);
+        for(int i=n-1;i>0;i--) {
+            int u=order[i],p=parent[u]; h[p]=max(h[p],h[u]);
+            if(h[u]>h[w[p]]) w[p]=u;
+        }
+        vector<pair<int,int>> stack{{root,root}}; top[root]=root; int timer=0;
+        while(!stack.empty()) {
+            auto [u,p]=stack.back(); stack.pop_back(); id[u]=++timer; D[timer]=u; U[timer]=p;
+            for(int v:ve[u]) if(v!=w[u]) top[v]=v,stack.push_back({v,v});
+            if(w[u]) top[w[u]]=top[u],stack.push_back({w[u],f[0][p]});
+        }
     }
-    dep[rt] = 1;
-    dfs1(rt);
-    top[rt] = rt;
-    dfs2(rt, rt);
-    return 0;
-}
+    int ask(int x,int k) const {
+        assert(k>=0); if(k>=dep[x]) return 0; if(!k) return x;
+        int log=__lg(k); x=f[log][x]; k-=1<<log;
+        k-=dep[x]-dep[top[x]]; x=top[x];
+        return k>=0?U[id[x]+k]:D[id[x]-k];
+    }
+};

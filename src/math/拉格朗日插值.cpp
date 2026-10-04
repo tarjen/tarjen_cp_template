@@ -1,60 +1,46 @@
-#define int long long
-const int N = 1e6 + 10, mod = 998244353;
-int ksm(int a, int n, int m = mod) {
-    int s = 1;
-    while (n) {
-        if (n & 1) s = s * a % m;
-        a = a * a % m;
-        n >>= 1;
-    }
-    return s;
-}
-int fac[N + 5], facinv[N + 5], inv[N + 5];
+// LR lr(n,mod=998244353); inpo(f,x)为连续点插值，cal(xs,ys,x)为离散点插值；输入0base。
+#include <bits/stdc++.h>
+using namespace std;
+
 struct LR {
-    int Inv(int n) { return ksm(n, mod - 2); }
-    void init() {  // 预处理阶乘和阶乘逆元,逆元.
-        fac[0] = inv[0] = inv[1] = 1;
-        for (int i = 1; i <= N; i++) fac[i] = fac[i - 1] * i % mod;
-        facinv[N] = Inv(fac[N]);
-        for (int i = N - 1; ~i; i--) facinv[i] = facinv[i + 1] * (i + 1) % mod;
-        for (int i = 2; i < N + 5; i++)
-            inv[i] = (mod - mod / i) * inv[mod % i] % mod;
+    int n,mod;
+    vector<int> fac,facinv,inv;
+    LR(int n,int mod=998244353): n(n),mod(mod),fac(n+1,1),facinv(n+1,1),inv(n+1,0) {
+        assert(0<=n&&n<mod); // mod为质数。
+        for(int i=1;i<=n;i++) fac[i]=1LL*fac[i-1]*i%mod;
+        facinv[n]=Inv(fac[n]);
+        for(int i=n;i>=1;i--) facinv[i-1]=1LL*facinv[i]*i%mod;
+        for(int i=1;i<=n;i++) inv[i]=1LL*fac[i-1]*facinv[i]%mod;
     }
-    int cal(vector<int>& x, vector<int>& y,
-            int k) {  // 离散点n个点[0,n-1] x[i],y[i] 插f(k)
-        int n = x.size();
-        int s = 0;
-        for (int i = 0; i < n; i++)
-            if (x[i] == k) return y[i];
-        for (int i = 0; i < n; i++) {
-            int p = y[i] % mod, q = 1;
-            for (int j = 0; j < n; j++) {
-                if (i == j) continue;
-                p = p * ((k - x[j]) % mod + mod) % mod;
-                q = q * ((x[i] - x[j]) % mod + mod) % mod;
-            }
-            s = (s + p * Inv(q) % mod) % mod;
+    int norm(long long x) const { x%=mod; return x<0?x+mod:x; }
+    int Inv(int x) const {
+        int r=1; for(int k=mod-2;k;k>>=1,x=1LL*x*x%mod) if(k&1) r=1LL*r*x%mod;
+        return r;
+    }
+    // x/y为0base，x在模意义下互异，O(m^2)。
+    template<class T> int cal(const vector<T>& x,const vector<T>& y,long long k) const {
+        assert(x.size()==y.size());
+        int m=x.size(),s=0; k=norm(k);
+        for(int i=0;i<m;i++) if(norm(x[i])==k) return norm(y[i]);
+        for(int i=0;i<m;i++) {
+            long long p=norm(y[i]),q=1;
+            for(int j=0;j<m;j++) if(i!=j) p=p*norm(k-x[j])%mod,q=q*norm((long long)x[i]-x[j])%mod;
+            assert(q!=0); s=(s+p*Inv(q))%mod;
         }
-        return (s % mod + mod) % mod;
+        return s;
     }
-    int inpo(vector<int>& f, int x) {  // 给定 连续i属于[0,n] f(i) 拉插f(x)
-        int n = f.size() - 1;
-        if (x >= 0 && x <= n) return f[x];
-        int p, s = 0;
-        vector<int> pre(n + 1), suf(n + 1);
-        pre[0] = x - 0;
-        for (int i = 1; i <= n; i++) pre[i] = pre[i - 1] * (x - i) % mod;
-        suf[n] = x - n;
-        for (int i = n - 1; i >= 0; i--) suf[i] = suf[i + 1] * (x - i) % mod;
-        for (int i = 0; i <= n; i++) {
-            p = facinv[n - i] % mod * facinv[i] % mod;
-            if (i > 0) p = p * pre[i - 1] % mod;
-            if (i < n) p = p * suf[i + 1] % mod;
-            if ((n - i) & 1)
-                s = (s - p * f[i] % mod + mod) % mod;
-            else
-                s = (s + p * f[i] % mod) % mod;
+    // f[0..m]是连续整数点值，m<=构造时n，O(m)。
+    template<class T> int inpo(const vector<T>& f,long long x) const {
+        assert(!f.empty()); int m=(int)f.size()-1; assert(m<=n); x=norm(x);
+        if(x<=m) return norm(f[x]);
+        vector<int> pre(m+2,1),suf(m+2,1);
+        for(int i=0;i<=m;i++) pre[i+1]=1LL*pre[i]*norm(x-i)%mod;
+        for(int i=m;i>=0;i--) suf[i]=1LL*suf[i+1]*norm(x-i)%mod;
+        long long s=0;
+        for(int i=0;i<=m;i++) {
+            long long p=1LL*facinv[i]*facinv[m-i]%mod*pre[i]%mod*suf[i+1]%mod*norm(f[i])%mod;
+            s=norm(s+((m-i)&1?-p:p));
         }
-        return (s % mod + mod) % mod;
+        return s;
     }
-} sol;
+};

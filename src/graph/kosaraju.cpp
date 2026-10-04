@@ -1,36 +1,34 @@
+// 1base；SCC scc(graph); Kosaraju两遍遍历；col为分量编号。
 #include <bits/stdc++.h>
 using namespace std;
-const int maxn = 100010;
-vector<int> ve[maxn], ve2[maxn];
-vector<int> sta;  // 存第一次dfs1()的结果，即标记点的先后顺序，优先级小的点先进
-int vis[maxn];    // vis[i]标记第一次dfs1()点i是否访问过
-int col
-    [maxn];  // col[i]标记点i属于第几个强连通分量，同时记录dfs2()过程中点i是否访问过
-int cnt;     // cnt表示强连通分量的个数
-void dfs1(int x) {
-    vis[x] = 1;
-    for (auto it : ve[x])
-        if (!vis[it]) dfs1(it);
-    sta.push_back(x);  // 记录点的先后顺序，按照拓扑排序，优先级大的放在S的后面
-}
 
-void dfs2(int x) {
-    if (col[x]) return;
-    col[x] = cnt;
-    for (auto it : ve[x])
-        if (!col[it]) dfs2(it);
-}
-void Kosaraju(int n) {
-    cnt = 0;
-    sta.clear();
-    memset(vis, 0, sizeof(vis));
-    memset(col, 0, sizeof(col));
-    for (int i = 1; i <= n; i++)  // 搜索所有点
-        dfs1(i);
-    for (int i = n - 1; i >= 0; i--) {
-        if (!col[sta[i]]) {
-            cnt++;
-            dfs2(sta[i]);
+struct SCC {
+    int n,cnt=0;
+    vector<vector<int>> ve,ve2;
+    vector<int> sta,col;
+    vector<char> vis;
+    explicit SCC(int n): n(n),ve(n+1),ve2(n+1),col(n+1),vis(n+1) {}
+    explicit SCC(const vector<vector<int>>& graph): SCC((int)graph.size()-1) { ve=graph; build(); }
+    void addedge(int u,int v) { ve[u].push_back(v); }
+    void build() {
+        cnt=0; sta.clear(); fill(vis.begin(),vis.end(),0); fill(col.begin(),col.end(),0);
+        ve2.assign(n+1,{});
+        for(int u=1;u<=n;u++) for(int v:ve[u]) ve2[v].push_back(u);
+        vector<pair<int,int>> stack;
+        for(int root=1;root<=n;root++) if(!vis[root]) {
+            stack.push_back({root,0}); vis[root]=1;
+            while(!stack.empty()) {
+                int u=stack.back().first; int& i=stack.back().second;
+                if(i==(int)ve[u].size()) sta.push_back(u),stack.pop_back();
+                else { int v=ve[u][i++]; if(!vis[v]) vis[v]=1,stack.push_back({v,0}); }
+            }
+        }
+        for(int i=(int)sta.size()-1;i>=0;i--) if(!col[sta[i]]) {
+            ++cnt; vector<int> todo{sta[i]}; col[sta[i]]=cnt;
+            while(!todo.empty()) {
+                int u=todo.back(); todo.pop_back();
+                for(int v:ve2[u]) if(!col[v]) col[v]=cnt,todo.push_back(v);
+            }
         }
     }
-}
+};

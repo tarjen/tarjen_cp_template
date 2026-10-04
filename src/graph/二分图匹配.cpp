@@ -1,34 +1,27 @@
+// 两侧独立1base；Matching mat(n,m); add(u,v); maxmatch(); match[v]与left[u]为匹配方案。
 #include <bits/stdc++.h>
 using namespace std;
-int const N = 1510 * 4, M = 75010;
-int e[M], ne[M], h[N], idx;
-int n, m, k, match[N], backup[N], st[N];
-void add(int a, int b) { e[idx] = b, ne[idx] = h[a], h[a] = idx++; }
-int find(int x) {
-    for (int i = h[x]; ~i; i = ne[i]) {
-        int j = e[i];
-        if (!st[j]) {
-            st[j] = 1;
-            if (!match[j] || find(match[j])) {
-                match[j] = x;
-                return 1;
-            }
+
+struct Matching {
+    int n,m;
+    vector<vector<int>> ve;
+    vector<int> match,left;
+    vector<char> st;
+    Matching(int n,int m): n(n),m(m),ve(n+1),match(m+1),left(n+1),st(m+1) {}
+    void add(int u,int v) { ve[u].push_back(v); }
+    void addedge(int u,int v) { add(u,v); }
+    bool find(int x) {
+        for(int v:ve[x]) if(!st[v]) {
+            st[v]=1;
+            if(!match[v]||find(match[v])) { match[v]=x; return true; }
         }
+        return false;
     }
-    return 0;
-}
-int main() {
-    cin >> n >> m >> k;
-    memset(h, -1, sizeof h);
-    for (int i = 1, a, b; i <= k; ++i) {
-        scanf("%d%d", &a, &b);
-        add(a, b + n);
+    int maxmatch() {
+        fill(match.begin(),match.end(),0); fill(left.begin(),left.end(),0);
+        int ans=0;
+        for(int u=1;u<=n;u++) { fill(st.begin(),st.end(),0); ans+=find(u); }
+        for(int v=1;v<=m;v++) if(match[v]) left[match[v]]=v;
+        return ans;
     }
-    int maxMatch = 0;
-    for (int i = 1; i <= n; ++i) {
-        memset(st, 0, sizeof st);
-        if (find(i)) maxMatch++;
-    }
-    cout << maxMatch << endl;
-    return 0;
-}
+};

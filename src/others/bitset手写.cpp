@@ -1,55 +1,51 @@
-const int N = 3000;
-typedef unsigned long long ull;
+// 0base位编号；Bitset b(n); setBit/getBit/count；支持移位、按位操作和模2^n减法。
+#include <bits/stdc++.h>
+using namespace std;
 
-int lim = N / 64 + 3;
 struct Bitset {
-    ull v[N / 64 + 5];
-    void init() {
-        memset(v, 0, sizeof(v));
-        return;
+    using ull=unsigned long long;
+    int n;
+    vector<ull> v;
+    explicit Bitset(int n): n(n),v((n+63)/64) {}
+    void init() { fill(v.begin(),v.end(),0); }
+    void trim() { if(n%64&&!v.empty()) v.back()&=(1ULL<<(n%64))-1; }
+    bool getBit(int pos) const { assert(0<=pos&&pos<n); return v[pos/64]>>(pos%64)&1; }
+    void setBit(int pos,bool value=true) {
+        assert(0<=pos&&pos<n); ull mask=1ULL<<(pos%64);
+        if(value) v[pos/64]|=mask; else v[pos/64]&=~mask;
     }
-    void add(int x) {
-        v[x >> 6] |= (1ull << (x & 63));
-        return;
-    }
-    void shift1() {
-        int lst = 0;
-        for (int i = 0; i <= lim; i++) {
-            int cur = v[i] >> 63;
-            v[i] <<= 1;
-            v[i] |= lst;
-            lst = cur;
+    // 保留模板库旧入口。
+    void add(int pos) { setBit(pos); }
+    void shift1() { *this=*this<<1; }
+    int count() const { int res=0; for(ull w:v) res+=__builtin_popcountll(w); return res; }
+    Bitset operator<<(int t) const {
+        assert(t>=0); Bitset r(n); if(t>=n) return r;
+        int high=t/64,low=t%64;
+        for(int i=0;i+high<(int)v.size();i++) {
+            r.v[i+high]|=v[i]<<low;
+            if(low&&i+high+1<(int)v.size()) r.v[i+high+1]|=v[i]>>(64-low);
         }
-        return;
+        r.trim(); return r;
     }
-    int count() {
-        int res = 0;
-        for (int i = 0; i <= lim; i++) res += __builtin_popcountll(v[i]);
-        return res;
-    }
-    Bitset operator|(const Bitset &x) const {
-        Bitset res;
-        for (int i = 0; i <= lim; i++) res.v[i] = v[i] | x.v[i];
-        return res;
-    }
-    Bitset operator&(const Bitset &x) const {
-        Bitset res;
-        for (int i = 0; i <= lim; i++) res.v[i] = v[i] & x.v[i];
-        return res;
-    }
-    Bitset operator^(const Bitset &x) const {
-        Bitset res;
-        for (int i = 0; i <= lim; i++) res.v[i] = v[i] ^ x.v[i];
-        return res;
-    }
-    Bitset operator-(const Bitset &x) const {
-        Bitset res;
-        ull lst = 0;
-        for (int i = 0; i <= lim; i++) {
-            ull cur = (v[i] < x.v[i] + lst);
-            res.v[i] = v[i] - x.v[i] - lst;
-            lst = cur;
+    Bitset operator>>(int t) const {
+        assert(t>=0); Bitset r(n); if(t>=n) return r;
+        int high=t/64,low=t%64;
+        for(int i=high;i<(int)v.size();i++) {
+            r.v[i-high]|=v[i]>>low;
+            if(low&&i>high) r.v[i-high-1]|=v[i]<<(64-low);
         }
-        return res;
+        return r;
     }
-}
+    Bitset operator|(const Bitset& x) const { assert(n==x.n); Bitset r(n); for(int i=0;i<(int)v.size();i++) r.v[i]=v[i]|x.v[i]; return r; }
+    Bitset operator&(const Bitset& x) const { assert(n==x.n); Bitset r(n); for(int i=0;i<(int)v.size();i++) r.v[i]=v[i]&x.v[i]; return r; }
+    Bitset operator^(const Bitset& x) const { assert(n==x.n); Bitset r(n); for(int i=0;i<(int)v.size();i++) r.v[i]=v[i]^x.v[i]; return r; }
+    // 无符号n位减法，结果模2^n；借位计算避开x.v[i]+borrow溢出。
+    Bitset operator-(const Bitset& x) const {
+        assert(n==x.n); Bitset r(n); ull borrow=0;
+        for(int i=0;i<(int)v.size();i++) {
+            ull a=v[i],b=x.v[i],next=(a<b)||(borrow&&a==b);
+            r.v[i]=a-b-borrow; borrow=next;
+        }
+        r.trim(); return r;
+    }
+};

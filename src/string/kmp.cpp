@@ -1,53 +1,27 @@
+// KMP k(pattern); k.find(text); nxt及返回位置为1base，输入普通string。
 #include <bits/stdc++.h>
 using namespace std;
-const int maxn = 1e6 + 10;
-struct KMP {                 // 1base
-    int len1, n, nxt[maxn];  // nxt表示以i为结尾的前缀与后缀相同的长度
-    char s1[maxn], s[maxn];
-    void build() {
-        n = strlen(s + 1);
-        nxt[1] = 0;
-        int x = 2, now = 1;  // x是s2当前搜索到的位置，now是前缀位置
-        while (x <= n) {
-            if (s[x] == s[now]) {
-                nxt[x] = now;
-                now++;
-                x++;
-            } else {
-                if (now > 1) {
-                    now = nxt[now - 1] + 1;
-                } else {
-                    nxt[x] = 0;
-                    now = 1;
-                    x++;
-                }
-            }
+
+struct KMP {
+    int n;
+    string s;
+    vector<int> nxt;
+    explicit KMP(const string& pattern): n(pattern.size()),s(" "+pattern),nxt(n+1) {
+        for(int i=2,j=0;i<=n;i++) {
+            while(j&&s[i]!=s[j+1]) j=nxt[j];
+            if(s[i]==s[j+1]) j++;
+            nxt[i]=j;
         }
     }
-    void find() {  // s1 1base
-        int now = 1, tar = 1;
-        len1 = strlen(s1 + 1);
-        while (tar <= len1) {
-            if (s1[tar] == s[now]) {
-                tar++;
-                now++;
-            } else {
-                if (now > 1) {
-                    now = nxt[now - 1] + 1;
-                } else
-                    tar++;
-            }
-            if (now == n + 1) {
-                printf("%d\n", tar - now + 1);
-            }
+    // 返回匹配起点（1base），包含重叠匹配；空模式匹配所有n+1个边界。
+    vector<int> find(const string& text) const {
+        vector<int> ans;
+        if(!n) { ans.resize(text.size()+1); iota(ans.begin(),ans.end(),1); return ans; }
+        for(int i=0,j=0;i<(int)text.size();i++) {
+            while(j&&text[i]!=s[j+1]) j=nxt[j];
+            if(text[i]==s[j+1]) j++;
+            if(j==n) { ans.push_back(i-n+2); j=nxt[j]; }
         }
+        return ans;
     }
 };
-KMP sol;
-int main() {
-    scanf("%s%s", sol.s1 + 1, sol.s + 1);
-    sol.build();
-    sol.find();
-    for (int i = 1; i <= sol.n; i++) cout << sol.nxt[i] << " ";
-    return 0;
-}

@@ -1,39 +1,33 @@
-const int maxn = 1e5 + 10;
+// 非负31位整数；Persistent_Trie tr; append(x); max_xor(l,r,x)查询1base闭区间；版本0为空。
+#include <bits/stdc++.h>
+using namespace std;
+
 struct Persistent_Trie {
-    int ch[maxn][2], tot, sum[maxn];
-    void clear() {
-        tot = 0;
-        return;
+    struct Node { array<int,2> ch{}; int sum=0; };
+    int bits;
+    vector<Node> a{Node()};
+    vector<int> root{0};
+    explicit Persistent_Trie(int bits=31): bits(bits) { assert(1<=bits&&bits<=31); }
+    int insert(int old,int num,int bit) {
+        Node copy=a[old]; copy.sum++;
+        int now=a.size(); a.push_back(copy);
+        if(bit<0) return now;
+        int c=(num>>bit)&1;
+        a[now].ch[c]=insert(a[old].ch[c],num,bit-1);
+        return now;
     }
-    void cpy(int from, int to) {
-        ch[to][0] = ch[from][0];
-        ch[to][1] = ch[from][1];
-        sum[to] = sum[from];
-        return;
-    }
-    void insert(int &root, int old, int num, int nowbit) {
-        root = ++tot;
-        cpy(old, root);
-        sum[root]++;
-        if (nowbit == -1) return;
-        if (num & (1 << nowbit)) {
-            insert(ch[root][1], ch[root][1], num, nowbit - 1);
-        } else {
-            insert(ch[root][0], ch[root][0], num, nowbit - 1);
-        }
-    }
-    int query(int s, int t, int x) {
-        int ans = 0;
-        for (int i = 30; i >= 0; --i) {
-            if (sum[ch[t][!(x & (1 << i))]] - sum[ch[s][!(x & (1 << i))]]) {
-                t = ch[t][!(x & (1 << i))];
-                s = ch[s][!(x & (1 << i))];
-                ans |= (1 << i);
-            } else {
-                t = ch[t][!!(x & (1 << i))];
-                s = ch[s][!!(x & (1 << i))];
-            }
+    int insert(int old,int num) { assert(num>=0); return insert(old,num,bits-1); }
+    int append(int num) { int p=insert(root.back(),num); root.push_back(p); return (int)root.size()-1; }
+    // s,t是两个根编号；t版本必须包含s版本，且差集非空。
+    int query(int s,int t,int x) const {
+        assert(a[t].sum>a[s].sum);
+        int ans=0;
+        for(int bit=bits-1;bit>=0;bit--) {
+            int c=(x>>bit)&1,want=c^1;
+            if(a[a[t].ch[want]].sum>a[a[s].ch[want]].sum) c=want,ans|=1<<bit;
+            s=a[s].ch[c]; t=a[t].ch[c];
         }
         return ans;
     }
+    int max_xor(int l,int r,int x) const { return query(root[l-1],root[r],x); }
 };

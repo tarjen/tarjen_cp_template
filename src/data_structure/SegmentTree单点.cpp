@@ -1,9 +1,9 @@
 // 1base；SegmentTree tr(n)初值为0，或tr(a)接收1base数组；update/query省略根编号。
-//线段树区间加区间求和 线段树二分左右>=给定sum的第一个位置
+//单点赋值、区间求和；非负元素上支持线段树二分。
 #include <bits/stdc++.h>
 using namespace std;
 struct Node{
-    int l,r; long long res=0,tag=0;
+    int l,r; long long res=0;
 };
 struct SegmentTree{
     int n;
@@ -22,49 +22,28 @@ struct SegmentTree{
         load(i*2,v); load(i*2+1,v); pushup(i);
     }
 
-    void tag_init(int i){
-        a[i].tag=0;
-    }
-    void tag_union(int fa,int i){
-        a[i].tag+=a[fa].tag;
-    }
-    void tag_cal(int i){
-        a[i].res+=a[i].tag*(a[i].r-a[i].l+1);
-    }
-    void pushdown(int i){
-        tag_cal(i);
-        if(a[i].l!=a[i].r){
-            tag_union(i,i*2);
-            tag_union(i,i*2+1);
-        }
-        tag_init(i);
-    }
     void pushup(int i){
         if(a[i].l==a[i].r)return;
-        pushdown(i*2);
-        pushdown(i*2+1);
         a[i].res=a[i*2].res+a[i*2+1].res;
     }
     void build(int i,int l,int r){
-        a[i].l=l,a[i].r=r;tag_init(i);a[i].res=0;
+        a[i].l=l,a[i].r=r;a[i].res=0;
         if(l>=r)return;
         int mid=(l+r)/2;
         build(i*2,l,mid);
         build(i*2+1,mid+1,r);
     }
-    void update(int i,int l,int r,long long w){
-        pushdown(i);
-        if(a[i].r<l||a[i].l>r||l>r)return;
-        if(a[i].l>=l&&a[i].r<=r){
-            a[i].tag=w;
+    void update(int i,int x,long long w){
+        if(a[i].r<x||a[i].l>x)return;
+        if(a[i].l>=x&&a[i].r<=x){
+            a[i].res=w;
             return;
         }
-        update(i*2,l,r,w);
-        update(i*2+1,l,r,w);
+        update(i*2,x,w);
+        update(i*2+1,x,w);
         pushup(i);
     }
     long long query(int i,int l,int r){
-        pushdown(i);
         if(a[i].r<l||a[i].l>r||l>r)return 0;
         if(a[i].l>=l&&a[i].r<=r){
             return a[i].res;
@@ -72,7 +51,6 @@ struct SegmentTree{
         return query(i*2,l,r)+query(i*2+1,l,r);
     }
     int min_right(int qL, long long& nowsum,long long querysum, int i) {//从左往右第一个>=sum的位置
-        pushdown(i);
         if (a[i].r < qL)return -1;
         if (qL <= a[i].l) {
             long long ss = nowsum+a[i].res;
@@ -87,7 +65,6 @@ struct SegmentTree{
         return min_right(qL, nowsum,querysum,2*i+1);
     }
     int max_left(int qR,long long &nowsum,long long querysum,int i){//从右往左第一个>=sum的位置
-        pushdown(i);
         if(a[i].l > qR)return -1;
         if(qR>=a[i].r){
             long long ss=nowsum+a[i].res;
@@ -101,7 +78,7 @@ struct SegmentTree{
         if(pos!=-1)return pos;
         return max_left(qR,nowsum,querysum,i*2);
     }
-void update(int l,int r,long long w) { if(n) update(1,l,r,w); }
+void update(int x,long long w) { if(n) update(1,x,w); }
     long long query(int l,int r) { return n?query(1,l,r):0; }
     // 二分要求所累加的元素非负，且need>0；找不到返回-1。
     int min_right(int l,long long need) { long long sum=0; return n?min_right(l,sum,need,1):-1; }
