@@ -5,41 +5,53 @@ on:
       - "*.typ"
       - src/**
       - .github/workflows/build.yml
+      - logo.png
+      - BW.tmtheme
+  pull_request:
+    paths:
+      - "*.typ"
+      - src/**
+      - .github/workflows/build.yml
+      - logo.png
+      - BW.tmtheme
   workflow_dispatch:
 
-
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-      - uses: fontist/setup-fontist@v2
+        uses: actions/checkout@v7
+      - name: Install fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk fonts-liberation
+      - uses: typst-community/setup-typst@v5
         with:
-          fontist-version: "1.21.1"
-          cache-dependency-path: manifest.yml
-      - run: fontist manifest-install manifest.yml
-      - uses: typst-community/setup-typst@v3
-        id: setup-typst
+          typst-version: "0.15.1"
       - name: Build PDF
-        run: typst compile main.typ main.pdf --font-path ~/.fontist/fonts
+        run: typst compile main.typ main.pdf
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: template-pdf
-          path: "*.pdf"
+          path: main.pdf
+          if-no-files-found: error
 
   release:
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v8
         with:
           name: template-pdf
       - uses: softprops/action-gh-release@v2
         with:
-          files: "*.pdf"
+          files: main.pdf

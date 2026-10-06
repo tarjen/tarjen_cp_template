@@ -1,7 +1,7 @@
 // 极角排序  (-1,0)方向作为结尾的逆时针序
 struct argcmp {
-    bool operator()(const Point &a, const Point &b) const {
-        const auto quad = [](const Point &a) {
+    bool operator()(const Point& a, const Point& b) const {
+        const auto quad = [](const Point& a) {
             if (a.y < -eps) return 1;
             if (a.y > eps) return 4;
             if (a.x < -eps) return 5;

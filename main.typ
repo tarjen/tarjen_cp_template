@@ -222,7 +222,7 @@
 == 莫比乌斯反演
 #import_code("src/math/mob莫比乌斯反演.cpp")
 == NTT
-#import_code("src/math/NTT.cpp")
+#import_code("src/math/ntt.cpp")
 == 任意模数NTT
 #import_code("src/math/任意模数ntt.cpp")
 == Pollard_Rho

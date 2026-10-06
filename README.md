@@ -31,3 +31,17 @@
 ```powershell
 python tests/run_template_refactor.py
 ```
+
+## 编译 PDF
+
+构建使用 Typst 0.15.1，在模板库根目录执行：
+
+```powershell
+typst compile main.typ main.pdf
+```
+
+本机安装位置为 `C:\Users\tarjen\AppData\Local\Programs\Typst\typst.exe`，桌面原模板库路径与 `code/tarjen_cp_template` 子模块指向同一份代码。
+
+GitHub Actions 在 Ubuntu 24.04 上安装 Noto CJK 与 Liberation 字体，使用同一 Typst 版本编译；PDF 可在每次成功构建的 `template-pdf` artifact 中下载，推送标签时也会上传到 Release。
+
+2026年10月6日修复了 `NTT.cpp` 与实际文件 `ntt.cpp` 的大小写不一致，更新了已停用的 artifact 下载步骤，并固定构建系统与编译器版本。

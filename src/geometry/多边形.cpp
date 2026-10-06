@@ -9,7 +9,7 @@ struct polygon {
     // 回转数
     // 返回值第一项表示点是否在多边形边上
     // 对于狭义多边形，回转数为 0 表示点在多边形外，否则点在多边形内
-    pair<bool, int> winding(const point<T> &a) const {
+    pair<bool, int> winding(const point<T>& a) const {
         int cnt = 0;
         for (size_t i = 0; i < p.size(); i++) {
             const point<T> u = p[i], v = p[nxt(i)];

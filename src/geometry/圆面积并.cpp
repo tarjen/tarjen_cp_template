@@ -1,25 +1,25 @@
 // 圆面积并
 // 轮廓积分，复杂度 O(n^2logn)
 // ans[i] 表示被至少覆盖了 i+1 次的区域的面积
-vector<long double> area_union(const vector<Circle> &circs) {
+vector<long double> area_union(const vector<Circle>& circs) {
     const size_t siz = circs.size();
     using arc_t = tuple<Point, long double, long double, long double>;
     vector<vector<arc_t>> arcs(siz);
-    const auto eq = [](const arc_t &u, const arc_t &v) {
+    const auto eq = [](const arc_t& u, const arc_t& v) {
         const auto [u1, u2, u3, u4] = u;
         const auto [v1, v2, v3, v4] = v;
         return u1 == v1 && abs(u2 - v2) <= eps && abs(u3 - v3) <= eps &&
                abs(u4 - v4) <= eps;
     };
 
-    auto cut_circ = [&](const Circle &ci, const size_t i) {
+    auto cut_circ = [&](const Circle& ci, const size_t i) {
         vector<pair<long double, int>> evt;
         evt.push_back({-PI, 0});
         evt.push_back({PI, 0});
         int init = 0;
         for (size_t j = 0; j < circs.size(); j++) {
             if (i == j) continue;
-            const Circle &cj = circs[j];
+            const Circle& cj = circs[j];
             if (ci.r < cj.r - eps && ci.relation(cj) >= 3) init++;
             const auto inters = ci.inter(cj);
             if (inters.size() == 1)
@@ -53,7 +53,7 @@ vector<long double> area_union(const vector<Circle> &circs) {
         }
     };
 
-    const auto oint = [](const arc_t &arc) {
+    const auto oint = [](const arc_t& arc) {
         const auto [cc, cr, l, r] = arc;
         if (abs(r - l - PI - PI) <= eps) return 2.0l * PI * cr * cr;
         return cr * cr * (r - l) + cc.x * cr * (sin(r) - sin(l)) -
@@ -61,7 +61,7 @@ vector<long double> area_union(const vector<Circle> &circs) {
     };
 
     for (size_t i = 0; i < circs.size(); i++) {
-        const auto &ci = circs[i];
+        const auto& ci = circs[i];
         cut_circ(ci, i);
     }
     vector<long double> ans(siz);

@@ -4,11 +4,11 @@
 #include <queue>
 
 template <class T, class U>
-inline bool smin(T &x, const U &y) {
+inline bool smin(T& x, const U& y) {
     return y < x ? x = y, 1 : 0;
 }
 template <class T, class U>
-inline bool smax(T &x, const U &y) {
+inline bool smax(T& x, const U& y) {
     return x < y ? x = y, 1 : 0;
 }
 
@@ -45,10 +45,10 @@ struct Heap {
 } h;
 
 std::vector<T> kShortestPath(int n, int k, int s, int t,
-                             const std::vector<Edge> &e) {
+                             const std::vector<Edge>& e) {
     int m = e.size();
     std::vector<int> deg(n + 1), g(m);
-    for (auto &[x, y, z] : e) deg[y]++;
+    for (auto& [x, y, z] : e) deg[y]++;
     for (int i = 1; i <= n; i++) deg[i] += deg[i - 1];
     for (int i = 0; i < m; i++) g[--deg[e[i].y]] = i;
 
@@ -70,7 +70,7 @@ std::vector<T> kShortestPath(int n, int k, int s, int t,
             vis[x] = true;
             p.push_back(x);
             for (int i = deg[x]; i < deg[x + 1]; i++) {
-                auto &[y, _, z] = e[g[i]];
+                auto& [y, _, z] = e[g[i]];
                 if (d[y] == -1 || d[y] > d[x] + z) {
                     d[y] = d[x] + z, fa[y] = g[i];
                     q.push({d[y], y});
@@ -83,7 +83,7 @@ std::vector<T> kShortestPath(int n, int k, int s, int t,
     std::vector<int> heap(n);
     h.cnt = 0;
     for (int i = 0; i < m; i++) {
-        auto &[x, y, z] = e[i];
+        auto& [x, y, z] = e[i];
         if (d[x] != -1 && d[y] != -1 && fa[x] != i) {
             heap[x] = h.merge(heap[x], h.newNode(y, d[y] + z - d[x]));
         }

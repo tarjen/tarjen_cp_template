@@ -40,3 +40,10 @@ ostream& operator<<(ostream& out, __int128 num) {
     out << s;
     return out;
 }
+// 两个整数相加的调用示例。
+int main() {
+    __int128 a = read();
+    __int128 b = read();
+    write(a + b);
+    return 0;
+}

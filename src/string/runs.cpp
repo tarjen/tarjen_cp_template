@@ -1,10 +1,11 @@
+// 0base；普通数据下标[0,n-1]；其余数值、位编号按算法含义使用。
 using i64 = int64_t;
 using u64 = uint64_t;
 struct LongestCommonPrefix {
     int n;
     vector<int> p, rank;
     vector<vector<int>> st;
-    LongestCommonPrefix(const string &s) : n(s.size()), p(n), rank(n) {
+    LongestCommonPrefix(const string& s) : n(s.size()), p(n), rank(n) {
         int k = 0;
         vector<int> q, count;
         for (int i = 0; i < n; i += 1) p[i] = i;
@@ -56,9 +57,9 @@ struct LongestCommonPrefix {
 };
 /*
     input 0 base
-    output [l,r,p] 1base
+    output [l,r,p] 0base closed interval
 */
-vector<tuple<int, int, int>> run(const string &s) {
+vector<tuple<int, int, int>> run(const string& s) {
     int n = s.size();
     auto r = s;
     reverse(r.begin(), r.end());
@@ -78,7 +79,7 @@ vector<tuple<int, int, int>> run(const string &s) {
         for (int i = 0; i < n; i += 1) {
             int j = lyn[i], t = j - i, l = i - lcs.get(n - i, n - j),
                 r = j + lcp.get(i, j);
-            if (r - l >= 2 * t) runs.emplace_back(l + 1, r, t);
+            if (r - l >= 2 * t) runs.emplace_back(l, r - 1, t);
         }
     }
     sort(runs.begin(), runs.end());

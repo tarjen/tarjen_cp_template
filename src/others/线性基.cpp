@@ -1,3 +1,4 @@
+// 0base；普通数据下标[0,n-1]；其余数值、位编号按算法含义使用。
 struct LinearBasis {
     static const int maxbase = 35;
     bool flag = false;
@@ -7,12 +8,9 @@ struct LinearBasis {
         memset(a, 0, sizeof a);
         tot = 0;
     }
-    LinearBasis(ll *x, int n) {
-        LinearBasis();
-        build(x, n);
-    }
-    void build(ll *x, int n) {
-        for (int i = 1; i <= n; ++i) insert(x[i]);
+    LinearBasis(ll* x, int n) : LinearBasis() { build(x, n); }
+    void build(ll* x, int n) {
+        for (int i = 0; i < n; ++i) insert(x[i]);
     }
     void clear() { memset(a, 0, sizeof a); }
     bool insert(ll t) {
@@ -60,14 +58,14 @@ struct LinearBasis {
             }
         }
     }
-    LinearBasis merge(const LinearBasis &l1, const LinearBasis &l2) {
+    LinearBasis merge(const LinearBasis& l1, const LinearBasis& l2) {
         // 得到两个线性基的并
         LinearBasis ret = l1;
         for (int i = maxbase; i >= 0; --i)
             if (l2.a[i]) ret.insert(l2.a[i]);
         return ret;
     }
-    LinearBasis intersection(const LinearBasis &l1, const LinearBasis &l2) {
+    LinearBasis intersection(const LinearBasis& l1, const LinearBasis& l2) {
         // 得到两个线性基的交
         LinearBasis all, ret, full;
         ret.clear();

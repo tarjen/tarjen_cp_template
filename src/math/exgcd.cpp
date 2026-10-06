@@ -1,4 +1,4 @@
-int exgcd(int a, int b, int &x, int &y) {  // 求ax+by=gcd(a,b)  !(a==0&&b==0)
+int exgcd(int a, int b, int& x, int& y) {  // 求ax+by=gcd(a,b)  !(a==0&&b==0)
     if (b == 0) {
         x = 1;
         y = 0;

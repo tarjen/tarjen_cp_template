@@ -29,7 +29,7 @@ vcp Omega(int L) {
     return w;
 }
 auto W = Omega(1 << 21);  // NOLINT
-void DIF(cp *a, int n) {
+void DIF(cp* a, int n) {
     cp x, y;
     for (int k = n >> 1; k; k >>= 1)
         for (int i = 0; i < n; i += k << 1)
@@ -37,7 +37,7 @@ void DIF(cp *a, int n) {
                 x = a[i + j], y = a[i + j + k],
                 a[i + j + k] = (a[i + j] - y) * W[k + j], a[i + j] = x + y;
 }
-void IDIT(cp *a, int n) {
+void IDIT(cp* a, int n) {
     cp x, y;
     for (int k = 1; k < n; k <<= 1)
         for (int i = 0; i < n; i += k << 1)
@@ -52,12 +52,12 @@ void IDIT(cp *a, int n) {
 
 namespace Polynomial {
 // basic operator
-void DFT(vcp &a) { FFT::DIF(a.data(), a.size()); }
-void IDFT(vcp &a) { FFT::IDIT(a.data(), a.size()); }
+void DFT(vcp& a) { FFT::DIF(a.data(), a.size()); }
+void IDFT(vcp& a) { FFT::IDIT(a.data(), a.size()); }
 int norm(int n) { return 1 << (__lg(n - 1) + 1); }
 
 // Poly mul
-vcp &dot(vcp &a, vcp &b) {
+vcp& dot(vcp& a, vcp& b) {
     fp(i, 0, a.size() - 1) a[i] = a[i] * b[i];
     return a;
 }

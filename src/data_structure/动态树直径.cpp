@@ -121,7 +121,7 @@ int main() {
         cin >> d >> e;
         d = (lastans + d) % (n - 1);
         e = (lastans + e) % ww;
-        auto &[x, y, w] = edges[d];
+        auto& [x, y, w] = edges[d];
         if (dep[x] > dep[y]) swap(x, y);
         ll delta = e - w;
         // cout << "x=" << x << " y=" << y << " w=" << w << " e=" << e << endl;

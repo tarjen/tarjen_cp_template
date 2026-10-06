@@ -1,14 +1,20 @@
-// 1base；Persistent_SegmentTree tr(n); append(version,l,r,w); query(version,i); 版本0全为0。
+// 1base；Persistent_SegmentTree tr(n); append(version,l,r,w); query(version,i);
+// 版本0全为0。
 #include <bits/stdc++.h>
 using namespace std;
 struct Persistent_SegmentTree {
     struct node {
-        int l, r, ls, rs; long long tag;
+        int l, r, ls, rs;
+        long long tag;
         node() { l = 0, r = 0, ls = 0, rs = 0, tag = 0; }
     };
     int n;
     vector<int> root;
-    explicit Persistent_SegmentTree(int n): n(n) { assert(n>=1); init(); root.push_back(build(1,n)); }
+    explicit Persistent_SegmentTree(int n) : n(n) {
+        assert(n >= 1);
+        init();
+        root.push_back(build(1, n));
+    }
     vector<node> a;
     void init() {
         root.clear();
@@ -16,9 +22,10 @@ struct Persistent_SegmentTree {
         a.push_back(node());
     }
     int nnode(int id = 0) {
-        if (id)
-            { node copy=a[id]; a.push_back(copy); }
-        else
+        if (id) {
+            node copy = a[id];
+            a.push_back(copy);
+        } else
             a.push_back(node());
         return a.size() - 1;
     }
@@ -70,11 +77,15 @@ struct Persistent_SegmentTree {
         if (a[x].l == a[x].r) return a[x].tag;
         return a[x].tag + val(a[x].ls, i) + val(a[x].rs, i);
     }
-    int append(int version,int l,int r,long long w) {
-        int p=update(root[version],l,r,w); root.push_back(p); return (int)root.size()-1;
+    int append(int version, int l, int r, long long w) {
+        int p = update(root[version], l, r, w);
+        root.push_back(p);
+        return (int)root.size() - 1;
     }
-    int splice(int x,int y,int p) {
-        int rt=merge(root[x],root[y],p); root.push_back(rt); return (int)root.size()-1;
+    int splice(int x, int y, int p) {
+        int rt = merge(root[x], root[y], p);
+        root.push_back(rt);
+        return (int)root.size() - 1;
     }
-    long long query(int version,int i) { return val(root[version],i); }
+    long long query(int version, int i) { return val(root[version], i); }
 };

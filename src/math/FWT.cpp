@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int mod = 998244353;
-void add(int &x, int y) {
+void add(int& x, int y) {
     if ((x += y) >= mod) x -= mod;
 }
-void del(int &x, int y) {
+void del(int& x, int y) {
     if ((x -= y) < 0) x += mod;
 }
 void fwtor(int a[], int m, int opt)  //(1,-1)

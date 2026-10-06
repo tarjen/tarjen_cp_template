@@ -1,5 +1,5 @@
 /*
-严格0base，不用管任何函数里面的东西，用就可以了，不要越界
+1base闭区间，dq[0]为空前缀；输入vector不需要补首格。
 pair<int,int> first表示哈希sum，second表示当前位置的值
 */
 #define int long long
@@ -39,7 +39,7 @@ struct extendable_sequence {
 
     int size() { return sz(dq) - 1; }
 
-    pair<int, int>& operator[](int i) { return dq[i + 1]; }
+    pair<int, int>& operator[](int i) { return dq[i]; }
 
     void add_back(vector<int> vals) {
         int t = dq.back().first;
@@ -61,7 +61,6 @@ struct extendable_sequence {
     }
 
     int calc(int l, int r) {
-        l++, r++;
         if (l > r) return 0;
         int res = dq[r].first;
         sub(res, dq[l - 1].first, mod);
@@ -70,18 +69,23 @@ struct extendable_sequence {
         return res;
     }
 };
-// 返回(x+y)[l到r]的哈希值
-int calc(extendable_sequence& x, extendable_sequence& y, int l, int r) {
-    int res = x.calc(l, min(r, sz(x) - 1));
-    add(res, mul(y.calc(max(0ll, l - sz(x)), r - sz(x)), p[sz(x)], mod), mod);
+
+int calc(extendable_sequence& x, extendable_sequence& y, int l,
+         int r) {  // 返回(x+y)[l到r]的哈希值
+    int res = x.calc(l, min(r, sz(x)));
+    add(res,
+        mul(y.calc(max(1ll, l - sz(x)), r - sz(x)), p[max(0ll, sz(x) - l + 1)],
+            mod),
+        mod);
     return res;
 }
-// 返回(x+y)[i]单个元素的值
-int calc(extendable_sequence& x, extendable_sequence& y, int i) {
-    if (i < sz(x)) {
+
+int calc(extendable_sequence& x, extendable_sequence& y,
+         int i) {  // 返回(x+y)[i]单个元素的值
+    if (i <= sz(x)) {
         return x[i].second;
     }
-    if (i - sz(x) < sz(y)) {
+    if (i - sz(x) <= sz(y)) {
         return y[i - sz(x)].second;
     }
     return -1;

@@ -28,22 +28,22 @@ struct Bitset {
         for (int i = 0; i <= lim; i++) res += __builtin_popcountll(v[i]);
         return res;
     }
-    Bitset operator|(const Bitset &x) const {
+    Bitset operator|(const Bitset& x) const {
         Bitset res;
         for (int i = 0; i <= lim; i++) res.v[i] = v[i] | x.v[i];
         return res;
     }
-    Bitset operator&(const Bitset &x) const {
+    Bitset operator&(const Bitset& x) const {
         Bitset res;
         for (int i = 0; i <= lim; i++) res.v[i] = v[i] & x.v[i];
         return res;
     }
-    Bitset operator^(const Bitset &x) const {
+    Bitset operator^(const Bitset& x) const {
         Bitset res;
         for (int i = 0; i <= lim; i++) res.v[i] = v[i] ^ x.v[i];
         return res;
     }
-    Bitset operator-(const Bitset &x) const {
+    Bitset operator-(const Bitset& x) const {
         Bitset res;
         ull lst = 0;
         for (int i = 0; i <= lim; i++) {

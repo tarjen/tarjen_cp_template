@@ -1,21 +1,21 @@
 // 多边形面积并
 // 轮廓积分，复杂度 O(n^2logn)，n为边数
 // ans[i] 表示被至少覆盖了 i+1 次的区域的面积
-vector<long double> area_union(const vector<Polygon> &polys) {
+vector<long double> area_union(const vector<Polygon>& polys) {
     const size_t siz = polys.size();
     vector<vector<pair<Point, Point>>> segs(siz);
-    const auto check = [](const Point &u, const Segment &e) {
+    const auto check = [](const Point& u, const Segment& e) {
         return !((u < e.a && u < e.b) || (u > e.a && u > e.b));
     };
 
-    auto cut_edge = [&](const Segment &e, const size_t i) {
+    auto cut_edge = [&](const Segment& e, const size_t i) {
         const Line le{e.a, e.b - e.a};
         vector<pair<Point, int>> evt;
         evt.push_back({e.a, 0});
         evt.push_back({e.b, 0});
         for (size_t j = 0; j < polys.size(); j++) {
             if (i == j) continue;
-            const auto &pj = polys[j];
+            const auto& pj = polys[j];
             for (size_t k = 0; k < pj.p.size(); k++) {
                 const Segment s = {pj.p[k], pj.p[pj.nxt(k)]};
                 if (le.toleft(s.a) == 0 && le.toleft(s.b) == 0) {
@@ -44,7 +44,7 @@ vector<long double> area_union(const vector<Polygon> &polys) {
     };
 
     for (size_t i = 0; i < polys.size(); i++) {
-        const auto &pi = polys[i];
+        const auto& pi = polys[i];
         for (size_t k = 0; k < pi.p.size(); k++) {
             const Segment ei = {pi.p[k], pi.p[pi.nxt(k)]};
             cut_edge(ei, i);

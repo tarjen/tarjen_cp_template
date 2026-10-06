@@ -3,7 +3,7 @@ struct Circle {
     Point c;
     long double r;
 
-    bool operator==(const Circle &a) const {
+    bool operator==(const Circle& a) const {
         return c == a.c && abs(r - a.r) <= eps;
     }
     long double circ() const { return 2 * PI * r; }  // 周长
@@ -11,14 +11,14 @@ struct Circle {
 
     // 点与圆的关系
     // -1 圆上 | 0 圆外 | 1 圆内
-    int is_in(const Point &p) const {
+    int is_in(const Point& p) const {
         const long double d = p.dis(c);
         return abs(d - r) <= eps ? -1 : d < r - eps;
     }
 
     // 直线与圆关系
     // 0 相离 | 1 相切 | 2 相交
-    int relation(const Line &l) const {
+    int relation(const Line& l) const {
         const long double d = l.dis(c);
         if (d > r + eps) return 0;
         if (abs(d - r) <= eps) return 1;
@@ -27,7 +27,7 @@ struct Circle {
 
     // 圆与圆关系
     // -1 相同 | 0 相离 | 1 外切 | 2 相交 | 3 内切 | 4 内含
-    int relation(const Circle &a) const {
+    int relation(const Circle& a) const {
         if (*this == a) return -1;
         const long double d = c.dis(a.c);
         if (d > r + a.r + eps) return 0;
@@ -38,7 +38,7 @@ struct Circle {
     }
 
     // 直线与圆的交点
-    vector<Point> inter(const Line &l) const {
+    vector<Point> inter(const Line& l) const {
         const long double d = l.dis(c);
         const Point p = l.proj(c);
         const int t = relation(l);
@@ -50,7 +50,7 @@ struct Circle {
     }
 
     // 圆与圆交点
-    vector<Point> inter(const Circle &a) const {
+    vector<Point> inter(const Circle& a) const {
         const long double d = c.dis(a.c);
         const int t = relation(a);
         if (t == -1 || t == 0 || t == 4) return vector<Point>();
@@ -66,7 +66,7 @@ struct Circle {
     }
 
     // 圆与圆交面积
-    long double inter_area(const Circle &a) const {
+    long double inter_area(const Circle& a) const {
         const long double d = c.dis(a.c);
         const int t = relation(a);
         if (t == -1) return area();
@@ -82,7 +82,7 @@ struct Circle {
     }
 
     // 过圆外一点圆的切线
-    vector<Line> tangent(const Point &a) const {
+    vector<Line> tangent(const Point& a) const {
         const int t = is_in(a);
         if (t == 1) return vector<Line>();
         if (t == -1) {
@@ -97,7 +97,7 @@ struct Circle {
     }
 
     // 两圆的公切线
-    vector<Line> tangent(const Circle &a) const {
+    vector<Line> tangent(const Circle& a) const {
         const int t = relation(a);
         vector<Line> lines;
         if (t == -1 || t == 4) return lines;
@@ -129,7 +129,7 @@ struct Circle {
     }
 
     // 圆的反演
-    tuple<int, Circle, Line> inverse(const Line &l) const {
+    tuple<int, Circle, Line> inverse(const Line& l) const {
         const Circle null_c = {{0.0, 0.0}, 0.0};
         const Line null_l = {{0.0, 0.0}, {0.0, 0.0}};
         if (l.toleft(c) == 0) return {2, null_c, l};
@@ -140,7 +140,7 @@ struct Circle {
         return {1, {(c + p) / 2, d / 2}, null_l};
     }
 
-    tuple<int, Circle, Line> inverse(const Circle &a) const {
+    tuple<int, Circle, Line> inverse(const Circle& a) const {
         const Circle null_c = {{0.0, 0.0}, 0.0};
         const Line null_l = {{0.0, 0.0}, {0.0, 0.0}};
         const Point v = a.c - c;
@@ -158,8 +158,8 @@ struct Circle {
 };
 
 // 圆与多边形面积交
-long double area_inter(const Circle &circ, const Polygon &poly) {
-    const auto cal = [](const Circle &circ, const Point &a, const Point &b) {
+long double area_inter(const Circle& circ, const Polygon& poly) {
+    const auto cal = [](const Circle& circ, const Point& a, const Point& b) {
         if ((a - circ.c).toleft(b - circ.c) == 0) return 0.0l;
         const auto ina = circ.is_in(a), inb = circ.is_in(b);
         const Line ab = {a, b - a};

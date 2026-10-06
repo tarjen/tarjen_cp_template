@@ -71,8 +71,8 @@ void Find(ll n) {
     Find(n);
 }
 }  // namespace Pollard_Rho
-void solve(int x, set<int> &s) {
-    Pollard_Rho ::Find(x);
+void solve(int x, set<int>& s) {
+    Pollard_Rho::Find(x);
     for (auto [x, _] : P) s.insert(x);
     P.clear();
 }

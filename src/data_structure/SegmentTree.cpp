@@ -1,109 +1,121 @@
-// 1base；SegmentTree tr(n)初值为0，或tr(a)接收1base数组；update/query省略根编号。
-//线段树区间加区间求和 线段树二分左右>=给定sum的第一个位置
+// 0base闭区间；tr(n)管理[0,n]，tr(v)使用普通vector；数值类型T默认ll。
 #include <bits/stdc++.h>
 using namespace std;
-struct Node{
-    int l,r; long long res=0,tag=0;
-};
-struct SegmentTree{
-    int n;
+using ll = long long;
+template <class T = ll>
+struct SegmentTree {
+    struct Node {
+        int l, r;
+        T res = 0, tag = 0;
+    };
+    int n;  // 元素个数
     vector<Node> a;
-    explicit SegmentTree(int n): n(n),a(4*n+4) { if(n) build(1,1,n); }
-    // 输入v为1base，v[0]不参与计算。
-    explicit SegmentTree(const vector<long long>& v): SegmentTree((int)v.size()-1) {
-        if(n) load(1,v);
-    }
-    void load(int i,const vector<long long>& v) {
-        if(a[i].l==a[i].r) {
-            a[i].res=v[a[i].l];
-
-            return;
-        }
-        load(i*2,v); load(i*2+1,v); pushup(i);
-    }
-
-    void tag_init(int i){
-        a[i].tag=0;
-    }
-    void tag_union(int fa,int i){
-        a[i].tag+=a[fa].tag;
-    }
-    void tag_cal(int i){
-        a[i].res+=a[i].tag*(a[i].r-a[i].l+1);
-    }
-    void pushdown(int i){
+    void tag_init(int i) { a[i].tag = 0; }
+    void tag_union(int fa, int i) { a[i].tag += a[fa].tag; }
+    void tag_cal(int i) { a[i].res += a[i].tag * (a[i].r - a[i].l + 1); }
+    void pushdown(int i) {
         tag_cal(i);
-        if(a[i].l!=a[i].r){
-            tag_union(i,i*2);
-            tag_union(i,i*2+1);
+        if (a[i].l != a[i].r) {
+            tag_union(i, i * 2);
+            tag_union(i, i * 2 + 1);
         }
         tag_init(i);
     }
-    void pushup(int i){
-        if(a[i].l==a[i].r)return;
-        pushdown(i*2);
-        pushdown(i*2+1);
-        a[i].res=a[i*2].res+a[i*2+1].res;
+    void pushup(int i) {
+        if (a[i].l == a[i].r) return;
+        pushdown(i * 2);
+        pushdown(i * 2 + 1);
+        a[i].res = a[i * 2].res + a[i * 2 + 1].res;
     }
-    void build(int i,int l,int r){
-        a[i].l=l,a[i].r=r;tag_init(i);a[i].res=0;
-        if(l>=r)return;
-        int mid=(l+r)/2;
-        build(i*2,l,mid);
-        build(i*2+1,mid+1,r);
-    }
-    void update(int i,int l,int r,long long w){
-        pushdown(i);
-        if(a[i].r<l||a[i].l>r||l>r)return;
-        if(a[i].l>=l&&a[i].r<=r){
-            a[i].tag=w;
+    void build(int i, int l, int r, const vector<T>& v = {}) {
+        a[i] = {l, r};
+        if (l == r) {
+            a[i].res = v.empty() ? T(0) : v[l];
             return;
         }
-        update(i*2,l,r,w);
-        update(i*2+1,l,r,w);
+        int mid = (l + r) / 2;
+        build(i * 2, l, mid, v);
+        build(i * 2 + 1, mid + 1, r, v);
         pushup(i);
     }
-    long long query(int i,int l,int r){
+    void update(int i, int l, int r, T w) {
         pushdown(i);
-        if(a[i].r<l||a[i].l>r||l>r)return 0;
-        if(a[i].l>=l&&a[i].r<=r){
+        if (a[i].r < l || a[i].l > r || l > r) return;
+        if (a[i].l >= l && a[i].r <= r) {
+            a[i].tag = w;
+            return;
+        }
+        update(i * 2, l, r, w);
+        update(i * 2 + 1, l, r, w);
+        pushup(i);
+    }
+    T query(int i, int l, int r) {
+        pushdown(i);
+        if (a[i].r < l || a[i].l > r || l > r) return 0;
+        if (a[i].l >= l && a[i].r <= r) {
             return a[i].res;
         }
-        return query(i*2,l,r)+query(i*2+1,l,r);
+        return query(i * 2, l, r) + query(i * 2 + 1, l, r);
     }
-    int min_right(int qL, long long& nowsum,long long querysum, int i) {//从左往右第一个>=sum的位置
+    int min_right(int qL, T& nowsum, T querysum,
+                  int i) {  // 从左往右第一个>=sum的位置
         pushdown(i);
-        if (a[i].r < qL)return -1;
+        if (a[i].r < qL) return -1;
         if (qL <= a[i].l) {
-            long long ss = nowsum+a[i].res;
-            if (ss<querysum) {
+            T ss = nowsum + a[i].res;
+            if (ss < querysum) {
                 nowsum = ss;
                 return -1;
             }
-            if (a[i].l == a[i].r)return a[i].l;
+            if (a[i].l == a[i].r) return a[i].l;
         }
-        int pos = min_right(qL, nowsum,querysum,i*2);
-        if (pos != -1)return pos;
-        return min_right(qL, nowsum,querysum,2*i+1);
+        int pos = min_right(qL, nowsum, querysum, i * 2);
+        if (pos != -1) return pos;
+        return min_right(qL, nowsum, querysum, 2 * i + 1);
     }
-    int max_left(int qR,long long &nowsum,long long querysum,int i){//从右往左第一个>=sum的位置
+    int max_left(int qR, T& nowsum, T querysum,
+                 int i) {  // 从右往左第一个>=sum的位置
         pushdown(i);
-        if(a[i].l > qR)return -1;
-        if(qR>=a[i].r){
-            long long ss=nowsum+a[i].res;
-            if(ss<querysum){
-                nowsum=ss;
+        if (a[i].l > qR) return -1;
+        if (qR >= a[i].r) {
+            T ss = nowsum + a[i].res;
+            if (ss < querysum) {
+                nowsum = ss;
                 return -1;
             }
-            if(a[i].l==a[i].r)return a[i].r;
+            if (a[i].l == a[i].r) return a[i].r;
         }
-        int pos=max_left(qR,nowsum,querysum,i*2+1);
-        if(pos!=-1)return pos;
-        return max_left(qR,nowsum,querysum,i*2);
+        int pos = max_left(qR, nowsum, querysum, i * 2 + 1);
+        if (pos != -1) return pos;
+        return max_left(qR, nowsum, querysum, i * 2);
     }
-void update(int l,int r,long long w) { if(n) update(1,l,r,w); }
-    long long query(int l,int r) { return n?query(1,l,r):0; }
-    // 二分要求所累加的元素非负，且need>0；找不到返回-1。
-    int min_right(int l,long long need) { long long sum=0; return n?min_right(l,sum,need,1):-1; }
-    int max_left(int r,long long need) { long long sum=0; return n?max_left(r,sum,need,1):-1; }
+
+    SegmentTree(int _n) : n(_n) {
+        assert(0 <= _n && _n < INT_MAX);
+        ++n;
+        a.resize(4LL * n + 4);
+        build(1, 0, _n);
+    }
+    SegmentTree(const vector<T>& v) : n(v.size()), a(4LL * n + 4) {
+        if (n) build(1, 0, n - 1, v);
+    }
+    void update(int l, int r, T w) {
+        assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
+        update(1, l, r, w);
+    }
+    T query(int l, int r) {
+        assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
+        return query(1, l, r);
+    }
+    // 二分要求元素非负、need>0，不存在返回-1。
+    int min_right(int l, T need) {
+        assert(n > 0 && 0 <= l && l <= n && need > 0);
+        T sum = 0;
+        return min_right(l, sum, need, 1);
+    }
+    int max_left(int r, T need) {
+        assert(n > 0 && -1 <= r && r < n && need > 0);
+        T sum = 0;
+        return max_left(r, sum, need, 1);
+    }
 };

@@ -20,7 +20,7 @@ struct UnitRoot {
 };
 vector<cplx> UnitRoot::w;
 
-void fft(vector<cplx> &p, const vector<cplx> &w) {
+void fft(vector<cplx>& p, const vector<cplx>& w) {
     int n = w.size();
     for (int i = 1, j = 0; i < n - 1; ++i) {
         int s = n;
@@ -44,7 +44,7 @@ void fft(vector<cplx> &p, const vector<cplx> &w) {
         }
     }
 }
-vector<long long> conv(const vector<long long> &a, const vector<long long> &b) {
+vector<long long> conv(const vector<long long>& a, const vector<long long>& b) {
     vector<cplx> w = UnitRoot::get_root(a.size() + b.size() - 1);
     int n = w.size();
     vector<cplx> A(n), B(n), C(n), D(n);

@@ -2,7 +2,7 @@
 // 排序增量法，复杂度 O(nlogn)
 // 输入与返回值都是用直线表示的半平面集合
 vector<Line> halfinter(vector<Line> l, const point_t lim = 1e9) {
-    const auto check = [](const Line &a, const Line &b, const Line &c) {
+    const auto check = [](const Line& a, const Line& b, const Line& c) {
         return a.toleft(b.inter(c)) < 0;
     };
     // 无精度误差的方法，但注意取值范围会扩大到三次方

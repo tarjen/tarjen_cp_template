@@ -1,6 +1,7 @@
+// 0base；普通数据下标[0,n-1]；其余数值、位编号按算法含义使用。
 struct graph {
     vector<vector<pair<int, ll>>> e;
-    graph(int n) : e(n + 1) {}
+    graph(int n) : e(n) {}
     void adde(int u, int v, ll w) { e[u].push_back({v, w}); }
     vector<ll> h;
     // initialize h(u), return false if there exists a negative cycle
@@ -8,14 +9,14 @@ struct graph {
         int n = e.size();
         h.assign(n, 0);
         queue<int> que;
-        for (int u = 1; u < n; u++) que.push(u);
+        for (int u = 0; u < n; u++) que.push(u);
         vector<int> vis(n, 0), cnt(n, n + 1);
         while (que.size()) {
             auto u = que.front();
             que.pop();
             vis[u] = false;
             if (!cnt[u]--) return false;  // exists a negative cycle
-            for (auto &[v, w] : e[u])
+            for (auto& [v, w] : e[u])
                 if (h[v] > h[u] + w) {
                     h[v] = h[u] + w;
                     if (!vis[v]) que.push(v), vis[v] = 1;

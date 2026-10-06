@@ -13,7 +13,7 @@ const int INF = 0x3f3f3f3f;
 int a, b, p;
 unordered_map<int, int> hs;
 
-int exgcd(int a, int b, int &x, int &y) {
+int exgcd(int a, int b, int& x, int& y) {
     if (!b) {
         x = 1, y = 0;
         return a;

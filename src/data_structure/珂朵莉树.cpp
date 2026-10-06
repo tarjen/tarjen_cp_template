@@ -1,3 +1,4 @@
+// 0base；普通数据下标[0,n-1]；其余数值、位编号按算法含义使用。
 #include <bits/stdc++.h>
 using namespace std;
 struct SegmentMap {
@@ -6,8 +7,8 @@ struct SegmentMap {
     int n;
     SegmentMap(int _n = 0) {
         n = _n;
-        ma[1] = 0;
-        ma[n + 1] = -1;
+        ma[0] = 0;
+        ma[n] = -1;
     }
     void del(int l, int r, int x) {  // 减去当前 (l,r,x) 的贡献
         sum -= (r - l + 1) * x;
@@ -19,7 +20,8 @@ struct SegmentMap {
         auto t = prev(ma.upper_bound(x))->second;
         ma[x] = t;
     }
-    void update(int l, int r, auto&& T) {
+    template <class F>
+    void update(int l, int r, F&& T) {
         split(l);
         split(r + 1);
         auto it = prev(ma.upper_bound(l));
@@ -37,8 +39,8 @@ struct SegmentMap {
             }
             pr = T(x);
         }
-        if (it->first != n + 1 && it->second == pr) ma.erase(it);
-        if (l != 1) {
+        if (it->first != n && it->second == pr) ma.erase(it);
+        if (l != 0) {
             it = ma.lower_bound(l);
             if (prev(it)->second == it->second) ma.erase(it);
         }
@@ -60,8 +62,9 @@ int main() {
         } else {
             int l, r, x;
             cin >> l >> r >> x;
-            sol.update(l, r, [x](int y) { return x; });
+            sol.update(l, r, [x](int) { return x; });
         }
         cout << sol.sum << "\n";
     }
+    return 0;
 }

@@ -3,21 +3,21 @@ const int G = 2;
 typedef array<ll, G> hs;
 const hs p = {31, 131};
 const hs mod = {998244353, 1'000'000'007};
-hs &operator+=(hs &a, hs b) {
+hs& operator+=(hs& a, hs b) {
     for (int i = 0; i < G; i++) {
         if ((a[i] += b[i]) >= mod[i]) a[i] -= mod[i];
     }
     return a;
 }
 hs operator+(hs a, hs b) { return a += b; }
-hs &operator-=(hs &a, hs b) {
+hs& operator-=(hs& a, hs b) {
     for (int i = 0; i < G; i++) {
         if ((a[i] -= b[i]) < 0) a[i] += mod[i];
     }
     return a;
 }
 hs operator-(hs a, hs b) { return a -= b; }
-hs &operator*=(hs &a, hs b) {
+hs& operator*=(hs& a, hs b) {
     for (int i = 0; i < G; i++) {
         a[i] = (a[i] * b[i]) % mod[i];
     }
@@ -28,7 +28,7 @@ hs operator*(hs a, hs b) { return a *= b; }
 struct Hash {
     int n;
     vector<hs> has1, has2, Pow;
-    void Hash_init(string &s) {
+    void Hash_init(string& s) {
         n = (int)s.size();
         Pow.resize(n + 2);
         has1.resize(n + 2);

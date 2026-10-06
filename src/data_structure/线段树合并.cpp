@@ -1,4 +1,5 @@
-// 1base；SegmentTree tr(n); 保留题目专用res0/res1与合并规则；多根同池、merge会消耗旧树。
+// 1base；SegmentTree tr(n);
+// 保留题目专用res0/res1与合并规则；多根同池、merge会消耗旧树。
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -7,13 +8,13 @@ void gmax(ll& x, ll y) {
 }
 struct SegmentTree {
     struct Node {
-        int ls=0, rs=0;
+        int ls = 0, rs = 0;
         ll tag = 0, res0 = 0, res1 = 0;  // res0 small res1 bigger
         void add(ll v) { tag += v, res0 += v, res1 += v; }
     };
     vector<Node> a;
-    int n,root=0;
-    explicit SegmentTree(int n): n(n) {
+    int n, root = 0;
+    explicit SegmentTree(int n) : n(n) {
         a.clear();
         a.emplace_back();
     }
@@ -53,7 +54,7 @@ struct SegmentTree {
         return i;
     }
     int merge(int i, int j, int L, int R, ll adi, ll adj, ll& ans) {
-        if(!i&&!j) return 0;
+        if (!i && !j) return 0;
         if (!i || !j) {
             if (i == 0) {
                 a[j].add(adj);
@@ -73,5 +74,5 @@ struct SegmentTree {
         pushup(i);
         return i;
     }
-    void update(int x,ll v) { root=update(root,1,n,x,v); }
+    void update(int x, ll v) { root = update(root, 1, n, x, v); }
 };
