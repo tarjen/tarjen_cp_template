@@ -1,3 +1,7 @@
+// 用法：
+// 本板是轴对齐线段统计的题目片段，输入每条线段的 x y z w。
+// solve<LEN>() 统计由两条竖线和两条横线组成的矩形。
+// 依赖 N/ll、模板 solve 的前置声明；目前不是可独立复用的 Bitset 类。
 int n;
 vector<tuple<int, int, int>> a, b;
 int sz;

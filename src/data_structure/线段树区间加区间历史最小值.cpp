@@ -1,4 +1,9 @@
-// 0base闭区间；tr(n)管理[0,n]，tr(v)使用普通vector；数值类型T默认ll。
+// 用法：
+// SegmentTree<> tr(4);  // 初值 0，管理闭区间 [0,4]。
+// tr.update(1, 3, -2);
+// tr.update(1, 3, 5);  // 闭区间加。
+// ll ans = tr.query(1, 3);  // 历史最小值为 -2，当前值为 3。
+// query 返回历史最小值，包含初值；数组构造支持普通 vector。
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;

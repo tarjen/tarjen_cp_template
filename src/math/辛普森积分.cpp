@@ -1,3 +1,7 @@
+// 用法：
+// 先在本板前定义 double f(double x)，例如 f(x)=x*x。
+// double integral = calc(0.0, 1.0, 1e-8);  // 积分约为 1/3。
+// 参数是左端点、右端点、误差阈值；f 在区间内应适合数值积分。
 double simpson(double l, double r) {
     double mid = (l + r) / 2;
     return (r - l) * (f(l) + 4 * f(mid) + f(r)) / 6;  // 辛普森公式

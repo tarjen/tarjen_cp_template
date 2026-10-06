@@ -1,4 +1,10 @@
-// Suffix sa(s); 输入普通string，sa/rk/ht和查询位置为1base；倍增算法。
+// 用法：
+// Suffix tr("banana");  // 构造即建后缀数组及 LCP 查询表。
+// int first = tr.sa[1];  // 字典序最小后缀起点为 6。
+// int length = tr.lcp(2, 4);  // 两个后缀的 LCP 长度为 3。
+// int cmp = tr.query(2, 4, 4, 6);  // 比较两个闭区间子串，结果 0（相等）。
+// 原串位置、sa/rk/ht 均 1base；cmp=-1/0/1 表示小于/等于/大于。
+// ht[i] 是排名 i 与 i-1 的相邻后缀的 LCP。
 #include <bits/stdc++.h>
 using namespace std;
 struct Suffix {

@@ -1,6 +1,8 @@
-// 点集的凸包
-// Andrew 算法，复杂度 O(nlogn)
-// 注意p内点数<=2的情况
+// 用法：
+// 依赖：几何开头、点、极角排序、直线、线段、多边形、凸多边形。
+// vector<Point> points = {{0,0}, {2,0}, {0,2}, {0.5,0.5}};
+// Convex hull = convexhull(points);  // hull.p 为逆时针凸包顶点。
+// 内部点会去掉，本例保留 3 个顶点；点数 <=2 时单独处理后续凸多边形操作。
 Convex convexhull(vector<Point> p) {
     vector<Point> st;
     if (p.size() <= 2) return Convex{p};

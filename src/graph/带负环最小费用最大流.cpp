@@ -1,5 +1,10 @@
-// bounded_flow f(n,s,t); add(u,v,cap,cost);
-// mincost()；结果optional{最大流,最小费用}；0base节点[0,n-1]。
+// 用法：
+// bounded_flow tr(2, 0, 1);  // 节点 0base，源 0、汇 1。
+// tr.add(0, 1, 3, 2);  // 容量 3，单位费用 2；允许负费用与负环。
+// auto ans = tr.mincost();  // optional<pair<ll,ll>>，本例 {3,6}。
+// if (ans) { auto [flow, cost] = *ans; }  // 无可行非负源汇流时为 nullopt。
+// 有上下界时用 add_bounds(u,v,lo,hi,cost)，要求 0<=lo<=hi。
+// 每次求解重建残量网络，结果依次是最大流、最小总费用。
 #include <bits/stdc++.h>
 using namespace std;
 struct flow {

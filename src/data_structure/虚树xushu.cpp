@@ -1,5 +1,12 @@
-// 1base带权连通树；XS xs(n,root); add(); build();
-// build_virtual(keys)内部清理；vis为虚树点集，b标记关键点。
+// 用法：
+// XS tr(3);  // 节点 1base，根默认 1，原图必须是连通带权树。
+// tr.add(1, 2, 3);
+// tr.add(1, 3, 4);
+// tr.build();
+// auto nodes = tr.build_virtual({2, 3});  // 返回虚树节点，包含所需 LCA 和根。
+// ll distance = tr.getlen(2, 3);  // 原树距离为 7。
+// ve2 是虚树邻接表，边的 len 为原树路径长度；b[u] 标记关键点。
+// 每次 build_virtual 自动清理上一棵虚树。
 #include <bits/stdc++.h>
 using namespace std;
 

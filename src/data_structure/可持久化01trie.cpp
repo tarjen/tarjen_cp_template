@@ -1,5 +1,12 @@
-// 非负31位整数；Persistent_Trie tr; append(x);
-// max_xor(l,r,x)查询1base闭区间；版本0为空。
+// 用法：
+// Persistent_Trie tr;          // 默认 31 位，支持 [0, 2^31-1]。
+// tr.append(5);               // 加入 a[1]，返回版本号 1。
+// tr.append(2);               // 加入 a[2]，返回版本号 2。
+// int ans = tr.max_xor(1, 2, 3);  // max(5^3, 2^3) = 6；返回异或值。
+// l,r 是插入序列的 1base 闭区间；查询要求 1 <= l <= r <= 插入次数。
+// root[k] 是前 k 个数的根节点编号，root[0] 是空版本。
+// 等价底层调用：tr.query(tr.root[l-1], tr.root[r], x)，传根编号而非版本号。
+// 可用 Persistent_Trie tr(b) 指定 1..31 位；插入值和 x 都须在 [0, 2^b-1]。
 #include <bits/stdc++.h>
 using namespace std;
 

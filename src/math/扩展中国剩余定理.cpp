@@ -1,3 +1,8 @@
+// 用法：
+// vector<int> mo = {3, 5}, res = {2, 3};
+// int x = solve(2, mo, res);  // x=2 mod 3，x=3 mod 5，最小非负解为 8。
+// 数组 0base，mo 是正模数、res 是余数；无解返回 -1。
+// 本板定义了 int 为 long long；合并后的模数与中间运算须不溢出。
 #define int long long
 int mul(int a, int b, int mod) {  // O(1)取模快速乘，不会爆long long
     return (a * b - (int)((long double)a / mod * b) * mod + mod) % mod;

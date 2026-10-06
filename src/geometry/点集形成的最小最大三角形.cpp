@@ -1,6 +1,8 @@
-// 点集形成的最小最大三角形
-// 极角序扫描线，复杂度 O(n^2logn)
-// 最大三角形问题可以使用凸包与旋转卡壳做到 O(n^2)
+// 用法：
+// 依赖：几何开头、点与向量、极角排序。
+// vector<Point> points = {{0,0}, {2,0}, {0,2}};
+// auto [small, large] = minmax_triangle(points);  // 本例均为 4。
+// 返回最小、最大三角形面积的两倍；实际面积需除以 2。
 pair<point_t, point_t> minmax_triangle(const vector<Point>& vec) {
     if (vec.size() <= 2) return {0, 0};
     vector<pair<int, int>> evt;

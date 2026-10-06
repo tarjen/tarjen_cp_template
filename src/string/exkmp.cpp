@@ -1,4 +1,8 @@
-// 0base；EXKMP ex(text,pattern); next/extend按原串位置访问。
+// 用法：
+// EXKMP tr("ababa", "aba");  // 参数顺序：文本、模式串。
+// int length = tr.extend[0];  // 文本后缀与模式串的 LCP 长度为 3。
+// int z = tr.next[2];  // 模式串后缀与自身的 LCP 长度为 1。
+// extend 对应文本位置，next 对应模式串位置，均 0base；构造即计算。
 #include <bits/stdc++.h>
 using namespace std;
 struct EXKMP {

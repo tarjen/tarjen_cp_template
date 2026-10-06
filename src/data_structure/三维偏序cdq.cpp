@@ -1,5 +1,8 @@
-// Dominance3D cdq(points);
-// cnt[k]为被恰好k个其他点三坐标均<=的点数；输入0base，重复点分别计数。
+// 用法：
+// vector<tuple<int,int,int>> points = {{1,1,1}, {2,2,2}, {2,2,2}};
+// Dominance3D tr(points);  // 构造即计算，输入 vector 不补首格。
+// int count = tr.cnt[2];  // 被恰好 2 个其他点三坐标均 <= 的点有 2 个。
+// cnt[k] 是点数分布，不是第 k 个点的答案；重复点分别计数。
 #include <bits/stdc++.h>
 using namespace std;
 struct Treearray {

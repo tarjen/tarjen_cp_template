@@ -1,5 +1,11 @@
-// HLD hld(graph,values,root,mod);
-// chain_add/chain_sum、subtree_add/subtree_sum。
+// 用法：
+// vector<vector<int>> g = {{}, {2,3}, {1}, {1}};  // 1base 连通树。
+// vector<int> values = {0, 1, 2, 3};  // 节点初值，第 0 格不用。
+// HLD tr(g, values, 1, 1000000007);  // 根 1，结果取模。
+// tr.chain_add(2, 3, 1);  // 路径 2-1-3 的所有节点加 1。
+// int sum = tr.chain_sum(2, 3);  // 结果 9，包含两端。
+// tr.subtree_add(1, 2);  // 根 1 的整棵子树加 2。
+// int sub = tr.subtree_sum(1);  // 结果 15。
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;

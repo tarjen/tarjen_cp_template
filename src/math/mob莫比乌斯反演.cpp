@@ -1,4 +1,8 @@
-// MobiusSieve sieve(n); mul为莫比乌斯函数，phi为欧拉函数，pr质数列表保留1base。
+// 用法：
+// MobiusSieve tr(20);  // 构造即预处理 [1,20]。
+// int mu = tr.mul[6];  // 莫比乌斯函数为 1。
+// int phi = tr.phi[6];  // 欧拉函数为 2。
+// int prime = tr.pr[1];  // 首个质数为 2；pr 的第 0 格不用。
 #include <bits/stdc++.h>
 using namespace std;
 struct MobiusSieve {

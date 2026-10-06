@@ -1,3 +1,10 @@
+// 用法：
+// vec tr{};  // 值初始化为全 0，或先调用 clear()。
+// tr.insert(2, 0);
+// tr.insert(0, 3);
+// bool possible = tr.query(4, 6);  // true，可用整数倍线性组合表示。
+// bool impossible = tr.query(1, 0);  // false；不是仅允许非负系数的组合。
+// 注意 int 中间运算范围；这是二维整数格，不是向量夹角范围。
 int gcd(int x, int y) {
     if (y == 0)
         return x;

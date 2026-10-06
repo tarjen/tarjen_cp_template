@@ -1,3 +1,8 @@
+// 用法：
+// Bitset b; b.init(); b.add(1); b.add(3);
+// int count = b.count();  // 2；该定长版使用前必须 init()。
+// 后面的 getans(mid) 是特定题目的函数内片段，依赖 n/s/f/g/ch。
+// 可复用位集运算，通用可构造的版本见 bitset手写.cpp。
 #include <bits/stdc++.h>
 using namespace std;
 const int N = 3010;

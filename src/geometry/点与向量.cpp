@@ -1,4 +1,11 @@
-// 点与向量
+// 用法：
+// 依赖：开头.cpp（point_t/eps）。
+// Point a{0,0}, b{3,4};
+// auto distance = a.dis(b);  // 距离为 5；b.len2()=25。
+// Point u{1,0}, v{0,1};
+// auto dot = u*v;
+// auto cross = u^v;  // 点积 0，叉积 1，叉积注意括号。
+// point<T> 可指定类型；Point 是 point<point_t> 的别名。
 template <typename T>
 struct point {
     T x, y;

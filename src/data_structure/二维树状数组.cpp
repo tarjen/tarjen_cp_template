@@ -1,4 +1,7 @@
-// 1base；Treearray2D tr(n,m); update(x1,y1,x2,y2,k); query(x1,y1,x2,y2);
+// 用法：
+// Treearray2D tr(3, 4);  // 坐标 1base，范围 [1,3] x [1,4]，初值 0。
+// tr.update(1, 2, 2, 3, 5);  // 闭矩形 [1,2] x [2,3] 每格加 5。
+// ll sum = tr.query(1, 1, 3, 4);  // 闭矩形求和，结果 20。
 #include <bits/stdc++.h>
 using namespace std;
 struct treearray {

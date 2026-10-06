@@ -1,3 +1,9 @@
+// 用法：
+// 此板是函数内片段，先准备 n 与 0base 无向图 ve。
+// vector<vector<int>> ve = {{1,2}, {0,2}, {0,1}};
+// int n=3;
+// 执行下面的代码后，原点 [0,n-1] 为圆点，新增 [n,cnt) 为方点。
+// e1 为圆方树邻接表；当前从 tarjan(0) 开始，要求原图连通。
 vector<vector<int>> e1(n);
 int cnt = n;
 

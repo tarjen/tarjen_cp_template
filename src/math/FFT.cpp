@@ -1,4 +1,8 @@
-// 当vector用就可以了
+// 用法：
+// Poly a = {1, 2}, b = {3, 4};  // a[i] 是 x^i 的系数。
+// Poly c = a * b;  // 整数卷积 {3,10,8}。
+// 文件末尾已 using namespace Polynomial；本实现取整适合非负系数。
+// cp 与 FFT::DFT/IDFT 是底层实现，常用入口是多项式乘法。
 #include <bits/stdc++.h>
 #define fp(i, a, b) for (int i = (a), i##_ = (b) + 1; i < i##_; ++i)
 #define fd(i, a, b) for (int i = (a), i##_ = (b) - 1; i > i##_; --i)

@@ -1,7 +1,7 @@
-// 这里是 上凸 取min
-// 上凸取max 二分的时候改变一下mid的变化方向
-// 下凸取min 改变mid算贡献的符号
-// min max 指的是求的是最大值 还是最小值
+// 用法：
+// 本板保留特定树形 DP，先填写 dfs 中的题目转移和 ve/n/m 等变量。
+// main 中二分罚值 mid；solve(mid) 返回当前最优方案的数量。
+// 依据该数量与目标 m 的关系调整罚值；不是可直接传任意函数的通用类。
 int solve(int mid) {
     k = mid;
     function<void(int, int)> dfs = [&](int x, int h) {

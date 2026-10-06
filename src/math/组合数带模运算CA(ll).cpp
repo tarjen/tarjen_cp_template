@@ -1,4 +1,8 @@
-// Comb c(n,mod=998244353); inv为阶乘逆元；非法选择数返回0。
+// 用法：
+// Comb tr(100, 998244353);  // 预处理到 100；模数为质数，100<mod。
+// int choose = tr.C(5, 2);  // 组合数 10。
+// int arrange = tr.A(5, 2);  // 排列数 20。
+// C/A 的第一个参数不超过预处理上界；非法选择数返回 0。
 #include <bits/stdc++.h>
 using namespace std;
 

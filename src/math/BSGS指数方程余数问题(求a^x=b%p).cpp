@@ -1,3 +1,7 @@
+// 用法：
+// int x = exBSGS(2, 8, 13);  // 求 2^x = 8 (mod 13)，得到 3。
+// 参数顺序 a,b,p；main 的输入顺序则是 a,p,b。
+// 结果 <0 表示无解；模数为正，BSGS 内部会清空工作哈希表。
 #include <algorithm>
 #include <cmath>
 #include <cstdio>

@@ -1,5 +1,9 @@
-// DuJiaoSieve d(prefix,sum_fg,sum_g);
-// F(n)；prefix为0base已知前缀和，两个回调提供卷积和g的前缀和。
+// 用法：
+// vector<ll> prefix = {0, 1, 0};  // 已知 mu 的前缀和，prefix[i]=sum(mu(1..i))。
+// DuJiaoSieve tr(prefix, [](ll n)->ll { return n>0; }, [](ll n) { return n; });
+// ll sum = tr.F(10);  // sum(mu(1..10))=-1。
+// 两个回调依次返回 (f*g) 的前缀和与 g 的前缀和，本例 f=mu、g=1。
+// prefix 从下标 0 开始；g(1) 非零，超出预处理范围会自动记忆化。
 #include <bits/stdc++.h>
 using namespace std;
 

@@ -1,4 +1,8 @@
-// 1base；Treearray tr(n); tr.update(i,k); tr.query(l,r); 初值为0。
+// 用法：
+// Treearray tr(5);  // 位置 [1,5]，初值 0。
+// tr.update(2, 3);  // 位置 2 加 3，不是赋值。
+// ll sum = tr.query(1, 4);  // 闭区间和为 3。
+// ll prefix = tr.getsum(2);  // [1,2] 的和为 3。
 #include <bits/stdc++.h>
 using namespace std;
 

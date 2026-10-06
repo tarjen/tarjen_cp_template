@@ -1,3 +1,9 @@
+// 用法：
+// node f{0, 0, 10, 10};  // 在 [0,10] 线性增长，两端截断。
+// int y = f.get(12);  // 返回 10；f.get(-2)=0。
+// node g{2, 1, 8, 7};
+// node h = f + g;  // 复合函数，h(x)=g(f(x))。
+// l/lv、r/rv 是两个拐点的坐标与函数值。
 struct node {
     int l, lv, r, rv;
     int get(int x) {

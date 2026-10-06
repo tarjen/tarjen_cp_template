@@ -1,5 +1,11 @@
-// DynamicSegmentTree tr(n)或tr(lo,hi); update(x,delta); query(l,r);
-// split/merge使用同一节点池。
+// 用法：
+// DynamicSegmentTree tr(1, 1000000000);  // 数值域闭区间，初值 0。
+// tr.update(5, 3);
+// tr.update(8, 2);  // 单点加。
+// ll sum = tr.query(1, 10);  // 区间和为 5。
+// int part = tr.split(5, 5);  // 从 tr.root 中取出 [5,5]，返回独立根编号。
+// tr.root = tr.merge(tr.root, part);  // 同一节点池内合并，消耗旧根。
+// 多根查询用 query_root(root,l,r)；不同对象的根不能交叉使用。
 #include <bits/stdc++.h>
 using namespace std;
 

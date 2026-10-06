@@ -1,3 +1,9 @@
+// 用法：
+// __int128 a = read(), b = read();  // 从标准输入读取两个有符号整数。
+// write(a + b);
+// putchar(10);
+// read/write 使用 getchar/putchar；本板的流运算符仅适合非负输入输出。
+// 不要将 __int128 隐式转为 long long 后输出。
 #include <bits/stdc++.h>
 using namespace std;
 inline __int128 read() {

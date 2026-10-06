@@ -1,3 +1,8 @@
+// 用法：
+// 本板求二分图的边染色（不是节点二染色），按文件 main 输入。
+// 输入 n m，然后 m 条边 x y；节点 1base，图须为二分图。
+// 输出使用的颜色数，再按输入边顺序输出每条边的颜色。
+// col[u][c] 是颜色 c 对应的邻点，ans[i] 是第 i 条边的颜色。
 #include <bits/stdc++.h>
 using namespace std;
 const int maxn = 1010;

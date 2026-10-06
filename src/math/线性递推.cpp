@@ -1,5 +1,9 @@
-// 0base序列；LinearRecurrence
-// r(coefficients,initial)或r(sequence)由BM推递推式；r.nth(n)，默认mod=1000000007。
+// 用法：
+// LinearRecurrence tr(vector<int>{1,1}, vector<int>{0,1});
+// int value = tr.nth(10);  // 0base 斐波那契数 F(10)=55，模 1000000007。
+// coefficients={c0,c1,...} 表示 a[n]=c0*a[n-1]+c1*a[n-2]+...。
+// initial 从 a[0] 开始，长度等于递推阶数。
+// 也可 LinearRecurrence tr(vector<int>{0,1,1,2,3,5,8,13})，由 BM 推递推式。
 #include <bits/stdc++.h>
 using namespace std;
 typedef vector<int> VI;

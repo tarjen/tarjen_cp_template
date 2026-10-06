@@ -1,5 +1,10 @@
-// 0base；Gauss g(equ,var);
-// 填a和rhs后solve()；返回0无解、1唯一解、2多解，x为一组解。
+// 用法：
+// Gauss tr(2, 2);  // 两个方程、两个未知量，矩阵下标 0base。
+// tr.a = {{1,1}, {1,-1}};
+// tr.rhs = {3,1};  // x+y=3，x-y=1。
+// auto status = tr.solve();  // 1：唯一解，tr.x={2,1}。
+// status 为 0 无解、1 唯一解、2 多解；多解时 x 是自由变量取 0 的一组解。
+// 浮点版可指定 eps；输入 a/rhs 在求解后保留。
 #include <bits/stdc++.h>
 using namespace std;
 

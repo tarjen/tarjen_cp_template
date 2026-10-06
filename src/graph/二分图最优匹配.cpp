@@ -1,5 +1,9 @@
-// 1base完整n*n权值矩阵；KM km(weights); km.maxmatch();
-// 求最大权完美匹配；权值不可作缺边哨兵。
+// 用法：
+// vector<vector<ll>> w = {{0,0,0}, {0,1,4}, {0,5,2}};
+// KM tr(w);  // 完整 n*n 权值矩阵，行列都 1base，第 0 行列不用。
+// ll best = tr.maxmatch();  // 最大权完美匹配为 9。
+// int left = tr.link[1];  // 右点 1 匹配左点 2。
+// 支持负权，但不是用负权表示缺边；必须提供全部边的权值。
 #include <bits/stdc++.h>
 using namespace std;
 struct KM {

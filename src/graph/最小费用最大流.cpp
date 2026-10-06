@@ -1,4 +1,9 @@
-// SSP mf(n,s,t); mf.add(u,v,cap,cost); mf.min_cost(); 0base节点[0,n-1]。
+// 用法：
+// SSP tr(3, 0, 2);  // 节点 0base，源 0、汇 2。
+// tr.add(0, 1, 3, 2);
+// tr.add(1, 2, 3, 1);  // 参数为容量、单位费用。
+// auto [flow, cost] = tr.min_cost();  // 最大流 3，最小总费用 9。
+// 允许负费用边，要求无可达负费用环；重复求流不会恢复容量。
 #include <bits/stdc++.h>
 using namespace std;
 

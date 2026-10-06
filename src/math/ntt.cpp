@@ -1,3 +1,9 @@
+// 用法：
+// Poly::P a = {1, 2}, b = {3, 4};  // 0base 系数，模 998244353。
+// auto c = Poly::Mul(a, b);  // 卷积 {3,10,8}。
+// auto inv = Poly::Inv(Poly::P{1,1}, 4);  // 逆元多项式，取前 4 项。
+// auto p = Poly::partition_number(5);  // p[5]=7，p[i] 为整数拆分数。
+// Ln 要求常数项 1，Exp 要求常数项 0；其他前提见下方接口说明。
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;

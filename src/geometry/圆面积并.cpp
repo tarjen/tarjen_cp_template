@@ -1,6 +1,8 @@
-// 圆面积并
-// 轮廓积分，复杂度 O(n^2logn)
-// ans[i] 表示被至少覆盖了 i+1 次的区域的面积
+// 用法：
+// 依赖：几何基础类型与圆.cpp。
+// vector<Circle> circles = {{{0,0},1}, {{3,0},1}};
+// auto area = area_union(circles);  // area[0]=2*PI，两个圆的并面积。
+// area[i] 是至少被覆盖 i+1 次的区域面积，不是恰好覆盖的面积。
 vector<long double> area_union(const vector<Circle>& circs) {
     const size_t siz = circs.size();
     using arc_t = tuple<Point, long double, long double, long double>;

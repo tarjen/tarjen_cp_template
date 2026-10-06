@@ -1,3 +1,11 @@
+// 用法：
+// string s = "ababa";
+// Hash tr;
+// tr.Hash_init(s);  // 初始化，查询区间 1base 闭合。
+// auto forward = tr.get1(1, 3);  // 正向子串哈希。
+// auto backward = tr.get2(1, 3);  // 反向子串哈希，回文时二者相同。
+// 当前 Pow[0] 用 pair 初始化 array，须先改成 Pow[0]=hs{1,1} 才能编译。
+// 双模哈希仍可能碰撞；需标准库头文件与 using namespace std。
 typedef long long ll;
 const int G = 2;
 typedef array<ll, G> hs;

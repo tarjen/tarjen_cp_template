@@ -1,5 +1,9 @@
-// 1base有向图；DominatorTree dt(n); add_edge(); solve(root);
-// up为直接支配点，根和不可达点为0。
+// 用法：
+// DominatorTree tr(3);  // 有向图，节点 1base。
+// tr.add_edge(1, 2);
+// tr.add_edge(2, 3);
+// int reachable = tr.solve(1);  // 从根 1 可达的点数为 3。
+// int p = tr.up[3];  // 直接支配点为 2；根与不可达点的 up 为 0。
 #include <bits/stdc++.h>
 using namespace std;
 struct DominatorTree {

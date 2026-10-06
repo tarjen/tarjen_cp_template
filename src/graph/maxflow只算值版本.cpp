@@ -1,4 +1,10 @@
-// dinic mf(n); mf.addedge(u,v,cap); mf.maxflow(s,t);
+// 用法：
+// dinic tr(3, 0, 2);  // 节点 0base，源 0、汇 2。
+// int id = tr.addedge(0, 1, 5);
+// tr.addedge(1, 2, 3);
+// ll flow = tr.maxflow();  // 最大流为 3。
+// ll used = 5 - tr.edges[id].cap;  // 第一条边实际流量为 3。
+// 会修改残量网络，再次求流返回新增流量；容量非负。
 #include <bits/stdc++.h>
 using namespace std;
 

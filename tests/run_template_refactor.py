@@ -14,7 +14,7 @@ with tempfile.TemporaryDirectory(prefix='cp-template-check-') as directory:
     flags = ['-std=c++17', '-O1', '-g', '-Wall', '-Wextra', '-D_GLIBCXX_DEBUG']
     if args.sanitize:
         flags += ['-fsanitize=address,undefined', '-fno-omit-frame-pointer']
-    for test_source in [source, source.with_name('template_refactor_third.cpp'), source.with_name('template_indexing.cpp')]:
+    for test_source in [source, source.with_name('template_refactor_third.cpp'), source.with_name('template_indexing.cpp'), source.with_name('template_dynamic_diameter.cpp')]:
         subprocess.run(['g++', *flags, str(test_source), '-o', str(executable)], check=True)
         subprocess.run([str(executable)], check=True)
         if test_source == source:

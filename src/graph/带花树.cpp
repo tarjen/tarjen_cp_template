@@ -1,3 +1,12 @@
+// 用法：
+// blossom tr(4);  // 一般无向图最大匹配，节点 0base。
+// tr.addEdge(0, 1);
+// tr.addEdge(2, 3);
+// tr.solve();
+// int mate = tr.match[0];  // 结果 1；未匹配为 -1。
+// int matched = 0;
+// for (int v : tr.match) matched += v != -1;
+// int pairs = matched / 2;  // 匹配边数为 2；文件下方 main 是题目示例。
 #include <bits/stdc++.h>
 using namespace std;
 struct blossom {  // 0base

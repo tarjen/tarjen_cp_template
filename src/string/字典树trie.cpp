@@ -1,4 +1,11 @@
-// Trie tr; 节点池自动增长；可选构造参数仅用于预留节点容量。
+// 用法：
+// Trie tr;  // 小写字母，节点池自动增长。
+// tr.insert(string("aba"));
+// tr.insert(string("aba"));
+// int u = 0;
+// for (char c : string("aba")) u = tr.tree[u][c-'a'];
+// int count = tr.e[u];  // "aba" 出现 2 次；中途走到 0 表示单词不存在。
+// string 输入不用补首格；旧 char* 接口从 t[1] 开始。
 #include <bits/stdc++.h>
 using namespace std;
 struct Trie {

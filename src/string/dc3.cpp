@@ -1,4 +1,9 @@
-// 1base；Suffix sa(s); sa/rk/ht及后缀起点从1开始，sa[0]为空后缀。
+// 用法：
+// Suffix tr("banana");  // 构造即建后缀数组，输入普通 string。
+// int first = tr.sa[1];  // 最小后缀起点为 6；tr.rk[6]=1。
+// int adjacent_lcp = tr.ht[2];  // 排名 2 与排名 1 后缀的 LCP 为 1。
+// 原串位置、sa/rk/ht 均 1base；sa[0]=n+1 表示空后缀。
+// 本板仅提供 sa/rk/ht，没有倍增版的 lcp/query 接口。
 #include <bits/stdc++.h>
 using namespace std;
 // s,rk下标从0开始，ht sa下标从1开始

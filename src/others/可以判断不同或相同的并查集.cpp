@@ -1,4 +1,9 @@
-// 1base；RelationDSU dsu(n); merge(x,y)表示相同，merge(x,-y)表示不同。
+// 用法：
+// RelationDSU tr(3);  // 节点 1base，相同/不同关系。
+// bool ok = tr.merge(1, 2);  // 约束 1 与 2 相同。
+// tr.merge(2, -3);  // 第二参数取负表示 2 与 3 不同。
+// bool conflict = tr.merge(1, 3);  // false，表示与已有约束冲突。
+// 返回 true 表示约束可满足；节点 0 不可用，符号用于编码关系。
 #include <bits/stdc++.h>
 using namespace std;
 struct RelationDSU {

@@ -1,3 +1,9 @@
+// 用法：
+// P.clear();
+// Pollard_Rho::Find(60);  // 对 n>=1 分解；P 中的键为不同质因子 {2,3,5}。
+// for (auto [prime, ignored] : P) { /* 使用 prime */ }
+// P.clear();  // 全局结果容器，多次分解前须清空。
+// 不返回质因子的重数；solve(int,set<int>&) 是较小整数的便捷接口。
 typedef long long ll;
 map<ll, bool> P;
 mt19937_64 rnd(time(0));

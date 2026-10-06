@@ -1,5 +1,8 @@
-// 1base连通树父亲数组，根的父亲为0；KthAncestor a(parent);
-// ask(x,k)；超出根返回0，查询O(1)。
+// 用法：
+// vector<int> parent = {0, 0, 1, 2};  // 节点 1base，根 1 的父亲为 0。
+// KthAncestor tr(parent);  // 传入连通树父亲数组，自动预处理。
+// int p = tr.ask(3, 2);  // 向上 2 条边，结果 1；ask(3,0)=3。
+// 超出根返回 0；数组第 0 格为哨兵。
 #include <bits/stdc++.h>
 using namespace std;
 

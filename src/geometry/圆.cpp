@@ -1,4 +1,10 @@
-// 圆
+// 用法：
+// 依赖：几何开头、点、极角排序、直线、线段、多边形。
+// Circle c{{0,0}, 2};  // 圆心、半径。
+// auto area = c.area();  // 面积 4*PI。
+// int relation = c.is_in(Point{0,0});  // 1 圆内，0 圆外，-1 圆上。
+// auto points = c.inter(Line{{0,0},{1,0}});  // 与直线的两个交点。
+// 其他 relation/inter/tangent 还支持圆与圆；半径须非负。
 struct Circle {
     Point c;
     long double r;

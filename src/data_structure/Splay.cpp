@@ -1,5 +1,14 @@
-// Splay t; 实际保留FHQ
-// Treap算法；前驱/后继不存在时返回nullopt；节点池自动增长。
+// 用法：
+// Splay tr;  // 实际是 FHQ Treap，支持重复值。
+// tr.insert(3);
+// tr.insert(1);
+// tr.insert(3);
+// int rank = tr.queryrk(3);  // 小于 3 的个数 + 1，结果 2。
+// int value = tr.querynum(2);  // 第 2 小为 3，排名 1base。
+// auto pre = tr.query_pre(3);
+// auto suf = tr.query_suf(3);
+// 严格前驱为 1，严格后继不存在（nullopt）；querynum 的排名必须有效。
+// tr.del(3);  // 仅删去一个 3。
 #include <bits/stdc++.h>
 using namespace std;
 struct Splay {

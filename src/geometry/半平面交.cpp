@@ -1,6 +1,8 @@
-// 半平面交
-// 排序增量法，复杂度 O(nlogn)
-// 输入与返回值都是用直线表示的半平面集合
+// 用法：
+// 依赖：几何开头、点、极角排序、直线。
+// vector<Line> sides = {{{0,0},{1,0}}, {{2,0},{-1,1}}, {{0,2},{0,-1}}};
+// auto boundary = halfinter(sides);  // 每条直线的左侧为可行半平面。
+// 返回边界直线集合；函数额外加入 [-lim,lim]^2 的包围框，默认 lim=1e9。
 vector<Line> halfinter(vector<Line> l, const point_t lim = 1e9) {
     const auto check = [](const Line& a, const Line& b, const Line& c) {
         return a.toleft(b.inter(c)) < 0;

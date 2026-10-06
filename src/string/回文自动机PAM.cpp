@@ -1,4 +1,10 @@
-// 小写字母；PAM pam(s)或PAM pam; pam.insert(c); 不在模板内部输出。
+// 用法：
+// PAM tr(string("ababa"));  // 小写字母，构造即逐字插入。
+// int distinct = tr.cnt - 1;  // 不同非空回文子串数为 5。
+// int longest_suffix = tr.b[tr.last].len;  // 当前最长回文后缀长度为 5。
+// int suffix_count = tr.b[tr.last].num;  // 当前回文后缀有 3 个。
+// int state = tr.insert('c');  // 追加字符，返回新的最长回文后缀状态。
+// 状态 0/1 是两个虚根；num 不是该回文在全文中的出现次数。
 #include <bits/stdc++.h>
 using namespace std;
 

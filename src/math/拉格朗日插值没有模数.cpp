@@ -1,3 +1,7 @@
+// 用法：
+// LR tr;
+// int value = tr.inter(vector<int>{0,1,4}, 3);  // 以 f(0),f(1),f(2) 插值得到 9。
+// 当前文件缺少结尾的 };，须先补齐；该版本用 int 运算，只适合不溢出的数据。
 struct LR {
     int inter(std::vector<int> vec, int x) {
         int n = vec.size() - 1;

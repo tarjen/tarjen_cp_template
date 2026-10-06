@@ -1,3 +1,8 @@
+// 用法：
+// PairLCS tr("abc", "xbc");
+// int length = tr.query(3, 1, 3);  // s[0,3) 与 t[1,3) 的 LCS 长度为 2。
+// 参数 a,b,c 表示 s 的前缀长度 a 和 t 的半开区间 [b,c)。
+// 范围 0<=a<=s.size()、0<=b<=c<=t.size()；query 为 O(c-b)。
 #include <bits/stdc++.h>
 using namespace std;
 struct PairLCS {

@@ -1,4 +1,9 @@
-// 复杂度 nlogn +mlogm+klogk
+// 用法：
+// std::vector<Edge> edges = {{0,1,2}, {1,2,3}, {0,2,7}};
+// auto dist = kShortestPath(3, 2, 0, 2, edges);  // 0base 节点。
+// 参数依次为点数、k、源、汇、有向边；本例 dist={5,7}。
+// 非负边权；允许重复经过节点和边，返回前 k 短游走长度，不足项为 -1。
+// Edge/Heap 是算法内部类型，调用入口是 kShortestPath。
 #include <bits/stdc++.h>
 
 #include <queue>

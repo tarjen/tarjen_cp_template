@@ -1,3 +1,8 @@
+// 用法：
+// vector<long long> a = {1,2}, b = {3,4};
+// auto c = polynomial::conv(a, b);  // 卷积系数应为 {3,10,8}。
+// 使用本文件全局 mod；算法实际是拆系数的浮点 FFT，不是整数 NTT。
+// UnitRoot 为内部缓存；大系数需自行评估浮点误差与中间整数溢出。
 const long long mod = 1e18;
 namespace polynomial {
 typedef complex<long double> cplx;

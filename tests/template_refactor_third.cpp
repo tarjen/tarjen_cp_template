@@ -272,7 +272,7 @@ void test_virtual_centroid_ancestor() {
             ll w = rnd(0, 100);
             parent[u] = v;
             xs.add(u, v, w);
-            cd.addedge(u, v, w);
+            cd.addedge(u, v);
             g[u].push_back({v, w});
             g[v].push_back({u, w});
         }
@@ -321,35 +321,66 @@ void test_virtual_centroid_ancestor() {
             }
         }
         vector<int> visited(n + 1);
-        auto callback = [&](int c, const auto& branches) {
+        auto component = [&](int start) {
+            vector<int> nodes{start};
+            vector<char> seen = cd.vis;
+            seen[start] = true;
+            for (int i = 0; i < (int)nodes.size(); i++) {
+                for (int v : cd.ve[nodes[i]]) {
+                    if (seen[v]) continue;
+                    seen[v] = true;
+                    nodes.push_back(v);
+                }
+            }
+            return nodes;
+        };
+        auto check_centroids = [&](auto&& self, int start) -> void {
+            int total = component(start).size();
+            cd.getsize(start, 0);
+            CHECK(cd.siz[start] == total);
+            int c = cd.getroot(start, 0, total);
             CHECK(!visited[c]);
             visited[c] = 1;
-            int size = 1, largest = 0;
-            for (auto& branch : branches) {
-                size += branch.size();
-                largest = max(largest, (int)branch.size());
-                for (auto [u, d] : branch) CHECK(d == distance[c][u]);
+            cd.vis[c] = true;
+            int size = 1;
+            for (int v : cd.ve[c]) {
+                if (cd.vis[v]) continue;
+                int branch_size = component(v).size();
+                CHECK(branch_size <= total / 2);
+                size += branch_size;
+                self(self, v);
             }
-            CHECK(largest <= size / 2);
+            CHECK(size == total);
         };
-        cd.build(callback);
+        check_centroids(check_centroids, root);
         CHECK(accumulate(visited.begin(), visited.end(), 0) == n);
-        cd.build();  // 构建工作状态可重复初始化。
+        centroid::CentroidDecomposition fresh(n);
+        fresh.ve = cd.ve;
+        fresh.dfs(root);
+        CHECK(count(fresh.vis.begin(), fresh.vis.end(), true) == n);
+        CHECK(!fresh.vis[0]);
     }
     int n = 100000;
     vector<int> parent(n + 1);
     virtualtree::XS xs(n);
     centroid::CentroidDecomposition cd(n);
     for (int i = 2; i <= n; i++)
-        parent[i] = i - 1, xs.add(i, i - 1, 1), cd.addedge(i, i - 1, 1);
+        parent[i] = i - 1, xs.add(i, i - 1, 1), cd.addedge(1, i);
     ancestor::KthAncestor a(parent);
     CHECK(a.ask(n, n - 1) == 1);
     xs.build();
     CHECK(xs.getlen(1, n) == n - 1);
     xs.build_virtual({1, n});
     CHECK(xs.vis.size() == 2);
-    cd.build();
+    cd.dfs(1);  // 10 万点星形树；递归 DFS 的长链测试使用较小规模。
     CHECK(count(cd.vis.begin(), cd.vis.end(), true) == n);
+    centroid::CentroidDecomposition chain(1000);
+    for (int i = 2; i <= chain.n; i++) chain.addedge(i - 1, i);
+    chain.getsize(1, 0);
+    int c = chain.getroot(1, 0, chain.n);
+    CHECK(c == 500 || c == 501);
+    chain.dfs(1);
+    CHECK(count(chain.vis.begin(), chain.vis.end(), true) == chain.n);
     cout << "virtual tree / centroid / O(1) ancestor / long chain OK\n";
 }
 

@@ -1,5 +1,10 @@
-// 两侧独立1base；Matching mat(n,m); add(u,v); maxmatch();
-// match[v]与left[u]为匹配方案。
+// 用法：
+// Matching tr(2, 2);  // 左右两侧分别使用 [1,2]。
+// tr.add(1, 1);
+// tr.add(2, 2);  // 参数是左节点、右节点。
+// int count = tr.maxmatch();  // 最大匹配边数为 2。
+// int right = tr.left[1];  // 左点 1 匹配右点 1；match[v] 保存对应左点。
+// 未匹配为 0；maxmatch 自动重置求解状态。
 #include <bits/stdc++.h>
 using namespace std;
 

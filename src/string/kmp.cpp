@@ -1,4 +1,7 @@
-// KMP k(pattern); k.find(text); nxt及返回位置为1base，输入普通string。
+// 用法：
+// KMP tr("aba");
+// vector<int> positions = tr.find("ababa");  // {1,3}，允许重叠匹配。
+// 输入普通 string；返回起始位置 1base，nxt 也是 1base。
 #include <bits/stdc++.h>
 using namespace std;
 

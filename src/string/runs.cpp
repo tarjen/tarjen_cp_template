@@ -1,4 +1,8 @@
-// 0base；普通数据下标[0,n-1]；其余数值、位编号按算法含义使用。
+// 用法：
+// auto runs = run("ababab");  // 极大重复区间，本例包含 {0,5,2}。
+// for (auto [l, r, period] : runs) { /* 使用闭区间 [l,r] 与最小周期 */ }
+// 返回位置 0base；每个区间长度至少是最小周期的两倍。
+// LongestCommonPrefix 是内部辅助，也可用 get(i,j) 求后缀 LCP。
 using i64 = int64_t;
 using u64 = uint64_t;
 struct LongestCommonPrefix {

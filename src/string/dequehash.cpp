@@ -1,3 +1,12 @@
+// 用法：
+// init();  // 先预处理幂表，全程序一次。
+// extendable_sequence tr;
+// tr.add_back({2,3});
+// tr.add_front({1});  // 当前序列 {1,2,3}。
+// auto hash = tr.calc(1, 3);  // 子区间哈希，1base 闭区间。
+// auto value = tr[2].second;  // 位置 2 的值为 2。
+// 输入 vector 不补首格；序列长度及幂偏移不能超过预处理容量。
+// 本文件定义 int 为 long long；底层 dq[0] 是空前缀。
 /*
 1base闭区间，dq[0]为空前缀；输入vector不需要补首格。
 pair<int,int> first表示哈希sum，second表示当前位置的值

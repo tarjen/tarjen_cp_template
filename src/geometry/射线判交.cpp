@@ -1,3 +1,8 @@
+// 用法：
+// 依赖：几何开头、点、极角排序、直线、线段。
+// Segment a{{0,0},{1,0}}, b{{2,-1},{2,0}};
+// bool intersect = ray_inter_judge(a, b);  // true，两射线在 (2,0) 相交。
+// 虽然参数类型叫 Segment，这里表示从 a 指向 b 的无限射线。
 bool ray_inter_judge(
     Segment a,
     Segment b) {  // 射线判交,这里用segment但实际是射线 p_a->p_b

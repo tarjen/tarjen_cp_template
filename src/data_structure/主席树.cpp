@@ -1,6 +1,13 @@
-// Persistent_SegmentTree tr(n)或tr(lo,hi); append(x);
-// 查询位置为1base，版本0为空。
-// 注意Sum和cnt的区别
+// 用法：
+// Persistent_SegmentTree tr(0, 10);  // 数值域 [0,10]，版本 0 为空。
+// tr.append(5);
+// tr.append(2);
+// tr.append(5);
+// int count = tr.getcnt(1, 3, 2, 5);  // 序列 [1,3] 内，值在 [2,5] 的有 3 个。
+// ll sum = tr.getsum(1, 3, 2, 5);  // 值之和为 12。
+// auto [value, prefix_sum] = tr.kth_min(1, 3, 2);  // 第 2 小为 5，前两小之和 7。
+// 序列区间 1base；kth_max 类似；get_upper/get_lower 求 >=/<= x 的值。
+// 无对应值时返回 -1；append 返回新版本号。
 #include <bits/stdc++.h>
 using namespace std;
 struct Persistent_SegmentTree {

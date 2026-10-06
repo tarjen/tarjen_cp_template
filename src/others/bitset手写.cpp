@@ -1,5 +1,10 @@
-// 0base位编号；Bitset b(n);
-// setBit/getBit/count；支持移位、按位操作和模2^n减法。
+// 用法：
+// Bitset tr(10);  // 位编号 [0,9]，初始全 0。
+// tr.setBit(3);
+// tr.setBit(7);
+// int count = tr.count();  // 2；tr.getBit(3)=true。
+// Bitset shifted = tr << 1;  // 第 4、8 位为 1，越界位舍弃。
+// 按位运算的两个对象长度应相同；减法按模 2^n 进行。
 #include <bits/stdc++.h>
 using namespace std;
 

@@ -1,4 +1,8 @@
-// 0base闭区间；tr(n)管理[0,n]，tr(v)使用普通vector；数值类型T默认ll。
+// 用法：
+// SegmentTree<> tr(4);  // 初值 0，管理闭区间 [0,4]。
+// tr.update(1, 3, 2);  // 闭区间加 2。
+// ll ans = tr.query(0, 4);  // 区间和为 6。
+// 数组构造：SegmentTree tr(vector<ll>{1,2,3})，范围 [0,2]。
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;

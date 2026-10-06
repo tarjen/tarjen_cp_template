@@ -1,5 +1,7 @@
-// PrimeCounter counter(limit);
-// lehmer_pi(x)/getpi(x)；limit>=floor(sqrt(x))，构造自动预处理。
+// 用法：
+// PrimeCounter tr(100);  // 预处理上界须 >= floor(sqrt(最大查询值))。
+// ll count = tr.lehmer_pi(10000);  // <=10000 的质数有 1229 个。
+// 构造上界至少为 3；每次查询的是 <=x 的质数数量。
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;

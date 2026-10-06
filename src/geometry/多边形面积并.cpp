@@ -1,6 +1,8 @@
-// 多边形面积并
-// 轮廓积分，复杂度 O(n^2logn)，n为边数
-// ans[i] 表示被至少覆盖了 i+1 次的区域的面积
+// 用法：
+// 依赖：几何基础类型与多边形.cpp。
+// Polygon a; a.p = {{0,0}, {1,0}, {0,1}};
+// auto area = area_union(vector<Polygon>{a});  // 并面积应为 area[0]=0.5。
+// area[i] 是至少覆盖 i+1 次的面积；输入顶点须逆时针。
 vector<long double> area_union(const vector<Polygon>& polys) {
     const size_t siz = polys.size();
     vector<vector<pair<Point, Point>>> segs(siz);

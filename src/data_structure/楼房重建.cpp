@@ -1,5 +1,9 @@
-// 1base；SegmentTree tr(n); tr.update_height(x,h); tr.query();
-// 高度非负，初始高度0。
+// 用法：
+// SegmentTree tr(3);  // 横坐标 [1,3]，初始高度 0。
+// tr.update_height(1, 2);
+// tr.update_height(2, 6);
+// int visible = tr.query();  // 从原点向右看能见 2 栋。
+// update_height(x,h) 是修改高度；update(x,w) 的 w 则是斜率 h/x。
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;

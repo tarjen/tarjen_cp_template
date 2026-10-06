@@ -1,5 +1,10 @@
-// 1base连通无向简单基环树；Graph g(n); addedge(); Get(); dis(u,v);
-// 每次Get内部初始化。
+// 用法：
+// Graph tr(3);  // 节点 1base，连通无向简单图，恰有一个环。
+// tr.addedge(1, 2);
+// tr.addedge(2, 3);
+// tr.addedge(3, 1);
+// tr.Get();  // 加完边后预处理。
+// int distance = tr.dis(1, 3);  // 无权最短距离为 1。
 #include <bits/stdc++.h>
 using namespace std;
 /*

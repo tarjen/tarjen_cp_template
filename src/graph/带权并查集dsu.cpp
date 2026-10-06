@@ -1,4 +1,11 @@
-// 0base；WeightedDSU dsu(n)，节点为[0,n-1]。
+// 用法：
+// WeightedDSU tr(3);  // 节点 [0,2]。
+// bool ok = tr.unit(0, 1, 5);  // 加入约束 value[0]-value[1]=5。
+// tr.unit(1, 2, 2);
+// bool consistent = tr.unit(0, 2, 7);  // true；矛盾约束返回 false。
+// tr.getf(0);
+// tr.getf(2);  // 压缩后 dis[x] 为 x 到代表元的势差。
+// ll delta = tr.dis[0] - tr.dis[2];  // 同集合时即 value[0]-value[2]=7。
 #include <bits/stdc++.h>
 using namespace std;
 

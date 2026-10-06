@@ -58,19 +58,55 @@ string capture(const string& input, F f) {
     return out.str();
 }
 void test_structures() {
-    cartesian::n = 0;
-    CHECK(cartesian::build() == -1);
+    cartesian::CartesianTree<> empty(vector<ll>{});
+    CHECK(empty.root == -1);
+    CHECK(empty.ve.empty());
+    cartesian::CartesianTree<> wide({(1LL << 40) + 2, 1LL << 40, 1LL << 40});
+    CHECK(wide.root == 2);
+    CHECK(wide.ve[2][0] == 1);
+    CHECK(wide.ve[1][0] == 0);
+    CHECK(wide.a[0] == (1LL << 40) + 2);
+    cartesian::CartesianTree singleton(vector<int>{7});
+    CHECK(singleton.root == 0);
+    CHECK(singleton.ve[0] == vector<int>({-1, -1}));
+    cartesian::CartesianTree increasing(vector<int>{1, 2, 3, 4});
+    CHECK(increasing.root == 0);
+    CHECK(increasing.ve[0][1] == 1);
+    cartesian::CartesianTree decreasing(vector<int>{4, 3, 2, 1});
+    CHECK(decreasing.root == 3);
+    CHECK(decreasing.ve[3][0] == 2);
+    CHECK(increasing.root == 0);  // 不同对象互不影响。
+    vector<int> equal_values(100000, 5);
+    cartesian::CartesianTree equal(equal_values);
+    CHECK(equal.root == 99999);
+    for (int i = 0; i < equal.n; i++) {
+        CHECK(equal.ve[i][0] == i - 1);
+        CHECK(equal.ve[i][1] == -1);
+    }
     for (int trial = 0; trial < 150; trial++) {
         int n = rnd(1, 30);
-        cartesian::n = n;
-        for (int i = 0; i < n; i++) cartesian::a[i] = rnd(-10, 10);
-        int root = cartesian::build();
+        vector<int> input(n);
+        for (int& x : input) x = rnd(-10, 10);
+        cartesian::CartesianTree tree(input);
+        int root = tree.root;
+        vector<vector<int>> want_children(n, vector<int>(2, -1));
+        auto naive = [&](auto&& self, int l, int r) -> int {
+            if (l > r) return -1;
+            int c = l;
+            for (int i = l + 1; i <= r; i++)
+                if (input[i] <= input[c]) c = i;
+            want_children[c][0] = self(self, l, c - 1);
+            want_children[c][1] = self(self, c + 1, r);
+            return c;
+        };
+        CHECK(root == naive(naive, 0, n - 1));
+        CHECK(tree.ve == want_children);
         vector<int> order;
         function<void(int)> visit = [&](int x) {
             if (x == -1) return;
-            int l = cartesian::ve[x][0], r = cartesian::ve[x][1];
-            if (l != -1) CHECK(cartesian::a[x] <= cartesian::a[l]);
-            if (r != -1) CHECK(cartesian::a[x] <= cartesian::a[r]);
+            int l = tree.ve[x][0], r = tree.ve[x][1];
+            if (l != -1) CHECK(tree.a[x] <= tree.a[l]);
+            if (r != -1) CHECK(tree.a[x] <= tree.a[r]);
             visit(l);
             order.push_back(x);
             visit(r);

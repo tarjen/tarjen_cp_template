@@ -1,4 +1,11 @@
-// 小写字母；SAM sam(s)完成构建和出现次数统计；ep/siz按状态编号访问。
+// 用法：
+// SAM tr(string("ababa"));  // 小写字母；构造完成 SAM 和出现次数统计。
+// ll distinct = 0;
+// for (int u = 2; u <= tr.tot; u++)
+//     distinct += tr.ep[u].len - tr.ep[tr.ep[u].fa].len;  // 不同子串数为 9。
+// int occurrences = tr.siz[tr.last];  // 整个 "ababa" 出现 1 次。
+// 根为状态 1，siz[u] 是状态 u 表示的子串的出现次数。
+// 手动 insert 后还需 construct(); dfs(1); 才有完整出现次数统计。
 #include <bits/stdc++.h>
 using namespace std;
 struct SAM {

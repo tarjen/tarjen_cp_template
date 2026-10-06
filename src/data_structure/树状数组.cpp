@@ -1,4 +1,9 @@
-// 1base；RangeTreearray tr(n); 区间加、区间求和；初值为0。
+// 用法：
+// RangeTreearray tr(5);  // 位置 [1,5]，初值 0。
+// tr.update(2, 4, 3);  // 闭区间加 3。
+// ll sum = tr.query(1, 5);  // 闭区间和为 9。
+// ll prefix = tr.getsum(3);  // [1,3] 的和为 6。
+// 数组构造：RangeTreearray tr(vector<ll>{0,1,2,3})，第 0 格不用。
 #include <bits/stdc++.h>
 using namespace std;
 

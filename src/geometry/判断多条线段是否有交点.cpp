@@ -1,5 +1,8 @@
-// 判断多条线段是否有交点
-// 扫描线，复杂度 O(nlogn)
+// 用法：
+// 依赖：几何开头、点、极角排序、直线、线段。
+// vector<Segment> segments = {{{0,0},{2,2}}, {{0,2},{2,0}}};
+// bool intersect = segs_inter(segments);  // true，判断是否存在一对相交线段。
+// 参数为所有线段，返回布尔值，不返回交点或相交对数量。
 bool segs_inter(const vector<Segment>& segs) {
     if (segs.empty()) return false;
     using seq_t = tuple<point_t, int, Segment>;

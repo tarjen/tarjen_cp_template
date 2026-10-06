@@ -1,5 +1,13 @@
-// 0base；Mo mo(n); add_query(l,r);
-// solve(begin,add,del,answer)；保留通用移动框架，统计规则由回调提供。
+// 用法：
+// vector<int> a = {1, 2, 3};
+// Mo tr(a.size());  // 查询位置 0base，闭区间。
+// tr.add_query(0, 1);
+// tr.add_query(1, 2);
+// ll sum = 0;
+// auto ans = tr.solve([&] { sum = 0; }, [&](int i) { sum += a[i]; },
+//                     [&](int i) { sum -= a[i]; }, [&] { return sum; });
+// ans 按添加查询的顺序保存，本例为 {3,5}；这里只演示区间和。
+// 四个回调依次为初始化、加入位置、删除位置、读取当前答案。
 #include <bits/stdc++.h>
 using namespace std;
 

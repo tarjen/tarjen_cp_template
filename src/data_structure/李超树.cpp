@@ -1,5 +1,8 @@
-// SegmentTree tr(lo,hi); 整数坐标闭区间；update(l,r,line);
-// query(x)返回最优直线。
+// 用法：
+// SegmentTree tr(0, 10);  // 整数横坐标闭区间 [0,10]。
+// tr.update(0, 10, Line{2, 1, 1});  // 在 [0,10] 加入 y=2x+1，编号 1。
+// Line best = tr.query(3);  // 返回最优直线；best.y(3)=7，best.id=1。
+// 求最大值，同值优先较小编号；无直线时 id=0、值为负无穷。
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;

@@ -1,4 +1,9 @@
-// 0base方阵；Matrix a(n,mod); a.a[i][j]存0..mod-1；a.pow(k)或ksm(a,k)。
+// 用法：
+// Matrix a(2);  // 0base 方阵，默认模 1000000007。
+// a.a = {{1,1}, {1,0}};
+// Matrix b = a.pow(5);  // b.a[0][1]=5；也可 ksm(a,5)。
+// Matrix c = a * b;  // 同阶、同模数矩阵相乘。
+// 单位阵用 Matrix::identity(n,mod)；存入的元素应在 [0,mod-1]。
 #include <bits/stdc++.h>
 using namespace std;
 

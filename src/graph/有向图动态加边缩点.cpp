@@ -1,5 +1,9 @@
-// 1base；IncrementalSCC s(n,edges);
-// edges为按时间添加的有向边；anss[i]保留原统计：大小>1的SCC的大小平方和。
+// 用法：
+// vector<pair<int,int>> additions = {{1,2}, {2,1}, {2,3}};
+// IncrementalSCC tr(3, additions);  // 节点 1base，按给定顺序逐条加有向边。
+// ll after_second = tr.anss[1];  // 加入前两条边后结果为 4。
+// anss[i] 为加完第 i 条边后的统计；时间位置 0base。
+// 统计的是大小 >1 的强连通分量大小平方和，不是分量个数。
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;

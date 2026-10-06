@@ -1,5 +1,10 @@
-// 1base；Persistent_SegmentTree tr(n); append(version,l,r,w); query(version,i);
-// 版本0全为0。
+// 用法：
+// Persistent_SegmentTree tr(3);  // 位置 1base，版本 0 全为 0。
+// int v1 = tr.append(0, 1, 2, 5);  // 从版本 0 复制，将 [1,2] 加 5。
+// int v2 = tr.append(v1, 2, 3, 2);  // 从 v1 复制，将 [2,3] 加 2。
+// ll x = tr.query(v2, 2);  // 结果 7；query(v1,2) 仍为 5。
+// int v3 = tr.splice(v1, v2, 1);  // 新版本取 v1 的 [1,1] 与 v2 的 [2,3]。
+// append/splice 返回版本号；不要把版本号当作 root 数组里的根编号。
 #include <bits/stdc++.h>
 using namespace std;
 struct Persistent_SegmentTree {

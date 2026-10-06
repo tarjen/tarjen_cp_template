@@ -1,4 +1,11 @@
-// 0base；普通数据下标[0,n-1]；其余数值、位编号按算法含义使用。
+// 用法：
+// 先提供 using ll=long long; 以及标准库头文件。
+// LinearBasis tr;
+// tr.insert(1);
+// tr.insert(2);  // 插入非负数，返回是否增加独立基向量。
+// ll largest = tr.queryMax();  // 可表示的最大异或值为 3。
+// bool possible = tr.query(3);  // true，允许选空集时 0 也可表示。
+// 本板支持位号 [0,35]；这里用默认构造逐个插入，不依赖外部数组。
 struct LinearBasis {
     static const int maxbase = 35;
     bool flag = false;

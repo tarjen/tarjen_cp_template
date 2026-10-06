@@ -1,4 +1,11 @@
-// 1base；SCC scc(graph); Kosaraju两遍遍历；col为分量编号。
+// 用法：
+// SCC tr(3);  // 有向图，节点 1base。
+// tr.addedge(1, 2);
+// tr.addedge(2, 1);
+// tr.addedge(2, 3);
+// tr.build();  // 加完边后求强连通分量。
+// bool same = tr.col[1] == tr.col[2];  // true。
+// int count = tr.cnt;  // 分量数为 2；col[u] 是 1base 分量编号。
 #include <bits/stdc++.h>
 using namespace std;
 

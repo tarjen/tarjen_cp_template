@@ -1,5 +1,9 @@
-// LR lr(n,mod=998244353);
-// inpo(f,x)为连续点插值，cal(xs,ys,x)为离散点插值；输入0base。
+// 用法：
+// LR tr(2);  // 预处理到次数 2，默认质数模数 998244353。
+// vector<int> y = {0, 1, 4};  // y[i]=f(i)，本例 f(x)=x^2。
+// int value = tr.inpo(y, 3);  // 结果 9，连续点下标 0base。
+// vector<int> x = {0, 2, 4}, v = {0, 4, 16};
+// int other = tr.cal(x, v, 3);  // 离散点插值同样得到 9，x 在模意义下互异。
 #include <bits/stdc++.h>
 using namespace std;
 

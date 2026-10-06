@@ -1,4 +1,9 @@
-// 1base连通树；LCA t(n); addedge(u,v); build(root); lca(u,v)为O(1)。
+// 用法：
+// LCA tr(3);  // 节点 1base，必须是一棵连通树。
+// tr.addedge(1, 2);
+// tr.addedge(1, 3);
+// tr.build(1);  // 加完所有边后预处理，根为 1。
+// int p = tr.lca(2, 3);  // 最近公共祖先为 1。
 #include <bits/stdc++.h>
 using namespace std;
 

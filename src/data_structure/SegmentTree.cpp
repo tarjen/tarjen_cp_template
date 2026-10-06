@@ -1,4 +1,10 @@
-// 0base闭区间；tr(n)管理[0,n]，tr(v)使用普通vector；数值类型T默认ll。
+// 用法：
+// SegmentTree<> tr(4);  // 初值 0，管理闭区间 [0,4]，共 5 个元素。
+// tr.update(1, 3, 2);  // 区间加 2。
+// ll sum = tr.query(0, 4);  // 区间和为 6。
+// int p = tr.min_right(0, 4);  // 前缀和首次达到 4 的位置为 2。
+// max_left(r,need) 从右往左找；二分要求元素非负，不存在时返回 -1。
+// 也可 SegmentTree tr(vector<ll>{1,2,3})，此时范围是 [0,2]。
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;

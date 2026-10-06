@@ -1,4 +1,10 @@
-// 0base闭区间；tr(n)管理[0,n]，tr(v)使用普通vector；数值类型T默认ll。
+// 用法：
+// SegmentTree<> tr(4);  // 初值 0，管理闭区间 [0,4]。
+// tr.update(2, 7);  // 将位置 2 赋为 7，不是加 7。
+// ll sum = tr.query(1, 3);  // 区间和为 7。
+// int p = tr.min_right(0, 7);  // 从 0 开始累加首次达到 7 的位置为 2。
+// max_left(r,need) 从右往左找；二分要求元素非负，不存在时返回 -1。
+// 也可 SegmentTree tr(vector<ll>{1,2,3})，此时范围是 [0,2]。
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;

@@ -1,4 +1,9 @@
-// 线段
+// 用法：
+// 依赖：开头.cpp、点与向量.cpp、极角排序.cpp、直线.cpp。
+// Segment a{{0,0}, {2,0}}, b{{1,-1}, {1,1}};  // 两个端点。
+// int relation = a.is_inter(b);  // 1：严格相交。
+// int on = a.is_on(Point{0,0});  // -1：在线段端点；0 不在，1 严格在内部。
+// auto distance = a.dis(Point{1,2});  // 点到线段距离为 2。
 template <typename T>
 struct segment {
     point<T> a, b;

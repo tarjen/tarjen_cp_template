@@ -1,5 +1,10 @@
-// 1base；SegmentTree tr(n);
-// 保留题目专用res0/res1与合并规则；多根同池、merge会消耗旧树。
+// 用法：
+// SegmentTree tr(5);  // 位置 [1,5]，root=0 表示空树。
+// tr.update(2, 7);  // 在主根上将位置 2 赋为 7。
+// int other = tr.update(0, 1, 5, 4, 3);  // 在同一节点池中创建另一棵树。
+// ll ans = 0;
+// tr.root = tr.merge(tr.root, other, 1, 5, 0, 0, ans);
+// merge 会消耗旧根；res0/res1 和 ans 是原题专用统计，不是通用求和。
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
