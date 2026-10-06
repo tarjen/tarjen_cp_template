@@ -247,6 +247,10 @@
 #import_code("src/math/高斯消元(模意义).cpp")
 == 高斯消元(浮点数)
 #import_code("src/math/高斯消元(浮点数).cpp")
+== 分数类
+#import_code("src/math/分数类.cpp")
+== 判断异或方程组是否有解
+#import_code("src/math/判断异或方程组是否有解.cpp")
 == Matrix
 #import_code("src/math/matrix.cpp")
 == MIN25
