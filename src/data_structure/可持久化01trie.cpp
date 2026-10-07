@@ -2,10 +2,10 @@
 // Persistent_Trie tr;          // 默认 31 位，支持 [0, 2^31-1]。
 // tr.append(5);               // 加入 a[1]，返回版本号 1。
 // tr.append(2);               // 加入 a[2]，返回版本号 2。
-// int ans = tr.max_xor(1, 2, 3);  // max(5^3, 2^3) = 6；返回异或值。
+// int ans = tr.query(1, 2, 3);  // max(5^3, 2^3) = 6；返回异或值。
 // l,r 是插入序列的 1base 闭区间；查询要求 1 <= l <= r <= 插入次数。
 // root[k] 是前 k 个数的根节点编号，root[0] 是空版本。
-// 等价底层调用：tr.query(tr.root[l-1], tr.root[r], x)，传根编号而非版本号。
+// query(l,r,x) 内部使用 root[l-1] 与 root[r]；max_xor(l,r,x) 为同义接口。
 // 可用 Persistent_Trie tr(b) 指定 1..31 位；插入值和 x 都须在 [0, 2^b-1]。
 #include <bits/stdc++.h>
 using namespace std;
@@ -40,8 +40,10 @@ struct Persistent_Trie {
         root.push_back(p);
         return (int)root.size() - 1;
     }
-    // s,t是两个根编号；t版本必须包含s版本，且差集非空。
-    int query(int s, int t, int x) const {
+    // 查询插入序列闭区间 [l,r] 中与 x 的最大异或值。
+    int query(int l, int r, int x) const {
+        assert(1 <= l && l <= r && r < (int)root.size());
+        int s = root[l - 1], t = root[r];
         assert(a[t].sum > a[s].sum);
         int ans = 0;
         for (int bit = bits - 1; bit >= 0; bit--) {
@@ -54,6 +56,6 @@ struct Persistent_Trie {
         return ans;
     }
     int max_xor(int l, int r, int x) const {
-        return query(root[l - 1], root[r], x);
+        return query(l, r, x);
     }
 };

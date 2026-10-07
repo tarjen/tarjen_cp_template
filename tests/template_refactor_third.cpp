@@ -136,6 +136,7 @@ void test_persistence() {
                 best = max(best, val ^ x);
                 if (low <= val && val <= high) count++, sum += val;
             }
+            CHECK(tr.query(l, r, x) == best);
             CHECK(tr.max_xor(l, r, x) == best);
             CHECK(ct.getcnt(l, r, low, high) == count);
             CHECK(ct.getsum(l, r, low, high) == sum);
