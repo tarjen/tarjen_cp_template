@@ -12,10 +12,15 @@ struct RangeTreearray {
     int n;
     vector<ll> tree1, tree2;
     explicit RangeTreearray(int n) : n(n), tree1(n + 1), tree2(n + 1) {}
-    // 输入a为1base，a[0]不参与计算。
+    // 输入a为1base，a[0]不参与计算；差分沿父节点累加，O(n)建树。
     explicit RangeTreearray(const vector<ll>& a)
         : RangeTreearray((int)a.size() - 1) {
-        for (int i = 1; i <= n; i++) add(i, a[i] - (i == 1 ? 0 : a[i - 1]));
+        for (int i = 1; i <= n; i++) {
+            ll d = a[i] - (i == 1 ? 0 : a[i - 1]);
+            tree1[i] += d, tree2[i] += (i - 1) * d;
+            int j = i + (i & -i);
+            if (j <= n) tree1[j] += tree1[i], tree2[j] += tree2[i];
+        }
     }
     void add(int x, ll k) {
         assert(x >= 1);

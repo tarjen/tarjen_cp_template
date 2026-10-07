@@ -36,7 +36,9 @@ int p[maxn], ip[maxn];
 void init() {
     p[0] = 1;
     for (int i = 1; i < maxn; i++) p[i] = mul(p[i - 1], base, mod);
-    for (int i = 0; i < maxn; i++) ip[i] = inv(p[i], mod);
+    ip[0] = 1;
+    int ib = inv(base);  // 一次求逆，线性递推逆幂。
+    for (int i = 1; i < maxn; i++) ip[i] = mul(ip[i - 1], ib);
 }
 struct extendable_sequence {
     deque<pair<int, int>> dq;
