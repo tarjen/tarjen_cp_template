@@ -7,19 +7,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+typedef long long ll;
 struct SSP {
     struct E {
         int to;
-        long long cap, cost;
+        ll cap, cost;
     };
     int n, S, T;
     vector<E> edges;
     vector<vector<int>> g;
     vector<int> fr, in;
-    vector<long long> dis;
+    vector<ll> dis;
     SSP(int n, int s = -1, int t = -1)
         : n(n), S(s), T(t), g(n), fr(n), in(n), dis(n) {}
-    int add(int u, int v, long long w, long long c) {
+    int add(int u, int v, ll w, ll c) {
         int id = edges.size();
         g[u].push_back(id);
         edges.push_back({v, w, c});
@@ -29,10 +30,10 @@ struct SSP {
     }
     // 要求残量网络中没有可达负费用环；流量和费用须在long long范围内。
     // 在当前残量网络上增广，重复调用不恢复原容量。
-    pair<long long, long long> min_cost(int s, int t) {
+    pair<ll, ll> min_cost(int s, int t) {
         assert(s != t);
-        const long long inf = numeric_limits<long long>::max() / 4;
-        long long flow = 0, cost = 0;
+        const ll inf = numeric_limits<ll>::max() / 4;
+        ll flow = 0, cost = 0;
         while (true) {
             fill(dis.begin(), dis.end(), inf);
             fill(in.begin(), in.end(), 0);
@@ -54,7 +55,7 @@ struct SSP {
                 }
             }
             if (dis[t] == inf) return {flow, cost};
-            long long f = inf;
+            ll f = inf;
             for (int u = t; u != s; u = edges[fr[u] ^ 1].to)
                 f = min(f, edges[fr[u]].cap);
             flow += f;
@@ -63,5 +64,5 @@ struct SSP {
                 edges[fr[u]].cap -= f, edges[fr[u] ^ 1].cap += f;
         }
     }
-    pair<long long, long long> min_cost() { return min_cost(S, T); }
+    pair<ll, ll> min_cost() { return min_cost(S, T); }
 };

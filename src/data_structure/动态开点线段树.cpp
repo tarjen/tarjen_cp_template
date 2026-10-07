@@ -8,11 +8,12 @@
 // 多根查询用 query_root(root,l,r)；不同对象的根不能交叉使用。
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 
 struct DynamicSegmentTree {
     struct Node {
         int ls = 0, rs = 0;
-        long long sum = 0;
+        ll sum = 0;
     };
     int lo, hi, root = 0;
     vector<Node> a{Node()};
@@ -23,13 +24,13 @@ struct DynamicSegmentTree {
         return (int)a.size() - 1;
     }
     // 多棵树须属于同一对象的节点池；返回根编号，递归期间不保存vector元素引用。
-    int update(int p, int L, int R, int x, long long delta) {
+    int update(int p, int L, int R, int x, ll delta) {
         if (!p) p = newnode();
         if (L == R) {
             a[p].sum += delta;
             return p;
         }
-        int mid = L + (int)(((long long)R - L) / 2);
+        int mid = L + (int)(((ll)R - L) / 2);
         if (x <= mid)
             a[p].ls = update(a[p].ls, L, mid, x, delta);
         else
@@ -37,22 +38,22 @@ struct DynamicSegmentTree {
         a[p].sum = a[a[p].ls].sum + a[a[p].rs].sum;
         return p;
     }
-    void update(int x, long long delta) {
+    void update(int x, ll delta) {
         assert(lo <= x && x <= hi);
         root = update(root, lo, hi, x, delta);
     }
-    int update_root(int p, int x, long long delta) {
+    int update_root(int p, int x, ll delta) {
         assert(lo <= x && x <= hi);
         return update(p, lo, hi, x, delta);
     }
-    long long query(int p, int L, int R, int l, int r) const {
+    ll query(int p, int L, int R, int l, int r) const {
         if (!p || r < L || R < l || l > r) return 0;
         if (l <= L && R <= r) return a[p].sum;
-        int mid = L + (int)(((long long)R - L) / 2);
+        int mid = L + (int)(((ll)R - L) / 2);
         return query(a[p].ls, L, mid, l, r) + query(a[p].rs, mid + 1, R, l, r);
     }
-    long long query(int l, int r) const { return query(root, lo, hi, l, r); }
-    long long query_root(int p, int l, int r) const {
+    ll query(int l, int r) const { return query(root, lo, hi, l, r); }
+    ll query_root(int p, int l, int r) const {
         return query(p, lo, hi, l, r);
     }
     // 合并会消耗两棵树；合并后的根不可再与旧根同时作为独立树使用。
@@ -62,7 +63,7 @@ struct DynamicSegmentTree {
             a[p].sum += a[q].sum;
             return p;
         }
-        int mid = L + (int)(((long long)R - L) / 2);
+        int mid = L + (int)(((ll)R - L) / 2);
         a[p].ls = merge(a[p].ls, a[q].ls, L, mid);
         a[p].rs = merge(a[p].rs, a[q].rs, mid + 1, R);
         a[p].sum = a[a[p].ls].sum + a[a[p].rs].sum;
@@ -73,7 +74,7 @@ struct DynamicSegmentTree {
     pair<int, int> split(int p, int L, int R, int l, int r) {
         if (!p || r < L || R < l || l > r) return {p, 0};
         if (l <= L && R <= r) return {0, p};
-        int q = newnode(), mid = L + (int)(((long long)R - L) / 2);
+        int q = newnode(), mid = L + (int)(((ll)R - L) / 2);
         auto left = split(a[p].ls, L, mid, l, r);
         auto right = split(a[p].rs, mid + 1, R, l, r);
         a[p].ls = left.first;
@@ -93,19 +94,19 @@ struct DynamicSegmentTree {
         return result.second;
     }
     // 原query1：非负计数下，找最小x使前缀和+x>up；不存在返回nullopt。
-    optional<int> query1(long long& prefix, long long up, int p, int L,
+    optional<int> query1(ll& prefix, ll up, int p, int L,
                          int R) const {
         if (prefix + a[p].sum + R <= up) {
             prefix += a[p].sum;
             return {};
         }
         if (L == R) return L;
-        int mid = L + (int)(((long long)R - L) / 2);
+        int mid = L + (int)(((ll)R - L) / 2);
         auto result = query1(prefix, up, a[p].ls, L, mid);
         return result ? result : query1(prefix, up, a[p].rs, mid + 1, R);
     }
-    optional<int> query1(long long up) const {
-        long long prefix = 0;
+    optional<int> query1(ll up) const {
+        ll prefix = 0;
         return query1(prefix, up, root, lo, hi);
     }
 };

@@ -6,7 +6,7 @@
 // Ln 要求常数项 1，Exp 要求常数项 0；其他前提见下方接口说明。
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
+typedef long long ll;
 
 /*
 Poly: a[i] 表示 x^i 系数，模数 998244353，原根 3。

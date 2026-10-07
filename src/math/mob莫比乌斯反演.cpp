@@ -5,6 +5,7 @@
 // int prime = tr.pr[1];  // 首个质数为 2；pr 的第 0 格不用。
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 struct MobiusSieve {
     int n, tot = 0;
     vector<int> pr, mul, phi;
@@ -20,7 +21,7 @@ struct MobiusSieve {
                 ++tot;
                 phi[i] = i - 1;
             }
-            for (int j = 1; j <= tot && (long long)pr[j] * i <= n; j++) {
+            for (int j = 1; j <= tot && (ll)pr[j] * i <= n; j++) {
                 int num = pr[j] * i;
                 vis[num] = 1;
                 mul[num] = -mul[i];

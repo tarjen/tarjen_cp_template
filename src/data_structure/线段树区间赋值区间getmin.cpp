@@ -6,7 +6,7 @@
 // 数组构造：SegmentTree tr(vector<ll>{1,2,3})，范围 [0,2]。
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
+typedef long long ll;
 template <class T = ll>
 struct SegmentTree {
     struct Node {

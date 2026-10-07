@@ -6,7 +6,7 @@
 // query 返回历史最小值，包含初值；数组构造支持普通 vector。
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
+typedef long long ll;
 template <class T = ll>
 struct SegmentTree {
     struct Node {

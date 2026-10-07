@@ -11,6 +11,7 @@
 // tr.del(3);  // 仅删去一个 3。
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 struct Splay {
     vector<int> val{0}, siz{0};
     vector<array<int, 2>> c{array<int, 2>{}};
@@ -34,7 +35,7 @@ struct Splay {
         w.push_back(random());
         return ++cnt;
     }
-    void split(int& x, int& y, int i, long long v) {
+    void split(int& x, int& y, int i, ll v) {
         if (!i) {
             x = y = 0;
             return;
@@ -61,7 +62,7 @@ struct Splay {
             return y;
         }
     }
-    int th(int i, long long v) {
+    int th(int i, ll v) {
         if (siz[c[i][0]] + 1 == v) return val[i];
         if (v <= siz[c[i][0]])
             return th(c[i][0], v);
@@ -77,13 +78,13 @@ struct Splay {
     void del(int v) {  // 删除 v 数（若有多个相同的数，只删除一个）
         int x, y, z;
         split(x, y, r, v);
-        split(x, z, x, (long long)v - 1);
+        split(x, z, x, (ll)v - 1);
         z = merge(c[z][0], c[z][1]);
         r = merge(x, merge(z, y));
     }
     int queryrk(int v) {  // 定义排名为比当前数小的数的个数 +1 查询 v 的排名。
         int x, y;
-        split(x, y, r, (long long)v - 1);
+        split(x, y, r, (ll)v - 1);
         int ans = siz[x] + 1;
         r = merge(x, y);
         return ans;
@@ -95,7 +96,7 @@ struct Splay {
     optional<int> query_pre(
         int v) {  // 求 v 的前驱（前驱定义为小于 v，且最大的数）
         int x, y;
-        split(x, y, r, (long long)v - 1);
+        split(x, y, r, (ll)v - 1);
         int i = x;
         while (c[i][1]) i = c[i][1];
         optional<int> ans = i ? optional<int>(val[i]) : nullopt;

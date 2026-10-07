@@ -13,7 +13,7 @@ typedef long long ll;
 struct HLD {
     int n, mod, root;
 
-    void add(int& x, int y) { x = ((long long)x + y) % mod; }
+    void add(int& x, int y) { x = ((ll)x + y) % mod; }
     struct Node {
         int l, r, res, tag;
     };
@@ -23,7 +23,7 @@ struct HLD {
         SegmentTree(int n, int mod) : mod(mod), a(4 * n + 4) {
             if (n) build(1, 1, n);
         }
-        void add(int& x, int y) { x = ((long long)x + y) % mod; }
+        void add(int& x, int y) { x = ((ll)x + y) % mod; }
         void tag_init(int i) { a[i].tag = 0; }
         void tag_union(int fa, int i) { add(a[i].tag, a[fa].tag); }
         void tag_cal(int i) {
@@ -122,15 +122,15 @@ struct HLD {
             tri.update(1, L[u], L[u], normalize(values[u]));
         }
     }
-    int normalize(long long w) const {
+    int normalize(ll w) const {
         w %= mod;
         return w < 0 ? w + mod : w;
     }
-    void subtree_add(int u, long long w) {
+    void subtree_add(int u, ll w) {
         tri.update(1, L[u], R[u], normalize(w));
     }
     int subtree_sum(int u) { return tri.query(1, L[u], R[u]); }
-    void chain_add(int x, int y, long long value) {
+    void chain_add(int x, int y, ll value) {
         int w = normalize(value);  // chain add w
         while (top[x] != top[y]) {
             if (dep[top[x]] < dep[top[y]]) swap(x, y);

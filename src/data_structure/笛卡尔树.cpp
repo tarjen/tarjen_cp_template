@@ -6,7 +6,7 @@
 // 节点 0base；空树、空孩子为 -1；相等时靠右的节点在上。
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
+typedef long long ll;
 
 template <class T = ll>
 struct CartesianTree {

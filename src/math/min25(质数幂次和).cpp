@@ -11,7 +11,7 @@
 using namespace std;
 
 struct min25 {
-    using ll = long long;
+    typedef long long ll;
     ll n;
     int sq, mod;
     vector<int> p, id1, id2;

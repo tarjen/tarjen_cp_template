@@ -8,6 +8,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+typedef long long ll;
 struct Gauss {
     enum Status { no_solution = 0, unique = 1, infinite = 2 };
     int equ, var, mod, rank = 0;
@@ -20,7 +21,7 @@ struct Gauss {
           a(equ, vector<int>(var)),
           rhs(equ),
           x(var) {}
-    int norm(long long x) const {
+    int norm(ll x) const {
         x %= mod;
         return x < 0 ? x + mod : x;
     }

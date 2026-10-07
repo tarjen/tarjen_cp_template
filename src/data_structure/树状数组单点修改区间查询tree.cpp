@@ -6,23 +6,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+typedef long long ll;
 struct Treearray {
     int n;
-    vector<long long> c;
+    vector<ll> c;
     explicit Treearray(int n) : n(n), c(n + 1) {}
     void set_n(int size) {
         n = size;
         c.assign(n + 1, 0);
     }
     static int lowbit(int x) { return x & -x; }
-    void update(int i, long long k) {
+    void update(int i, ll k) {
         assert(i >= 1);
         for (; i <= n; i += lowbit(i)) c[i] += k;
     }
-    long long getsum(int i) const {
-        long long res = 0;
+    ll getsum(int i) const {
+        ll res = 0;
         for (; i > 0; i -= lowbit(i)) res += c[i];
         return res;
     }
-    long long query(int l, int r) const { return getsum(r) - getsum(l - 1); }
+    ll query(int l, int r) const { return getsum(r) - getsum(l - 1); }
 };

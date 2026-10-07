@@ -9,9 +9,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+typedef long long ll;
 struct WeightedDSU {
     vector<int> f;
-    vector<long long> dis;
+    vector<ll> dis;
     explicit WeightedDSU(int n) : f(n), dis(n) { iota(f.begin(), f.end(), 0); }
     int getf(int x) {
         if (x == f[x]) return x;
@@ -20,7 +21,7 @@ struct WeightedDSU {
         return f[x] = z;
     }
     // 约束dis(i)-dis(j)=len；同一集合时返回约束是否一致。
-    bool unit(int i, int j, long long len) {
+    bool unit(int i, int j, ll len) {
         int x = getf(i), y = getf(j);
         if (x == y) return dis[i] - dis[j] == len;
         f[x] = y;

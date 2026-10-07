@@ -7,6 +7,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+typedef long long ll;
 struct Matrix {
     int n, mod;
     vector<vector<int>> a;
@@ -28,7 +29,7 @@ struct Matrix {
                     c.a[i][j] = (c.a[i][j] + 1LL * a[i][k] * b.a[k][j]) % mod;
         return c;
     }
-    Matrix pow(long long k) const {
+    Matrix pow(ll k) const {
         assert(k >= 0);
         Matrix x = *this, r = identity(n, mod);
         for (; k; k >>= 1, x = x * x)
@@ -38,9 +39,9 @@ struct Matrix {
     // 行列式需要质数模数；在工作副本上消元，不修改原矩阵。
     int det() const {
         auto work = a;
-        long long ans = 1 % mod;
+        ll ans = 1 % mod;
         auto inverse = [&](int x) {
-            long long value = x, result = 1;
+            ll value = x, result = 1;
             for (int k = mod - 2; k; k >>= 1, value = value * value % mod)
                 if (k & 1) result = result * value % mod;
             return result;
@@ -51,9 +52,9 @@ struct Matrix {
             if (row == n) return 0;
             if (row != col) swap(work[row], work[col]), ans = (mod - ans) % mod;
             ans = ans * work[col][col] % mod;
-            long long inv = inverse(work[col][col]);
+            ll inv = inverse(work[col][col]);
             for (int i = col + 1; i < n; i++) {
-                long long factor = work[i][col] * inv % mod;
+                ll factor = work[i][col] * inv % mod;
                 for (int j = col; j < n; j++)
                     work[i][j] =
                         (work[i][j] - factor * work[col][j] % mod + mod) % mod;
@@ -62,4 +63,4 @@ struct Matrix {
         return ans;
     }
 };
-Matrix ksm(const Matrix& x, long long k) { return x.pow(k); }
+Matrix ksm(const Matrix& x, ll k) { return x.pow(k); }

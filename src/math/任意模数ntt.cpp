@@ -1,9 +1,10 @@
 // 用法：
-// vector<long long> a = {1,2}, b = {3,4};
+// vector<ll> a = {1,2}, b = {3,4};
 // auto c = polynomial::conv(a, b);  // 卷积系数应为 {3,10,8}。
 // 使用本文件全局 mod；算法实际是拆系数的浮点 FFT，不是整数 NTT。
 // UnitRoot 为内部缓存；大系数需自行评估浮点误差与中间整数溢出。
-const long long mod = 1e18;
+typedef long long ll;
+const ll mod = 1e18;
 namespace polynomial {
 typedef complex<long double> cplx;
 const long double pi = acos((long double)-1.0);
@@ -49,7 +50,7 @@ void fft(vector<cplx>& p, const vector<cplx>& w) {
         }
     }
 }
-vector<long long> conv(const vector<long long>& a, const vector<long long>& b) {
+vector<ll> conv(const vector<ll>& a, const vector<ll>& b) {
     vector<cplx> w = UnitRoot::get_root(a.size() + b.size() - 1);
     int n = w.size();
     vector<cplx> A(n), B(n), C(n), D(n);
@@ -66,12 +67,12 @@ vector<long long> conv(const vector<long long>& a, const vector<long long>& b) {
         D[j] = db * dd + db * dc * cplx(0, 1);
     }
     fft(C, w), fft(D, w);
-    vector<long long> res(a.size() + b.size() - 1);
+    vector<ll> res(a.size() + b.size() - 1);
     for (int i = 0; i < res.size(); ++i) {
-        long long da = (long long)(C[i].imag() / n + 0.5) % mod,
-                  db = (long long)(C[i].real() / n + 0.5) % mod,
-                  dc = (long long)(D[i].imag() / n + 0.5) % mod,
-                  dd = (long long)(D[i].real() / n + 0.5) % mod;
+        ll da = (ll)(C[i].imag() / n + 0.5) % mod,
+                  db = (ll)(C[i].real() / n + 0.5) % mod,
+                  dc = (ll)(D[i].imag() / n + 0.5) % mod,
+                  dd = (ll)(D[i].real() / n + 0.5) % mod;
         res[i] = ((dd << (len * 2)) + ((db + dc) << len) + da) % mod;
     }
     return res;

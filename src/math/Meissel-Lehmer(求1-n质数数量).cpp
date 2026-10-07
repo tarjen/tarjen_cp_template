@@ -4,7 +4,7 @@
 // 构造上界至少为 3；每次查询的是 <=x 的质数数量。
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
+typedef long long ll;
 // 通过知道前面的 n^1/3 的质数可以推断后面n^2/3的质数所以可以适当减小
 struct PrimeCounter {
     int N;

@@ -11,8 +11,8 @@ using Edges = vector<tuple<int, int, int>>;
 struct IncrementalSCC {
     int n, q;
     vector<int> f, siz, ti, col, dfn, low;
-    vector<long long> anss;
-    long long ans = 0;
+    vector<ll> anss;
+    ll ans = 0;
     int num = 0, dfstime = 0;
     Edges edge;
     stack<int> s;

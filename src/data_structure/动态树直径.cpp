@@ -6,7 +6,7 @@
 // update 是赋值；query 返回长度。建树 O(n log n)，修改 O(log n)，查询 O(1)。
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
+typedef long long ll;
 
 template <class T = ll>
 struct DynamicTreeDiameter {

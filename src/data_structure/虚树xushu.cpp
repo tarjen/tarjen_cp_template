@@ -10,16 +10,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+typedef long long ll;
 struct XS {
     struct Edge {
         int to;
-        long long len;
+        ll len;
     };
     int n, root, lg;
     vector<vector<Edge>> ve, ve2;
     vector<vector<int>> f;
     vector<int> dep, id, vis, v1;
-    vector<long long> dist, sum;
+    vector<ll> dist, sum;
     vector<char> b;
     XS(int n, int root = 1)
         : n(n),
@@ -33,7 +34,7 @@ struct XS {
           dist(n + 1),
           sum(n + 1),
           b(n + 1) {}
-    void add(int u, int v, long long w) {
+    void add(int u, int v, ll w) {
         ve[u].push_back({v, w});
         ve[v].push_back({u, w});
     }
@@ -69,7 +70,7 @@ struct XS {
             if (f[k][u] != f[k][v]) u = f[k][u], v = f[k][v];
         return f[0][u];
     }
-    long long getlen(int u, int v) const {
+    ll getlen(int u, int v) const {
         int p = lca(u, v);
         return dist[u] + dist[v] - 2 * dist[p];
     }
@@ -98,7 +99,7 @@ struct XS {
                 stack.pop_back();
             if (!stack.empty()) {
                 int p = stack.back();
-                long long w = dist[u] - dist[p];
+                ll w = dist[u] - dist[p];
                 ve2[p].push_back({u, w});
                 ve2[u].push_back({p, w});
             }

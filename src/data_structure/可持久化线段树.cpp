@@ -7,10 +7,11 @@
 // append/splice 返回版本号；不要把版本号当作 root 数组里的根编号。
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 struct Persistent_SegmentTree {
     struct node {
         int l, r, ls, rs;
-        long long tag;
+        ll tag;
         node() { l = 0, r = 0, ls = 0, rs = 0, tag = 0; }
     };
     int n;
@@ -43,7 +44,7 @@ struct Persistent_SegmentTree {
         a[now].rs = build(mid + 1, r);
         return now;
     }
-    int addtag(int x, long long w) {
+    int addtag(int x, ll w) {
         int now = nnode(x);
         a[now].tag += w;
         return now;
@@ -58,7 +59,7 @@ struct Persistent_SegmentTree {
         }
         return now;
     }
-    int update(int x, int l, int r, long long w) {
+    int update(int x, int l, int r, ll w) {
         // cout<<"update x="<<x<<" l="<<l<<" r="<<r<<" w="<<w<<endl;
         if (a[x].l > r || a[x].r < l) return x;
         if (l <= a[x].l && a[x].r <= r) return addtag(x, w);
@@ -77,12 +78,12 @@ struct Persistent_SegmentTree {
         a[now].rs = merge(a[xx].rs, a[yy].rs, p);
         return now;
     }
-    long long val(int x, int i) {
+    ll val(int x, int i) {
         if (a[x].r < i || a[x].l > i) return 0;
         if (a[x].l == a[x].r) return a[x].tag;
         return a[x].tag + val(a[x].ls, i) + val(a[x].rs, i);
     }
-    int append(int version, int l, int r, long long w) {
+    int append(int version, int l, int r, ll w) {
         int p = update(root[version], l, r, w);
         root.push_back(p);
         return (int)root.size() - 1;
@@ -92,5 +93,5 @@ struct Persistent_SegmentTree {
         root.push_back(rt);
         return (int)root.size() - 1;
     }
-    long long query(int version, int i) { return val(root[version], i); }
+    ll query(int version, int i) { return val(root[version], i); }
 };

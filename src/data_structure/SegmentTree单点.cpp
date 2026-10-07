@@ -7,7 +7,7 @@
 // 也可 SegmentTree tr(vector<ll>{1,2,3})，此时范围是 [0,2]。
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
+typedef long long ll;
 template <class T = ll>
 struct SegmentTree {
     struct Node {

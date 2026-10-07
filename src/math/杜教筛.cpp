@@ -8,7 +8,7 @@
 using namespace std;
 
 struct DuJiaoSieve {
-    using ll = long long;
+    typedef long long ll;
     vector<ll> sumf;
     function<ll(ll)> convolution_prefix, g_prefix;
     unordered_map<ll, ll> cache;

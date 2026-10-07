@@ -8,10 +8,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+typedef long long ll;
 struct dinic {
     struct E {
         int to;
-        long long cap;
+        ll cap;
     };
     int n, S, T;
     vector<E> edges;
@@ -20,7 +21,7 @@ struct dinic {
     explicit dinic(int n, int s = -1, int t = -1)
         : n(n), S(s), T(t), g(n), dis(n), now(n) {}
     // 0base节点[0,n-1]；返回正向边编号，原容量减剩余容量即该边流量。
-    int addedge(int u, int v, long long w) {
+    int addedge(int u, int v, ll w) {
         int id = edges.size();
         g[u].push_back(id);
         edges.push_back({v, w});
@@ -44,12 +45,12 @@ struct dinic {
         }
         return dis[t] != -1;
     }
-    long long dfs(int u, int t, long long f) {
+    ll dfs(int u, int t, ll f) {
         if (u == t) return f;
         for (int& i = now[u]; i < (int)g[u].size(); i++) {
             int id = g[u][i], v = edges[id].to;
             if (edges[id].cap > 0 && dis[v] == dis[u] + 1) {
-                long long d = dfs(v, t, min(f, edges[id].cap));
+                ll d = dfs(v, t, min(f, edges[id].cap));
                 if (d) {
                     edges[id].cap -= d;
                     edges[id ^ 1].cap += d;
@@ -60,15 +61,15 @@ struct dinic {
         return 0;
     }
     // 计算当前残量网络上新增的最大流；重复调用不会恢复原容量。
-    long long maxflow(int s, int t) {
+    ll maxflow(int s, int t) {
         assert(s != t);
-        long long flow = 0, d;
+        ll flow = 0, d;
         while (bfs(s, t)) {
             fill(now.begin(), now.end(), 0);
-            while ((d = dfs(s, t, numeric_limits<long long>::max() / 4)))
+            while ((d = dfs(s, t, numeric_limits<ll>::max() / 4)))
                 flow += d;
         }
         return flow;
     }
-    long long maxflow() { return maxflow(S, T); }
+    ll maxflow() { return maxflow(S, T); }
 };

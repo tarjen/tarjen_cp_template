@@ -17,12 +17,12 @@ inline bool smax(T& x, const U& y) {
     return x < y ? x = y, 1 : 0;
 }
 
-using LL = long long;
+typedef long long ll;
 using PII = std::pair<int, int>;
 
 constexpr int N(2.5e5 + 5);
 
-using T = LL;
+using T = ll;
 struct Edge {
     int x, y;
     T z;

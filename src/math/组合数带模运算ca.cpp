@@ -6,6 +6,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+typedef long long ll;
 struct Comb {
     int n, mod;
     vector<int> fac, inv;
@@ -16,7 +17,7 @@ struct Comb {
         inv[n] = ksm(fac[n], mod - 2);
         for (int i = n; i >= 1; i--) inv[i - 1] = 1LL * inv[i] * i % mod;
     }
-    int ksm(int x, long long k) const {
+    int ksm(int x, ll k) const {
         int res = 1;
         for (; k; k >>= 1, x = 1LL * x * x % mod)
             if (k & 1) res = 1LL * res * x % mod;

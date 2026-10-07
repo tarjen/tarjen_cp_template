@@ -1,5 +1,5 @@
 // 用法：
-// 先提供 using ll=long long; const ll inf=1LL<<60; 以及标准库头文件。
+// 先提供 typedef long long ll; const ll inf=1LL<<60; 以及标准库头文件。
 // graph tr(3);  // 有向带权图，节点 0base。
 // tr.adde(0, 1, -2);
 // tr.adde(1, 2, 5);

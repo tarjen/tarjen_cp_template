@@ -1,5 +1,5 @@
 // 原实现：用分子 x、分母 y 表示分数，运算后约分。
-// 用法：需提供标准库头文件、using namespace std; 和 using ll = long long;。
+// 用法：需提供标准库头文件、using namespace std; 和 typedef long long ll;。
 // lf a{1,2}, b{1,3}; auto c = a+b;  // 5/6。
 // 分母须非零；保留原实现，交叉乘法和约分需注意整数范围。
 struct lf{

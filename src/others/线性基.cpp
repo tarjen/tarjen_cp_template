@@ -1,5 +1,5 @@
 // 用法：
-// 先提供 using ll=long long; 以及标准库头文件。
+// 先提供 typedef long long ll; 以及标准库头文件。
 // LinearBasis tr;
 // tr.insert(1);
 // tr.insert(2);  // 插入非负数，返回是否增加独立基向量。
