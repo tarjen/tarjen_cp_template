@@ -51,25 +51,3 @@ struct SegmentMap {
         }
     }
 };
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    int n, q;
-    cin >> n >> q;
-    SegmentMap sol(n);
-    while (q--) {
-        int op;
-        cin >> op;
-        if (op == 1) {
-            int l, r;
-            cin >> l >> r;
-            sol.update(l, r, [](int x) { return (int)sqrt(x); });
-        } else {
-            int l, r, x;
-            cin >> l >> r >> x;
-            sol.update(l, r, [x](int) { return x; });
-        }
-        cout << sol.sum << "\n";
-    }
-    return 0;
-}
