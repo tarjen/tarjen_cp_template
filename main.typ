@@ -185,6 +185,8 @@
 #import_code("src/data_structure/线段树区间加区间历史最小值.cpp")
 == 线段树合并
 #import_code("src/data_structure/线段树合并.cpp")
+== 左偏树（可合并堆）
+#import_code("src/data_structure/左偏树.cpp")
 == 可持久化线段树
 #import_code("src/data_structure/可持久化线段树.cpp")
 == 动态树直径
