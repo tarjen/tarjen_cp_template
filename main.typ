@@ -207,6 +207,8 @@
 #import_code("src/data_structure/楼房重建.cpp")
 == 李超树
 #import_code("src/data_structure/李超树.cpp")
+== 分层位图
+#import_code("src/data_structure/分层位图.cpp")
 
 = 数学
 == 组合数
