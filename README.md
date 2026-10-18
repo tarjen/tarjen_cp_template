@@ -47,3 +47,15 @@ typst compile main.typ main.pdf
 GitHub Actions 在 Ubuntu 24.04 上安装 Noto CJK 与 Liberation 字体，使用同一 Typst 版本编译；PDF 可在每次成功构建的 `template-pdf` artifact 中下载，推送标签时也会上传到 Release。
 
 2026年10月6日修复了 `NTT.cpp` 与实际文件 `ntt.cpp` 的大小写不一致，更新了已停用的 artifact 下载步骤，并固定构建系统与编译器版本。
+
+## 两种模板版本
+
+- `main-copy.typ`：复制黏贴版，完整收录当前模板目录；原有 `main.typ` 保持兼容。
+- `main-acm.typ`：ACM 赛时抄写版，只收录高频类封装；低频模块以注释入口保留，按题目需要取消注释。
+
+```powershell
+typst compile main-copy.typ main-copy.pdf
+typst compile main-acm.typ main-acm.pdf
+```
+
+两版共用 `template.typ` 和 `src/`，不会维护两套算法实现。
