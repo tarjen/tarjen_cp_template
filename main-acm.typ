@@ -77,6 +77,8 @@
 // #import_code("src/geometry/半平面交.cpp")
 
 = 数学补充（按需抄写）
+== 多项式 k 次幂（平方复杂度）
+#import_code("src-acm/math/多项式幂(n2).cpp")
 // #import_code("src/math/ntt.cpp")
 // #import_code("src/math/FFT.cpp")
 // #import_code("src/math/线性递推.cpp")
