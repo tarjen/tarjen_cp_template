@@ -1,5 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// CentroidDecomposition cd(3);  // 1base 连通无权树。
+// cd.addedge(1, 2);
+// cd.addedge(2, 3);
+// cd.dfs(1);                   // 完成点分治；题目统计写在 dfs 的注释处。
 // 每棵树创建一个对象，无需手动清空。
 #include <bits/stdc++.h>
 using namespace std;

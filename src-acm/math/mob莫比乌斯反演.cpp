@@ -1,5 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// MobiusSieve tr(20);  // 构造即预处理 [1,20]。
+// int mu = tr.mul[6];  // 莫比乌斯函数为 1。
+// int phi = tr.phi[6];  // 欧拉函数为 2。
+// int prime = tr.pr[1];  // 首个质数为 2；pr 的第 0 格不用。
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;

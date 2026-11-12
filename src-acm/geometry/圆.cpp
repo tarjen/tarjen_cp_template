@@ -1,7 +1,10 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // 依赖：几何开头、点、极角排序、直线、线段、多边形。
 // Circle c{{0,0}, 2};  // 圆心、半径。
+// auto area = c.area();  // 面积 4*PI。
+// int relation = c.is_in(Point{0,0});  // 1 圆内，0 圆外，-1 圆上。
+// auto points = c.inter(Line{{0,0},{1,0}});  // 与直线的两个交点。
 // 其他 relation/inter/tangent 还支持圆与圆；半径须非负。
 struct Circle {
     Point c;
@@ -117,8 +120,7 @@ struct Circle {
             const Point d1 = e.rot(costh, -sinth), d2 = e.rot(costh, sinth);
             const Point u1 = c + d1 * r, u2 = c + d2 * r, v1 = a.c + d1 * a.r,
                         v2 = a.c + d2 * a.r;
-            lines.push_back({u1, v1 - u1});
-            lines.push_back({u2, v2 - u2});
+            lines.push_back({u1, v1 - u1}); lines.push_back({u2, v2 - u2});
         }
         if (t == 0) {
             const long double costh = (r + a.r) / d,
@@ -126,8 +128,7 @@ struct Circle {
             const Point d1 = e.rot(costh, -sinth), d2 = e.rot(costh, sinth);
             const Point u1 = c + d1 * r, u2 = c + d2 * r, v1 = a.c - d1 * a.r,
                         v2 = a.c - d2 * a.r;
-            lines.push_back({u1, v1 - u1});
-            lines.push_back({u2, v2 - u2});
+            lines.push_back({u1, v1 - u1}); lines.push_back({u2, v2 - u2});
         }
         return lines;
     }

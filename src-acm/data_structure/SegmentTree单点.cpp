@@ -1,5 +1,10 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
+// 可选接口：max_left、min_right。
 // 用法：
+// SegmentTree<> tr(4);  // 初值 0，管理闭区间 [0,4]。
+// tr.update(2, 7);  // 将位置 2 赋为 7，不是加 7。
+// ll sum = tr.query(1, 3);  // 区间和为 7。
+// int p = tr.min_right(0, 7);  // 从 0 开始累加首次达到 7 的位置为 2。
 // max_left(r,need) 从右往左找；二分要求元素非负，不存在时返回 -1。
 // 也可 SegmentTree tr(vector<ll>{1,2,3})，此时范围是 [0,2]。
 #include <bits/stdc++.h>
@@ -24,8 +29,7 @@ struct SegmentTree {
             return;
         }
         int mid = (l + r) / 2;
-        build(i * 2, l, mid, v);
-        build(i * 2 + 1, mid + 1, r, v);
+        build(i * 2, l, mid, v); build(i * 2 + 1, mid + 1, r, v);
         pushup(i);
     }
     void update(int i, int x, T w) {
@@ -34,8 +38,7 @@ struct SegmentTree {
             a[i].res = w;
             return;
         }
-        update(i * 2, x, w);
-        update(i * 2 + 1, x, w);
+        update(i * 2, x, w); update(i * 2 + 1, x, w);
         pushup(i);
     }
     T query(int i, int l, int r) {

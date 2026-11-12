@@ -32,6 +32,7 @@ jobs:
       - name: Check hand-copy source generation
         if: matrix.runner == 'run_acm_variants.py'
         run: |
+          python3 -m unittest discover -s tests -p 'test_*.py'
           python3 tools/build_acm_sources.py
           git diff --exit-code -- src-acm ACM源码改动清单.md
           test -z "$(git ls-files --others --exclude-standard -- src-acm)"

@@ -1,4 +1,4 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // 本板保留特定树形 DP，先填写 dfs 中的题目转移和 ve/n/m 等变量。
 // main 中二分罚值 mid；solve(mid) 返回当前最优方案的数量。
@@ -11,8 +11,7 @@ int solve(int mid) {
         for (auto [it, w] : ve[x])
             if (it != h) {
                 dfs(it, x);
-                gmax(dp2[0], dp[x][0] + dp[it][0]);
-                gmax(dp2[2], dp[x][0] + dp[it][1]);
+                gmax(dp2[0], dp[x][0] + dp[it][0]); gmax(dp2[2], dp[x][0] + dp[it][1]);
                 gmax(dp2[2], dp[x][2] + dp[it][0]);
                 dp[x][0] = dp2[0];
                 dp[x][1] = dp2[1];

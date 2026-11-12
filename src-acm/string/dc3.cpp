@@ -1,5 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
+// 可选接口：writ。
 // 用法：
+// Suffix tr("banana");  // 构造即建后缀数组，输入普通 string。
+// int first = tr.sa[1];  // 最小后缀起点为 6；tr.rk[6]=1。
+// int adjacent_lcp = tr.ht[2];  // 排名 2 与排名 1 后缀的 LCP 为 1。
 // 原串位置、sa/rk/ht 均 1base；sa[0]=n+1 表示空后缀。
 // 本板仅提供 sa/rk/ht，没有倍增版的 lcp/query 接口。
 #include <bits/stdc++.h>
@@ -51,8 +55,7 @@ struct Suffix {
                 wa[tbc++] = i;
             }
         }
-        sort(r + 2, wa.data(), wb.data(), tbc, m);
-        sort(r + 1, wb.data(), wa.data(), tbc, m);
+        sort(r + 2, wa.data(), wb.data(), tbc, m); sort(r + 1, wb.data(), wa.data(), tbc, m);
         sort(r, wa.data(), wb.data(), tbc, m);
         for (p = 1, rn[F(wb[0])] = 0, i = 1; i < tbc; i++) {
             rn[F(wb[i])] = c0(r, wb[i - 1], wb[i]) ? p - 1 : p++;

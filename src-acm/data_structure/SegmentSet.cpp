@@ -1,6 +1,11 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
+// 可选接口：write。
 // 用法：
 // SegmentSet tr;  // 维护被标记的整数闭区间，坐标无需从 0/1 开始。
+// tr.insert(2, 5);
+// tr.del(3, 4);
+// bool any = tr.query_at_least_one(2, 4);  // true，位置 2 被标记。
+// bool missing = tr.query_no_full(2, 5);  // true，表示区间没有被全部标记。
 /*
 every pair of pair<int,int> will not intersect
 if i is true then it will be in the set

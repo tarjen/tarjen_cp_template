@@ -1,5 +1,8 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// bounded_flow tr(2, 0, 1);  // 节点 0base，源 0、汇 1。
+// tr.add(0, 1, 3, 2);  // 容量 3，单位费用 2；允许负费用与负环。
+// auto ans = tr.mincost();  // optional<pair<ll,ll>>，本例 {3,6}。
 // if (ans) { auto [flow, cost] = *ans; }  // 无可行非负源汇流时为 nullopt。
 // 有上下界时用 add_bounds(u,v,lo,hi,cost)，要求 0<=lo<=hi。
 // 每次求解重建残量网络，结果依次是最大流、最小总费用。
@@ -33,8 +36,7 @@ struct flow {
         const ll inf = numeric_limits<ll>::max() / 4;
         ll flow = 0, cost = 0;
         while (true) {
-            fill(dis.begin(), dis.end(), inf);
-            fill(in.begin(), in.end(), 0);
+            fill(dis.begin(), dis.end(), inf); fill(in.begin(), in.end(), 0);
             queue<int> q;
             q.push(s);
             in[s] = 1;
@@ -80,8 +82,7 @@ struct bounded_flow {
     void add_bounds(int u, int v, ll lo, ll hi, ll cost) {
         //? assert(0 <= lo && lo <= hi);
         if (cost < 0) {
-            edges.push_back({u, v, hi, hi, cost});
-            edges.push_back({v, u, 0, hi - lo, -cost});
+            edges.push_back({u, v, hi, hi, cost}); edges.push_back({v, u, 0, hi - lo, -cost});
         } else
             edges.push_back({u, v, lo, hi, cost});
     }

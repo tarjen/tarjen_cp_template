@@ -1,5 +1,8 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// SSP tr(3, 0, 2);  // 节点 0base，源 0、汇 2。
+// tr.add(0, 1, 3, 2);
+// tr.add(1, 2, 3, 1);  // 参数为容量、单位费用。
 // auto [flow, cost] = tr.min_cost();  // 最大流 3，最小总费用 9。
 // 允许负费用边，要求无可达负费用环；重复求流不会恢复容量。
 #include <bits/stdc++.h>
@@ -33,8 +36,7 @@ struct SSP {
         const ll inf = numeric_limits<ll>::max() / 4;
         ll flow = 0, cost = 0;
         while (true) {
-            fill(dis.begin(), dis.end(), inf);
-            fill(in.begin(), in.end(), 0);
+            fill(dis.begin(), dis.end(), inf); fill(in.begin(), in.end(), 0);
             queue<int> q;
             q.push(s);
             in[s] = 1;

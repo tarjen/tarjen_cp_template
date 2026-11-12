@@ -1,7 +1,11 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // 先提供 typedef long long ll; const ll inf=1LL<<60; 以及标准库头文件。
+// graph tr(3);  // 有向带权图，节点 0base。
+// tr.adde(0, 1, -2);
+// tr.adde(1, 2, 5);
 // if (tr.init()) {
+//     vector<ll> d = tr.query(0);  // d[2]=3；init 返回 false 表示有负环。
 // }
 // query 对不可达项也加上势差，判不可达时用足够大的阈值，而非 d==inf。
 struct graph {

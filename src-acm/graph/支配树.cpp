@@ -1,5 +1,10 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// DominatorTree tr(3);  // 有向图，节点 1base。
+// tr.add_edge(1, 2);
+// tr.add_edge(2, 3);
+// int reachable = tr.solve(1);  // 从根 1 可达的点数为 3。
+// int p = tr.up[3];  // 直接支配点为 2；根与不可达点的 up 为 0。
 #include <bits/stdc++.h>
 using namespace std;
 struct DominatorTree {

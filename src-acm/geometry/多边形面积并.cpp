@@ -1,7 +1,8 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // 依赖：几何基础类型与多边形.cpp。
 // Polygon a; a.p = {{0,0}, {1,0}, {0,1}};
+// auto area = area_union(vector<Polygon>{a});  // 并面积应为 area[0]=0.5。
 // area[i] 是至少覆盖 i+1 次的面积；输入顶点须逆时针。
 vector<long double> area_union(const vector<Polygon>& polys) {
     const size_t siz = polys.size();
@@ -13,16 +14,14 @@ vector<long double> area_union(const vector<Polygon>& polys) {
     auto cut_edge = [&](const Segment& e, const size_t i) {
         const Line le{e.a, e.b - e.a};
         vector<pair<Point, int>> evt;
-        evt.push_back({e.a, 0});
-        evt.push_back({e.b, 0});
+        evt.push_back({e.a, 0}); evt.push_back({e.b, 0});
         for (size_t j = 0; j < polys.size(); j++) {
             if (i == j) continue;
             const auto& pj = polys[j];
             for (size_t k = 0; k < pj.p.size(); k++) {
                 const Segment s = {pj.p[k], pj.p[pj.nxt(k)]};
                 if (le.toleft(s.a) == 0 && le.toleft(s.b) == 0) {
-                    evt.push_back({s.a, 0});
-                    evt.push_back({s.b, 0});
+                    evt.push_back({s.a, 0}); evt.push_back({s.b, 0});
                 } else if (s.is_inter(le)) {
                     const Line ls{s.a, s.b - s.a};
                     const Point u = le.inter(ls);

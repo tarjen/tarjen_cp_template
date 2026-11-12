@@ -1,5 +1,10 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// Maxflow tr(3, 0, 2);  // 节点 0base，源 0、汇 2。
+// int id = tr.addedge(0, 1, 5);
+// tr.addedge(1, 2, 3);
+// ll flow = tr.dinic();  // 最大流为 3。
+// ll used = 5 - tr.edges[id].cap;  // 第一条边实际流量为 3。
 // 会修改残量网络，再次求流返回新增流量；容量非负。
 #include <bits/stdc++.h>
 using namespace std;

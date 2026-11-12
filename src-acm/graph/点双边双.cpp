@@ -1,5 +1,11 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// BCC tr(3);  // 无向图，节点 1base，支持重边，不接受自环。
+// int id = tr.link(1, 2);
+// tr.link(2, 3);
+// tr.build();
+// bool bridge = tr.bridge[id];  // true；bridge 按 link 返回的 0base 边号访问。
+// bool cut = tr.iscut[2];  // true，节点 2 为割点。
 // bcc[k]/ebcc[k] 保存点双/边双的点集，分量编号从 1 开始。
 // bccno[u] 是边双编号；vbccno[u] 是 u 所属的点双编号集合。
 #include <bits/stdc++.h>
@@ -87,8 +93,7 @@ struct BCC {
                                     int id = edge_stack.back();
                                     edge_stack.pop_back();
                                     count++;
-                                    nodes.push_back(edges[id].first);
-                                    nodes.push_back(edges[id].second);
+                                    nodes.push_back(edges[id].first); nodes.push_back(edges[id].second);
                                     if (id == parent_edge) break;
                                 }
                                 component(nodes, count);

@@ -1,6 +1,11 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // Trie tr;
+// tr.insert(5);
+// tr.insert(5);  // 非负 31 位整数；重复插入会累计次数。
+// int u = 0;
+// for (int b = 30; b >= 0; b--) u = tr.tree[u][(5 >> b) & 1];
+// int count = tr.e[u];  // 5 出现 2 次；本板仅提供 insert，没有最大异或查询。
 #include <bits/stdc++.h>
 using namespace std;
 struct Trie {

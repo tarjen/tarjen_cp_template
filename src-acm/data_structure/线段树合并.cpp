@@ -1,5 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// SegmentTree tr(5);  // 位置 [1,5]，root=0 表示空树。
+// tr.update(2, 7);  // 在主根上将位置 2 赋为 7。
+// int other = tr.update(0, 1, 5, 4, 3);  // 在同一节点池中创建另一棵树。
+// ll ans = 0;
 // tr.root = tr.merge(tr.root, other, 1, 5, 0, 0, ans);
 // merge 会消耗旧根；res0/res1 和 ans 是原题专用统计，不是通用求和。
 #include <bits/stdc++.h>
@@ -27,12 +31,10 @@ struct SegmentTree {
     void pushup(int i) {
         a[i].res0 = a[i].res1 = 0;
         if (a[i].ls) {
-            gmax(a[i].res0, a[a[i].ls].res0);
-            gmax(a[i].res1, a[a[i].ls].res1);
+            gmax(a[i].res0, a[a[i].ls].res0); gmax(a[i].res1, a[a[i].ls].res1);
         }
         if (a[i].rs) {
-            gmax(a[i].res0, a[a[i].rs].res0);
-            gmax(a[i].res1, a[a[i].rs].res1);
+            gmax(a[i].res0, a[a[i].rs].res0); gmax(a[i].res1, a[a[i].rs].res1);
         }
     }
     void pushdown(int i) {
@@ -66,8 +68,7 @@ struct SegmentTree {
             }
             return i | j;
         }
-        pushdown(i);
-        pushdown(j);
+        pushdown(i); pushdown(j);
         if (a[i].ls && a[j].rs) gmax(ans, a[a[i].ls].res0 + a[a[j].rs].res1);
         if (a[j].ls && a[i].rs) gmax(ans, a[a[j].ls].res0 + a[a[i].rs].res1);
         int mid = (L + R) / 2;

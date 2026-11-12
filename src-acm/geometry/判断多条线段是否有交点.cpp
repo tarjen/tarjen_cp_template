@@ -1,6 +1,8 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // 依赖：几何开头、点、极角排序、直线、线段。
+// vector<Segment> segments = {{{0,0},{2,2}}, {{0,2},{2,0}}};
+// bool intersect = segs_inter(segments);  // true，判断是否存在一对相交线段。
 // 参数为所有线段，返回布尔值，不返回交点或相交对数量。
 bool segs_inter(const vector<Segment>& segs) {
     if (segs.empty()) return false;
@@ -14,8 +16,7 @@ bool segs_inter(const vector<Segment>& segs) {
     vector<seq_t> seq;
     for (auto seg : segs) {
         if (seg.a.x > seg.b.x + eps) swap(seg.a, seg.b);
-        seq.push_back({seg.a.x, 0, seg});
-        seq.push_back({seg.b.x, 1, seg});
+        seq.push_back({seg.a.x, 0, seg}); seq.push_back({seg.b.x, 1, seg});
     }
     sort(seq.begin(), seq.end(), seqcmp);
     point_t x_now;

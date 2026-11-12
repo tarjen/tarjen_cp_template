@@ -1,5 +1,10 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// Bitset tr(10);  // 位编号 [0,9]，初始全 0。
+// tr.setBit(3);
+// tr.setBit(7);
+// int count = tr.count();  // 2；tr.getBit(3)=true。
+// Bitset shifted = tr << 1;  // 第 4、8 位为 1，越界位舍弃。
 // 按位运算的两个对象长度应相同；减法按模 2^n 进行。
 #include <bits/stdc++.h>
 using namespace std;

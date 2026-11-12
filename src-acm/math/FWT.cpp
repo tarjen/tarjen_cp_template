@@ -1,4 +1,5 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
+// 可选接口：print。
 // 用法：
 // int a[2] = {1,2}, b[2] = {3,4}, c[2];  // 长度为 2 的幂，0base。
 // fwtxor(a, 2, 1); fwtxor(b, 2, 1); mul(a, b, c, 2);
@@ -66,6 +67,5 @@ int main() {
     fwtand(a, m, 1), fwtand(b, m, 1), mul(a, b, c, m);
     fwtand(a, m, -1), fwtand(b, m, -1), fwtand(c, m, -1), print(c, m);
 
-    fwtxor(a, m, 1), fwtxor(b, m, 1), mul(a, b, c, m);
-    fwtxor(c, m, (mod + 1) / 2), print(c, m);
+    fwtxor(a, m, 1), fwtxor(b, m, 1), mul(a, b, c, m); fwtxor(c, m, (mod + 1) / 2), print(c, m);
 }

@@ -1,7 +1,12 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
+// 可选接口：Insert、Kth_Max、intersection、merge、queryMin。
 // 用法：
 // 先提供 typedef long long ll; 以及标准库头文件。
 // LinearBasis tr;
+// tr.insert(1);
+// tr.insert(2);  // 插入非负数，返回是否增加独立基向量。
+// ll largest = tr.queryMax();  // 可表示的最大异或值为 3。
+// bool possible = tr.query(3);  // true，允许选空集时 0 也可表示。
 // 本板支持位号 [0,35]；这里用默认构造逐个插入，不依赖外部数组。
 struct LinearBasis {
     static const int maxbase = 35;

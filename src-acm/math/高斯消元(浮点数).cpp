@@ -1,7 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// Gauss tr(2, 2);  // 两个方程、两个未知量，矩阵下标 0base。
 // tr.a = {{1,1}, {1,-1}};
 // tr.rhs = {3,1};  // x+y=3，x-y=1。
+// auto status = tr.solve();  // 1：唯一解，tr.x={2,1}。
 // status 为 0 无解、1 唯一解、2 多解；多解时 x 是自由变量取 0 的一组解。
 // 浮点版可指定 eps；输入 a/rhs 在求解后保留。
 #include <bits/stdc++.h>
@@ -39,8 +41,7 @@ struct Gauss {
             for (int i = rank + 1; i < equ; i++)
                 if (abs(m[i][col]) > abs(m[row][col])) row = i;
             if (abs(m[row][col]) < eps) continue;
-            swap(m[row], m[rank]);
-            swap(b[row], b[rank]);
+            swap(m[row], m[rank]); swap(b[row], b[rank]);
             double divisor = m[rank][col];
             for (int j = col; j < var; j++) m[rank][j] /= divisor;
             b[rank] /= divisor;

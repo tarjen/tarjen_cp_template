@@ -1,5 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// Treearray tr(5);  // 位置 [1,5]，初值 0。
+// tr.update(2, 3);  // 位置 2 加 3，不是赋值。
+// ll sum = tr.query(1, 4);  // 闭区间和为 3。
+// ll prefix = tr.getsum(2);  // [1,2] 的和为 3。
 #include <bits/stdc++.h>
 using namespace std;
 

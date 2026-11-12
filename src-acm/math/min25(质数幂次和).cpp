@@ -1,7 +1,11 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// min25 tr(10);  // 默认质数模数 1000000007。
+// ll sum = tr.cal1(10);  // <=10 的质数之和为 17。
+// tr.build_multiplicative({-1,1,0,0}, [&](ll p, ll e) {
 //     return (p-1) * tr.powmod(p, e-1) % tr.mod;  // phi(p^e)。
 // });
+// ll phi_sum = tr.get(10);  // sum(phi(i),i=1..10)=32。
 // 系数表示 f(p)=-1+p；cal0..cal3 分别是质数的 0..3 次幂和。
 // 查询 x 必须是预处理的整除分块值 floor(n/i)；get 前须设置积性函数。
 #include <bits/stdc++.h>

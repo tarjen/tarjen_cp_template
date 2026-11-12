@@ -1,7 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // 依赖：几何开头、点、极角排序、直线、线段、多边形。
 // Convex poly; poly.p = {{0,0}, {2,0}, {0,2}};
+// auto diameter_squared = poly.diameter2();  // 直径平方为 8。
+// int relation = poly.is_in(Point{0.5,0.5});  // 1 内部，0 外部，-1 边上。
 // 顶点逆时针、无重复或连续共线点，首点为字典序最小点；可先 convexhull。
 template <typename T>
 struct convex : polygon<T> {

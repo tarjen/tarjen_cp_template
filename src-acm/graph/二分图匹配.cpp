@@ -1,5 +1,10 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// Matching tr(2, 2);  // 左右两侧分别使用 [1,2]。
+// tr.add(1, 1);
+// tr.add(2, 2);  // 参数是左节点、右节点。
+// int count = tr.maxmatch();  // 最大匹配边数为 2。
+// int right = tr.left[1];  // 左点 1 匹配右点 1；match[v] 保存对应左点。
 // 未匹配为 0；maxmatch 自动重置求解状态。
 #include <bits/stdc++.h>
 using namespace std;
@@ -25,8 +30,7 @@ struct Matching {
         return false;
     }
     int maxmatch() {
-        fill(match.begin(), match.end(), 0);
-        fill(left.begin(), left.end(), 0);
+        fill(match.begin(), match.end(), 0); fill(left.begin(), left.end(), 0);
         int ans = 0;
         for (int u = 1; u <= n; u++) {
             fill(st.begin(), st.end(), 0);

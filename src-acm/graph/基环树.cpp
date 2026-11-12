@@ -1,5 +1,11 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// Graph tr(3);  // 节点 1base，连通无向简单图，恰有一个环。
+// tr.addedge(1, 2);
+// tr.addedge(2, 3);
+// tr.addedge(3, 1);
+// tr.Get();  // 加完边后预处理。
+// int distance = tr.dis(1, 3);  // 无权最短距离为 1。
 #include <bits/stdc++.h>
 using namespace std;
 /*
@@ -50,8 +56,7 @@ struct Graph {
     void Get() {
         Circle.clear();
         len = 0;
-        fill(Incircle.begin(), Incircle.end(), 0);
-        fill(id.begin(), id.end(), -1);
+        fill(Incircle.begin(), Incircle.end(), 0); fill(id.begin(), id.end(), -1);
         fill(dep.begin(), dep.end(), 0);
         iota(base.begin(), base.end(), 0);
         for (auto& row : f) fill(row.begin(), row.end(), 0);

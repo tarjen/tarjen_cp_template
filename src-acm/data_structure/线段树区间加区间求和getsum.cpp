@@ -1,5 +1,8 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// SegmentTree<> tr(4);  // 初值 0，管理闭区间 [0,4]。
+// tr.update(1, 3, 2);  // 闭区间加 2。
+// ll ans = tr.query(0, 4);  // 区间和为 6。
 // 数组构造：SegmentTree tr(vector<ll>{1,2,3})，范围 [0,2]。
 #include <bits/stdc++.h>
 using namespace std;
@@ -18,15 +21,13 @@ struct SegmentTree {
     void pushdown(int i) {
         tag_cal(i);
         if (a[i].l != a[i].r) {
-            tag_union(i, i * 2);
-            tag_union(i, i * 2 + 1);
+            tag_union(i, i * 2); tag_union(i, i * 2 + 1);
         }
         tag_init(i);
     }
     void pushup(int i) {
         if (a[i].l == a[i].r) return;
-        pushdown(i * 2);
-        pushdown(i * 2 + 1);
+        pushdown(i * 2); pushdown(i * 2 + 1);
         a[i].res = a[i * 2].res + a[i * 2 + 1].res;
     }
     void build(int i, int l, int r, const vector<T>& v = {}) {
@@ -36,8 +37,7 @@ struct SegmentTree {
             return;
         }
         int mid = (l + r) / 2;
-        build(i * 2, l, mid, v);
-        build(i * 2 + 1, mid + 1, r, v);
+        build(i * 2, l, mid, v); build(i * 2 + 1, mid + 1, r, v);
         pushup(i);
     }
     void update(int i, int l, int r, T w) {
@@ -47,8 +47,7 @@ struct SegmentTree {
             a[i].tag = w;
             return;
         }
-        update(i * 2, l, r, w);
-        update(i * 2 + 1, l, r, w);
+        update(i * 2, l, r, w); update(i * 2 + 1, l, r, w);
         pushup(i);
     }
     T query(int i, int l, int r) {

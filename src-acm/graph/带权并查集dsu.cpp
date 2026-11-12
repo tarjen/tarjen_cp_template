@@ -1,5 +1,12 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// WeightedDSU tr(3);  // 节点 [0,2]。
+// bool ok = tr.unit(0, 1, 5);  // 加入约束 value[0]-value[1]=5。
+// tr.unit(1, 2, 2);
+// bool consistent = tr.unit(0, 2, 7);  // true；矛盾约束返回 false。
+// tr.getf(0);
+// tr.getf(2);  // 压缩后 dis[x] 为 x 到代表元的势差。
+// ll delta = tr.dis[0] - tr.dis[2];  // 同集合时即 value[0]-value[2]=7。
 #include <bits/stdc++.h>
 using namespace std;
 

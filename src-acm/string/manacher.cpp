@@ -1,5 +1,8 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// Manacher tr("ababa");  // 普通 string，构造即计算。
+// int longest = tr.manacher();  // 最长回文长度为 5。
+// bool palindrome = tr.is_palindrome(2, 4);  // "bab"，结果 true。
 // 查询使用原串 1base 闭区间；Len 是变换串半径，不是原串位置数组。
 #include <bits/stdc++.h>
 using namespace std;

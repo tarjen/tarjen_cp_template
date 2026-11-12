@@ -1,5 +1,12 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// SCC tr(3);  // 有向图，节点 1base。
+// tr.addedge(1, 2);
+// tr.addedge(2, 1);
+// tr.addedge(2, 3);
+// tr.build();  // 加完边后求强连通分量。
+// bool same = tr.col[1] == tr.col[2];  // true。
+// int count = tr.num;  // 分量数为 2；col[u] 是 1base 分量编号。
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -16,8 +23,7 @@ struct SCC {
     void addedge(int u, int v) { ve[u].push_back(v); }
     void build() {
         num = dfstime = 0;
-        fill(col.begin(), col.end(), 0);
-        fill(dfn.begin(), dfn.end(), 0);
+        fill(col.begin(), col.end(), 0); fill(dfn.begin(), dfn.end(), 0);
         fill(low.begin(), low.end(), 0);
         vector<int> active;
         struct Frame {

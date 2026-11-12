@@ -1,6 +1,10 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// string s = "ababa";
 // Hash tr;
+// tr.Hash_init(s);  // 初始化，查询区间 1base 闭合。
+// auto forward = tr.get1(1, 3);  // 正向子串哈希。
+// auto backward = tr.get2(1, 3);  // 反向子串哈希，回文时二者相同。
 // 双模哈希仍可能碰撞；需标准库头文件与 using namespace std。
 typedef long long ll;
 const int G = 2;

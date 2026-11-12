@@ -1,5 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// vector<vector<ll>> w = {{0,0,0}, {0,1,4}, {0,5,2}};
+// KM tr(w);  // 完整 n*n 权值矩阵，行列都 1base，第 0 行列不用。
+// ll best = tr.maxmatch();  // 最大权完美匹配为 9。
+// int left = tr.link[1];  // 右点 1 匹配左点 2。
 // 支持负权，但不是用负权表示缺边；必须提供全部边的权值。
 #include <bits/stdc++.h>
 using namespace std;
@@ -33,16 +37,14 @@ struct KM {
         return 0;
     }
     bool deal() {
-        fill(ly.begin(), ly.end(), 0);
-        fill(lx.begin(), lx.end(), numeric_limits<ll>::lowest() / 4);
+        fill(ly.begin(), ly.end(), 0); fill(lx.begin(), lx.end(), numeric_limits<ll>::lowest() / 4);
         fill(link.begin(), link.end(), -1);
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n; j++) lx[i] = max(lx[i], a[i][j]);
         }
         for (int i = 1; i <= n; i++) {
             while (1) {
-                fill(vx.begin(), vx.end(), 0);
-                fill(vy.begin(), vy.end(), 0);
+                fill(vx.begin(), vx.end(), 0); fill(vy.begin(), vy.end(), 0);
                 if (dfs(i)) break;
                 ll delta = numeric_limits<ll>::max() / 4;
                 for (int j = 1; j <= n; j++) {

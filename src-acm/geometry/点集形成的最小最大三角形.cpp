@@ -1,6 +1,7 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // 依赖：几何开头、点与向量、极角排序。
+// vector<Point> points = {{0,0}, {2,0}, {0,2}};
 // auto [small, large] = minmax_triangle(points);  // 本例均为 4。
 // 返回最小、最大三角形面积的两倍；实际面积需除以 2。
 pair<point_t, point_t> minmax_triangle(const vector<Point>& vec) {

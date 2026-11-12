@@ -1,5 +1,7 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// LinearRecurrence tr(vector<int>{1,1}, vector<int>{0,1});
+// int value = tr.nth(10);  // 0base 斐波那契数 F(10)=55，模 1000000007。
 // coefficients={c0,c1,...} 表示 a[n]=c0*a[n-1]+c1*a[n-2]+...。
 // initial 从 a[0] 开始，长度等于递推阶数。
 // 也可 LinearRecurrence tr(vector<int>{0,1,1,2,3,5,8,13})，由 BM 推递推式。

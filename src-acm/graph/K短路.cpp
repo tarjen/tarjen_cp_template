@@ -1,5 +1,7 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// std::vector<Edge> edges = {{0,1,2}, {1,2,3}, {0,2,7}};
+// auto dist = kShortestPath(3, 2, 0, 2, edges);  // 0base 节点。
 // 参数依次为点数、k、源、汇、有向边；本例 dist={5,7}。
 // 非负边权；允许重复经过节点和边，返回前 k 短游走长度，不足项为 -1。
 // Edge/Heap 是算法内部类型，调用入口是 kShortestPath。
@@ -128,8 +130,7 @@ void solve() {
     e.push_back({0, 1, a[1]});
     for (int i = 2; i <= n; i++) {
         if (i - 3 > 0) e.push_back({i - 3, i, a[i]});
-        e.push_back({i - 2, i, a[i]});
-        e.push_back({i - 1, i, a[i]});
+        e.push_back({i - 2, i, a[i]}); e.push_back({i - 1, i, a[i]});
     }
     if (n - 1 >= 1) e.push_back({n - 1, n + 1, 0});
     e.push_back({n, n + 1, 0});

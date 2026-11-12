@@ -1,6 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// P.clear();
 // Pollard_Rho::Find(60);  // 对 n>=1 分解；P 中的键为不同质因子 {2,3,5}。
+// for (auto [prime, ignored] : P) { /* 使用 prime */ }
+// P.clear();  // 全局结果容器，多次分解前须清空。
 // 不返回质因子的重数；solve(int,set<int>&) 是较小整数的便捷接口。
 typedef long long ll;
 map<ll, bool> P;
@@ -71,8 +74,7 @@ void Find(ll n) {
     while (!(n % p)) {
         n /= p, c++;
     }
-    Find(p);
-    Find(n);
+    Find(p); Find(n);
 }
 }  // namespace Pollard_Rho
 void solve(int x, set<int>& s) {

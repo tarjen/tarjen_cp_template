@@ -1,5 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：节点 1base，边号 0base，固定树结构，边权非负。
+// vector<tuple<int, int, ll>> edges = {{1, 2, 3}, {2, 3, 4}};
+// DynamicTreeDiameter tr(3, edges);  // 构造时完成建树。
+// ll ans = tr.query();              // 当前直径长度为 7。
+// tr.update(0, 1);                  // 第 0 条边的权值改成 1，直径变为 5。
 // update 是赋值；query 返回长度。建树 O(n log n)，修改 O(log n)，查询 O(1)。
 #include <bits/stdc++.h>
 using namespace std;
@@ -37,14 +41,12 @@ struct DynamicTreeDiameter {
         void pushdown(int i) {
             tag_cal(i);
             if (a[i].l != a[i].r) {
-                tag_union(i, i * 2);
-                tag_union(i, i * 2 + 1);
+                tag_union(i, i * 2); tag_union(i, i * 2 + 1);
             }
             tag_init(i);
         }
         void pushup(int i) {
-            pushdown(i * 2);
-            pushdown(i * 2 + 1);
+            pushdown(i * 2); pushdown(i * 2 + 1);
             a[i].res = a[i * 2].res + a[i * 2 + 1].res;
         }
         void build(int i, int l, int r) {
@@ -52,8 +54,7 @@ struct DynamicTreeDiameter {
             a[i].r = r;
             if (l == r) return;
             int mid = (l + r) / 2;
-            build(i * 2, l, mid);
-            build(i * 2 + 1, mid + 1, r);
+            build(i * 2, l, mid); build(i * 2 + 1, mid + 1, r);
         }
         void update(int i, int l, int r, T w) {
             pushdown(i);
@@ -62,8 +63,7 @@ struct DynamicTreeDiameter {
                 a[i].tag = w;
                 return;
             }
-            update(i * 2, l, r, w);
-            update(i * 2 + 1, l, r, w);
+            update(i * 2, l, r, w); update(i * 2 + 1, l, r, w);
             pushup(i);
         }
     } tri;

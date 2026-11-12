@@ -1,5 +1,7 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// KMP tr("aba");
+// vector<int> positions = tr.find("ababa");  // {1,3}，允许重叠匹配。
 // 输入普通 string；返回起始位置 1base，nxt 也是 1base。
 #include <bits/stdc++.h>
 using namespace std;

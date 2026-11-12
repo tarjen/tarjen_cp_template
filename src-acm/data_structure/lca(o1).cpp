@@ -1,5 +1,10 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// LCA tr(3);  // 节点 1base，必须是一棵连通树。
+// tr.addedge(1, 2);
+// tr.addedge(1, 3);
+// tr.build(1);  // 加完所有边后预处理，根为 1。
+// int p = tr.lca(2, 3);  // 最近公共祖先为 1。
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -20,8 +25,7 @@ struct LCA {
     }
     void build(int root = 1) {
         sp.clear();
-        fill(dep.begin(), dep.end(), 0);
-        fill(dfn.begin(), dfn.end(), 0);
+        fill(dep.begin(), dep.end(), 0); fill(dfn.begin(), dfn.end(), 0);
         if (!n) {
             dp.clear();
             return;

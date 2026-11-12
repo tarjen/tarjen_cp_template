@@ -1,5 +1,8 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// Treearray2D tr(3, 4);  // 坐标 1base，范围 [1,3] x [1,4]，初值 0。
+// tr.update(1, 2, 2, 3, 5);  // 闭矩形 [1,2] x [2,3] 每格加 5。
+// ll sum = tr.query(1, 1, 3, 4);  // 闭矩形求和，结果 20。
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -26,10 +29,8 @@ struct treearray {
         }
     }
     void update(int a, int b, int x, int y, ll k) {
-        Update(a, b, k);
-        Update(a, y + 1, -k);
-        Update(x + 1, b, -k);
-        Update(x + 1, y + 1, k);
+        Update(a, b, k); Update(a, y + 1, -k);
+        Update(x + 1, b, -k); Update(x + 1, y + 1, k);
     }
     ll Query(int x, int y) {
         ll ans = 0;

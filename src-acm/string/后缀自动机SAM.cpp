@@ -1,6 +1,10 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// SAM tr(string("ababa"));  // 小写字母；构造完成 SAM 和出现次数统计。
+// ll distinct = 0;
+// for (int u = 2; u <= tr.tot; u++)
 //     distinct += tr.ep[u].len - tr.ep[tr.ep[u].fa].len;  // 不同子串数为 9。
+// int occurrences = tr.siz[tr.last];  // 整个 "ababa" 出现 1 次。
 // 根为状态 1，siz[u] 是状态 u 表示的子串的出现次数。
 // 手动 insert 后还需 construct(); dfs(1); 才有完整出现次数统计。
 #include <bits/stdc++.h>

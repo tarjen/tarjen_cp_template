@@ -1,5 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// SegmentMap tr(5);  // 位置 [0,4]，初值 0，区间闭合。
+// tr.update(1, 3, [](int x) { return x + 2; });  // [1,3] 每个值加 2。
+// int sum = tr.sum;  // 全局和为 6。
+// tr.update(2, 4, [](int) { return 7; });  // [2,4] 赋值 7。
 // update 的回调表示旧值到新值的映射，可能重复调用，须无副作用。
 #include <bits/stdc++.h>
 using namespace std;
@@ -24,8 +28,7 @@ struct SegmentMap {
     }
     template <class F>
     void update(int l, int r, F&& T) {
-        split(l);
-        split(r + 1);
+        split(l); split(r + 1);
         auto it = prev(ma.upper_bound(l));
         int pr = -1;
         while (it->first <= r) {

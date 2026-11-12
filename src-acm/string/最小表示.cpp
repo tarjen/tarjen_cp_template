@@ -1,5 +1,8 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// int start = getMin("baca");  // 最小循环表示起点为 3（0base）。
+// string s = "baca";
+// string result = s.substr(start) + s.substr(0, start);  // "abac"。
 // 返回起点而非字符串；输入非空串。
 int getMin(string s) {
     int i = 0, j = 1, k = 0;

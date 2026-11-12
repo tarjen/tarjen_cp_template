@@ -1,5 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// PrimeSieve tr(20);  // 构造即筛出 <=20 的质数。
+// int first = tr.p[0];  // 2；p 为 0base 质数列表。
+// bool composite = tr.v[4];  // true，合数标记。
+// bool prime = tr.is_prime(7);  // true；同时检查 x 是否在筛表范围内。
 #include <bits/stdc++.h>
 using namespace std;
 

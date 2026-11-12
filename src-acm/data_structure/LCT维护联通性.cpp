@@ -1,5 +1,10 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// LCT tr(3);  // 节点 1base，初始没有边；维护森林连通性。
+// tr.addedge(1, 2);
+// tr.addedge(2, 3);
+// bool connected = tr.query(1, 3);  // true。
+// tr.deledge(2, 3);  // 删除已有边后 query(1,3) 为 false。
 #include <bits/stdc++.h>
 using namespace std;
 

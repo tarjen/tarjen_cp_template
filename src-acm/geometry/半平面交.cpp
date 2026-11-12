@@ -1,6 +1,8 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // 依赖：几何开头、点、极角排序、直线。
+// vector<Line> sides = {{{0,0},{1,0}}, {{2,0},{-1,1}}, {{0,2},{0,-1}}};
+// auto boundary = halfinter(sides);  // 每条直线的左侧为可行半平面。
 // 返回边界直线集合；函数额外加入 [-lim,lim]^2 的包围框，默认 lim=1e9。
 vector<Line> halfinter(vector<Line> l, const point_t lim = 1e9) {
     const auto check = [](const Line& a, const Line& b, const Line& c) {
@@ -13,10 +15,8 @@ vector<Line> halfinter(vector<Line> l, const point_t lim = 1e9) {
     p=a.v*(b.v^c.v),q=b.p*(b.v^c.v)+b.v*(c.v^(b.p-c.p))-a.p*(b.v^c.v); return
     p.toleft(q)<0;
     };*/
-    l.push_back({{-lim, 0}, {0, -1}});
-    l.push_back({{0, -lim}, {1, 0}});
-    l.push_back({{lim, 0}, {0, 1}});
-    l.push_back({{0, lim}, {-1, 0}});
+    l.push_back({{-lim, 0}, {0, -1}}); l.push_back({{0, -lim}, {1, 0}});
+    l.push_back({{lim, 0}, {0, 1}}); l.push_back({{0, lim}, {-1, 0}});
     sort(l.begin(), l.end());
     deque<Line> q;
     for (size_t i = 0; i < l.size(); i++) {

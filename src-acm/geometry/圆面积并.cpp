@@ -1,6 +1,8 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // 依赖：几何基础类型与圆.cpp。
+// vector<Circle> circles = {{{0,0},1}, {{3,0},1}};
+// auto area = area_union(circles);  // area[0]=2*PI，两个圆的并面积。
 // area[i] 是至少被覆盖 i+1 次的区域面积，不是恰好覆盖的面积。
 vector<long double> area_union(const vector<Circle>& circs) {
     const size_t siz = circs.size();
@@ -15,8 +17,7 @@ vector<long double> area_union(const vector<Circle>& circs) {
 
     auto cut_circ = [&](const Circle& ci, const size_t i) {
         vector<pair<long double, int>> evt;
-        evt.push_back({-PI, 0});
-        evt.push_back({PI, 0});
+        evt.push_back({-PI, 0}); evt.push_back({PI, 0});
         int init = 0;
         for (size_t j = 0; j < circs.size(); j++) {
             if (i == j) continue;
@@ -33,13 +34,10 @@ vector<long double> area_union(const vector<Circle>& circs) {
                 if (abs(argl + PI) <= eps) argl = PI;
                 if (abs(argr + PI) <= eps) argr = PI;
                 if (argl > argr + eps) {
-                    evt.push_back({argl, 1});
-                    evt.push_back({PI, -1});
-                    evt.push_back({-PI, 1});
-                    evt.push_back({argr, -1});
+                    evt.push_back({argl, 1}); evt.push_back({PI, -1});
+                    evt.push_back({-PI, 1}); evt.push_back({argr, -1});
                 } else {
-                    evt.push_back({argl, 1});
-                    evt.push_back({argr, -1});
+                    evt.push_back({argl, 1}); evt.push_back({argr, -1});
                 }
             }
         }

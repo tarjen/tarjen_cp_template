@@ -1,5 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// SegmentTree<> tr(4);  // 初值 0，管理闭区间 [0,4]。
+// tr.update(1, 3, -2);
+// tr.update(1, 3, 5);  // 闭区间加。
+// ll ans = tr.query(1, 3);  // 历史最小值为 -2，当前值为 3。
 // query 返回历史最小值，包含初值；数组构造支持普通 vector。
 #include <bits/stdc++.h>
 using namespace std;
@@ -25,15 +29,13 @@ struct SegmentTree {
     void pushdown(int i) {
         tag_cal(i);
         if (a[i].l != a[i].r) {
-            tag_union(i, i * 2);
-            tag_union(i, i * 2 + 1);
+            tag_union(i, i * 2); tag_union(i, i * 2 + 1);
         }
         tag_init(i);
     }
     void pushup(int i) {
         if (a[i].l == a[i].r) return;
-        pushdown(i * 2);
-        pushdown(i * 2 + 1);
+        pushdown(i * 2); pushdown(i * 2 + 1);
         a[i].res = min(a[i * 2].res, a[i * 2 + 1].res);
         a[i].res2 = min(a[i * 2].res2, a[i * 2 + 1].res2);
     }
@@ -45,8 +47,7 @@ struct SegmentTree {
             return;
         }
         int mid = (l + r) / 2;
-        build(i * 2, l, mid, v);
-        build(i * 2 + 1, mid + 1, r, v);
+        build(i * 2, l, mid, v); build(i * 2 + 1, mid + 1, r, v);
         pushup(i);
     }
     void update(int i, int l, int r, T w) {
@@ -57,8 +58,7 @@ struct SegmentTree {
             a[i].tag2 = min(a[i].tag2, a[i].tag);
             return;
         }
-        update(i * 2, l, r, w);
-        update(i * 2 + 1, l, r, w);
+        update(i * 2, l, r, w); update(i * 2 + 1, l, r, w);
         pushup(i);
     }
     T query(int i, int l, int r) {

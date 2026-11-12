@@ -1,6 +1,10 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // AC tr;  // 小写字母模式串。
+// tr.insert(string("he"));
+// tr.insert(string("she"));
+// tr.build();
+// int count = tr.query(string("shehe"));  // 结果 2。
 // 每个已插入模式串只计是否出现，不是出现总次数；重复插入会重复计数。
 // 先插入所有模式串，再 build；多次 query 自动使用独立查询状态。
 #include <bits/stdc++.h>

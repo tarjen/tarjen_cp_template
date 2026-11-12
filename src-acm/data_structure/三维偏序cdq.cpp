@@ -1,5 +1,8 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// vector<tuple<int,int,int>> points = {{1,1,1}, {2,2,2}, {2,2,2}};
+// Dominance3D tr(points);  // 构造即计算，输入 vector 不补首格。
+// int count = tr.cnt[2];  // 被恰好 2 个其他点三坐标均 <= 的点有 2 个。
 // cnt[k] 是点数分布，不是第 k 个点的答案；重复点分别计数。
 #include <bits/stdc++.h>
 using namespace std;
@@ -63,8 +66,7 @@ struct Dominance3D {
     void subdiv(int l, int r) {
         if (l == r) return;
         int mid = (l + r) / 2;
-        subdiv(l, mid);
-        subdiv(mid + 1, r);
+        subdiv(l, mid); subdiv(mid + 1, r);
         sort(id.begin() + l, id.begin() + mid + 1, [&](int x, int y) {
             if (b[x] == b[y]) return c[x] < c[y];
             return b[x] < b[y];

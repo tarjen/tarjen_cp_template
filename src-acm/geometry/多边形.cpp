@@ -1,7 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // 依赖：几何开头、点与向量、极角排序、直线。
 // Polygon poly; poly.p = {{0,0}, {2,0}, {0,2}};  // 逆时针顶点，0base。
+// auto twice_area = poly.area();  // 有向面积的两倍为 4，真实面积取 abs/2。
+// auto perimeter = poly.circ();  // 周长。
 // auto [boundary, winding] = poly.winding(Point{0.5,0.5});
 // boundary 判断在边上；不在边上时 winding!=0 表示在狭义多边形内部。
 template <typename T>

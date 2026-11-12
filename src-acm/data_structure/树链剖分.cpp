@@ -1,5 +1,12 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// vector<vector<int>> g = {{}, {2,3}, {1}, {1}};  // 1base 连通树。
+// vector<int> values = {0, 1, 2, 3};  // 节点初值，第 0 格不用。
+// HLD tr(g, values, 1, 1000000007);  // 根 1，结果取模。
+// tr.chain_add(2, 3, 1);  // 路径 2-1-3 的所有节点加 1。
+// int sum = tr.chain_sum(2, 3);  // 结果 9，包含两端。
+// tr.subtree_add(1, 2);  // 根 1 的整棵子树加 2。
+// int sub = tr.subtree_sum(1);  // 结果 15。
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -26,15 +33,13 @@ struct HLD {
         void pushdown(int i) {
             tag_cal(i);
             if (a[i].l != a[i].r) {
-                tag_union(i, i * 2);
-                tag_union(i, i * 2 + 1);
+                tag_union(i, i * 2); tag_union(i, i * 2 + 1);
             }
             tag_init(i);
         }
         void pushup(int i) {
             if (a[i].l == a[i].r) return;
-            pushdown(i * 2);
-            pushdown(i * 2 + 1);
+            pushdown(i * 2); pushdown(i * 2 + 1);
             a[i].res = ((ll)a[i * 2].res + a[i * 2 + 1].res) % mod;
         }
         void build(int i, int l, int r) {
@@ -43,8 +48,7 @@ struct HLD {
             a[i].res = 0;
             if (l >= r) return;
             int mid = (l + r) / 2;
-            build(i * 2, l, mid);
-            build(i * 2 + 1, mid + 1, r);
+            build(i * 2, l, mid); build(i * 2 + 1, mid + 1, r);
         }
         void update(int i, int l, int r, int w) {
             pushdown(i);
@@ -53,8 +57,7 @@ struct HLD {
                 a[i].tag = w;
                 return;
             }
-            update(i * 2, l, r, w);
-            update(i * 2 + 1, l, r, w);
+            update(i * 2, l, r, w); update(i * 2 + 1, l, r, w);
             pushup(i);
         }
         int query(int i, int l, int r) {

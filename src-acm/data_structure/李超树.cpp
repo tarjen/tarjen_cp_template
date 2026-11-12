@@ -1,5 +1,8 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// SegmentTree tr(0, 10);  // 整数横坐标闭区间 [0,10]。
+// tr.update(0, 10, Line{2, 1, 1});  // 在 [0,10] 加入 y=2x+1，编号 1。
+// Line best = tr.query(3);  // 返回最优直线；best.y(3)=7，best.id=1。
 // 求最大值，同值优先较小编号；无直线时 id=0、值为负无穷。
 #include <bits/stdc++.h>
 using namespace std;
@@ -40,8 +43,7 @@ struct SegmentTree {
         a[i].res = inf;
         if (l >= r) return;
         int mid = l + (r - l) / 2;
-        build(i * 2, l, mid);
-        build(i * 2 + 1, mid + 1, r);
+        build(i * 2, l, mid); build(i * 2 + 1, mid + 1, r);
     }
     void upd(int i, Line line) {
         if (linecmp(line, a[i].res, a[i].l + (a[i].r - a[i].l) / 2))
@@ -63,14 +65,12 @@ struct SegmentTree {
             upd(i, line);
             return;
         }
-        update(i * 2, l, r, line);
-        update(i * 2 + 1, l, r, line);
+        update(i * 2, l, r, line); update(i * 2 + 1, l, r, line);
     }
     void query(int i, int x, Line& line) {
         if (a[i].r < x || a[i].l > x) return;
         if (linecmp(a[i].res, line, x)) line = a[i].res;
         if (a[i].l == a[i].r) return;
-        query(i * 2, x, line);
-        query(i * 2 + 1, x, line);
+        query(i * 2, x, line); query(i * 2 + 1, x, line);
     }
 };

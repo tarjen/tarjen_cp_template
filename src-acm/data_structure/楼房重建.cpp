@@ -1,5 +1,9 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// SegmentTree tr(3);  // 横坐标 [1,3]，初始高度 0。
+// tr.update_height(1, 2);
+// tr.update_height(2, 6);
+// int visible = tr.query();  // 从原点向右看能见 2 栋。
 // update_height(x,h) 是修改高度；update(x,w) 的 w 则是斜率 h/x。
 #include <bits/stdc++.h>
 using namespace std;
@@ -39,8 +43,7 @@ struct SegmentTree {
         a[i].mx = 0;
         if (l >= r) return;
         int mid = (l + r) / 2;
-        build(i * 2, l, mid);
-        build(i * 2 + 1, mid + 1, r);
+        build(i * 2, l, mid); build(i * 2 + 1, mid + 1, r);
         pushup(i);
     }
     void update(int i, int x, long double w) {
@@ -50,8 +53,7 @@ struct SegmentTree {
             a[i].len = w > 0;
             return;
         }
-        update(i * 2, x, w);
-        update(i * 2 + 1, x, w);
+        update(i * 2, x, w); update(i * 2 + 1, x, w);
         pushup(i);
     }
     int query() { return n ? a[1].len : 0; }

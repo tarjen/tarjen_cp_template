@@ -1,6 +1,11 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // Trie tr;  // 小写字母，节点池自动增长。
+// tr.insert(string("aba"));
+// tr.insert(string("aba"));
+// int u = 0;
+// for (char c : string("aba")) u = tr.tree[u][c-'a'];
+// int count = tr.e[u];  // "aba" 出现 2 次；中途走到 0 表示单词不存在。
 // string 输入不用补首格；旧 char* 接口从 t[1] 开始。
 #include <bits/stdc++.h>
 using namespace std;

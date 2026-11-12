@@ -1,5 +1,13 @@
-// 手抄版：沿用原算法与类封装；//? 标记为按需抄写。
+// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
+// blossom tr(4);  // 一般无向图最大匹配，节点 0base。
+// tr.addEdge(0, 1);
+// tr.addEdge(2, 3);
+// tr.solve();
+// int mate = tr.match[0];  // 结果 1；未匹配为 -1。
+// int matched = 0;
+// for (int v : tr.match) matched += v != -1;
+// int pairs = matched / 2;  // 匹配边数为 2；文件下方 main 是题目示例。
 #include <bits/stdc++.h>
 using namespace std;
 struct blossom {  // 0base
@@ -84,8 +92,7 @@ struct blossom {  // 0base
                     continue;
                 } else if (label[v] == 0 && org[v] != org[u]) {
                     auto a = lca(org[u], org[v]);
-                    flower(v, u, a);
-                    flower(u, v, a);
+                    flower(v, u, a); flower(u, v, a);
                 }
             }
         }
