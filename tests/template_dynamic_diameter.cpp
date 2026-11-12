@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "template_variant_types.h"
 using namespace std;
 using ll = long long;
 #include "../src/data_structure/动态树直径.cpp"
@@ -34,7 +35,7 @@ ll naive(int n, const vector<tuple<int, int, ll>>& edges) {
 }
 
 int main() {
-    DynamicTreeDiameter<> single(1, {});
+    CP_TEST_TYPE(DynamicTreeDiameter) single(1, {});
     CHECK(single.query() == 0);
     vector<tuple<int, int, ll>> zero_edges{{2, 1, 0}, {3, 2, 0}};
     DynamicTreeDiameter zero(3, zero_edges);
@@ -45,11 +46,11 @@ int main() {
     CHECK(zero.query() == 11);
     zero.update(0, 0);
     CHECK(zero.query() == 7);
-    DynamicTreeDiameter<> wide(3, {{1, 2, 1LL << 40}, {2, 3, 1LL << 40}});
+    CP_TEST_TYPE(DynamicTreeDiameter) wide(3, {{1, 2, 1LL << 40}, {2, 3, 1LL << 40}});
     CHECK(wide.query() == 1LL << 41);
     wide.update(1, 0);
     CHECK(wide.query() == 1LL << 40);
-    DynamicTreeDiameter integer(2, vector<tuple<int, int, int>>{{2, 1, 5}});
+    DynamicTreeDiameter integer(2, vector<tuple<int, int, TemplateTestValue>>{{2, 1, 5}});
     integer.update(0, 3);
     CHECK(integer.query() == 3);
 

@@ -59,6 +59,28 @@ class HandcopyGenerationTests(unittest.TestCase):
         self.assertNotIn('Kth_Max', generated)
         self.assertIn('int queryMax()', generated)
 
+    def test_numeric_class_is_concrete_and_vector_remains_dynamic(self):
+        original = ('// SegmentTree<> tr(vector<ll>{1, 2});\n'
+                    'typedef long long ll;\ntemplate <class T = ll>\nstruct SegmentTree {\n'
+                    '    vector<T> values;\n    T get() { return T(0); }\n};\n')
+        generated = ACM.handcopy_source(original, 'SegmentTree.cpp')
+        self.assertNotIn('template', generated)
+        self.assertIn('vector<ll> values;', generated)
+        self.assertIn('ll get() { return ll(0); }', generated)
+        self.assertIn('// SegmentTree tr(vector<ll>{1, 2});', generated)
+
+    def test_geometry_uses_existing_coordinate_type(self):
+        original = ('template <typename T>\nstruct point { T x, y; };\n'
+                    'using Point = point<point_t>;\n')
+        generated = ACM.handcopy_source(original, '点与向量.cpp')
+        self.assertNotIn('template', generated)
+        self.assertIn('struct point { point_t x, y; };', generated)
+        self.assertIn('using Point = point;', generated)
+
+    def test_type_names_inside_strings_are_not_rewritten(self):
+        original = 'const char* text = "SegmentTree<int> and point<T>";\n'
+        self.assertEqual(ACM.handcopy_source(original, 'example.cpp'), original)
+
 
 if __name__ == '__main__':
     unittest.main()

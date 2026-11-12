@@ -1,5 +1,6 @@
 // 检查两版默认启用的接口，以及 Hash / 线性基重复初始化。
 #include <bits/stdc++.h>
+#include "template_variant_types.h"
 using namespace std;
 using ll = long long;
 
@@ -26,10 +27,10 @@ namespace basis {
 }
 
 int main() {
-    seg::SegmentTree<> t(vector<ll>{1, 2, 3});
+    CP_TEST_TYPE(seg::SegmentTree) t(vector<ll>{1, 2, 3});
     t.update(0, 1, 4);
     assert(t.query(0, 2) == 14);
-    seg::SegmentTree<> single(0);
+    CP_TEST_TYPE(seg::SegmentTree) single(0);
     single.update(0, 0, 7);
     assert(single.query(0, 0) == 7);
 

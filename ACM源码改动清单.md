@@ -3,6 +3,7 @@
 完整复制版在 `src/`，手抄版在 `src-acm/`，每个 cpp 一一对应。
 
 保留算法、类封装、原有接口、断言以及下标和返回值约定；源码不添加版本提示，也不注释停用正常接口。
+常用结构体的数值类型固定为 ll，几何坐标沿用 point_t；vector 保持动态存储。函数回调和编译期长度模板保持原实现。
 完整保留源码中的用法示例与说明注释；相邻同类调用在 110 列内合并排版，保留原有分号和调用顺序。
 没有可安全删减接口的短模板保持核心实现，不为压行数改算法。reserve 保留，防止节点池引用失效。
 完整版本已修复 Hash 的 array 初始化、重复初始化及线性基 clear 状态重置；手抄版同步这些修复。已知有误的线性基旧 Kth_Max 不收入手抄版。
@@ -12,8 +13,8 @@
 | `data_structure/01trie.cpp` | 28 | 28 |
 | `data_structure/LCT维护联通性.cpp` | 71 | 71 |
 | `data_structure/SegmentSet.cpp` | 74 | 74 |
-| `data_structure/SegmentTree.cpp` | 118 | 114 |
-| `data_structure/SegmentTree单点.cpp` | 101 | 99 |
+| `data_structure/SegmentTree.cpp` | 118 | 113 |
+| `data_structure/SegmentTree单点.cpp` | 101 | 98 |
 | `data_structure/Splay.cpp` | 105 | 104 |
 | `data_structure/lca(o1).cpp` | 63 | 62 |
 | `data_structure/三维偏序cdq.cpp` | 85 | 84 |
@@ -21,7 +22,7 @@
 | `data_structure/二维树状数组.cpp` | 47 | 45 |
 | `data_structure/分层位图.cpp` | 72 | 72 |
 | `data_structure/动态开点线段树.cpp` | 99 | 99 |
-| `data_structure/动态树直径.cpp` | 111 | 107 |
+| `data_structure/动态树直径.cpp` | 111 | 106 |
 | `data_structure/可持久化01trie.cpp` | 50 | 50 |
 | `data_structure/可持久化线段树.cpp` | 87 | 87 |
 | `data_structure/左偏树.cpp` | 39 | 39 |
@@ -34,29 +35,29 @@
 | `data_structure/楼房重建.cpp` | 54 | 52 |
 | `data_structure/点分治.cpp` | 40 | 40 |
 | `data_structure/珂朵莉树.cpp` | 47 | 46 |
-| `data_structure/笛卡尔树.cpp` | 26 | 26 |
-| `data_structure/线段树区间加区间getmin.cpp` | 77 | 73 |
-| `data_structure/线段树区间加区间历史最小值.cpp` | 86 | 82 |
-| `data_structure/线段树区间加区间求和getsum.cpp` | 76 | 72 |
-| `data_structure/线段树区间赋值区间getmin.cpp` | 86 | 82 |
+| `data_structure/笛卡尔树.cpp` | 26 | 25 |
+| `data_structure/线段树区间加区间getmin.cpp` | 77 | 72 |
+| `data_structure/线段树区间加区间历史最小值.cpp` | 86 | 81 |
+| `data_structure/线段树区间加区间求和getsum.cpp` | 76 | 71 |
+| `data_structure/线段树区间赋值区间getmin.cpp` | 86 | 81 |
 | `data_structure/线段树合并.cpp` | 76 | 73 |
 | `data_structure/莫队mo.cpp` | 38 | 38 |
 | `data_structure/虚树xushu.cpp` | 105 | 104 |
-| `geometry/凸多边形.cpp` | 106 | 106 |
+| `geometry/凸多边形.cpp` | 106 | 105 |
 | `geometry/判断多条线段是否有交点.cpp` | 43 | 42 |
 | `geometry/半平面交.cpp` | 30 | 28 |
 | `geometry/圆.cpp` | 179 | 177 |
 | `geometry/圆面积并.cpp` | 75 | 71 |
-| `geometry/多边形.cpp` | 32 | 32 |
+| `geometry/多边形.cpp` | 32 | 31 |
 | `geometry/多边形面积并.cpp` | 62 | 60 |
 | `geometry/射线判交.cpp` | 21 | 21 |
 | `geometry/开头.cpp` | 5 | 5 |
 | `geometry/极角排序.cpp` | 15 | 15 |
-| `geometry/点与向量.cpp` | 43 | 43 |
+| `geometry/点与向量.cpp` | 43 | 42 |
 | `geometry/点集形成的最小最大三角形.cpp` | 40 | 40 |
 | `geometry/点集的凸包.cpp` | 22 | 22 |
-| `geometry/直线.cpp` | 25 | 25 |
-| `geometry/线段.cpp` | 32 | 32 |
+| `geometry/直线.cpp` | 25 | 24 |
+| `geometry/线段.cpp` | 32 | 31 |
 | `geometry/给定三点求圆心.cpp` | 8 | 8 |
 | `graph/K短路.cpp` | 124 | 123 |
 | `graph/johnson全源最短路.cpp` | 44 | 44 |

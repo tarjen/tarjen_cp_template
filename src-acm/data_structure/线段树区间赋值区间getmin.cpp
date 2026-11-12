@@ -1,5 +1,5 @@
 // 用法：
-// SegmentTree<> tr(4);  // 初值 0，管理闭区间 [0,4]。
+// SegmentTree tr(4);  // 初值 0，管理闭区间 [0,4]。
 // tr.update(0, 4, 7);
 // tr.update(1, 3, 2);  // 闭区间赋值，不是区间加。
 // ll ans = tr.query(0, 4);  // 当前区间最小值为 2。
@@ -7,14 +7,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-template <class T = ll>
 struct SegmentTree {
     struct Node {
         int l, r;
-        T res = 0, tag = 0;
+        ll res = 0, tag = 0;
         bool has_tag = false;
     };
-    static constexpr T inf = numeric_limits<T>::max();
+    static constexpr ll inf = numeric_limits<ll>::max();
     int n;  // 元素个数
     vector<Node> a;
     void tag_init(int i) { a[i].has_tag = false; }
@@ -39,17 +38,17 @@ struct SegmentTree {
         pushdown(i * 2); pushdown(i * 2 + 1);
         a[i].res = min(a[i * 2].res, a[i * 2 + 1].res);
     }
-    void build(int i, int l, int r, const vector<T>& v = {}) {
+    void build(int i, int l, int r, const vector<ll>& v = {}) {
         a[i] = {l, r};
         if (l == r) {
-            a[i].res = v.empty() ? T(0) : v[l];
+            a[i].res = v.empty() ? ll(0) : v[l];
             return;
         }
         int mid = (l + r) / 2;
         build(i * 2, l, mid, v); build(i * 2 + 1, mid + 1, r, v);
         pushup(i);
     }
-    void update(int i, int l, int r, T w) {
+    void update(int i, int l, int r, ll w) {
         pushdown(i);
         if (a[i].r < l || a[i].l > r || l > r) return;
         if (a[i].l >= l && a[i].r <= r) {
@@ -60,7 +59,7 @@ struct SegmentTree {
         update(i * 2, l, r, w); update(i * 2 + 1, l, r, w);
         pushup(i);
     }
-    T query(int i, int l, int r) {
+    ll query(int i, int l, int r) {
         pushdown(i);
         if (a[i].r < l || a[i].l > r || l > r) return inf;
         if (a[i].l >= l && a[i].r <= r) {
@@ -75,14 +74,14 @@ struct SegmentTree {
         a.resize(4LL * n + 4);
         build(1, 0, _n);
     }
-    SegmentTree(const vector<T>& v) : n(v.size()), a(4LL * n + 4) {
+    SegmentTree(const vector<ll>& v) : n(v.size()), a(4LL * n + 4) {
         if (n) build(1, 0, n - 1, v);
     }
-    void update(int l, int r, T w) {
+    void update(int l, int r, ll w) {
         assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
         update(1, l, r, w);
     }
-    T query(int l, int r) {
+    ll query(int l, int r) {
         assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
         return query(1, l, r);
     }

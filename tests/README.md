@@ -20,6 +20,7 @@ python tests/run_all.py
 | `template_refactor_third.cpp` | 27 个模板，覆盖可持久化结构、节点池扩容、树结构、数论、矩阵、递推、费用流等 |
 | `template_indexing.cpp` | 8 个模板的下标迁移、边界与朴素结果对照 |
 | `template_dynamic_diameter.cpp` | 动态树直径与朴素全点对距离对照 |
+| `handcopy_fixed_types.cpp` | 手抄版固定 ll 的左偏树与优先队列对拍，point_t 几何接口及 vector 存储检查 |
 
 六个测试文件直接引用 74 份完整源码。这些是有限的随机、边界与回归验证；两个目录共有 127 份 C++ 模板，并非每份旧片段、每个扩展接口均有测试。线性基旧 `Kth_Max` 存在越界且未规约，源码已标注请勿使用，不属于受支持接口。
 
@@ -30,7 +31,7 @@ python tests/run_template_refactor.py
 python tests/run_acm_variants.py
 ```
 
-手抄版先用 `-DACM_VARIANT` 直接测试 `template_core.cpp` 和 `poly_pow_n2.cpp`；再原样复制 `src-acm/` 到临时目录以复用现有相对路径，执行上述六个测试文件。测试不修改副本中的源码，验证的就是页面和 PDF 展示的版本。已知有误的线性基旧 `Kth_Max` 不收入手抄版。
+手抄版先用 `-DACM_VARIANT` 直接测试 `template_core.cpp`、`poly_pow_n2.cpp` 和 `handcopy_fixed_types.cpp`；再原样复制 `src-acm/` 到临时目录以复用现有相对路径，执行原有六个回归文件。测试调用通过 `template_variant_types.h` 选择完整版的类型参数或手抄版的普通类名，并相应使用 int / ll 测试数据；测试不修改受测源码。已知有误的线性基旧 `Kth_Max` 不收入手抄版。
 
 Linux / 支持对应运行库的编译器可额外启用内存和未定义行为检查：
 

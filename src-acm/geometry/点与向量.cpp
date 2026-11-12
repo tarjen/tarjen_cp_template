@@ -5,10 +5,9 @@
 // Point u{1,0}, v{0,1};
 // auto dot = u*v;
 // auto cross = u^v;  // 点积 0，叉积 1，叉积注意括号。
-// point<T> 可指定类型；Point 是 point<point_t> 的别名。
-template <typename T>
+// Point 与 point 表示同一类型，坐标类型统一使用 point_t。
 struct point {
-    T x, y;
+    point_t x, y;
 
     bool operator==(const point& a) const {
         return (abs(x - a.x) <= eps && abs(y - a.y) <= eps);
@@ -21,18 +20,18 @@ struct point {
     point operator+(const point& a) const { return {x + a.x, y + a.y}; }
     point operator-(const point& a) const { return {x - a.x, y - a.y}; }
     point operator-() const { return {-x, -y}; }
-    point operator*(const T k) const { return {k * x, k * y}; }
-    point operator/(const T k) const { return {x / k, y / k}; }
-    T operator*(const point& a) const { return x * a.x + y * a.y; }  // 点积
-    T operator^(const point& a) const {
+    point operator*(const point_t k) const { return {k * x, k * y}; }
+    point operator/(const point_t k) const { return {x / k, y / k}; }
+    point_t operator*(const point& a) const { return x * a.x + y * a.y; }  // 点积
+    point_t operator^(const point& a) const {
         return x * a.y - y * a.x;
     }  // 叉积，注意优先级
     int toleft(const point& a) const {
         const auto t = (*this) ^ a;
         return (t > eps) - (t < -eps);
     }  // to-left 测试
-    T len2() const { return (*this) * (*this); }  // 向量长度的平方
-    T dis2(const point& a) const {
+    point_t len2() const { return (*this) * (*this); }  // 向量长度的平方
+    point_t dis2(const point& a) const {
         return (a - (*this)).len2();
     }  // 两点距离的平方
 
@@ -52,4 +51,4 @@ struct point {
     }  // 逆时针旋转（给定角度的正弦与余弦）
 };
 
-using Point = point<point_t>;
+using Point = point;

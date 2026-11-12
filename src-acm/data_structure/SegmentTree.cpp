@@ -1,5 +1,5 @@
 // 用法：
-// SegmentTree<> tr(4);  // 初值 0，管理闭区间 [0,4]，共 5 个元素。
+// SegmentTree tr(4);  // 初值 0，管理闭区间 [0,4]，共 5 个元素。
 // tr.update(1, 3, 2);  // 区间加 2。
 // ll sum = tr.query(0, 4);  // 区间和为 6。
 // int p = tr.min_right(0, 4);  // 前缀和首次达到 4 的位置为 2。
@@ -8,11 +8,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-template <class T = ll>
 struct SegmentTree {
     struct Node {
         int l, r;
-        T res = 0, tag = 0;
+        ll res = 0, tag = 0;
     };
     int n;  // 元素个数
     vector<Node> a;
@@ -31,17 +30,17 @@ struct SegmentTree {
         pushdown(i * 2); pushdown(i * 2 + 1);
         a[i].res = a[i * 2].res + a[i * 2 + 1].res;
     }
-    void build(int i, int l, int r, const vector<T>& v = {}) {
+    void build(int i, int l, int r, const vector<ll>& v = {}) {
         a[i] = {l, r};
         if (l == r) {
-            a[i].res = v.empty() ? T(0) : v[l];
+            a[i].res = v.empty() ? ll(0) : v[l];
             return;
         }
         int mid = (l + r) / 2;
         build(i * 2, l, mid, v); build(i * 2 + 1, mid + 1, r, v);
         pushup(i);
     }
-    void update(int i, int l, int r, T w) {
+    void update(int i, int l, int r, ll w) {
         pushdown(i);
         if (a[i].r < l || a[i].l > r || l > r) return;
         if (a[i].l >= l && a[i].r <= r) {
@@ -51,7 +50,7 @@ struct SegmentTree {
         update(i * 2, l, r, w); update(i * 2 + 1, l, r, w);
         pushup(i);
     }
-    T query(int i, int l, int r) {
+    ll query(int i, int l, int r) {
         pushdown(i);
         if (a[i].r < l || a[i].l > r || l > r) return 0;
         if (a[i].l >= l && a[i].r <= r) {
@@ -59,12 +58,12 @@ struct SegmentTree {
         }
         return query(i * 2, l, r) + query(i * 2 + 1, l, r);
     }
-    int min_right(int qL, T& nowsum, T querysum,
+    int min_right(int qL, ll& nowsum, ll querysum,
                   int i) {  // 从左往右第一个>=sum的位置
         pushdown(i);
         if (a[i].r < qL) return -1;
         if (qL <= a[i].l) {
-            T ss = nowsum + a[i].res;
+            ll ss = nowsum + a[i].res;
             if (ss < querysum) {
                 nowsum = ss;
                 return -1;
@@ -75,12 +74,12 @@ struct SegmentTree {
         if (pos != -1) return pos;
         return min_right(qL, nowsum, querysum, 2 * i + 1);
     }
-    int max_left(int qR, T& nowsum, T querysum,
+    int max_left(int qR, ll& nowsum, ll querysum,
                  int i) {  // 从右往左第一个>=sum的位置
         pushdown(i);
         if (a[i].l > qR) return -1;
         if (qR >= a[i].r) {
-            T ss = nowsum + a[i].res;
+            ll ss = nowsum + a[i].res;
             if (ss < querysum) {
                 nowsum = ss;
                 return -1;
@@ -98,26 +97,26 @@ struct SegmentTree {
         a.resize(4LL * n + 4);
         build(1, 0, _n);
     }
-    SegmentTree(const vector<T>& v) : n(v.size()), a(4LL * n + 4) {
+    SegmentTree(const vector<ll>& v) : n(v.size()), a(4LL * n + 4) {
         if (n) build(1, 0, n - 1, v);
     }
-    void update(int l, int r, T w) {
+    void update(int l, int r, ll w) {
         assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
         update(1, l, r, w);
     }
-    T query(int l, int r) {
+    ll query(int l, int r) {
         assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
         return query(1, l, r);
     }
     // 二分要求元素非负、need>0，不存在返回-1。
-    int min_right(int l, T need) {
+    int min_right(int l, ll need) {
         assert(n > 0 && 0 <= l && l <= n && need > 0);
-        T sum = 0;
+        ll sum = 0;
         return min_right(l, sum, need, 1);
     }
-    int max_left(int r, T need) {
+    int max_left(int r, ll need) {
         assert(n > 0 && -1 <= r && r < n && need > 0);
-        T sum = 0;
+        ll sum = 0;
         return max_left(r, sum, need, 1);
     }
 };

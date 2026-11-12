@@ -7,6 +7,12 @@ ROOT = Path(__file__).resolve().parents[1]
 # The existing legacy kth routine is known to index outside its basis array.
 OMITTED = {'线性基.cpp': {'Kth_Max'}}
 
+FIXED_VALUE_CLASSES = {
+    'SegmentTree': 'll', 'DynamicTreeDiameter': 'll', 'CartesianTree': 'll',
+    'LeftistHeap': 'll', 'point': 'point_t', 'line': 'point_t',
+    'segment': 'point_t', 'polygon': 'point_t', 'convex': 'point_t',
+}
+
 def mask(text):
     # Preserve offsets while hiding comments and literals from brace matching.
     pattern = r'//[^\n]*|/\*[\s\S]*?\*/|"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\''
@@ -34,8 +40,76 @@ def compact_calls(text, width=110):
         index += 1
     return ''.join(result)
 
+def matching_bracket(text, start, opening, closing):
+    depth = 1
+    end = start + 1
+    while depth and end < len(text):
+        depth += (text[end] == opening) - (text[end] == closing)
+        end += 1
+    if depth:
+        raise ValueError('Unclosed bracket in template declaration')
+    return end
+
+def erase_fixed_type_arguments(text):
+    """Update code and usage examples for the concrete class APIs."""
+    pattern = r'\b(' + '|'.join(FIXED_VALUE_CLASSES) + r')\s*<'
+    spans = []
+    literal_pattern = r'//[^\n]*|/\*[\s\S]*?\*/|"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\''
+    literals = [(part.start(), part.end()) for part in re.finditer(literal_pattern, text)
+                if part.group().startswith(('"', "'"))]
+    covered_until = 0
+    for match in re.finditer(pattern, text):
+        if match.start() < covered_until or any(start <= match.start() < end for start, end in literals):
+            continue
+        start = text.find('<', match.start(), match.end())
+        try:
+            end = matching_bracket(text, start, '<', '>')
+        except ValueError:
+            continue
+        spans.append((match.start(), end, match.group(1)))
+        covered_until = end
+    for start, end, replacement in reversed(spans):
+        text = text[:start] + replacement + text[end:]
+    return text
+
+def fix_value_templates(text):
+    hidden = mask(text)
+    edits = []
+    concrete = set()
+    for match in re.finditer(r'\btemplate\s*<', hidden):
+        end = matching_bracket(hidden, hidden.find('<', match.start(), match.end()), '<', '>')
+        declaration = re.match(r'\s*(?:struct|class)\s+(\w+)', hidden[end:])
+        if not declaration or declaration.group(1) not in FIXED_VALUE_CLASSES:
+            continue
+        name = declaration.group(1)
+        concrete.add(name)
+        body_start = hidden.find('{', end + declaration.end())
+        body_end = matching_bracket(hidden, body_start, '{', '}')
+        while end < len(text) and text[end].isspace():
+            end += 1
+        edits.append((match.start(), end, ''))
+        replacements = {'T': FIXED_VALUE_CLASSES[name]}
+        if name == 'LeftistHeap':
+            replacements['Compare'] = 'less<ll>'
+        for value in re.finditer(r'\b(?:T|Compare)\b', hidden[body_start:body_end]):
+            if value.group() in replacements:
+                edits.append((body_start + value.start(), body_start + value.end(), replacements[value.group()]))
+    for start, end, replacement in sorted(edits, reverse=True):
+        text = text[:start] + replacement + text[end:]
+    if 'LeftistHeap' in concrete:
+        text = text.replace('using namespace std;\n', 'using namespace std;\n\ntypedef long long ll;\n', 1)
+        text = text.replace('// int minimum = hp.top(x);', '// ll minimum = hp.top(x);')
+        text = text.replace('默认小根，大根用 LeftistHeap<int, greater<int>>。',
+                            '默认小根，大根可把 less<ll> 改为 greater<ll>。')
+    if 'CartesianTree' in concrete:
+        text = text.replace('类型由 a 推导。', '值类型为 ll。')
+    if 'point' in concrete:
+        text = text.replace('// point<T> 可指定类型；Point 是 point<point_t> 的别名。',
+                            '// Point 与 point 表示同一类型，坐标类型统一使用 point_t。')
+    return erase_fixed_type_arguments(text)
+
 def handcopy_source(original, name):
-    text = remove_functions(compact_calls(original), OMITTED.get(name, set()))
+    text = remove_functions(compact_calls(fix_value_templates(original)), OMITTED.get(name, set()))
     # Remove modifiers only from code, preserving every explanatory comment.
     for match in reversed(list(re.finditer(r'\b(?:explicit|inline)[ \t]+', mask(text)))):
         text = text[:match.start()] + text[match.end():]
@@ -81,6 +155,7 @@ def build():
         rows.append(f'| `{relative.as_posix()}` | {active_before} | {active_after} |')
     (ROOT / 'ACM源码改动清单.md').write_text('# ACM 源码改动清单\n\n完整复制版在 `src/`，手抄版在 `src-acm/`，每个 cpp 一一对应。\n\n'
         '保留算法、类封装、原有接口、断言以及下标和返回值约定；源码不添加版本提示，也不注释停用正常接口。\n'
+        '常用结构体的数值类型固定为 ll，几何坐标沿用 point_t；vector 保持动态存储。函数回调和编译期长度模板保持原实现。\n'
         '完整保留源码中的用法示例与说明注释；相邻同类调用在 110 列内合并排版，保留原有分号和调用顺序。\n'
         '没有可安全删减接口的短模板保持核心实现，不为压行数改算法。reserve 保留，防止节点池引用失效。\n'
         '完整版本已修复 Hash 的 array 初始化、重复初始化及线性基 clear 状态重置；手抄版同步这些修复。已知有误的线性基旧 Kth_Max 不收入手抄版。\n\n'

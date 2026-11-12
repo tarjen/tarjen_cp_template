@@ -7,11 +7,14 @@ import tempfile
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--sanitize', action='store_true')
+parser.add_argument('--handcopy', action='store_true', help='Use the fixed-type hand-copy API')
 args = parser.parse_args()
 source = Path(__file__).with_name('template_refactor.cpp').resolve()
 with tempfile.TemporaryDirectory(prefix='cp-template-check-') as directory:
     executable = Path(directory) / ('check.exe' if os.name == 'nt' else 'check')
     flags = ['-std=c++17', '-O1', '-g', '-Wall', '-Wextra', '-D_GLIBCXX_DEBUG']
+    if args.handcopy:
+        flags += ['-DHANDCOPY_FIXED_TYPES']
     if args.sanitize:
         flags += ['-fsanitize=address,undefined', '-fno-omit-frame-pointer']
     test_sources = [

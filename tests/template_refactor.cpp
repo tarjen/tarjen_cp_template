@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "template_variant_types.h"
 using namespace std;
 using ll = long long;
 namespace bit {
@@ -250,28 +251,28 @@ void test_arrays() {
         CHECK(search.min_right(m + 1, 1) == -1);
         CHECK(pointsearch.max_left(-1, 1) == -1);
     }
-    seg::SegmentTree<int> typed(vector<int>{2, -3, 5});
-    static_assert(is_same_v<decltype(typed.query(0, 2)), int>);
+    CP_TEST_TYPE(seg::SegmentTree, int) typed(vector<TemplateTestValue>{2, -3, 5});
+    static_assert(is_same_v<decltype(typed.query(0, 2)), TemplateTestValue>);
     typed.update(0, 2, 4);
     CHECK(typed.query(0, 2) == 16);
-    pointseg::SegmentTree<int> typed_point(vector<int>{1, 2, 3});
+    CP_TEST_TYPE(pointseg::SegmentTree, int) typed_point(vector<TemplateTestValue>{1, 2, 3});
     typed_point.update(2, 8);
     CHECK(typed_point.query(0, 2) == 11);
-    sumseg::SegmentTree<int> typed_sum(vector<int>{1, 2, 3});
+    CP_TEST_TYPE(sumseg::SegmentTree, int) typed_sum(vector<TemplateTestValue>{1, 2, 3});
     typed_sum.update(2, 2, -4);
     CHECK(typed_sum.query(0, 2) == 2);
-    minseg::SegmentTree<int> typed_min(vector<int>{1, 2, 3});
+    CP_TEST_TYPE(minseg::SegmentTree, int) typed_min(vector<TemplateTestValue>{1, 2, 3});
     typed_min.update(0, 2, -5);
     CHECK(typed_min.query(0, 2) == -4);
-    assignseg::SegmentTree<int> typed_assign(vector<int>{1, 2, 3});
+    CP_TEST_TYPE(assignseg::SegmentTree, int) typed_assign(vector<TemplateTestValue>{1, 2, 3});
     typed_assign.update(0, 2, INT_MAX);
     CHECK(typed_assign.query(0, 2) == INT_MAX);
-    historyseg::SegmentTree<int> typed_history(vector<int>{1, 2, 3});
+    CP_TEST_TYPE(historyseg::SegmentTree, int) typed_history(vector<TemplateTestValue>{1, 2, 3});
     typed_history.update(0, 2, -5);
     typed_history.update(0, 2, 10);
     CHECK(typed_history.query(0, 2) == -4);
-    seg::SegmentTree deduced(vector<int>{1, 2, 3});
-    static_assert(is_same_v<decltype(deduced.query(0, 2)), int>);
+    seg::SegmentTree deduced(vector<TemplateTestValue>{1, 2, 3});
+    static_assert(is_same_v<decltype(deduced.query(0, 2)), TemplateTestValue>);
     CHECK(deduced.query(0, 2) == 6);
     assignseg::SegmentTree sentinel(1);
     sentinel.update(0, 1, LLONG_MAX);
@@ -947,20 +948,20 @@ void invalid_segment_input(int which) {
     }
     if (which == 15) {
         Tree empty(vector<ll>{});
-        if constexpr (is_same_v<Tree, pointseg::SegmentTree<>>)
+        if constexpr (is_same_v<Tree, CP_TEST_TYPE(pointseg::SegmentTree)>)
             empty.update(0, 1);
         else
             empty.update(0, -1, 1);
     }
-    if constexpr (is_same_v<Tree, pointseg::SegmentTree<>>) {
+    if constexpr (is_same_v<Tree, CP_TEST_TYPE(pointseg::SegmentTree)>) {
         if (which == 7) t.update(3, 1);
         if (which == 8) t.update(-1, 1);
     } else {
         if (which == 7) t.update(0, 3, 1);
         if (which == 8) t.update(-1, 0, 1);
     }
-    if constexpr (is_same_v<Tree, seg::SegmentTree<>> ||
-                  is_same_v<Tree, pointseg::SegmentTree<>>) {
+    if constexpr (is_same_v<Tree, CP_TEST_TYPE(seg::SegmentTree)> ||
+                  is_same_v<Tree, CP_TEST_TYPE(pointseg::SegmentTree)>) {
         if (which == 9) t.min_right(0, 0);
         if (which == 10) t.min_right(-1, 1);
         if (which == 11) t.min_right(4, 1);
@@ -981,12 +982,12 @@ void invalid_segment_input(int which) {
 int main(int argc, char** argv) {
     if (argc == 3) {
         int tree = stoi(argv[1]), which = stoi(argv[2]);
-        if (tree == 0) invalid_segment_input<seg::SegmentTree<>>(which);
-        if (tree == 1) invalid_segment_input<pointseg::SegmentTree<>>(which);
-        if (tree == 2) invalid_segment_input<sumseg::SegmentTree<>>(which);
-        if (tree == 3) invalid_segment_input<minseg::SegmentTree<>>(which);
-        if (tree == 4) invalid_segment_input<assignseg::SegmentTree<>>(which);
-        if (tree == 5) invalid_segment_input<historyseg::SegmentTree<>>(which);
+        if (tree == 0) invalid_segment_input<CP_TEST_TYPE(seg::SegmentTree)>(which);
+        if (tree == 1) invalid_segment_input<CP_TEST_TYPE(pointseg::SegmentTree)>(which);
+        if (tree == 2) invalid_segment_input<CP_TEST_TYPE(sumseg::SegmentTree)>(which);
+        if (tree == 3) invalid_segment_input<CP_TEST_TYPE(minseg::SegmentTree)>(which);
+        if (tree == 4) invalid_segment_input<CP_TEST_TYPE(assignseg::SegmentTree)>(which);
+        if (tree == 5) invalid_segment_input<CP_TEST_TYPE(historyseg::SegmentTree)>(which);
         return 0;  // Runner requires each invalid input to fail specifically
                    // via assert.
     }

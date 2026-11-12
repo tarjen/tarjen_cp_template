@@ -1,6 +1,6 @@
 // 用法：
 // vector<ll> a = {3, 1, 2};
-// CartesianTree tr(a);       // 构造时自动建最小笛卡尔树；类型由 a 推导。
+// CartesianTree tr(a);       // 构造时自动建最小笛卡尔树；值类型为 ll。
 // int root = tr.root;        // 根为 1；ve[u][0/1] 是左右孩子。
 // 本例 ve[1][0] = 0，ve[1][1] = 2。
 // 节点 0base；空树、空孩子为 -1；相等时靠右的节点在上。
@@ -8,10 +8,9 @@
 using namespace std;
 typedef long long ll;
 
-template <class T = ll>
 struct CartesianTree {
     int n, root;
-    vector<T> a;
+    vector<ll> a;
     vector<vector<int>> ve;
 
     void build() {
@@ -31,5 +30,5 @@ struct CartesianTree {
         root = st.empty() ? -1 : st[0];
     }
 
-    CartesianTree(const vector<T>& _a) : n(_a.size()), a(_a) { build(); }
+    CartesianTree(const vector<ll>& _a) : n(_a.size()), a(_a) { build(); }
 };

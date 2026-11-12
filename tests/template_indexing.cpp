@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "template_variant_types.h"
 using namespace std;
 using ll = long long;
 using u64 = uint64_t;
@@ -58,25 +59,25 @@ string capture(const string& input, F f) {
     return out.str();
 }
 void test_structures() {
-    cartesian::CartesianTree<> empty(vector<ll>{});
+    CP_TEST_TYPE(cartesian::CartesianTree) empty(vector<ll>{});
     CHECK(empty.root == -1);
     CHECK(empty.ve.empty());
-    cartesian::CartesianTree<> wide({(1LL << 40) + 2, 1LL << 40, 1LL << 40});
+    CP_TEST_TYPE(cartesian::CartesianTree) wide({(1LL << 40) + 2, 1LL << 40, 1LL << 40});
     CHECK(wide.root == 2);
     CHECK(wide.ve[2][0] == 1);
     CHECK(wide.ve[1][0] == 0);
     CHECK(wide.a[0] == (1LL << 40) + 2);
-    cartesian::CartesianTree singleton(vector<int>{7});
+    cartesian::CartesianTree singleton(vector<TemplateTestValue>{7});
     CHECK(singleton.root == 0);
     CHECK(singleton.ve[0] == vector<int>({-1, -1}));
-    cartesian::CartesianTree increasing(vector<int>{1, 2, 3, 4});
+    cartesian::CartesianTree increasing(vector<TemplateTestValue>{1, 2, 3, 4});
     CHECK(increasing.root == 0);
     CHECK(increasing.ve[0][1] == 1);
-    cartesian::CartesianTree decreasing(vector<int>{4, 3, 2, 1});
+    cartesian::CartesianTree decreasing(vector<TemplateTestValue>{4, 3, 2, 1});
     CHECK(decreasing.root == 3);
     CHECK(decreasing.ve[3][0] == 2);
     CHECK(increasing.root == 0);  // 不同对象互不影响。
-    vector<int> equal_values(100000, 5);
+    vector<TemplateTestValue> equal_values(100000, 5);
     cartesian::CartesianTree equal(equal_values);
     CHECK(equal.root == 99999);
     for (int i = 0; i < equal.n; i++) {
@@ -85,8 +86,8 @@ void test_structures() {
     }
     for (int trial = 0; trial < 150; trial++) {
         int n = rnd(1, 30);
-        vector<int> input(n);
-        for (int& x : input) x = rnd(-10, 10);
+        vector<TemplateTestValue> input(n);
+        for (auto& x : input) x = rnd(-10, 10);
         cartesian::CartesianTree tree(input);
         int root = tree.root;
         vector<vector<int>> want_children(n, vector<int>(2, -1));
