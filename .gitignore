@@ -1,1 +1,4 @@
 *.pdf
+*.log
+__pycache__/
+viewer/templates.js

@@ -4,6 +4,35 @@
 
 特此鸣谢cubercsl提供的typst模板
 
+## 两个源码目录
+
+两版放在同一分支，按用途选择目录：
+
+| 用途 | 源码目录 | PDF 入口 |
+| --- | --- | --- |
+| 完整封装版：保留完整接口、断言、使用示例及回归测试 | [`src/`](src/) | `main-copy.typ`（`main.typ` 兼容同一内容） |
+| 赛时手抄版：保留算法和类封装，非必要接口以 `//?` 注释 | [`src-acm/`](src-acm/) | `main-acm.typ` |
+
+两目录现有 127 份 C++ 模板一一对应；手抄 PDF 默认选取高频内容，其余源码仍在目录里。具体差异见[版本说明](版本说明.md)和[源码改动清单](ACM源码改动清单.md)。
+
+一条命令验证两版（Python 3、g++，C++17）：
+
+```powershell
+python tests/run_all.py
+```
+
+测试范围和单独运行方法见 [tests/README.md](tests/README.md)。维护时先修改 `src/`，再运行 `python tools/build_acm_sources.py` 同步手抄版，最后运行测试。
+
+## 左右分屏查看代码
+
+双击仓库根目录的 `查看模板对照.bat`，或运行：
+
+```powershell
+python tools/build_compare_view.py --open
+```
+
+离线页面左侧显示完整封装版，右侧显示赛时手抄版，支持模板搜索、差异对齐、同步滚动、复制源码和调节分屏宽度。启动时自动生成最新快照，修改源码后重新运行即可更新。详细操作见 [viewer/README.md](viewer/README.md)。
+
 = 第零章
 
 - 安装 `typst`:
@@ -42,9 +71,9 @@ python tests/run_template_refactor.py
 typst compile main.typ main.pdf
 ```
 
-本机安装位置为 `C:\Users\tarjen\AppData\Local\Programs\Typst\typst.exe`，桌面原模板库路径与 `code/tarjen_cp_template` 子模块指向同一份代码。
+请先将 Typst 加入 PATH，再执行上述命令。
 
-GitHub Actions 在 Ubuntu 24.04 上安装 Noto CJK 与 Liberation 字体，使用同一 Typst 版本编译；PDF 可在每次成功构建的 `template-pdf` artifact 中下载，推送标签时也会上传到 Release。
+GitHub Actions 在 Ubuntu 24.04 上安装 Noto CJK 与 Liberation 字体，使用同一 Typst 版本编译三份 PDF；可在每次成功构建的 `template-pdf` artifact 中下载，推送标签时也会上传到 Release。独立测试工作流会分别验证完整版和手抄版，并启用 AddressSanitizer / UndefinedBehaviorSanitizer。
 
 2026年10月6日修复了 `NTT.cpp` 与实际文件 `ntt.cpp` 的大小写不一致，更新了已停用的 artifact 下载步骤，并固定构建系统与编译器版本。
 

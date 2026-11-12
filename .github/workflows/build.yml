@@ -4,6 +4,7 @@ on:
     paths:
       - "*.typ"
       - src/**
+      - src-acm/**
       - .github/workflows/build.yml
       - logo.png
       - BW.tmtheme
@@ -11,6 +12,7 @@ on:
     paths:
       - "*.typ"
       - src/**
+      - src-acm/**
       - .github/workflows/build.yml
       - logo.png
       - BW.tmtheme
@@ -34,12 +36,18 @@ jobs:
         with:
           typst-version: "0.15.1"
       - name: Build PDF
-        run: typst compile main.typ main.pdf
+        run: |
+          typst compile main.typ main.pdf
+          typst compile main-copy.typ main-copy.pdf
+          typst compile main-acm.typ main-acm.pdf
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
           name: template-pdf
-          path: main.pdf
+          path: |
+            main.pdf
+            main-copy.pdf
+            main-acm.pdf
           if-no-files-found: error
 
   release:
@@ -54,4 +62,7 @@ jobs:
           name: template-pdf
       - uses: softprops/action-gh-release@v2
         with:
-          files: main.pdf
+          files: |
+            main.pdf
+            main-copy.pdf
+            main-acm.pdf

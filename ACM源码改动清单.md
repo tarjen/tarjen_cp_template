@@ -4,17 +4,17 @@
 
 保留算法、类封装、下标和返回值约定；非必要 assert、旧 char* 入口及指定扩展函数改为 `//?` 注释。
 没有可安全删减接口的短模板保持核心实现，不为压行数改算法。reserve 保留，防止节点池引用失效。
-Hash 的 array 初始化编译错误已修正；线性基查询移除重复求最大值，clear 重置全部状态；旧 kth 接口标为不可启用。
+完整版本已修复 Hash 的 array 初始化、重复初始化及线性基 clear 状态重置；手抄版同步这些修复。线性基查询移除重复求最大值；旧 kth 接口标为不可启用。
 
 | 文件 | 原有效代码行 | 手抄有效代码行 |
 | --- | ---: | ---: |
 | `data_structure/01trie.cpp` | 28 | 28 |
-| `data_structure/lca(o1).cpp` | 63 | 63 |
 | `data_structure/LCT维护联通性.cpp` | 71 | 71 |
 | `data_structure/SegmentSet.cpp` | 74 | 69 |
 | `data_structure/SegmentTree.cpp` | 118 | 73 |
 | `data_structure/SegmentTree单点.cpp` | 101 | 58 |
 | `data_structure/Splay.cpp` | 105 | 104 |
+| `data_structure/lca(o1).cpp` | 63 | 63 |
 | `data_structure/三维偏序cdq.cpp` | 85 | 84 |
 | `data_structure/主席树.cpp` | 150 | 146 |
 | `data_structure/二维树状数组.cpp` | 47 | 46 |
@@ -57,9 +57,9 @@ Hash 的 array 初始化编译错误已修正；线性基查询移除重复求�
 | `geometry/直线.cpp` | 25 | 25 |
 | `geometry/线段.cpp` | 32 | 32 |
 | `geometry/给定三点求圆心.cpp` | 8 | 8 |
+| `graph/K短路.cpp` | 124 | 124 |
 | `graph/johnson全源最短路.cpp` | 44 | 44 |
 | `graph/kosaraju.cpp` | 52 | 52 |
-| `graph/K短路.cpp` | 124 | 124 |
 | `graph/maxflow只算值版本.cpp` | 65 | 64 |
 | `graph/maxflow网络流最大流.cpp` | 66 | 65 |
 | `graph/tarjan缩点.cpp` | 58 | 58 |
@@ -79,17 +79,18 @@ Hash 的 array 初始化编译错误已修正；线性基查询移除重复求�
 | `graph/欧拉回路.cpp` | 24 | 24 |
 | `graph/点双边双.cpp` | 110 | 109 |
 | `math/BSGS指数方程余数问题(求a^x=b%p).cpp` | 57 | 57 |
-| `math/exgcd.cpp` | 12 | 12 |
 | `math/FFT.cpp` | 82 | 82 |
 | `math/FWT.cpp` | 60 | 57 |
-| `math/matrix.cpp` | 58 | 55 |
 | `math/Meissel-Lehmer(求1-n质数数量).cpp` | 92 | 89 |
+| `math/exgcd.cpp` | 12 | 12 |
+| `math/matrix.cpp` | 58 | 55 |
 | `math/min25(质数幂次和).cpp` | 111 | 107 |
 | `math/mob莫比乌斯反演.cpp` | 32 | 32 |
 | `math/ntt.cpp` | 208 | 201 |
 | `math/任意模数ntt.cpp` | 75 | 75 |
 | `math/分数类.cpp` | 28 | 27 |
 | `math/判断异或方程组是否有解.cpp` | 30 | 30 |
+| `math/多项式幂(n2).cpp` | 29 | 27 |
 | `math/大数分解质因数.cpp` | 78 | 78 |
 | `math/扩展中国剩余定理.cpp` | 35 | 35 |
 | `math/拉格朗日插值.cpp` | 64 | 59 |

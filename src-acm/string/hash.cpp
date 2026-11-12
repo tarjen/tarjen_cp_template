@@ -35,8 +35,8 @@ struct Hash {
     void Hash_init(string& s) {
         n = (int)s.size();
         Pow.resize(n + 2);
-        has1.resize(n + 2);
-        has2.resize(n + 2);
+        has1.assign(n + 2, hs{});
+        has2.assign(n + 2, hs{});
         Pow[0] = hs{1, 1};
         for (int i = 1; i <= n; i++) Pow[i] = Pow[i - 1] * p;
         for (int i = 1; i <= n; i++)

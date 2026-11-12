@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>板子对照 · Tarjen</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%23196859'/%3E%3Cpath d='m15 12-8 8 8 8m10-16 8 8-8 8M22 10l-4 20' stroke='white' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script src="templates.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="app-header">
+    <button id="menu-button" class="icon-button" title="展开 / 收起目录" aria-label="展开或收起目录" aria-expanded="true"><span data-icon="menu"></span></button>
+    <a class="brand" href="#"><span class="brand-mark" data-icon="code"></span><span>板子对照<span class="brand-sub">TARJEN / CODE LIBRARY</span></span></a>
+    <div class="header-context"><span class="online-dot"></span>本地模板库<span class="header-divider"></span><span id="template-total">—</span> 份模板</div>
+    <div class="header-actions"><button id="theme-button" class="icon-button" title="切换深浅配色" aria-label="切换深浅配色"><span data-icon="moon"></span></button><button id="refresh-button" class="small-button" title="重新载入最近生成的模板快照"><span data-icon="refresh"></span>重新载入</button></div>
+  </header>
+
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar" aria-label="模板目录">
+      <div class="sidebar-top"><div class="section-label">EXPLORER <span>模板目录</span></div><label class="search-box"><span data-icon="search"></span><input id="template-search" type="search" placeholder="搜索模板名称…" autocomplete="off" aria-label="搜索模板名称"><kbd>/</kbd></label></div>
+      <div class="filter-bar"><span id="result-count">全部模板</span><button id="clear-filter" hidden>清除筛选</button></div>
+      <nav id="file-tree" class="file-tree" aria-label="选择模板"></nav>
+      <div class="sidebar-bottom"><span data-icon="layers"></span><div>两份代码，一个视图<small>完整接口与赛时手抄，随时对照。</small></div></div>
+    </aside>
+    <button class="sidebar-scrim" id="sidebar-scrim" aria-label="关闭目录"></button>
+
+    <main class="main-content" id="main-content">
+      <section class="file-heading"><div class="breadcrumb"><span>模板库</span><span>/</span><span id="current-category">数据结构</span></div><div class="file-title-row"><h1 id="file-title">正在载入模板…</h1><span class="language-badge">C++ 17</span></div><div class="file-meta"><span id="current-path">选择一份模板，左右查看两个版本</span><span id="savings" class="savings"></span></div></section>
+
+      <section class="compare-toolbar" aria-label="代码对照设置">
+        <div class="view-switch" role="group" aria-label="显示方式"><button id="aligned-button" class="selected" aria-pressed="true"><span data-icon="diff"></span>差异对齐</button><button id="raw-button" aria-pressed="false">原始代码</button></div>
+        <label class="sync-control"><input type="checkbox" id="sync-scroll" checked><span class="switch-track"></span>同步滚动</label>
+        <div class="toolbar-spacer"></div>
+        <div class="diff-navigation"><span id="diff-count">— 处差异</span><button id="previous-diff" class="icon-button" title="上一处差异（Alt + ↑）" aria-label="上一处差异"><span data-icon="up"></span></button><button id="next-diff" class="icon-button" title="下一处差异（Alt + ↓）" aria-label="下一处差异"><span data-icon="down"></span></button></div>
+        <div class="font-controls"><button id="font-smaller" class="icon-button" title="缩小字号" aria-label="缩小字号">A−</button><span id="font-size">13</span><button id="font-larger" class="icon-button" title="放大字号" aria-label="放大字号">A+</button></div>
+      </section>
+
+      <div class="comparison" id="comparison">
+        <section class="code-panel full-panel" aria-label="完整封装版代码">
+          <header class="panel-heading"><div class="panel-identity"><span class="version-icon" data-icon="box"></span><div><strong>完整封装版</strong><span class="panel-path" id="full-path">src/</span></div></div><span class="line-count" id="full-count">— 行</span><button class="copy-button" id="copy-full" title="复制完整封装版代码"><span data-icon="copy"></span><span>复制</span></button></header>
+          <div class="code-viewport" id="full-code" tabindex="0" role="region" aria-label="完整封装版源码，可滚动"></div>
+          <footer class="panel-footer"><span class="legend-dot full-dot"></span>完整接口 · 使用说明 · 前置断言<span class="footer-source">FULL</span></footer>
+        </section>
+        <div class="splitter" id="splitter" role="separator" aria-label="调节左右分屏宽度" aria-orientation="vertical" aria-valuemin="25" aria-valuemax="75" aria-valuenow="50" tabindex="0"><span></span></div>
+        <section class="code-panel copy-panel" aria-label="赛时手抄版代码">
+          <header class="panel-heading"><div class="panel-identity"><span class="version-icon" data-icon="pen"></span><div><strong>赛时手抄版</strong><span class="panel-path" id="copy-path">src-acm/</span></div></div><span class="line-count" id="copy-count">— 行</span><button class="copy-button" id="copy-hand" title="复制赛时手抄版代码"><span data-icon="copy"></span><span>复制</span></button></header>
+          <div class="code-viewport" id="hand-code" tabindex="0" role="region" aria-label="赛时手抄版源码，可滚动"></div>
+          <footer class="panel-footer"><span class="legend-dot copy-dot"></span><code>//?</code> 为按需启用内容<span class="footer-source">HANDCOPY</span></footer>
+        </section>
+      </div>
+      <footer class="workspace-footer"><div class="diff-legend"><span><i class="removed-swatch"></i>完整版独有 / 改动</span><span><i class="added-swatch"></i>手抄版独有 / 改动</span></div><span id="snapshot-time">离线快照</span></footer>
+      <div id="empty-state" class="empty-state" hidden><span data-icon="code"></span><h2>还没有模板快照</h2><p>在仓库中双击「查看模板对照.bat」，自动生成数据并打开页面。</p><code>python tools/build_compare_view.py --open</code></div>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -4,7 +4,6 @@
 // tr.Hash_init(s);  // 初始化，查询区间 1base 闭合。
 // auto forward = tr.get1(1, 3);  // 正向子串哈希。
 // auto backward = tr.get2(1, 3);  // 反向子串哈希，回文时二者相同。
-// 当前 Pow[0] 用 pair 初始化 array，须先改成 Pow[0]=hs{1,1} 才能编译。
 // 双模哈希仍可能碰撞；需标准库头文件与 using namespace std。
 typedef long long ll;
 const int G = 2;
@@ -39,9 +38,9 @@ struct Hash {
     void Hash_init(string& s) {
         n = (int)s.size();
         Pow.resize(n + 2);
-        has1.resize(n + 2);
-        has2.resize(n + 2);
-        Pow[0] = make_pair(1ll, 1ll);
+        has1.assign(n + 2, hs{});
+        has2.assign(n + 2, hs{});
+        Pow[0] = hs{1, 1};
         for (int i = 1; i <= n; i++) Pow[i] = Pow[i - 1] * p;
         for (int i = 1; i <= n; i++)
             has1[i] =

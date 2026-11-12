@@ -19,7 +19,7 @@ struct LinearBasis {
     void build(ll* x, int n) {
         for (int i = 0; i < n; ++i) insert(x[i]);
     }
-    void clear() { memset(a, 0, sizeof a); }
+    void clear() { memset(a, 0, sizeof a); flag = false; tot = 0; }
     bool insert(ll t) {
         // 暴力插入一个数，维护的是一个上三角型的线性基矩阵，时间复杂度低，当待插入元素能插入时，返回true
         for (int i = maxbase; i >= 0; --i) {
@@ -123,6 +123,7 @@ struct LinearBasis {
             if (a[i]) return a[i];
         return 0;
     }
+    // 旧接口存在越界且未规约，请勿使用；不在当前测试支持范围内。
     ll Kth_Max(ll k) {
         ll res = 0;
         for (int i = 62; i >= 0; i--)

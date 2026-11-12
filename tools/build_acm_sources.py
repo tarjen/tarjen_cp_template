@@ -46,7 +46,8 @@ def optional_functions(text, names):
 
 def build():
     rows = []
-    for source in sorted((ROOT / 'src').rglob('*.cpp')):
+    for source in sorted((ROOT / 'src').rglob('*.cpp'),
+                         key=lambda path: path.relative_to(ROOT / 'src').as_posix()):
         original = source.read_text(encoding='utf-8-sig')
         text = optional_functions(original, OPTIONAL.get(source.name, set()))
         # Preconditions belong in the printed reference, not in the typed body.
@@ -58,12 +59,8 @@ def build():
         text = re.sub(r'(?m)^(\s*)((?:void|int) (?:insert|query)\(const char\*[^\n]+)$', r'\1//? \2', text)
         # Do not remove reserve: a few implementations rely on stable references.
         # Keep all algorithmic guards (empty ranges, sentinels, carries, etc.).
-        if source.name == 'hash.cpp':
-            text = text.replace('Pow[0] = make_pair(1ll, 1ll);', 'Pow[0] = hs{1, 1};')
-            text = '\n'.join(l for l in text.splitlines() if '当前 Pow[0]' not in l) + '\n'
         if source.name == '线性基.cpp':
             text = text.replace('if (t > queryMax()) return false;\n        ', '')
-            text = text.replace('void clear() { memset(a, 0, sizeof a); }', 'void clear() { memset(a, 0, sizeof a); flag = false; tot = 0; }')
             # The old kth routine indexes outside a[36]; do not present it as usable.
             text = text.replace('//?     ll Kth_Max', '// 已知旧实现不正确（越界且未规约），请勿启用。\n//?     ll Kth_Max')
         # Header: retain conventions; remove executable demo lines from the print body.
@@ -82,7 +79,7 @@ def build():
     (ROOT / 'ACM源码改动清单.md').write_text('# ACM 源码改动清单\n\n完整复制版在 `src/`，手抄版在 `src-acm/`，每个 cpp 一一对应。\n\n'
         '保留算法、类封装、下标和返回值约定；非必要 assert、旧 char* 入口及指定扩展函数改为 `//?` 注释。\n'
         '没有可安全删减接口的短模板保持核心实现，不为压行数改算法。reserve 保留，防止节点池引用失效。\n'
-        'Hash 的 array 初始化编译错误已修正；线性基查询移除重复求最大值，clear 重置全部状态；旧 kth 接口标为不可启用。\n\n'
+        '完整版本已修复 Hash 的 array 初始化、重复初始化及线性基 clear 状态重置；手抄版同步这些修复。线性基查询移除重复求最大值；旧 kth 接口标为不可启用。\n\n'
         '| 文件 | 原有效代码行 | 手抄有效代码行 |\n| --- | ---: | ---: |\n' + '\n'.join(rows) + '\n', encoding='utf-8')
     print(f'Generated {len(rows)} C++ variants')
 
