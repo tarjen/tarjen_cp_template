@@ -15,7 +15,7 @@ class HandcopyGenerationTests(unittest.TestCase):
                     '// vector<int> p = tr.find("ababa"); // {1,3}，1base。\n'
                     'struct KMP {};\n')
         generated = ACM.handcopy_source(original, 'kmp.cpp')
-        self.assertIn(original, generated)
+        self.assertEqual(original, generated)
 
     def test_adjacent_calls_share_a_line_but_keep_statement_boundaries(self):
         original = '        tag_union(i, i * 2);\n        tag_union(i, i * 2 + 1);\n'
@@ -40,15 +40,24 @@ class HandcopyGenerationTests(unittest.TestCase):
         generated = ACM.handcopy_source(original, 'example.cpp')
         self.assertIn(comment, generated)
         self.assertIn('"inline explicit "', generated)
-        self.assertIn('\nFoo() {}\n//? assert(ready);\n', generated)
+        self.assertIn('\nFoo() {}\nassert(ready);\n', generated)
 
-    def test_optional_interface_examples_remain_documented(self):
+    def test_interfaces_remain_callable_without_generated_labels(self):
         original = ('// int p = tr.min_right(0, 4); // 返回位置。\n'
                     'struct SegmentTree {\n    int min_right(int i) { return i; }\n};\n')
         generated = ACM.handcopy_source(original, 'SegmentTree.cpp')
         self.assertIn('// int p = tr.min_right(0, 4); // 返回位置。', generated)
-        self.assertIn('可选接口：max_left、min_right', generated)
-        self.assertIn('//?     int min_right', generated)
+        self.assertIn('    int min_right(int i) { return i; }', generated)
+        self.assertNotIn('//?', generated)
+        self.assertNotIn('手抄版：', generated)
+        self.assertNotIn('可选接口：', generated)
+        self.assertNotIn('按需启用：', generated)
+
+    def test_known_broken_legacy_kth_is_omitted(self):
+        original = 'struct LinearBasis {\n    int Kth_Max(int k) { return a[k]; }\n    int queryMax() { return 0; }\n};\n'
+        generated = ACM.handcopy_source(original, '线性基.cpp')
+        self.assertNotIn('Kth_Max', generated)
+        self.assertIn('int queryMax()', generated)
 
 
 if __name__ == '__main__':

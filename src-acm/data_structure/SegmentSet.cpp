@@ -1,5 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
-// 可选接口：write。
 // 用法：
 // SegmentSet tr;  // 维护被标记的整数闭区间，坐标无需从 0/1 开始。
 // tr.insert(2, 5);
@@ -12,12 +10,11 @@ if i is true then it will be in the set
 */
 struct SegmentSet {
     set<pair<int, int>> s;
-// 按需启用：以下整个函数组一起取消注释。
-//?     void write() {
-//?         for (auto [x, y] : s) cout << x << "/" << y << " ";
-//?         ;
-//?         cout << "\n";
-//?     }
+    void write() {
+        for (auto [x, y] : s) cout << x << "/" << y << " ";
+        ;
+        cout << "\n";
+    }
     // make l...r to be true
     void insert(int l, int r) {
         int L = l, R = r;

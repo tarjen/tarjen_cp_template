@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // SSP tr(3, 0, 2);  // 节点 0base，源 0、汇 2。
 // tr.add(0, 1, 3, 2);
@@ -32,7 +31,7 @@ struct SSP {
     // 要求残量网络中没有可达负费用环；流量和费用须在long long范围内。
     // 在当前残量网络上增广，重复调用不恢复原容量。
     pair<ll, ll> min_cost(int s, int t) {
-        //? assert(s != t);
+        assert(s != t);
         const ll inf = numeric_limits<ll>::max() / 4;
         ll flow = 0, cost = 0;
         while (true) {

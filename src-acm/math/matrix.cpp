@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // Matrix a(2);  // 0base 方阵，默认模 1000000007。
 // a.a = {{1,1}, {1,0}};
@@ -14,7 +13,7 @@ struct Matrix {
     vector<vector<int>> a;
     Matrix(int n = 0, int mod = 1000000007)
         : n(n), mod(mod), a(n, vector<int>(n)) {
-        //? assert(mod > 0);
+        assert(mod > 0);
     }
     static Matrix identity(int n, int mod = 1000000007) {
         Matrix r(n, mod);
@@ -22,7 +21,7 @@ struct Matrix {
         return r;
     }
     Matrix operator*(const Matrix& b) const {
-        //? assert(n == b.n && mod == b.mod);
+        assert(n == b.n && mod == b.mod);
         Matrix c(n, mod);
         for (int i = 0; i < n; i++)
             for (int k = 0; k < n; k++)
@@ -31,7 +30,7 @@ struct Matrix {
         return c;
     }
     Matrix pow(ll k) const {
-        //? assert(k >= 0);
+        assert(k >= 0);
         Matrix x = *this, r = identity(n, mod);
         for (; k; k >>= 1, x = x * x)
             if (k & 1) r = r * x;

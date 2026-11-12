@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // Persistent_SegmentTree tr(0, 10);  // 数值域 [0,10]，版本 0 为空。
 // tr.append(5);
@@ -17,7 +16,7 @@ struct Persistent_SegmentTree {
     vector<ll> sum{0};
     vector<int> root{0}, lch{0}, rch{0}, cnt{0};
     Persistent_SegmentTree(int lo, int hi) : lo(lo), hi(hi) {
-        //? assert(0 <= lo && lo <= hi);
+        assert(0 <= lo && lo <= hi);
     }
     Persistent_SegmentTree(int n) : Persistent_SegmentTree(1, n) {}
     int newnode(int old) {
@@ -42,7 +41,7 @@ struct Persistent_SegmentTree {
         return now;
     }
     int append(int value) {
-        //? assert(lo <= value && value <= hi);
+        assert(lo <= value && value <= hi);
         int now = insert(root.back(), lo, hi, value);
         root.push_back(now);
         return (int)root.size() - 1;
@@ -143,14 +142,14 @@ struct Persistent_SegmentTree {
     }
     // 返回{第k小/大值,前min(k,区间大小)项的和}；不存在第k项时值为-1。
     pair<int, ll> kth_min(int l, int r, int k) {
-        //? assert(k >= 1);
+        assert(k >= 1);
         int used = 0;
         ll value = 0;
         int key = get_Kth_min_Sum(root[l - 1], root[r], lo, hi, k, used, value);
         return {key, value};
     }
     pair<int, ll> kth_max(int l, int r, int k) {
-        //? assert(k >= 1);
+        assert(k >= 1);
         int used = 0;
         ll value = 0;
         int key = get_Kth_max_Sum(root[l - 1], root[r], lo, hi, k, used, value);

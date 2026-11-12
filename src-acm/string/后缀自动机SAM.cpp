@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // SAM tr(string("ababa"));  // 小写字母；构造完成 SAM 和出现次数统计。
 // ll distinct = 0;
@@ -42,7 +41,7 @@ struct SAM {
     }
     void insert(char x) {
         int c = x - base;
-        //? assert(0 <= c && c < 26);
+        assert(0 <= c && c < 26);
         n++;
         int p = last;
         int np = last = newnode();

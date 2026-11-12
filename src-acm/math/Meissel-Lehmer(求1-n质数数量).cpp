@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // PrimeCounter tr(100);  // 预处理上界须 >= floor(sqrt(最大查询值))。
 // ll count = tr.lehmer_pi(10000);  // <=10000 的质数有 1229 个。
@@ -15,7 +14,7 @@ struct PrimeCounter {
     array<array<int, M + 1>, PM + 1> phi{};
     array<int, M + 1> sz{};
     PrimeCounter(int limit) : N(limit + 1), np(N), prime(1, 0), pi(N) {
-        //? assert(limit >= 3);
+        assert(limit >= 3);
         init();
     }
     int getprime() {
@@ -77,7 +76,7 @@ struct PrimeCounter {
 
     ll getpi(ll x) {
         if (x < N) return pi[x];
-        //? assert(sqrt2(x) < N);
+        assert(sqrt2(x) < N);
         ll ans = getphi(x, pi[sqrt3(x)]) + pi[sqrt3(x)] - 1;
         for (int i = pi[sqrt3(x)] + 1, ed = pi[sqrt2(x)]; i <= ed; ++i)
             ans -= getpi(x / prime[i]) - i + 1;
@@ -86,7 +85,7 @@ struct PrimeCounter {
 
     ll lehmer_pi(ll x) {  // 小于等于n的素数有多少个
         if (x < N) return pi[x];
-        //? assert(sqrt2(x) < N);
+        assert(sqrt2(x) < N);
         int a = (int)lehmer_pi(sqrt2(sqrt2(x)));
         int b = (int)lehmer_pi(sqrt2(x));
         int c = (int)lehmer_pi(sqrt3(x));

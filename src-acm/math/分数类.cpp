@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 原实现：用分子 x、分母 y 表示分数，运算后约分。
 // 用法：需提供标准库头文件、using namespace std; 和 typedef long long ll;。
 // lf a{1,2}, b{1,3}; auto c = a+b;  // 5/6。
@@ -23,7 +22,7 @@ struct lf{
     lf operator*( lf a) const {return lf{x*a.x,y*a.y}.init();}
     lf operator/( lf a) const {
         lf p{x*a.y,y*a.x};
-        //? assert(a.x!=0);
+        assert(a.x!=0);
         if(p.y<0){
             p.x=-p.x;
             p.y=-p.y;

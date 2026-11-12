@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // RangeTreearray tr(5);  // 位置 [1,5]，初值 0。
 // tr.update(2, 4, 3);  // 闭区间加 3。
@@ -24,7 +23,7 @@ struct RangeTreearray {
         }
     }
     void add(int x, ll k) {
-        //? assert(x >= 1);
+        assert(x >= 1);
         for (int i = x; i <= n; i += i & -i)
             tree1[i] += k, tree2[i] += (x - 1) * k;
     }

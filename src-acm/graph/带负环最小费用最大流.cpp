@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // bounded_flow tr(2, 0, 1);  // 节点 0base，源 0、汇 1。
 // tr.add(0, 1, 3, 2);  // 容量 3，单位费用 2；允许负费用与负环。
@@ -32,7 +31,7 @@ struct flow {
     // 要求残量网络中没有可达负费用环；流量和费用须在long long范围内。
     // 在当前残量网络上增广，重复调用不恢复原容量。
     pair<ll, ll> mincost(int s, int t) {
-        //? assert(s != t);
+        assert(s != t);
         const ll inf = numeric_limits<ll>::max() / 4;
         ll flow = 0, cost = 0;
         while (true) {
@@ -80,7 +79,7 @@ struct bounded_flow {
         add_bounds(u, v, 0, cap, cost);
     }
     void add_bounds(int u, int v, ll lo, ll hi, ll cost) {
-        //? assert(0 <= lo && lo <= hi);
+        assert(0 <= lo && lo <= hi);
         if (cost < 0) {
             edges.push_back({u, v, hi, hi, cost}); edges.push_back({v, u, 0, hi - lo, -cost});
         } else
@@ -88,7 +87,7 @@ struct bounded_flow {
     }
     // 返回nullopt表示上下界无可行非负s-t流；允许任意负费用环。
     optional<pair<ll, ll>> mincost(int s, int t) const {
-        //? assert(s != t);
+        assert(s != t);
         int ss = n, tt = n + 1;
         flow g(n + 2);
         vector<ll> balance(n);

@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // LeftistHeap<int> hp(n);  // 创建节点池，n 仅用于预留空间，不代表创建了一个堆。
 // int x = 0;               // 新建空堆：用一个根变量保存 0；其他空堆也各用一个根变量。
@@ -41,11 +40,11 @@ struct LeftistHeap {
 
     int push(int root, T val) { return merge(root, newNode(std::move(val))); }
     int pop(int root) {
-        //? assert(root);
+        assert(root);
         return merge(a[root].ls, a[root].rs);
     }
     const T& top(int root) const {
-        //? assert(root);
+        assert(root);
         return a[root].val;
     }
     int size(int root) const { return a[root].sz; }

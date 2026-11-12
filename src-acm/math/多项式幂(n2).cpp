@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 /*
 用户指定：将本次讨论的 O(n^2) 多项式 k 次幂递推收进板子。
 令 b=a^k，由 a*b'=k*a'*b 比较系数，按次数递推 b。
@@ -15,9 +14,9 @@ struct PolyPow {
     static constexpr int mod = 998244353;
 
     static vector<int> pow(vector<int> a, ll k, int n) {
-        //? assert(k >= 0 && n >= 0 && n < mod);
+        assert(k >= 0 && n >= 0 && n < mod);
         if (!n) return {};
-        //? assert(!a.empty() && a[0] == 1);
+        assert(!a.empty() && a[0] == 1);
         a.resize(n);
         vector<int> b(n), inv(n);
         b[0] = 1;

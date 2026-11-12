@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // vector<ll> prefix = {0, 1, 0};  // 已知 mu 的前缀和，prefix[i]=sum(mu(1..i))。
 // DuJiaoSieve tr(prefix, [](ll n)->ll { return n>0; }, [](ll n) { return n; });
@@ -17,10 +16,10 @@ struct DuJiaoSieve {
         : sumf(move(prefix)),
           convolution_prefix(move(sum)),
           g_prefix(move(sumg)) {
-        //? assert(!sumf.empty() && g_prefix(1) != 0);
+        assert(!sumf.empty() && g_prefix(1) != 0);
     }
     ll F(ll n) {
-        //? assert(n >= 0);
+        assert(n >= 0);
         if (n < (ll)sumf.size()) return sumf[n];
         auto it = cache.find(n);
         if (it != cache.end()) return it->second;

@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // SegmentTree tr(0, 10);  // 整数横坐标闭区间 [0,10]。
 // tr.update(0, 10, Line{2, 1, 1});  // 在 [0,10] 加入 y=2x+1，编号 1。
@@ -28,7 +27,7 @@ struct SegmentTree {
     int lo, hi;
     vector<Node> a;
     SegmentTree(int lo, int hi) : lo(lo), hi(hi), a(4 * (hi - lo + 1) + 4) {
-        //? assert(lo <= hi);
+        assert(lo <= hi);
         build(1, lo, hi);
     }
     SegmentTree(int n) : SegmentTree(1, n) {}

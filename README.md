@@ -11,7 +11,7 @@
 | 用途 | 源码目录 | PDF 入口 |
 | --- | --- | --- |
 | 完整封装版：保留完整接口、断言、使用示例及回归测试 | [`src/`](src/) | `main-copy.typ`（`main.typ` 兼容同一内容） |
-| 赛时手抄版：保留说明注释，适度压行，非必要接口以 `//?` 注释 | [`src-acm/`](src-acm/) | `main-acm.typ` |
+| 赛时手抄版：保留说明注释与原有接口，适度压行 | [`src-acm/`](src-acm/) | `main-acm.typ` |
 
 两目录现有 127 份 C++ 模板一一对应；手抄 PDF 默认选取高频内容，其余源码仍在目录里。具体差异见[版本说明](版本说明.md)和[源码改动清单](ACM源码改动清单.md)。
 
@@ -87,4 +87,4 @@ typst compile main-copy.typ main-copy.pdf
 typst compile main-acm.typ main-acm.pdf
 ```
 
-两版共用 `template.typ`；复制黏贴版读取 `src/`，赛时抄写版读取一一对应的 `src-acm/`。赛时版保留每个 `.cpp` 的类封装和算法，只将低频接口、断言与冗长辅助函数按需注释。
+两版共用 `template.typ`；复制黏贴版读取 `src/`，赛时抄写版读取一一对应的 `src-acm/`。赛时版保留原有接口、断言和说明注释，合并相邻同类调用，并省略非必要的显式构造与内联修饰。

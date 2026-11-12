@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // vector<int> parent = {0, 0, 1, 2};  // 节点 1base，根 1 的父亲为 0。
 // KthAncestor tr(parent);  // 传入连通树父亲数组，自动预处理。
@@ -57,7 +56,7 @@ struct KthAncestor {
         }
     }
     int ask(int x, int k) const {
-        //? assert(k >= 0);
+        assert(k >= 0);
         if (k >= dep[x]) return 0;
         if (!k) return x;
         int log = __lg(k);

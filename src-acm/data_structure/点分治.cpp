@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // CentroidDecomposition cd(3);  // 1base 连通无权树。
 // cd.addedge(1, 2);
@@ -31,15 +30,15 @@ struct CentroidDecomposition {
     }
 
     CentroidDecomposition(int _n) : n(_n), ve(n + 1), siz(n + 1), vis(n + 1) {
-        //? assert(n > 0);
+        assert(n > 0);
     }
     void addedge(int u, int v) {
-        //? assert(1 <= u && u <= n && 1 <= v && v <= n);
+        assert(1 <= u && u <= n && 1 <= v && v <= n);
         ve[u].push_back(v);
         ve[v].push_back(u);
     }
     void dfs(int u) {
-        //? assert(1 <= u && u <= n && !vis[u]);
+        assert(1 <= u && u <= n && !vis[u]);
         getsize(u, 0);
         int rt = getroot(u, 0, siz[u]);
         vis[rt] = true;

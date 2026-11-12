@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // BCC tr(3);  // 无向图，节点 1base，支持重边，不接受自环。
 // int id = tr.link(1, 2);
@@ -22,7 +21,7 @@ struct BCC {
     BCC(int n) : n(n), ve(n + 1) {}
     // 支持重边，不接受自环；边编号从0开始。
     int link(int u, int v) {
-        //? assert(u != v);
+        assert(u != v);
         int id = edges.size();
         edges.push_back({u, v});
         ve[u].push_back({v, id});

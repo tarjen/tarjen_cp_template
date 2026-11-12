@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // DynamicSegmentTree tr(1, 1000000000);  // 数值域闭区间，初值 0。
 // tr.update(5, 3);
@@ -40,11 +39,11 @@ struct DynamicSegmentTree {
         return p;
     }
     void update(int x, ll delta) {
-        //? assert(lo <= x && x <= hi);
+        assert(lo <= x && x <= hi);
         root = update(root, lo, hi, x, delta);
     }
     int update_root(int p, int x, ll delta) {
-        //? assert(lo <= x && x <= hi);
+        assert(lo <= x && x <= hi);
         return update(p, lo, hi, x, delta);
     }
     ll query(int p, int L, int R, int l, int r) const {

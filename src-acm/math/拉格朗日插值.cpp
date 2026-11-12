@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // LR tr(2);  // 预处理到次数 2，默认质数模数 998244353。
 // vector<int> y = {0, 1, 4};  // y[i]=f(i)，本例 f(x)=x^2。
@@ -14,7 +13,7 @@ struct LR {
     vector<int> fac, facinv, inv;
     LR(int n, int mod = 998244353)
         : n(n), mod(mod), fac(n + 1, 1), facinv(n + 1, 1), inv(n + 1, 0) {
-        //? assert(0 <= n && n < mod);  // mod为质数。
+        assert(0 <= n && n < mod);  // mod为质数。
         for (int i = 1; i <= n; i++) fac[i] = 1LL * fac[i - 1] * i % mod;
         facinv[n] = Inv(fac[n]);
         for (int i = n; i >= 1; i--) facinv[i - 1] = 1LL * facinv[i] * i % mod;
@@ -34,7 +33,7 @@ struct LR {
     // x/y为0base，x在模意义下互异，O(m^2)。
     template <class T>
     int cal(const vector<T>& x, const vector<T>& y, ll k) const {
-        //? assert(x.size() == y.size());
+        assert(x.size() == y.size());
         int m = x.size(), s = 0;
         k = norm(k);
         for (int i = 0; i < m; i++)
@@ -45,7 +44,7 @@ struct LR {
                 if (i != j)
                     p = p * norm(k - x[j]) % mod,
                     q = q * norm((ll)x[i] - x[j]) % mod;
-            //? assert(q != 0);
+            assert(q != 0);
             s = (s + p * Inv(q)) % mod;
         }
         return s;
@@ -53,9 +52,9 @@ struct LR {
     // f[0..m]是连续整数点值，m<=构造时n，O(m)。
     template <class T>
     int inpo(const vector<T>& f, ll x) const {
-        //? assert(!f.empty());
+        assert(!f.empty());
         int m = (int)f.size() - 1;
-        //? assert(m <= n);
+        assert(m <= n);
         x = norm(x);
         if (x <= m) return norm(f[x]);
         vector<int> pre(m + 2, 1), suf(m + 2, 1);

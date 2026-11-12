@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // Bitset tr(10);  // 位编号 [0,9]，初始全 0。
 // tr.setBit(3);
@@ -19,11 +18,11 @@ struct Bitset {
         if (n % 64 && !v.empty()) v.back() &= (1ULL << (n % 64)) - 1;
     }
     bool getBit(int pos) const {
-        //? assert(0 <= pos && pos < n);
+        assert(0 <= pos && pos < n);
         return v[pos / 64] >> (pos % 64) & 1;
     }
     void setBit(int pos, bool value = true) {
-        //? assert(0 <= pos && pos < n);
+        assert(0 <= pos && pos < n);
         ull mask = 1ULL << (pos % 64);
         if (value)
             v[pos / 64] |= mask;
@@ -39,7 +38,7 @@ struct Bitset {
         return res;
     }
     Bitset operator<<(int t) const {
-        //? assert(t >= 0);
+        assert(t >= 0);
         Bitset r(n);
         if (t >= n) return r;
         int high = t / 64, low = t % 64;
@@ -52,7 +51,7 @@ struct Bitset {
         return r;
     }
     Bitset operator>>(int t) const {
-        //? assert(t >= 0);
+        assert(t >= 0);
         Bitset r(n);
         if (t >= n) return r;
         int high = t / 64, low = t % 64;
@@ -63,26 +62,26 @@ struct Bitset {
         return r;
     }
     Bitset operator|(const Bitset& x) const {
-        //? assert(n == x.n);
+        assert(n == x.n);
         Bitset r(n);
         for (int i = 0; i < (int)v.size(); i++) r.v[i] = v[i] | x.v[i];
         return r;
     }
     Bitset operator&(const Bitset& x) const {
-        //? assert(n == x.n);
+        assert(n == x.n);
         Bitset r(n);
         for (int i = 0; i < (int)v.size(); i++) r.v[i] = v[i] & x.v[i];
         return r;
     }
     Bitset operator^(const Bitset& x) const {
-        //? assert(n == x.n);
+        assert(n == x.n);
         Bitset r(n);
         for (int i = 0; i < (int)v.size(); i++) r.v[i] = v[i] ^ x.v[i];
         return r;
     }
     // 无符号n位减法，结果模2^n；借位计算避开x.v[i]+borrow溢出。
     Bitset operator-(const Bitset& x) const {
-        //? assert(n == x.n);
+        assert(n == x.n);
         Bitset r(n);
         ull borrow = 0;
         for (int i = 0; i < (int)v.size(); i++) {

@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // AC tr;  // 小写字母模式串。
 // tr.insert(string("he"));
@@ -19,11 +18,11 @@ struct AC {
         trie.reserve(max(1, reserve_nodes));
     }
     int insert(const string& s) {
-        //? assert(!built && !s.empty());
+        assert(!built && !s.empty());
         int x = 0;
         for (char ch : s) {
             int c = ch - 'a';
-            //? assert(0 <= c && c < 26);
+            assert(0 <= c && c < 26);
             if (!trie[x][c]) {
                 trie.push_back({});
                 e.push_back(0);
@@ -36,7 +35,7 @@ struct AC {
         e[x]++;
         return x;
     }
-    //? void insert(const char* t) { insert(string(t + 1)); }
+    void insert(const char* t) { insert(string(t + 1)); }
     void build() {
         if (built) return;
         queue<int> q;
@@ -58,17 +57,17 @@ struct AC {
     }
     // 统计出现过的模式串数量，重复插入的模式分别计数；每次查询独立。
     int query(const string& text) const {
-        //? assert(built);
+        assert(built);
         vector<char> seen(tot + 1);
         int x = 0, res = 0;
         for (char ch : text) {
             int c = ch - 'a';
-            //? assert(0 <= c && c < 26);
+            assert(0 <= c && c < 26);
             x = trie[x][c];
             for (int j = x; j && !seen[j]; j = old[j])
                 res += e[j], seen[j] = true;
         }
         return res;
     }
-    //? int query(const char* t) const { return query(string(t + 1)); }
+    int query(const char* t) const { return query(string(t + 1)); }
 };

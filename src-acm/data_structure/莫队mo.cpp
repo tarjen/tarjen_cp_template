@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // vector<int> a = {1, 2, 3};
 // Mo tr(a.size());  // 查询位置 0base，闭区间。
@@ -20,7 +19,7 @@ struct Mo {
     vector<Query> q;
     Mo(int n) : n(n), block(1) {}
     int add_query(int l, int r) {
-        //? assert(0 <= l && l <= r && r < n);
+        assert(0 <= l && l <= r && r < n);
         int id = q.size();
         q.push_back({l, r, id});
         return id;

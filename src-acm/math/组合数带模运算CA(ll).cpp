@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // Comb tr(100, 998244353);  // 预处理到 100；模数为质数，100<mod。
 // int choose = tr.C(5, 2);  // 组合数 10。
@@ -13,7 +12,7 @@ struct Comb {
     vector<int> fac, inv;
     Comb(int n, int mod = 998244353)
         : n(n), mod(mod), fac(n + 1, 1), inv(n + 1, 1) {
-        //? assert(0 <= n && n < mod);  // mod须为质数。
+        assert(0 <= n && n < mod);  // mod须为质数。
         for (int i = 1; i <= n; i++) fac[i] = 1LL * fac[i - 1] * i % mod;
         inv[n] = ksm(fac[n], mod - 2);
         for (int i = n; i >= 1; i--) inv[i - 1] = 1LL * inv[i] * i % mod;
@@ -26,12 +25,12 @@ struct Comb {
     }
     int C(int n, int m) const {
         if (n < 0 || m < 0 || m > n) return 0;
-        //? assert(n <= this->n);
+        assert(n <= this->n);
         return 1LL * fac[n] * inv[m] % mod * inv[n - m] % mod;
     }
     int A(int n, int m) const {
         if (n < 0 || m < 0 || m > n) return 0;
-        //? assert(n <= this->n);
+        assert(n <= this->n);
         return 1LL * fac[n] * inv[n - m] % mod;
     }
 };

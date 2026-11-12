@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // Persistent_SegmentTree tr(3);  // 位置 1base，版本 0 全为 0。
 // int v1 = tr.append(0, 1, 2, 5);  // 从版本 0 复制，将 [1,2] 加 5。
@@ -18,7 +17,7 @@ struct Persistent_SegmentTree {
     int n;
     vector<int> root;
     Persistent_SegmentTree(int n) : n(n) {
-        //? assert(n >= 1);
+        assert(n >= 1);
         init();
         root.push_back(build(1, n));
     }

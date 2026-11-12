@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // min25 tr(10);  // 默认质数模数 1000000007。
 // ll sum = tr.cal1(10);  // <=10 的质数之和为 17。
@@ -21,7 +20,7 @@ struct min25 {
     bool multiplicative_ready = false;
     min25(ll n, int mod = 1000000007)
         : n(n), sq(sqrt((long double)n)), mod(mod) {
-        //? assert(n >= 1 && mod > 3);  // mod为质数。
+        assert(n >= 1 && mod > 3);  // mod为质数。
         while (1LL * (sq + 1) * (sq + 1) <= n) sq++;
         while (1LL * sq * sq > n) sq--;
         vector<char> composite(sq + 1);
@@ -85,9 +84,9 @@ struct min25 {
     }
     // 仅接受预处理的整除分块点x=floor(n/i)。
     int getid(ll x) const {
-        //? assert(1 <= x && x <= n);
+        assert(1 <= x && x <= n);
         int id = x <= sq ? id1[x] : id2[n / x];
-        //? assert(id >= 0 && w[id] == x);
+        assert(id >= 0 && w[id] == x);
         return id;
     }
     ll cal0(ll x) const { return g[0][getid(x)]; }
@@ -118,7 +117,7 @@ struct min25 {
         multiplicative_ready = true;
     }
     ll get(ll x) const {
-        //? assert(multiplicative_ready);
+        assert(multiplicative_ready);
         return norm(G[getid(x)] + 1);
     }
 };

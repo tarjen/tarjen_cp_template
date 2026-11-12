@@ -6,9 +6,9 @@
 python tests/run_all.py
 ```
 
-该入口依次执行完整封装版与赛时手抄版的正确性测试。所有可执行文件和恢复后的手抄源码均位于系统临时目录，运行结束自动清理，不改写两个源码目录。
+该入口依次执行完整封装版与赛时手抄版的正确性测试。所有可执行文件和手抄源码副本均位于系统临时目录，运行结束自动清理，不改写两个源码目录。
 
-入口先执行 Python 生成器测试，检查手抄版用法注释保留、同类调用压行、可选接口说明，以及对照页数据生成。可单独运行 `python -m unittest discover -s tests -p "test_*.py"`。
+入口先执行 Python 生成器测试，检查手抄版用法注释保留、同类调用压行、接口可直接使用，以及对照页数据生成。可单独运行 `python -m unittest discover -s tests -p "test_*.py"`。
 
 ## 测试范围
 
@@ -30,7 +30,7 @@ python tests/run_template_refactor.py
 python tests/run_acm_variants.py
 ```
 
-手抄版分两步验证：先用 `-DACM_VARIANT` 直接测试未恢复可选代码的 `template_core.cpp` 和 `poly_pow_n2.cpp`；再把 `src-acm/` 复制到临时目录、恢复 `//?` 接口和断言，并执行上述六个测试文件。线性基旧扩展接口保持禁用。恢复接口后的测试不能替代所有默认删减路径的验证。
+手抄版先用 `-DACM_VARIANT` 直接测试 `template_core.cpp` 和 `poly_pow_n2.cpp`；再原样复制 `src-acm/` 到临时目录以复用现有相对路径，执行上述六个测试文件。测试不修改副本中的源码，验证的就是页面和 PDF 展示的版本。已知有误的线性基旧 `Kth_Max` 不收入手抄版。
 
 Linux / 支持对应运行库的编译器可额外启用内存和未定义行为检查：
 

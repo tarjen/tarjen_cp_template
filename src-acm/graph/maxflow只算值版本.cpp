@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // dinic tr(3, 0, 2);  // 节点 0base，源 0、汇 2。
 // int id = tr.addedge(0, 1, 5);
@@ -63,7 +62,7 @@ struct dinic {
     }
     // 计算当前残量网络上新增的最大流；重复调用不会恢复原容量。
     ll maxflow(int s, int t) {
-        //? assert(s != t);
+        assert(s != t);
         ll flow = 0, d;
         while (bfs(s, t)) {
             fill(now.begin(), now.end(), 0);

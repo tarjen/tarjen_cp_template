@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // Persistent_Trie tr;          // 默认 31 位，支持 [0, 2^31-1]。
 // tr.append(5);               // 加入 a[1]，返回版本号 1。
@@ -20,7 +19,7 @@ struct Persistent_Trie {
     vector<Node> a{Node()};
     vector<int> root{0};
     Persistent_Trie(int bits = 31) : bits(bits) {
-        //? assert(1 <= bits && bits <= 31);
+        assert(1 <= bits && bits <= 31);
     }
     int insert(int old, int num, int bit) {
         Node copy = a[old];
@@ -33,7 +32,7 @@ struct Persistent_Trie {
         return now;
     }
     int insert(int old, int num) {
-        //? assert(num >= 0);
+        assert(num >= 0);
         return insert(old, num, bits - 1);
     }
     int append(int num) {
@@ -43,9 +42,9 @@ struct Persistent_Trie {
     }
     // 查询插入序列闭区间 [l,r] 中与 x 的最大异或值。
     int query(int l, int r, int x) const {
-        //? assert(1 <= l && l <= r && r < (int)root.size());
+        assert(1 <= l && l <= r && r < (int)root.size());
         int s = root[l - 1], t = root[r];
-        //? assert(a[t].sum > a[s].sum);
+        assert(a[t].sum > a[s].sum);
         int ans = 0;
         for (int bit = bits - 1; bit >= 0; bit--) {
             int c = (x >> bit) & 1, want = c ^ 1;

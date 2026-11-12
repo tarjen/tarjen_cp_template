@@ -1,5 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
-// 可选接口：max_left、min_right。
 // 用法：
 // SegmentTree<> tr(4);  // 初值 0，管理闭区间 [0,4]，共 5 个元素。
 // tr.update(1, 3, 2);  // 区间加 2。
@@ -61,43 +59,41 @@ struct SegmentTree {
         }
         return query(i * 2, l, r) + query(i * 2 + 1, l, r);
     }
-// 按需启用：以下整个函数组一起取消注释。
-//?     int min_right(int qL, T& nowsum, T querysum,
-//?                   int i) {  // 从左往右第一个>=sum的位置
-//?         pushdown(i);
-//?         if (a[i].r < qL) return -1;
-//?         if (qL <= a[i].l) {
-//?             T ss = nowsum + a[i].res;
-//?             if (ss < querysum) {
-//?                 nowsum = ss;
-//?                 return -1;
-//?             }
-//?             if (a[i].l == a[i].r) return a[i].l;
-//?         }
-//?         int pos = min_right(qL, nowsum, querysum, i * 2);
-//?         if (pos != -1) return pos;
-//?         return min_right(qL, nowsum, querysum, 2 * i + 1);
-//?     }
-// 按需启用：以下整个函数组一起取消注释。
-//?     int max_left(int qR, T& nowsum, T querysum,
-//?                  int i) {  // 从右往左第一个>=sum的位置
-//?         pushdown(i);
-//?         if (a[i].l > qR) return -1;
-//?         if (qR >= a[i].r) {
-//?             T ss = nowsum + a[i].res;
-//?             if (ss < querysum) {
-//?                 nowsum = ss;
-//?                 return -1;
-//?             }
-//?             if (a[i].l == a[i].r) return a[i].r;
-//?         }
-//?         int pos = max_left(qR, nowsum, querysum, i * 2 + 1);
-//?         if (pos != -1) return pos;
-//?         return max_left(qR, nowsum, querysum, i * 2);
-//?     }
+    int min_right(int qL, T& nowsum, T querysum,
+                  int i) {  // 从左往右第一个>=sum的位置
+        pushdown(i);
+        if (a[i].r < qL) return -1;
+        if (qL <= a[i].l) {
+            T ss = nowsum + a[i].res;
+            if (ss < querysum) {
+                nowsum = ss;
+                return -1;
+            }
+            if (a[i].l == a[i].r) return a[i].l;
+        }
+        int pos = min_right(qL, nowsum, querysum, i * 2);
+        if (pos != -1) return pos;
+        return min_right(qL, nowsum, querysum, 2 * i + 1);
+    }
+    int max_left(int qR, T& nowsum, T querysum,
+                 int i) {  // 从右往左第一个>=sum的位置
+        pushdown(i);
+        if (a[i].l > qR) return -1;
+        if (qR >= a[i].r) {
+            T ss = nowsum + a[i].res;
+            if (ss < querysum) {
+                nowsum = ss;
+                return -1;
+            }
+            if (a[i].l == a[i].r) return a[i].r;
+        }
+        int pos = max_left(qR, nowsum, querysum, i * 2 + 1);
+        if (pos != -1) return pos;
+        return max_left(qR, nowsum, querysum, i * 2);
+    }
 
     SegmentTree(int _n) : n(_n) {
-        //? assert(0 <= _n && _n < INT_MAX);
+        assert(0 <= _n && _n < INT_MAX);
         ++n;
         a.resize(4LL * n + 4);
         build(1, 0, _n);
@@ -106,24 +102,22 @@ struct SegmentTree {
         if (n) build(1, 0, n - 1, v);
     }
     void update(int l, int r, T w) {
-        //? assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
+        assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
         update(1, l, r, w);
     }
     T query(int l, int r) {
-        //? assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
+        assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
         return query(1, l, r);
     }
     // 二分要求元素非负、need>0，不存在返回-1。
-// 按需启用：以下整个函数组一起取消注释。
-//?     int min_right(int l, T need) {
-//?         assert(n > 0 && 0 <= l && l <= n && need > 0);
-//?         T sum = 0;
-//?         return min_right(l, sum, need, 1);
-//?     }
-// 按需启用：以下整个函数组一起取消注释。
-//?     int max_left(int r, T need) {
-//?         assert(n > 0 && -1 <= r && r < n && need > 0);
-//?         T sum = 0;
-//?         return max_left(r, sum, need, 1);
-//?     }
+    int min_right(int l, T need) {
+        assert(n > 0 && 0 <= l && l <= n && need > 0);
+        T sum = 0;
+        return min_right(l, sum, need, 1);
+    }
+    int max_left(int r, T need) {
+        assert(n > 0 && -1 <= r && r < n && need > 0);
+        T sum = 0;
+        return max_left(r, sum, need, 1);
+    }
 };

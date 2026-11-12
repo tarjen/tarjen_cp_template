@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // PAM tr(string("ababa"));  // 小写字母，构造即逐字插入。
 // int distinct = tr.cnt - 1;  // 不同非空回文子串数为 5。
@@ -34,7 +33,7 @@ struct PAM {
     // 返回以当前字符结尾的最长回文状态；b[last].num为回文后缀数量。
     int insert(char ch) {
         int c = ch - 'a';
-        //? assert(0 <= c && c < 26);
+        assert(0 <= c && c < 26);
         s.push_back(c);
         n++;
         int p = get_fail(last);

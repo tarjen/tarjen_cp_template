@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // LinearRecurrence tr(vector<int>{1,1}, vector<int>{0,1});
 // int value = tr.nth(10);  // 0base 斐波那契数 F(10)=55，模 1000000007。
@@ -14,7 +13,7 @@ const ll mod = 1000000007;
 ll powmod(ll a, ll b) {
     ll res = 1;
     a %= mod;
-    //? assert(b >= 0);
+    assert(b >= 0);
     for (; b; b >>= 1) {
         if (b & 1) res = res * a % mod;
         a = a * a % mod;
@@ -26,7 +25,7 @@ struct LinearRecurrence {
     VI coefficients, initial;
     LinearRecurrence(VI coefficients, VI initial)
         : coefficients(move(coefficients)), initial(move(initial)) {
-        //? assert(this->coefficients.size() == this->initial.size());
+        assert(this->coefficients.size() == this->initial.size());
     }
     LinearRecurrence(VI sequence) : initial(move(sequence)) {
         coefficients = BM(initial);
@@ -35,7 +34,7 @@ struct LinearRecurrence {
         initial.resize(coefficients.size());
     }
     int nth(ll n) {
-        //? assert(n >= 0);
+        assert(n >= 0);
         if (coefficients.empty()) return 0;
         return solve(n, coefficients, initial);
     }
@@ -61,7 +60,7 @@ struct LinearRecurrence {
         res.assign(k + 1, 0);
         _c.assign(2 * k + 1, 0);
         _md.assign(k + 1, 0);
-        //? assert((int)a.size() == (int)b.size());
+        assert((int)a.size() == (int)b.size());
         for (int i = 0; i < k; i++) _md[k - 1 - i] = -a[i];
         _md[k] = 1;
         Md.clear();

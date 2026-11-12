@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 #include <bits/stdc++.h>
 using namespace std;
 template <typename T1, typename T2>

@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // SegmentTree<> tr(4);  // 初值 0，管理闭区间 [0,4]。
 // tr.update(1, 3, 2);  // 闭区间加 2。
@@ -60,7 +59,7 @@ struct SegmentTree {
     }
 
     SegmentTree(int _n) : n(_n) {
-        //? assert(0 <= _n && _n < INT_MAX);
+        assert(0 <= _n && _n < INT_MAX);
         ++n;
         a.resize(4LL * n + 4);
         build(1, 0, _n);
@@ -69,11 +68,11 @@ struct SegmentTree {
         if (n) build(1, 0, n - 1, v);
     }
     void update(int l, int r, T w) {
-        //? assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
+        assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
         update(1, l, r, w);
     }
     T query(int l, int r) {
-        //? assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
+        assert(n > 0 && 0 <= l && l <= n && -1 <= r && r < n);
         return query(1, l, r);
     }
 };

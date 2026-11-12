@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // Treearray2D tr(3, 4);  // 坐标 1base，范围 [1,3] x [1,4]，初值 0。
 // tr.update(1, 2, 2, 3, 5);  // 闭矩形 [1,2] x [2,3] 每格加 5。
@@ -18,7 +17,7 @@ struct treearray {
           mkp4(mkp1) {}
     int lowbit(int x) { return x & (-x); }
     void Update(int x, int y, ll k) {
-        //? assert(x >= 1 && y >= 1);
+        assert(x >= 1 && y >= 1);
         for (int i = x; i <= n; i += lowbit(i)) {
             for (int j = y; j <= m; j += lowbit(j)) {
                 mkp1[i][j] += k;

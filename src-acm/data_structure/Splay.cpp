@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // Splay tr;  // 实际是 FHQ Treap，支持重复值。
 // tr.insert(3);
@@ -90,7 +89,7 @@ struct Splay {
         return ans;
     }
     int querynum(int v) {  // 查询排名为 v 的数
-        //? assert(1 <= v && v <= siz[r]);
+        assert(1 <= v && v <= siz[r]);
         return th(r, v);
     }
     optional<int> query_pre(

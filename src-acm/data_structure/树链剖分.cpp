@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // vector<vector<int>> g = {{}, {2,3}, {1}, {1}};  // 1base 连通树。
 // vector<int> values = {0, 1, 2, 3};  // 节点初值，第 0 格不用。
@@ -88,7 +87,7 @@ struct HLD {
           fa(n + 1),
           dfn(n + 1),
           heavy(n + 1) {
-        //? assert(mod > 0 && values.size() == graph.size());
+        assert(mod > 0 && values.size() == graph.size());
         if (!n) return;
         vector<int> order{root};
         dep[root] = 1;

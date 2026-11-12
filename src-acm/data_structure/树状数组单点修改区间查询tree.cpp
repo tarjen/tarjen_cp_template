@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // Treearray tr(5);  // 位置 [1,5]，初值 0。
 // tr.update(2, 3);  // 位置 2 加 3，不是赋值。
@@ -18,7 +17,7 @@ struct Treearray {
     }
     static int lowbit(int x) { return x & -x; }
     void update(int i, ll k) {
-        //? assert(i >= 1);
+        assert(i >= 1);
         for (; i <= n; i += lowbit(i)) c[i] += k;
     }
     ll getsum(int i) const {

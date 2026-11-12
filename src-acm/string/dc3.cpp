@@ -1,5 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
-// 可选接口：writ。
 // 用法：
 // Suffix tr("banana");  // 构造即建后缀数组，输入普通 string。
 // int first = tr.sa[1];  // 最小后缀起点为 6；tr.rk[6]=1。
@@ -130,17 +128,16 @@ struct Suffix {
         for (int i = n; i >= 1; i--) rk[i] = rk[i - 1];
         rk[0] = 0;
     }
-// 按需启用：以下整个函数组一起取消注释。
-//?     void writ() {
-//?         int n = s.size();
-//?         cout << s << "\n";
-//?         for (int i = 1; i <= n; i++) cout << sa[i] << " ";
-//?         cout << "\n";
-//?         for (int i = 1; i <= n; i++) cout << ht[i] << " ";
-//?         cout << "\n";
-//?         for (int i = 1; i <= n; i++) cout << rk[i] << " ";
-//?         cout << "\n";
-//?     }
+    void writ() {
+        int n = s.size();
+        cout << s << "\n";
+        for (int i = 1; i <= n; i++) cout << sa[i] << " ";
+        cout << "\n";
+        for (int i = 1; i <= n; i++) cout << ht[i] << " ";
+        cout << "\n";
+        for (int i = 1; i <= n; i++) cout << rk[i] << " ";
+        cout << "\n";
+    }
 };
 
 #undef F

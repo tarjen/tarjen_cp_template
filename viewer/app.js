@@ -102,8 +102,7 @@
       append(normalized.slice(offset, match.index));
       const value = match[0];
       let type;
-      if (value.startsWith('//?')) type = 'optional';
-      else if (value.startsWith('//') || value.startsWith('/*')) type = 'comment';
+      if (value.startsWith('//') || value.startsWith('/*')) type = 'comment';
       else if (/^["']/.test(value)) type = 'string';
       else if (/^\s*#/.test(value)) type = 'preprocessor';
       else if (/^\d/.test(value)) type = 'number';

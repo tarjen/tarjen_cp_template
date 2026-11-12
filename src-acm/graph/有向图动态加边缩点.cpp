@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // vector<pair<int,int>> additions = {{1,2}, {2,1}, {2,3}};
 // IncrementalSCC tr(3, additions);  // 节点 1base，按给定顺序逐条加有向边。

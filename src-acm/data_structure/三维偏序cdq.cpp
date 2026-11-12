@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // vector<tuple<int,int,int>> points = {{1,1,1}, {2,2,2}, {2,2,2}};
 // Dominance3D tr(points);  // 构造即计算，输入 vector 不补首格。
@@ -77,7 +76,7 @@ struct Dominance3D {
         });
 
         // for(int i=l;i<=r;i++)cout<<id[i]<<" \n"[i==r];
-        //? assert(tri.getsum(tri.n) == 0);
+        assert(tri.getsum(tri.n) == 0);
         for (int i = l, j = mid + 1; i <= mid || j <= r;) {
             if (j != r + 1 && (i == mid + 1 || b[id[i]] > b[id[j]])) {
                 // cout<<"id="<<id[j]<<" +"<<tri.getsum(c[id[j]])<<"\n";

@@ -1,5 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
-// 可选接口：print。
 // 用法：
 // int a[2] = {1,2}, b[2] = {3,4}, c[2];  // 长度为 2 的幂，0base。
 // fwtxor(a, 2, 1); fwtxor(b, 2, 1); mul(a, b, c, 2);
@@ -50,10 +48,9 @@ int a[1 << 17], b[1 << 17], c[1 << 17];
 void mul(int a[], int b[], int c[], int m) {
     for (int i = 0; i < m; i++) c[i] = 1ll * a[i] * b[i] % mod;
 }
-// 按需启用：以下整个函数组一起取消注释。
-//? void print(int a[], int m) {
-//?     for (int i = 0; i < m; i++) cout << a[i] << " \n"[i == m - 1];
-//? }
+void print(int a[], int m) {
+    for (int i = 0; i < m; i++) cout << a[i] << " \n"[i == m - 1];
+}
 int main() {
     int n;
     cin >> n;

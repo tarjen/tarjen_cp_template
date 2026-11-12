@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // Poly::P a = {1, 2}, b = {3, 4};  // 0base 系数，模 998244353。
 // auto c = Poly::Mul(a, b);  // 卷积 {3,10,8}。
@@ -54,7 +53,7 @@ vector<int> w{0, 1}, invs{0, 1};
 
 void ensure_w(int n) {
     if ((int)w.size() >= n) return;
-    //? assert(n <= MAXL);
+    assert(n <= MAXL);
     w.assign(n, 0);
     int wn = qpow(G, (MOD - 1) / n);
     w[n >> 1] = 1;
@@ -154,9 +153,9 @@ P Integral(const P& a) {
 }
 
 P Inv(const P& a, int n) {
-    //? assert(n >= 0);
+    assert(n >= 0);
     if (!n) return {};
-    //? assert(!a.empty() && a[0]);
+    assert(!a.empty() && a[0]);
     P b{qpow(a[0])};
     for (int m = 2; (m >> 1) < n; m <<= 1) {
         P f = Cut(a, m), g = b;
@@ -179,9 +178,9 @@ P Inv(const P& a, int n) {
 }
 
 P Ln(const P& a, int n) {
-    //? assert(n >= 0);
+    assert(n >= 0);
     if (!n) return {};
-    //? assert(!a.empty() && a[0] == 1);
+    assert(!a.empty() && a[0] == 1);
     P r = Mul(Derivative(Cut(a, n)), Inv(a, n), n - 1);
     r = Integral(r);
     r.resize(n);
@@ -189,9 +188,9 @@ P Ln(const P& a, int n) {
 }
 
 P Exp(const P& a, int n) {
-    //? assert(n >= 0);
+    assert(n >= 0);
     if (!n) return {};
-    //? assert(a.empty() || a[0] == 0);
+    assert(a.empty() || a[0] == 0);
     P b{1};
     for (int m = 2; (m >> 1) < n; m <<= 1) {
         int len = min(m, n);

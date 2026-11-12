@@ -1,5 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
-// 可选接口：writ。
 // 用法：
 // Suffix tr("banana");  // 构造即建后缀数组及 LCP 查询表。
 // int first = tr.sa[1];  // 字典序最小后缀起点为 6。
@@ -96,17 +94,16 @@ struct Suffix {
         if (p == q) return 0;
         return -1;
     }
-// 按需启用：以下整个函数组一起取消注释。
-//?     void writ() {
-//?         cout << s.substr(1) << "\n";
-//?         for (int i = 1; i <= n; i++) cout << sa[i] << " ";
-//?         ;
-//?         cout << "\n";
-//?         for (int i = 1; i <= n; i++) cout << ht[i] << " ";
-//?         ;
-//?         cout << "\n";
-//?         for (int i = 1; i <= n; i++) cout << rk[i] << " ";
-//?         ;
-//?         cout << "\n";
-//?     }
+    void writ() {
+        cout << s.substr(1) << "\n";
+        for (int i = 1; i <= n; i++) cout << sa[i] << " ";
+        ;
+        cout << "\n";
+        for (int i = 1; i <= n; i++) cout << ht[i] << " ";
+        ;
+        cout << "\n";
+        for (int i = 1; i <= n; i++) cout << rk[i] << " ";
+        ;
+        cout << "\n";
+    }
 };

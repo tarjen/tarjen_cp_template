@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：
 // Trie tr;  // 小写字母，节点池自动增长。
 // tr.insert(string("aba"));
@@ -26,7 +25,7 @@ struct Trie {
         int x = 0;
         for (char ch : s) {
             int c = ch - 'a';
-            //? assert(0 <= c && c < 26);
+            assert(0 <= c && c < 26);
             if (!tree[x][c]) {
                 int id = newnode();
                 tree[x][c] = id;
@@ -36,5 +35,5 @@ struct Trie {
         e[x]++;
     }
     // 保留旧char*接口：输入从t[1]开始。
-    //? void insert(const char* t) { insert(string(t + 1)); }
+    void insert(const char* t) { insert(string(t + 1)); }
 };

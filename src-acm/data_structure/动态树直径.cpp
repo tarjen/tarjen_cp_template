@@ -1,4 +1,3 @@
-// 手抄版：保留说明与用法，适度压行；//? 为按需代码，调用可选接口前需恢复对应函数组。
 // 用法：节点 1base，边号 0base，固定树结构，边权非负。
 // vector<tuple<int, int, ll>> edges = {{1, 2, 3}, {2, 3, 4}};
 // DynamicTreeDiameter tr(3, edges);  // 构造时完成建树。
@@ -83,7 +82,7 @@ struct DynamicTreeDiameter {
     }
 
     DynamicTreeDiameter(int _n, const vector<tuple<int, int, T>>& _edges) {
-        //? assert(_n > 0 && (int)_edges.size() == _n - 1);
+        assert(_n > 0 && (int)_edges.size() == _n - 1);
         n = _n;
         edges = _edges;
         ve.resize(n + 1);
@@ -92,7 +91,7 @@ struct DynamicTreeDiameter {
         child.resize(n - 1);
         for (int i = 0; i < n - 1; i++) {
             auto [u, v, w] = edges[i];
-            //? assert(1 <= u && u <= n && 1 <= v && v <= n && u != v && w >= 0);
+            assert(1 <= u && u <= n && 1 <= v && v <= n && u != v && w >= 0);
             ve[u].push_back({v, i});
             ve[v].push_back({u, i});
         }
@@ -103,7 +102,7 @@ struct DynamicTreeDiameter {
             tri.update(1, L[child[i]], R[child[i]], get<2>(edges[i]));
     }
     void update(int id, T w) {
-        //? assert(0 <= id && id < n - 1 && w >= 0);
+        assert(0 <= id && id < n - 1 && w >= 0);
         int u = child[id];
         auto& old = get<2>(edges[id]);
         tri.update(1, L[u], R[u], w - old);
