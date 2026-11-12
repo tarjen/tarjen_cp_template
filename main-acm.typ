@@ -19,67 +19,67 @@
 
 = 赛前准备（可选）
 // 赛时通常不抄对拍工具；需要时取消注释。
-// #import_code("src/prepare/solve.cpp")
-// #import_code("src/prepare/duipai.cpp")
+// #import_code("src-acm/prepare/solve.cpp")
+// #import_code("src-acm/prepare/duipai.cpp")
 
 = 通用基础
 == Int128
-#import_code("src/others/大数int128.cpp")
+#import_code("src-acm/others/大数int128.cpp")
 == 线性基
-#import_code("src/others/线性基.cpp")
+#import_code("src-acm/others/线性基.cpp")
 == 并查集（带关系）
-#import_code("src/others/可以判断不同或相同的并查集.cpp")
+#import_code("src-acm/others/可以判断不同或相同的并查集.cpp")
 == 树状数组
-#import_code("src/data_structure/树状数组.cpp")
+#import_code("src-acm/data_structure/树状数组.cpp")
 == 组合数
-#import_code("src/math/组合数带模运算ca.cpp")
+#import_code("src-acm/math/组合数带模运算ca.cpp")
 == EXGCD
-#import_code("src/math/exgcd.cpp")
+#import_code("src-acm/math/exgcd.cpp")
 
 = 字符串
 == KMP
-#import_code("src/string/kmp.cpp")
+#import_code("src-acm/string/kmp.cpp")
 == Hash
-#import_code("src/string/hash.cpp")
+#import_code("src-acm/string/hash.cpp")
 == Trie
-#import_code("src/string/字典树trie.cpp")
+#import_code("src-acm/string/字典树trie.cpp")
 == Manacher
-#import_code("src/string/manacher.cpp")
+#import_code("src-acm/string/manacher.cpp")
 // 自动机和后缀数组篇幅较长，复制黏贴版保留；赛时按题目需要补充。
-// #import_code("src/string/AC自动机.cpp")
-// #import_code("src/string/后缀自动机SAM.cpp")
-// #import_code("src/string/倍增sa.cpp")
+// #import_code("src-acm/string/AC自动机.cpp")
+// #import_code("src-acm/string/后缀自动机SAM.cpp")
+// #import_code("src-acm/string/倍增sa.cpp")
 
 = 图论
 == LCA
-#import_code("src/data_structure/最近公共祖先LCA.cpp")
+#import_code("src-acm/data_structure/最近公共祖先LCA.cpp")
 == Segment Tree
-#import_code("src/data_structure/SegmentTree.cpp")
+#import_code("src-acm/data_structure/SegmentTree.cpp")
 == 二分图匹配
-#import_code("src/graph/二分图匹配.cpp")
+#import_code("src-acm/graph/二分图匹配.cpp")
 == 最大流（只返回流值）
-#import_code("src/graph/maxflow只算值版本.cpp")
+#import_code("src-acm/graph/maxflow只算值版本.cpp")
 == Tarjan 缩点
-#import_code("src/graph/tarjan缩点.cpp")
+#import_code("src-acm/graph/tarjan缩点.cpp")
 // 费用流、带花树、支配树等低频模板放在复制黏贴版。
-// #import_code("src/graph/最小费用最大流.cpp")
-// #import_code("src/graph/带花树.cpp")
+// #import_code("src-acm/graph/最小费用最大流.cpp")
+// #import_code("src-acm/graph/带花树.cpp")
 
 = 几何基础
 == 点与向量
-#import_code("src/geometry/点与向量.cpp")
+#import_code("src-acm/geometry/点与向量.cpp")
 == 直线
-#import_code("src/geometry/直线.cpp")
+#import_code("src-acm/geometry/直线.cpp")
 == 凸包
-#import_code("src/geometry/点集的凸包.cpp")
+#import_code("src-acm/geometry/点集的凸包.cpp")
 // 圆、半平面交等依赖较多，按题目需要从复制黏贴版取用。
-// #import_code("src/geometry/圆.cpp")
-// #import_code("src/geometry/半平面交.cpp")
+// #import_code("src-acm/geometry/圆.cpp")
+// #import_code("src-acm/geometry/半平面交.cpp")
 
 = 数学补充（按需抄写）
 == 多项式 k 次幂（平方复杂度）
 #import_code("src-acm/math/多项式幂(n2).cpp")
-// #import_code("src/math/ntt.cpp")
-// #import_code("src/math/FFT.cpp")
-// #import_code("src/math/线性递推.cpp")
-// #import_code("src/math/高斯消元(模意义).cpp")
+// #import_code("src-acm/math/ntt.cpp")
+// #import_code("src-acm/math/FFT.cpp")
+// #import_code("src-acm/math/线性递推.cpp")
+// #import_code("src-acm/math/高斯消元(模意义).cpp")

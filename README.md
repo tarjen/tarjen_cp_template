@@ -58,4 +58,4 @@ typst compile main-copy.typ main-copy.pdf
 typst compile main-acm.typ main-acm.pdf
 ```
 
-两版共用 `template.typ` 和 `src/`，不会维护两套算法实现。
+两版共用 `template.typ`；复制黏贴版读取 `src/`，赛时抄写版读取一一对应的 `src-acm/`。赛时版保留每个 `.cpp` 的类封装和算法，只将低频接口、断言与冗长辅助函数按需注释。
