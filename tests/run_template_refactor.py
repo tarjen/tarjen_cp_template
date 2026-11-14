@@ -20,6 +20,7 @@ with tempfile.TemporaryDirectory(prefix='cp-template-check-') as directory:
     test_sources = [
         source.with_name('template_core.cpp'),
         source.with_name('poly_pow_n2.cpp'),
+        source.with_name('line_container.cpp'),
         source,
         source.with_name('template_refactor_third.cpp'),
         source.with_name('template_indexing.cpp'),

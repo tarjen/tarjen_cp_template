@@ -31,6 +31,8 @@
 #import_code("src-acm/others/可以判断不同或相同的并查集.cpp")
 == 树状数组
 #import_code("src-acm/data_structure/树状数组.cpp")
+== LineContainer（动态凸包单点最小值）
+#import_code("src-acm/data_structure/LineContainer.cpp")
 == 组合数
 #import_code("src-acm/math/组合数带模运算ca.cpp")
 == EXGCD

@@ -12,6 +12,7 @@
 | --- | ---: | ---: |
 | `data_structure/01trie.cpp` | 28 | 28 |
 | `data_structure/LCT维护联通性.cpp` | 71 | 71 |
+| `data_structure/LineContainer.cpp` | 36 | 36 |
 | `data_structure/SegmentSet.cpp` | 74 | 74 |
 | `data_structure/SegmentTree.cpp` | 118 | 113 |
 | `data_structure/SegmentTree单点.cpp` | 101 | 98 |

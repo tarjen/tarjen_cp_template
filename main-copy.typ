@@ -142,6 +142,8 @@
 #import_code("src/graph/有向图动态加边缩点.cpp")
 
 = 数据结构
+== LineContainer（动态凸包单点最小值）
+#import_code("src/data_structure/LineContainer.cpp")
 
 == SegmentSet
 #import_code("src/data_structure/SegmentSet.cpp")
