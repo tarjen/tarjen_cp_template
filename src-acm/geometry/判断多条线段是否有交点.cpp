@@ -5,7 +5,7 @@
 // 参数为所有线段，返回布尔值，不返回交点或相交对数量。
 bool segs_inter(const vector<Segment>& segs) {
     if (segs.empty()) return false;
-    using seq_t = tuple<point_t, int, Segment>;
+    using seq_t = tuple<pt, int, Segment>;
     const auto seqcmp = [](const seq_t& u, const seq_t& v) {
         const auto [u0, u1, u2] = u;
         const auto [v0, v1, v2] = v;
@@ -18,7 +18,7 @@ bool segs_inter(const vector<Segment>& segs) {
         seq.push_back({seg.a.x, 0, seg}); seq.push_back({seg.b.x, 1, seg});
     }
     sort(seq.begin(), seq.end(), seqcmp);
-    point_t x_now;
+    pt x_now;
     auto cmp = [&](const Segment& u, const Segment& v) {
         if (abs(u.a.x - u.b.x) <= eps || abs(v.a.x - v.b.x) <= eps)
             return u.a.y < v.a.y - eps;

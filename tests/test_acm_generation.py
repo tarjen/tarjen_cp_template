@@ -71,10 +71,10 @@ class HandcopyGenerationTests(unittest.TestCase):
 
     def test_geometry_uses_existing_coordinate_type(self):
         original = ('template <typename T>\nstruct point { T x, y; };\n'
-                    'using Point = point<point_t>;\n')
+                    'using Point = point<pt>;\n')
         generated = ACM.handcopy_source(original, '点与向量.cpp')
         self.assertNotIn('template', generated)
-        self.assertIn('struct point { point_t x, y; };', generated)
+        self.assertIn('struct point { pt x, y; };', generated)
         self.assertIn('using Point = point;', generated)
 
     def test_type_names_inside_strings_are_not_rewritten(self):

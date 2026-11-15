@@ -47,4 +47,4 @@ struct polygon {
     }
 };
 
-using Polygon = polygon<point_t>;
+using Polygon = polygon<pt>;

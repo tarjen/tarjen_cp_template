@@ -36,7 +36,7 @@ int main() {
     assert(heap.empty(root));
 
     using namespace geometry_impl;
-    static_assert(is_same_v<decltype(Point{}.x), point_t>);
+    static_assert(is_same_v<decltype(Point{}.x), pt>);
     Point a{0, 0}, b{3, 4};
     assert(fabsl(a.dis(b) - 5) < eps);
     Line horizontal{{0, 0}, {1, 0}};
@@ -56,5 +56,5 @@ int main() {
     assert(fabsl(convex.diameter2() - 8) < eps);
     auto sum = convex + convex;
     assert(fabsl(sum.area() - 32) < eps);
-    cout << "PASS: fixed long-long heap / point_t geometry / vector storage\n";
+    cout << "PASS: fixed long-long heap / pt geometry / vector storage\n";
 }

@@ -3,11 +3,11 @@
 // vector<Point> points = {{0,0}, {2,0}, {0,2}};
 // auto [small, large] = minmax_triangle(points);  // 本例均为 4。
 // 返回最小、最大三角形面积的两倍；实际面积需除以 2。
-pair<point_t, point_t> minmax_triangle(const vector<Point>& vec) {
+pair<pt, pt> minmax_triangle(const vector<Point>& vec) {
     if (vec.size() <= 2) return {0, 0};
     vector<pair<int, int>> evt;
     evt.reserve(vec.size() * vec.size());
-    point_t maxans = 0, minans = numeric_limits<point_t>::max();
+    pt maxans = 0, minans = numeric_limits<pt>::max();
     for (size_t i = 0; i < vec.size(); i++) {
         for (size_t j = 0; j < vec.size(); j++) {
             if (i == j) continue;

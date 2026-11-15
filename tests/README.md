@@ -21,7 +21,8 @@ python tests/run_all.py
 | `template_refactor_third.cpp` | 27 个模板，覆盖可持久化结构、节点池扩容、树结构、数论、矩阵、递推、费用流等 |
 | `template_indexing.cpp` | 8 个模板的下标迁移、边界与朴素结果对照 |
 | `template_dynamic_diameter.cpp` | 动态树直径与朴素全点对距离对照 |
-| `handcopy_fixed_types.cpp` | 手抄版固定 ll 的左偏树与优先队列对拍，point_t 几何接口及 vector 存储检查 |
+| `handcopy_fixed_types.cpp` | 手抄版固定 ll 的左偏树与优先队列对拍，pt 几何接口及 vector 存储检查 |
+| `test_int128_io.py` / `int128_io.cpp` | 两版 Int128 的 C/C++ 读写，覆盖正负边界、显式符号、前导零、EOF 和 300 个随机整数 |
 
 七个测试文件直接引用 75 份完整源码。这些是有限的随机、边界与回归验证；两个目录共有 128 份 C++ 模板，并非每份旧片段、每个扩展接口均有测试。线性基旧 `Kth_Max` 存在越界且未规约，源码已标注请勿使用，不属于受支持接口。
 

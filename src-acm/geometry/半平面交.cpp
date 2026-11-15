@@ -3,7 +3,7 @@
 // vector<Line> sides = {{{0,0},{1,0}}, {{2,0},{-1,1}}, {{0,2},{0,-1}}};
 // auto boundary = halfinter(sides);  // 每条直线的左侧为可行半平面。
 // 返回边界直线集合；函数额外加入 [-lim,lim]^2 的包围框，默认 lim=1e9。
-vector<Line> halfinter(vector<Line> l, const point_t lim = 1e9) {
+vector<Line> halfinter(vector<Line> l, const pt lim = 1e9) {
     const auto check = [](const Line& a, const Line& b, const Line& c) {
         return a.toleft(b.inter(c)) < 0;
     };

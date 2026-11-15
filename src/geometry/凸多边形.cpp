@@ -131,4 +131,4 @@ struct convex : polygon<T> {
     }
 };
 
-using Convex = convex<point_t>;
+using Convex = convex<pt>;

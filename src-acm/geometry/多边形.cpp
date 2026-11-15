@@ -32,8 +32,8 @@ struct polygon {
 
     // 多边形面积的两倍
     // 可用于判断点的存储顺序是顺时针或逆时针
-    point_t area() const {
-        point_t sum = 0;
+    pt area() const {
+        pt sum = 0;
         for (size_t i = 0; i < p.size(); i++) sum += p[i] ^ p[nxt(i)];
         return sum;
     }

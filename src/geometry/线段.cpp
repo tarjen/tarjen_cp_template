@@ -52,4 +52,4 @@ struct segment {
     }
 };
 
-using Segment = segment<point_t>;
+using Segment = segment<pt>;

@@ -32,4 +32,4 @@ struct line {
     }  // 点在直线上的投影
 };
 
-using Line = line<point_t>;
+using Line = line<pt>;

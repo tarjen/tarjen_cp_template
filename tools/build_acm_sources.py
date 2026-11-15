@@ -9,8 +9,8 @@ OMITTED = {'线性基.cpp': {'Kth_Max'}}
 
 FIXED_VALUE_CLASSES = {
     'SegmentTree': 'll', 'DynamicTreeDiameter': 'll', 'CartesianTree': 'll',
-    'LeftistHeap': 'll', 'point': 'point_t', 'line': 'point_t',
-    'segment': 'point_t', 'polygon': 'point_t', 'convex': 'point_t',
+    'LeftistHeap': 'll', 'point': 'pt', 'line': 'pt',
+    'segment': 'pt', 'polygon': 'pt', 'convex': 'pt',
 }
 
 def mask(text):
@@ -104,8 +104,8 @@ def fix_value_templates(text):
     if 'CartesianTree' in concrete:
         text = text.replace('类型由 a 推导。', '值类型为 ll。')
     if 'point' in concrete:
-        text = text.replace('// point<T> 可指定类型；Point 是 point<point_t> 的别名。',
-                            '// Point 与 point 表示同一类型，坐标类型统一使用 point_t。')
+        text = text.replace('// point<T> 可指定类型；Point 是 point<pt> 的别名。',
+                            '// Point 与 point 表示同一类型，坐标类型统一使用 pt。')
     return erase_fixed_type_arguments(text)
 
 def handcopy_source(original, name):
@@ -155,7 +155,7 @@ def build():
         rows.append(f'| `{relative.as_posix()}` | {active_before} | {active_after} |')
     (ROOT / 'ACM源码改动清单.md').write_text('# ACM 源码改动清单\n\n完整复制版在 `src/`，手抄版在 `src-acm/`，每个 cpp 一一对应。\n\n'
         '保留算法、类封装、原有接口、断言以及下标和返回值约定；源码不添加版本提示，也不注释停用正常接口。\n'
-        '常用结构体的数值类型固定为 ll，几何坐标沿用 point_t；vector 保持动态存储。函数回调和编译期长度模板保持原实现。\n'
+        '常用结构体的数值类型固定为 ll，几何坐标沿用 pt；vector 保持动态存储。函数回调和编译期长度模板保持原实现。\n'
         '完整保留源码中的用法示例与说明注释；相邻同类调用在 110 列内合并排版，保留原有分号和调用顺序。\n'
         '没有可安全删减接口的短模板保持核心实现，不为压行数改算法。reserve 保留，防止节点池引用失效。\n'
         '完整版本已修复 Hash 的 array 初始化、重复初始化及线性基 clear 状态重置；手抄版同步这些修复。已知有误的线性基旧 Kth_Max 不收入手抄版。\n\n'

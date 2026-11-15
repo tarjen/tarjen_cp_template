@@ -54,11 +54,11 @@ struct convex : polygon {
     }
 
     // 凸多边形的直径的平方
-    point_t diameter2() const {
+    pt diameter2() const {
         const auto& p = this->p;
         if (p.size() == 1) return 0;
         if (p.size() == 2) return p[0].dis2(p[1]);
-        point_t ans = 0;
+        pt ans = 0;
         auto func = [&](const point& u, const point& v,
                         const point& w) {
             ans = max({ans, w.dis2(u), w.dis2(v)});
