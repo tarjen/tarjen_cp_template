@@ -110,6 +110,23 @@ def fix_value_templates(text):
 
 def handcopy_source(original, name):
     text = remove_functions(compact_calls(fix_value_templates(original)), OMITTED.get(name, set()))
+    if name == 'HK.cpp':
+        # Only merge complete statements in this template; retain all comments.
+        for before, after in [
+            ('        int top = 0;\n        q[0] = root;', '        int top = 0; q[0] = root;'),
+            ('            int u = q[top];\n            bool down = false;',
+             '            int u = q[top]; bool down = false;'),
+            ('                int v = g[u][cur[u]++];\n                int w = right[v];',
+             '                int v = g[u][cur[u]++], w = right[v];'),
+            ('                        left[x] = v;\n                        right[v] = x;\n                        v = old;',
+             '                        left[x] = v; right[v] = x; v = old;'),
+            ('                q[++top] = w;\n                down = true;\n                break;',
+             '                q[++top] = w; down = true; break;'),
+            ('                dis[u] = -1;\n                --top;', '                dis[u] = -1; --top;'),
+            ('                    left[u] = v;\n                    right[v] = u;\n                    break;',
+             '                    left[u] = v; right[v] = u; break;'),
+        ]:
+            text = text.replace(before, after)
     # Remove modifiers only from code, preserving every explanatory comment.
     for match in reversed(list(re.finditer(r'\b(?:explicit|inline)[ \t]+', mask(text)))):
         text = text[:match.start()] + text[match.end():]

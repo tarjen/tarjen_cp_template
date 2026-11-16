@@ -20,7 +20,7 @@ with tempfile.TemporaryDirectory(prefix='acm-variants-') as directory:
     shutil.copytree(root / 'src-acm', work / 'src')
     # Compile the actual hand-copy sources as printed in the viewer and PDF.
     executable = work / ('core.exe' if os.name == 'nt' else 'core')
-    for name in ['template_core.cpp', 'poly_pow_n2.cpp', 'handcopy_fixed_types.cpp']:
+    for name in ['template_core.cpp', 'poly_pow_n2.cpp', 'handcopy_fixed_types.cpp', 'hk.cpp']:
         subprocess.run(['g++', *flags, '-DACM_VARIANT', str(root / 'tests' / name),
                         '-o', str(executable)], check=True)
         subprocess.run([str(executable)], check=True)

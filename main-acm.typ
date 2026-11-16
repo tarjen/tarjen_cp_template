@@ -57,8 +57,10 @@
 #import_code("src-acm/data_structure/最近公共祖先LCA.cpp")
 == Segment Tree
 #import_code("src-acm/data_structure/SegmentTree.cpp")
-== 二分图匹配
-#import_code("src-acm/graph/二分图匹配.cpp")
+== HK 二分图最大匹配
+#import_code("src-acm/graph/HK.cpp")
+// 逐点增广版本按需抄写。
+// #import_code("src-acm/graph/二分图匹配.cpp")
 == 最大流（只返回流值）
 #import_code("src-acm/graph/maxflow只算值版本.cpp")
 == Tarjan 缩点

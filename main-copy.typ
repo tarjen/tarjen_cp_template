@@ -114,6 +114,8 @@
 #import_code("src/graph/点双边双.cpp")
 == 二分图匹配
 #import_code("src/graph/二分图匹配.cpp")
+== HK 二分图最大匹配
+#import_code("src/graph/HK.cpp")
 == 二分图最优匹配
 #import_code("src/graph/二分图最优匹配.cpp")
 == 二分图染色

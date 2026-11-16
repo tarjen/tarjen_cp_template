@@ -60,6 +60,7 @@
 | `geometry/直线.cpp` | 25 | 24 |
 | `geometry/线段.cpp` | 32 | 31 |
 | `geometry/给定三点求圆心.cpp` | 8 | 8 |
+| `graph/HK.cpp` | 87 | 76 |
 | `graph/K短路.cpp` | 124 | 123 |
 | `graph/johnson全源最短路.cpp` | 44 | 44 |
 | `graph/kosaraju.cpp` | 52 | 51 |
