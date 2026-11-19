@@ -18,6 +18,8 @@ python tests/run_all.py
 | `poly_pow_n2.cpp` | 多项式 k 次幂与朴素卷积求幂对拍，500 组随机数据及边界 |
 | `line_container.cpp` | 动态直线凸包单点最小值与枚举对拍，300 组随机插入/查询及同斜率、重复直线、负数交点和清空重用 |
 | `hk.cpp` | HK 与朴素增广路对拍，穷举至多 3x3 的图、2000 个随机图、重边、重复求解、加边重算及 100000 左点的交替路 |
+| `euler.cpp` | 欧拉路径按顶点序列字典序最小，枚举 3 点且至多 5 条边的多重图、400 个随机图，含自环、指定起点、非连通和重复使用 |
+| `test_duipai.py` | Python 对拍的多轮运行、空白/严格比较、WA 反例保存、各进程报错、超时、缺失程序及含空格路径 |
 | `template_refactor.cpp` | 36 个模板，覆盖树状数组、线段树、字符串、图论等；另运行 76 组非法线段树输入检查断言 |
 | `template_refactor_third.cpp` | 27 个模板，覆盖可持久化结构、节点池扩容、树结构、数论、矩阵、递推、费用流等 |
 | `template_indexing.cpp` | 8 个模板的下标迁移、边界与朴素结果对照 |
@@ -25,7 +27,7 @@ python tests/run_all.py
 | `handcopy_fixed_types.cpp` | 手抄版固定 ll 的左偏树与优先队列对拍，pt 几何接口及 vector 存储检查 |
 | `test_int128_io.py` / `int128_io.cpp` | 两版 Int128 的 C/C++ 读写，覆盖正负边界、显式符号、前导零、EOF 和 300 个随机整数 |
 
-八个回归测试文件直接引用 76 份完整源码。这些是有限的随机、边界与回归验证；两个目录共有 129 份 C++ 模板，并非每份旧片段、每个扩展接口均有测试。线性基旧 `Kth_Max` 存在越界且未规约，源码已标注请勿使用，不属于受支持接口。
+九个回归测试文件直接引用 77 份完整源码。这些是有限的随机、边界与回归验证；两个目录共有 128 份 C++ 模板，并非每份旧片段、每个扩展接口均有测试。线性基旧 `Kth_Max` 存在越界且未规约，源码已标注请勿使用，不属于受支持接口。
 
 ## 单独验证
 
@@ -34,7 +36,7 @@ python tests/run_template_refactor.py
 python tests/run_acm_variants.py
 ```
 
-手抄版先用 `-DACM_VARIANT` 直接测试 `template_core.cpp`、`poly_pow_n2.cpp`、`handcopy_fixed_types.cpp` 和 `hk.cpp`；再原样复制 `src-acm/` 到临时目录以复用现有相对路径，执行回归文件。测试调用通过 `template_variant_types.h` 选择完整版的类型参数或手抄版的普通类名，并相应使用 int / ll 测试数据；测试不修改受测源码。已知有误的线性基旧 `Kth_Max` 不收入手抄版。
+手抄版先用 `-DACM_VARIANT` 直接测试 `template_core.cpp`、`poly_pow_n2.cpp`、`handcopy_fixed_types.cpp`、`hk.cpp` 和 `euler.cpp`；再原样复制 `src-acm/` 到临时目录以复用现有相对路径，执行回归文件。测试调用通过 `template_variant_types.h` 选择完整版的类型参数或手抄版的普通类名，并相应使用 int / ll 测试数据；测试不修改受测源码。已知有误的线性基旧 `Kth_Max` 不收入手抄版。
 
 Linux / 支持对应运行库的编译器可额外启用内存和未定义行为检查：
 

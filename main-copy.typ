@@ -25,10 +25,8 @@
 #import_code("src/prepare/test.py")
 #pagebreak(weak: true)
 
-== 对拍(cpp版本)
-#import_code("src/prepare/duipai.cpp")
-== 对拍(bat版本)
-#import_code("src/prepare/duipai.bat")
+== 对拍（Python）
+#import_code("src/prepare/duipai.py")
 == Solve
 #import_code("src/prepare/solve.cpp")
 

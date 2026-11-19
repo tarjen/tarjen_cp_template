@@ -13,13 +13,24 @@
 | 完整封装版：保留完整接口、断言、使用示例及回归测试 | [`src/`](src/) | `main-copy.typ`（`main.typ` 兼容同一内容） |
 | 赛时手抄版：结构体使用固定值类型，保留 vector、说明注释与压行 | [`src-acm/`](src-acm/) | `main-acm.typ` |
 
-两目录现有 129 份 C++ 模板一一对应；手抄 PDF 默认选取高频内容，其余源码仍在目录里。具体差异见[版本说明](版本说明.md)和[源码改动清单](ACM源码改动清单.md)。
+两目录现有 128 份 C++ 模板一一对应；手抄 PDF 与完整版完整收录同一目录，包含全部模板、工具和笔记。具体差异见[版本说明](版本说明.md)和[源码改动清单](ACM源码改动清单.md)。
 
 一条命令验证两版（Python 3、g++，C++17）：
 
 ```powershell
 python tests/run_all.py
 ```
+
+对拍统一使用 [`src/prepare/duipai.py`](src/prepare/duipai.py)，两版目录共用此脚本，旧 C++、BAT 版本已移除。
+先编译生成器、标程和待测程序，然后在程序所在目录运行：
+
+```powershell
+python <模板库路径>/src/prepare/duipai.py
+```
+
+默认运行 `testin`、`abiaocheng`、`nedtest`（Windows 自动加 `.exe`），最多 100000 组，单次超时 2 秒。
+可用 `--gen`、`--ref`、`--sol` 指定命令，如 `--gen python gen.py --ref ./std --sol ./main --tests 1000`。
+默认忽略空白差异，`--strict` 按字节比较；WA、RE、TLE 时停止并保留输入、输出和 stderr。
 
 测试范围和单独运行方法见 [tests/README.md](tests/README.md)。维护时先修改 `src/`，再运行 `python tools/build_acm_sources.py` 同步手抄版，最后运行测试。
 
@@ -80,7 +91,7 @@ GitHub Actions 在 Ubuntu 24.04 上安装 Noto CJK 与 Liberation 字体，使�
 ## 两种模板版本
 
 - `main-copy.typ`：复制黏贴版，完整收录当前模板目录；原有 `main.typ` 保持兼容。
-- `main-acm.typ`：ACM 赛时抄写版，只收录高频类封装；低频模块以注释入口保留，按题目需要取消注释。
+- `main-acm.typ`：ACM 赛时抄写版，完整收录全部模板、赛前工具与笔记，目录顺序与完整版一致。
 
 ```powershell
 typst compile main-copy.typ main-copy.pdf

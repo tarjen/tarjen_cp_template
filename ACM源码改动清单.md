@@ -80,7 +80,7 @@
 | `graph/最小环.cpp` | 42 | 42 |
 | `graph/最小费用最大流.cpp` | 59 | 58 |
 | `graph/有向图动态加边缩点.cpp` | 116 | 116 |
-| `graph/欧拉回路.cpp` | 24 | 24 |
+| `graph/欧拉回路.cpp` | 49 | 48 |
 | `graph/点双边双.cpp` | 110 | 109 |
 | `math/BSGS指数方程余数问题(求a^x=b%p).cpp` | 57 | 57 |
 | `math/FFT.cpp` | 82 | 82 |
@@ -124,7 +124,6 @@
 | `others/线性基.cpp` | 117 | 111 |
 | `others/维护多个二维向量能够表示的范围.cpp` | 32 | 31 |
 | `others/高维前缀和.cpp` | 3 | 3 |
-| `prepare/duipai.cpp` | 15 | 14 |
 | `prepare/solve.cpp` | 78 | 78 |
 | `string/AC自动机.cpp` | 63 | 63 |
 | `string/dc3.cpp` | 136 | 135 |

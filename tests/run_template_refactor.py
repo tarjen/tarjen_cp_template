@@ -22,6 +22,7 @@ with tempfile.TemporaryDirectory(prefix='cp-template-check-') as directory:
         source.with_name('poly_pow_n2.cpp'),
         source.with_name('line_container.cpp'),
         source.with_name('hk.cpp'),
+        source.with_name('euler.cpp'),
         source,
         source.with_name('template_refactor_third.cpp'),
         source.with_name('template_indexing.cpp'),
