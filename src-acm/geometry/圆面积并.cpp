@@ -3,6 +3,9 @@
 // vector<Circle> circles = {{{0,0},1}, {{3,0},1}};
 // auto area = area_union(circles);  // area[0]=2*PI，两个圆的并面积。
 // area[i] 是至少被覆盖 i+1 次的区域面积，不是恰好覆盖的面积。
+// 原理：用交点把每个圆周切成覆盖次数不变的弧，再沿区域边界做面积积分。
+// 弧上被其他圆覆盖 k 次时，它是“至少覆盖 k+1 次”区域的一段边界。
+// 重合弧逐层后移，避免相同边界重复累计；n 个圆复杂度 O(n² log n)。
 vector<long double> area_union(const vector<Circle>& circs) {
     const size_t siz = circs.size();
     using arc_t = tuple<Point, long double, long double, long double>;
@@ -15,6 +18,7 @@ vector<long double> area_union(const vector<Circle>& circs) {
     };
 
     auto cut_circ = [&](const Circle& ci, const size_t i) {
+        // 完全包含贡献初值 init；相交产生角度区间的 +1/-1 事件。
         vector<pair<long double, int>> evt;
         evt.push_back({-PI, 0}); evt.push_back({PI, 0});
         int init = 0;
@@ -33,6 +37,7 @@ vector<long double> area_union(const vector<Circle>& circs) {
                 if (abs(argl + PI) <= eps) argl = PI;
                 if (abs(argr + PI) <= eps) argr = PI;
                 if (argl > argr + eps) {
+                    // 覆盖弧跨过角度切口时，拆成 [-PI,argr] 和 [argl,PI]。
                     evt.push_back({argl, 1}); evt.push_back({PI, -1});
                     evt.push_back({-PI, 1}); evt.push_back({argr, -1});
                 } else {
@@ -52,6 +57,7 @@ vector<long double> area_union(const vector<Circle>& circs) {
     };
 
     const auto oint = [](const arc_t& arc) {
+        // 参数 x=cx+r*cos(t), y=cy+r*sin(t)，积分 x dy-y dx，末尾统一除 2。
         const auto [cc, cr, l, r] = arc;
         if (abs(r - l - PI - PI) <= eps) return 2.0l * PI * cr * cr;
         return cr * cr * (r - l) + cc.x * cr * (sin(r) - sin(l)) -

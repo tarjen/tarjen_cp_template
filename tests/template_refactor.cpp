@@ -540,9 +540,9 @@ void test_strings() {
         sort(order.begin(), order.end(),
              [&](int a, int b) { return s.substr(a) < s.substr(b); });
         for (int i = 0; i < (int)s.size(); i++) {
-            CHECK(sa.sa[i + 1] == order[i] + 1);
+            CHECK(sa.sa[i] == order[i]);
             CHECK(dc.sa[i + 1] == order[i] + 1);
-            CHECK(sa.rk[order[i] + 1] == i + 1);
+            CHECK(sa.rk[order[i]] == i);
             CHECK(dc.rk[order[i] + 1] == i + 1);
             int lcp = 0;
             if (i)
@@ -550,20 +550,19 @@ void test_strings() {
                        order[i - 1] + lcp < (int)s.size() &&
                        s[order[i] + lcp] == s[order[i - 1] + lcp])
                     lcp++;
-            CHECK(sa.ht[i + 1] == lcp);
+            CHECK(sa.ht[i] == lcp);
             CHECK(dc.ht[i + 1] == lcp);
         }
-        for (int i = 1; i <= (int)s.size(); i++)
-            for (int j = 1; j <= (int)s.size(); j++) {
+        for (int i = 0; i < (int)s.size(); i++)
+            for (int j = 0; j < (int)s.size(); j++) {
                 int lc = 0;
-                while (i - 1 + lc < (int)s.size() &&
-                       j - 1 + lc < (int)s.size() &&
-                       s[i - 1 + lc] == s[j - 1 + lc])
+                while (i + lc < (int)s.size() &&
+                       j + lc < (int)s.size() && s[i + lc] == s[j + lc])
                     lc++;
                 CHECK(sa.lcp(i, j) == lc);
-                int r = rnd(i, s.size()), rr = rnd(j, s.size());
-                string a = s.substr(i - 1, r - i + 1),
-                       b = s.substr(j - 1, rr - j + 1);
+                int r = rnd(i, (int)s.size() - 1), rr = rnd(j, (int)s.size() - 1);
+                string a = s.substr(i, r - i + 1),
+                       b = s.substr(j, rr - j + 1);
                 CHECK(sa.query(i, r, j, rr) == (a < b ? -1 : a > b ? 1 : 0));
             }
     }
@@ -571,8 +570,23 @@ void test_strings() {
     for (int i = 0; i < 256; i++) bytes += (char)i;
     suffix::Suffix sa(bytes);
     dc3::Suffix dc(bytes);
-    CHECK(sa.sa[1] == 1);
+    CHECK(sa.sa[0] == 0);
     CHECK(dc.sa[1] == 1);
+    suffix::Suffix example("banana");
+    CHECK(example.sa == vector<int>({5, 3, 1, 0, 4, 2}));
+    CHECK(example.ht == vector<int>({0, 1, 3, 0, 0, 2}));
+    CHECK(example.lcp(1, 3) == 3 && example.query(1, 3, 3, 5) == 0);
+    for (string text : {"", "x", "aaaaaa", "banana", "ababababa"}) {
+        example.s = text;
+        example.init();
+        suffix::Suffix fresh(text);
+        CHECK(example.sa == fresh.sa && example.rk == fresh.rk);
+        CHECK(example.ht == fresh.ht && example.st == fresh.st);
+        if (!text.empty()) {
+            CHECK(example.lcp(0, 0) == (int)text.size());
+            CHECK(example.lcp((int)text.size() - 1, (int)text.size() - 1) == 1);
+        }
+    }
     manacher::Manacher specials(string("@#@\0", 4));
     CHECK(specials.manacher() == 3);
     cout << "strings OK\n";
@@ -906,10 +920,15 @@ void test_flows() {
 void test_unicyclic() {
     for (int trial = 0; trial < 150; trial++) {
         int n = rnd(3, 30), cycle = rnd(3, n);
-        unicyclic::Graph g(n);
-        for (int i = 1; i <= cycle; i++) g.addedge(i, i == cycle ? 1 : i + 1);
-        for (int i = cycle + 1; i <= n; i++) g.addedge(i, rnd(1, i - 1));
-        g.Get();
+        vector<vector<int>> ve(n + 1);
+        auto add = [&](int u, int v) {
+            ve[u].push_back(v);
+            ve[v].push_back(u);
+        };
+        for (int i = 1; i <= cycle; i++) add(i, i == cycle ? 1 : i + 1);
+        for (int i = cycle + 1; i <= n; i++) add(i, rnd(1, i - 1));
+        unicyclic::Graph g(ve);
+        CHECK(g.len == cycle);  // 构造即完成预处理。
         g.Get();
         CHECK(g.len == cycle);
         for (int s = 1; s <= n; s++) {

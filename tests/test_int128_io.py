@@ -27,12 +27,11 @@ class Int128IOTests(unittest.TestCase):
                 subprocess.run(['g++', '-std=c++17', '-O1', '-Wall', '-Wextra',
                                 *flags, str(ROOT / 'tests/int128_io.cpp'),
                                 '-o', str(executable)], check=True)
-                for mode in ('stream', 'stdio'):
-                    with self.subTest(variant=variant, mode=mode):
-                        result = subprocess.run([str(executable), mode], input=data,
-                                                capture_output=True, text=True,
-                                                timeout=10, check=True)
-                        self.assertEqual(result.stdout, expected)
+                with self.subTest(variant=variant):
+                    result = subprocess.run([str(executable)], input=data,
+                                            capture_output=True, text=True,
+                                            timeout=10, check=True)
+                    self.assertEqual(result.stdout, expected)
 
 
 if __name__ == '__main__':

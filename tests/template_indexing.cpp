@@ -22,9 +22,7 @@ namespace cycles {
 #include "../src/graph/三四元环计数.cpp"
 }
 namespace mincycle {
-#define main example_main
 #include "../src/graph/最小环.cpp"
-#undef main
 }  // namespace mincycle
 namespace runsimpl {
 #include "../src/string/runs.cpp"
@@ -32,7 +30,9 @@ namespace runsimpl {
 namespace dequehash {
 #include "../src/string/dequehash.cpp"
 }
-#undef int
+#ifdef int
+#error Dequehash must not redefine int
+#endif
 #undef sz
 int checks = 0;
 #define CHECK(e)                                               \
@@ -205,10 +205,9 @@ void test_graphs() {
         output >> got3 >> got4;
         CHECK(got3 == three);
         CHECK(got4 == four);
-        input.str("");
-        input.clear();
-        input << n << ' ' << edges.size() << '\n';
-        for (auto [u, v, w] : edges) input << u << ' ' << v << ' ' << w << '\n';
+        vector<vector<int>> weights(n, vector<int>(n, INT_MAX));
+        for (int u = 0; u < n; u++) weights[u][u] = 0;
+        for (auto [u, v, w] : edges) weights[u][v] = weights[v][u] = w;
         ll best = johnson::inf;
         for (int removed = 0; removed < (int)edges.size(); removed++) {
             auto [s, target, weight] = edges[removed];
@@ -223,10 +222,21 @@ void test_graphs() {
                     }
             best = min(best, dist[target] + weight);
         }
-        string result = capture(input.str(), [] { mincycle::example_main(); });
-        CHECK(best >= johnson::inf ? result == "No solution."
-                                   : stoll(result) == best);
+        auto before = weights;
+        CHECK(mincycle::min_cycle(weights) == (best >= johnson::inf ? -1 : best));
+        CHECK(weights == before);
+        for (auto& row : weights)
+            for (int& w : row)
+                if (w == INT_MAX) w = 100;
+        CHECK(mincycle::min_cycle(weights, 100) == (best >= johnson::inf ? -1 : best));
     }
+    CHECK(mincycle::min_cycle({}) == -1);
+    CHECK(mincycle::min_cycle({{0}}) == -1);
+    CHECK(mincycle::min_cycle({{0, 1}, {1, 0}}) == -1);
+    CHECK(mincycle::min_cycle({{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}) == 0);
+    CHECK(mincycle::min_cycle({{0, 2000000000, 2000000000},
+                              {2000000000, 0, 2000000000},
+                              {2000000000, 2000000000, 0}}) == 6000000000LL);
 }
 void test_runs() {
     for (int trial = 0; trial < 250; trial++) {
@@ -270,7 +280,8 @@ void test_deque_hash() {
         vector<ll> a, b;
         for (int step = 0; step < 10; step++) {
             vector<ll> v(rnd(0, 4));
-            for (ll& value : v) value = rnd(1, 26);
+            for (ll& value : v)
+                value = step % 3 == 0 ? dequehash::mod - rnd(1, 26) : rnd(1, 26);
             if (step % 2) {
                 x.add_front(v);
                 a.insert(a.begin(), v.begin(), v.end());

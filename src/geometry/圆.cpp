@@ -5,6 +5,8 @@
 // int relation = c.is_in(Point{0,0});  // 1 圆内，0 圆外，-1 圆上。
 // auto points = c.inter(Line{{0,0},{1,0}});  // 与直线的两个交点。
 // 其他 relation/inter/tangent 还支持圆与圆；半径须非负。
+// 原理：关系判断比较圆心距；交点和切线由直角三角形或余弦定理得到。
+// 基本操作 O(1)，圆与 n 边形交面积 O(n)；涉及除法的接口须排除零半径等退化。
 struct Circle {
     Point c;
     long double r;
@@ -34,6 +36,7 @@ struct Circle {
     // 圆与圆关系
     // -1 相同 | 0 相离 | 1 外切 | 2 相交 | 3 内切 | 4 内含
     int relation(const Circle& a) const {
+        // 圆心距与 r+R、|r-R| 比较，区分相离、相切、相交和包含。
         if (*this == a) return -1;
         const long double d = c.dis(a.c);
         if (d > r + a.r + eps) return 0;
@@ -45,6 +48,7 @@ struct Circle {
 
     // 直线与圆的交点
     vector<Point> inter(const Line& l) const {
+        // 先求圆心到直线的垂足，再沿直线正反移动 sqrt(r²-d²)。
         const long double d = l.dis(c);
         const Point p = l.proj(c);
         const int t = relation(l);
@@ -57,6 +61,7 @@ struct Circle {
 
     // 圆与圆交点
     vector<Point> inter(const Circle& a) const {
+        // 以圆心连线为轴，由余弦定理求交点方向，两交点关于该轴对称。
         const long double d = c.dis(a.c);
         const int t = relation(a);
         if (t == -1 || t == 0 || t == 4) return vector<Point>();
@@ -73,6 +78,7 @@ struct Circle {
 
     // 圆与圆交面积
     long double inter_area(const Circle& a) const {
+        // 相交透镜分成两个圆弓形，各自为扇形面积减去等腰三角形面积。
         const long double d = c.dis(a.c);
         const int t = relation(a);
         if (t == -1) return area();
@@ -89,6 +95,7 @@ struct Circle {
 
     // 过圆外一点圆的切线
     vector<Line> tangent(const Point& a) const {
+        // 切点半径垂直切线，圆心连线与切点半径夹角的余弦为 r/d。
         const int t = is_in(a);
         if (t == 1) return vector<Line>();
         if (t == -1) {
@@ -104,6 +111,7 @@ struct Circle {
 
     // 两圆的公切线
     vector<Line> tangent(const Circle& a) const {
+        // 外公切线用半径差 r-R，内公切线用半径和 r+R，均化为直角三角形。
         const int t = relation(a);
         vector<Line> lines;
         if (t == -1 || t == 4) return lines;
@@ -136,6 +144,7 @@ struct Circle {
 
     // 圆的反演
     tuple<int, Circle, Line> inverse(const Line& l) const {
+        // 反演满足 |OP|*|OP'|=r²；过反演中心的直线不变，否则变成过中心的圆。
         const Circle null_c = {{0.0, 0.0}, 0.0};
         const Line null_l = {{0.0, 0.0}, {0.0, 0.0}};
         if (l.toleft(c) == 0) return {2, null_c, l};
@@ -147,6 +156,7 @@ struct Circle {
     }
 
     tuple<int, Circle, Line> inverse(const Circle& a) const {
+        // 过反演中心的圆变成直线；否则反演圆心连线上的两个端点确定新圆。
         const Circle null_c = {{0.0, 0.0}, 0.0};
         const Line null_l = {{0.0, 0.0}, {0.0, 0.0}};
         const Point v = a.c - c;
@@ -165,6 +175,8 @@ struct Circle {
 
 // 圆与多边形面积交
 long double area_inter(const Circle& circ, const Polygon& poly) {
+    // 对每条有向边按圆交点切开：圆内部分加三角形，圆外部分加扇形。
+    // 按叉积保留正负；逆时针通常为正、顺时针为负，实际面积需对返回值取绝对值。
     const auto cal = [](const Circle& circ, const Point& a, const Point& b) {
         if ((a - circ.c).toleft(b - circ.c) == 0) return 0.0l;
         const auto ina = circ.is_in(a), inb = circ.is_in(b);

@@ -6,9 +6,7 @@
 // 也可 LinearRecurrence tr(vector<int>{0,1,1,2,3,5,8,13})，由 BM 推递推式。
 #include <bits/stdc++.h>
 using namespace std;
-typedef vector<int> VI;
 typedef long long ll;
-typedef pair<int, int> PII;
 const ll mod = 1000000007;
 ll powmod(ll a, ll b) {
     ll res = 1;
@@ -22,12 +20,12 @@ ll powmod(ll a, ll b) {
 }
 struct LinearRecurrence {
     vector<ll> res, _c, _md;
-    VI coefficients, initial;
-    LinearRecurrence(VI coefficients, VI initial)
+    vector<int> coefficients, initial;
+    LinearRecurrence(vector<int> coefficients, vector<int> initial)
         : coefficients(move(coefficients)), initial(move(initial)) {
         assert(this->coefficients.size() == this->initial.size());
     }
-    explicit LinearRecurrence(VI sequence) : initial(move(sequence)) {
+    explicit LinearRecurrence(vector<int> sequence) : initial(move(sequence)) {
         coefficients = BM(initial);
         coefficients.erase(coefficients.begin());
         for (int& x : coefficients) x = (mod - x) % mod;
@@ -53,7 +51,7 @@ struct LinearRecurrence {
                         (_c[i - k + Md[j]] - _c[i] * _md[Md[j]]) % mod;
         for (int i = 0; i < k; i++) a[i] = _c[i];
     }
-    int solve(ll n, VI a, VI b) {
+    int solve(ll n, vector<int> a, vector<int> b) {
         ll ans = 0, pnt = 0;
         int k = (int)a.size();
         if (!k) return 0;
@@ -82,8 +80,8 @@ struct LinearRecurrence {
         if (ans < 0) ans += mod;
         return ans;
     }
-    VI BM(VI s) {
-        VI C(1, 1), B(1, 1);
+    vector<int> BM(vector<int> s) {
+        vector<int> C(1, 1), B(1, 1);
         int L = 0, m = 1, b = 1;
         for (int n = 0; n < (int)s.size(); n++) {
             ll d = 0;
@@ -91,7 +89,7 @@ struct LinearRecurrence {
             if (d == 0)
                 ++m;
             else if (2 * L <= n) {
-                VI T = C;
+                vector<int> T = C;
                 ll c = mod - d * powmod(b, mod - 2) % mod;
                 while ((int)C.size() < (int)B.size() + m) C.push_back(0);
                 for (int i = 0; i < (int)B.size(); i++)
@@ -110,11 +108,11 @@ struct LinearRecurrence {
         }
         return C;
     }
-    int gao(VI a, ll n) {
-        VI c = BM(a);
+    int gao(vector<int> a, ll n) {
+        vector<int> c = BM(a);
         c.erase(c.begin());
         for (int i = 0; i < (int)c.size(); i++) c[i] = (mod - c[i]) % mod;
         if (c.empty()) return 0;
-        return solve(n, c, VI(a.begin(), a.begin() + (int)c.size()));
+        return solve(n, c, vector<int>(a.begin(), a.begin() + (int)c.size()));
     }
 };

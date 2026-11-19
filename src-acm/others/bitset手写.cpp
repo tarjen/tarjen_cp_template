@@ -29,9 +29,6 @@ struct Bitset {
         else
             v[pos / 64] &= ~mask;
     }
-    // 保留模板库旧入口。
-    void add(int pos) { setBit(pos); }
-    void shift1() { *this = *this << 1; }
     int count() const {
         int res = 0;
         for (ull w : v) res += __builtin_popcountll(w);

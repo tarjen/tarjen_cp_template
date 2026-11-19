@@ -13,7 +13,7 @@
 | 完整封装版：保留完整接口、断言、使用示例及回归测试 | [`src/`](src/) | `main-copy.typ`（`main.typ` 兼容同一内容） |
 | 赛时手抄版：结构体使用固定值类型，保留 vector、说明注释与压行 | [`src-acm/`](src-acm/) | `main-acm.typ` |
 
-两目录现有 128 份 C++ 模板一一对应；手抄 PDF 与完整版完整收录同一目录，包含全部模板、工具和笔记。具体差异见[版本说明](版本说明.md)和[源码改动清单](ACM源码改动清单.md)。
+两目录现有 126 份 C++ 模板一一对应；手抄 PDF 与完整版完整收录同一目录，包含全部模板、工具和笔记。具体差异见[版本说明](版本说明.md)和[源码改动清单](ACM源码改动清单.md)。
 
 一条命令验证两版（Python 3、g++，C++17）：
 
@@ -29,8 +29,8 @@ python <模板库路径>/src/prepare/duipai.py
 ```
 
 默认运行 `testin`、`abiaocheng`、`nedtest`（Windows 自动加 `.exe`），最多 100000 组，单次超时 2 秒。
-可用 `--gen`、`--ref`、`--sol` 指定命令，如 `--gen python gen.py --ref ./std --sol ./main --tests 1000`。
-默认忽略空白差异，`--strict` 按字节比较；WA、RE、TLE 时停止并保留输入、输出和 stderr。
+脚本共 10 行；程序名直接改三条运行命令，组数和超时直接改常数。
+忽略空白差异，WA 时停止并保留 `data.txt`、`biaoda.txt`、`aatest.txt`；程序报错或超时直接抛出异常停止。
 
 测试范围和单独运行方法见 [tests/README.md](tests/README.md)。维护时先修改 `src/`，再运行 `python tools/build_acm_sources.py` 同步手抄版，最后运行测试。
 

@@ -41,14 +41,12 @@
 #import_code("src/others/高维前缀和.cpp")
 == 三分
 #import_code("src/others/三分.cpp")
-== Bitset
-#import_code("src/others/bitset.cpp")
 == Bitset手写
 #import_code("src/others/bitset手写.cpp")
 == Lcslen(n2/w)
 #import_code("src/others/lcslen(n2w).cpp")
 == wqs二分
-#import_code("src/others/wqs二分.cpp")
+#include "src/others/wqs二分.typ"
 == 可以判断不同或相同的并查集
 #import_code("src/others/可以判断不同或相同的并查集.cpp")
 == Int128
@@ -215,8 +213,6 @@
 = 数学
 == 组合数
 #import_code("src/math/组合数带模运算ca.cpp")
-== 组合数默认模数998244353
-#import_code("src/math/组合数带模运算CA(ll).cpp")
 == BSGS指数方程余数问题(求a^x=b%p)
 #import_code("src/math/BSGS指数方程余数问题(求a^x=b%p).cpp")
 == EXGCD
@@ -274,6 +270,8 @@
 #import_code("src/geometry/极角排序.cpp")
 == 直线
 #import_code("src/geometry/直线.cpp")
+== 两点求直线标准式
+#import_code("src/geometry/两点求直线.cpp")
 == 线段
 #import_code("src/geometry/线段.cpp")
 == 射线判交

@@ -3,6 +3,10 @@
 // Polygon a; a.p = {{0,0}, {1,0}, {0,1}};
 // auto area = area_union(vector<Polygon>{a});  // 并面积应为 area[0]=0.5。
 // area[i] 是至少覆盖 i+1 次的面积；输入顶点须逆时针。
+// 原理：把每条有向边按其他多边形的交点切开，扫描区间内的覆盖次数。
+// 被其他多边形覆盖 k 次的边段，归入“至少覆盖 k+1 次”的边界。
+// 对边界累加端点叉积再除 2；同向重合边逐层后移，反向内边界相互抵消。
+// 设总边数 E，逐边收集并排序至多 O(E) 个事件，整体 O(E² log E)。
 vector<long double> area_union(const vector<Polygon>& polys) {
     const size_t siz = polys.size();
     vector<vector<pair<Point, Point>>> segs(siz);
@@ -11,6 +15,7 @@ vector<long double> area_union(const vector<Polygon>& polys) {
     };
 
     auto cut_edge = [&](const Segment& e, const size_t i) {
+        // 输入逆时针使内部位于边的左侧，穿过其他边界时更新覆盖数 sum。
         const Line le{e.a, e.b - e.a};
         vector<pair<Point, int>> evt;
         evt.push_back({e.a, 0}); evt.push_back({e.b, 0});
@@ -33,6 +38,7 @@ vector<long double> area_union(const vector<Polygon>& polys) {
         }
         sort(evt.begin(), evt.end());
         if (e.a > e.b) reverse(evt.begin(), evt.end());
+        // 事件沿当前边方向扫描；共线边只切分位置，重复边在汇总时分层处理。
         int sum = 0;
         for (size_t i = 0; i < evt.size(); i++) {
             sum += evt[i].second;

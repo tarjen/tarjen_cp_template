@@ -4,10 +4,15 @@
 // auto diameter_squared = poly.diameter2();  // 直径平方为 8。
 // int relation = poly.is_in(Point{0.5,0.5});  // 1 内部，0 外部，-1 边上。
 // 顶点逆时针、无重复或连续共线点，首点为字典序最小点；可先 convexhull。
+// 原理：凸性使边方向、支撑点和扇形分区具有单调性，可用双指针或二分。
+// 闵可夫斯基和/直径为线性，点包含/切点查询为对数复杂度。
+// 除单独处理的 1/2 点情况外，按至少 3 点的非退化凸多边形使用；不传空集。
 template <typename T>
 struct convex : polygon<T> {
     // 闵可夫斯基和
     convex operator+(const convex& c) const {
+        // 和多边形的边方向是两组凸包边方向的有序归并，起点也取两起点之和。
+        // 累加边向量得到边界，并删去同向共线的中间点；O(n+m)。
         const auto& p = this->p;
         vector<Segment> e1(p.size()), e2(c.p.size()),
             edge(p.size() + c.p.size());
@@ -40,6 +45,8 @@ struct convex : polygon<T> {
     // func 为更新答案的函数，可以根据题目调整位置
     template <typename F>
     void rotcaliper(const F& func) const {
+        // 对固定边，离边最远的对踵点使三角形面积最大；边转动时 j 只向前。
+        // 面积相等也枚举以免漏掉平行边端点；严格凸包上共 O(n)，要求至少 3 点。
         const auto& p = this->p;
         const auto area = [](const point<T>& u, const point<T>& v,
                              const point<T>& w) { return (w - u) ^ (w - v); };
@@ -56,6 +63,7 @@ struct convex : polygon<T> {
 
     // 凸多边形的直径的平方
     T diameter2() const {
+        // 最远点对一定出现在对踵点对中，枚举对踵点与当前边的两个端点。
         const auto& p = this->p;
         if (p.size() == 1) return 0;
         if (p.size() == 2) return p[0].dis2(p[1]);
@@ -72,6 +80,8 @@ struct convex : polygon<T> {
     // 复杂度 O(logn)
     // -1 点在多边形边上 | 0 点在多边形外 | 1 点在多边形内
     int is_in(const point<T>& a) const {
+        // 以 p[0] 为中心划分扇形，先排除外部角域，再二分所在三角形。
+        // 最后判断相对该三角形外侧边的位置，边界单独返回 -1。
         const auto& p = this->p;
         if (p.size() == 1) return a == p[0] ? -1 : 0;
         if (p.size() == 2) return segment<T>{p[0], p[1]}.is_on(a) ? -1 : 0;
@@ -95,6 +105,8 @@ struct convex : polygon<T> {
     // 参考资料：https://codeforces.com/blog/entry/48868
     template <typename F>
     size_t extreme(const F& dir) const {
+        // 支撑点附近，方向与相邻边的叉积符号会改变；拆开环序后可二分转折。
+        // dir 用于下方的固定方向或外点视线，不能随意传入不满足单调性的函数。
         const auto& p = this->p;
         const auto check = [&](const size_t i) {
             return dir(p[i]).toleft(p[this->nxt(i)] - p[i]) >= 0;
@@ -117,6 +129,7 @@ struct convex : polygon<T> {
     // 复杂度 O(logn)
     // 必须保证点在多边形外
     pair<size_t, size_t> tangent(const point<T>& a) const {
+        // 从外点观察凸包，正反两个视线方向的极点分别给出两个切点。
         const size_t i = extreme([&](const point<T>& u) { return u - a; });
         const size_t j = extreme([&](const point<T>& u) { return a - u; });
         return {i, j};
@@ -125,6 +138,7 @@ struct convex : polygon<T> {
     // 求平行于给定直线的凸多边形的切线，返回切点下标
     // 复杂度 O(logn)
     pair<size_t, size_t> tangent(const line<T>& a) const {
+        // 两侧平行支撑线对应 v 与 -v 的极点，无须逐点扫描。
         const size_t i = extreme([&](...) { return a.v; });
         const size_t j = extreme([&](...) { return -a.v; });
         return {i, j};

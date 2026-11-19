@@ -1,12 +1,10 @@
-// 用法：
-// 此片段应放在比较函数里；a,b 为当前任务属性，x.a/x.b 为另一任务。
-// 用于先消耗 a、再获得 b 的任务排序，按 a<=b 分组后比较。
-// 需自行提供任务 struct 与比较函数，不能直接放在文件全局作用域。
-if ((a <= b) ^ (x.a <= x.b)) return a <= b;
-if (a <= b) {
-    if (a == x.a) return b < x.b;
-    return a < x.a;
-} else {
-    if (b == x.b) return a > x.a;
-    return b > x.b;
+// 用法：vector<Task> tasks = {{3,5}, {2,1}}; sort(tasks.begin(), tasks.end());
+// 每项先消耗 a，再获得 b；按原规则排序，a<=b 的任务在前。
+struct Task {
+    int a, b;
+};
+bool operator<(const Task& x, const Task& y) {
+    if ((x.a <= x.b) ^ (y.a <= y.b)) return x.a <= x.b;
+    if (x.a <= x.b) return x.a == y.a ? x.b < y.b : x.a < y.a;
+    return x.b == y.b ? x.a > y.a : x.b > y.b;
 }

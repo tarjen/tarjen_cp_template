@@ -6,6 +6,9 @@
 // auto dot = u*v;
 // auto cross = u^v;  // 点积 0，叉积 1，叉积注意括号。
 // point<T> 可指定类型；Point 是 point<pt> 的别名。
+// 原理：点相减得到向量；u*v=|u||v|cosθ，u^v=|u||v|sinθ。
+// 叉积正/负表示 v 在 u 的左/右侧，绝对值是平行四边形面积。
+// 平方距离用点积，旋转用二维旋转矩阵；基本操作均为 O(1)。
 template <typename T>
 struct point {
     T x, y;
@@ -42,6 +45,7 @@ struct point {
         return sqrtl(dis2(a));
     }  // 两点距离
     long double ang(const point& a) const {
+        // 余弦公式求夹角，截到 [-1,1] 避免舍入越界；两个向量均须非零。
         return acosl(max(-1.0l, min(1.0l, ((*this) * a) / (len() * a.len()))));
     }  // 向量夹角
     point rot(const long double rad) const {

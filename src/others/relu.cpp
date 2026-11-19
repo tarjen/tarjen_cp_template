@@ -1,41 +1,19 @@
-// 用法：
-// node f{0, 0, 10, 10};  // 在 [0,10] 线性增长，两端截断。
-// int y = f.get(12);  // 返回 10；f.get(-2)=0。
-// node g{2, 1, 8, 7};
-// node h = f + g;  // 复合函数，h(x)=g(f(x))。
-// l/lv、r/rv 是两个拐点的坐标与函数值。
+// 用法：node f{0,0,10,10}, g{2,1,8,7}; node h = f + g;
+// h(x)=g(f(x))；cout << h 输出 (l,lv,r,rv)。
+// 表示斜率为 1、两端截断的函数；须 l<=r 且 r-l=rv-lv。
+// l==r 时为常量函数；标准库头文件与 using namespace std 由调用处提供。
 struct node {
     int l, lv, r, rv;
-    int get(int x) {
-        if (x >= r) return rv;
-        if (x >= l && x <= r) return x - l + lv;
-        return lv;
+    int get(int x) const {
+        return int(clamp(1LL * x - l + lv, 1LL * lv, 1LL * rv));
     }
-    // node write(string name){
-    //     cout<<name<<" l="<<l<<" lv="<<lv<<" r="<<r<<" rv="<<rv<<"
-    //     val="<<val<<endl; return *this;
-    // }
 };
 node operator+(node a, node b) {
-    if (a.lv >= b.r) {
-        auto mid = b.get(a.lv);
-        return node{a.l, mid, a.l, mid};
-    }
-    if (a.rv <= b.l) {
-        auto mid = b.get(a.rv);
-        return node{a.r, mid, a.r, mid};
-    }
-    if (a.lv <= b.l) {
-        int d = b.l - a.lv;
-        a.l += d;
-        a.lv = b.lv;
-    } else
-        a.lv = b.get(a.lv);
-    if (a.rv >= b.r) {
-        int d = a.rv - b.r;
-        a.r -= d;
-        a.rv = b.rv;
-    } else
-        a.rv = b.get(a.rv);
-    return a;
-};
+    auto cut = [&](int x) {
+        return int(clamp(1LL * x + a.l - a.lv, 1LL * a.l, 1LL * a.r));
+    };
+    return {cut(b.l), b.get(a.lv), cut(b.r), b.get(a.rv)};
+}
+ostream& operator<<(ostream& out, const node& a) {
+    return out << "(" << a.l << "," << a.lv << "," << a.r << "," << a.rv << ")";
+}

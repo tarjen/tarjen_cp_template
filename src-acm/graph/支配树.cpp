@@ -10,19 +10,7 @@ struct DominatorTree {
     int n, cs = 0;
     vector<vector<int>> E, RE, rdom;
     vector<int> S, RS, par, val, sdom, rp, dom, up;
-    DominatorTree(int n)
-        : n(n),
-          E(n + 1),
-          RE(n + 1),
-          rdom(n + 1),
-          S(n + 1),
-          RS(n + 1),
-          par(n + 1),
-          val(n + 1),
-          sdom(n + 1),
-          rp(n + 1),
-          dom(n + 1),
-          up(n + 1) {}
+    DominatorTree(int n) : n(n), E(n + 1), RE(n + 1), rdom(n + 1), S(n + 1), RS(n + 1), par(n + 1), val(n + 1), sdom(n + 1), rp(n + 1), dom(n + 1), up(n + 1) {}
     DominatorTree(const vector<vector<int>>& graph, int root)
         : DominatorTree((int)graph.size() - 1) {
         E = graph;

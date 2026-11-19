@@ -1,7 +1,8 @@
 // 用法：
-// EXKMP tr("ababa", "aba");  // 参数顺序：文本、模式串。
-// int length = tr.extend[0];  // 文本后缀与模式串的 LCP 长度为 3。
-// int z = tr.next[2];  // 模式串后缀与自身的 LCP 长度为 1。
+// EXKMP tr("abacababacabadabacababacaba", "abacababacaba");  // 文本、模式串。
+// int length = tr.extend[0];  // 文本后缀与模式串的 LCP 长度为 13。
+// int repeat = tr.extend[14];  // 第二次完整匹配，LCP 长度也是 13。
+// int z = tr.next[6];  // 模式串后缀 "abacaba" 与自身的 LCP 长度为 7。
 // extend 对应文本位置，next 对应模式串位置，均 0base；构造即计算。
 #include <bits/stdc++.h>
 using namespace std;

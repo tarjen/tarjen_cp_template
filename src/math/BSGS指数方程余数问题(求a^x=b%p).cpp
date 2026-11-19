@@ -1,11 +1,8 @@
 // 用法：
 // int x = exBSGS(2, 8, 13);  // 求 2^x = 8 (mod 13)，得到 3。
-// 参数顺序 a,b,p；main 的输入顺序则是 a,p,b。
+// 参数顺序 a,b,p。
 // 结果 <0 表示无解；模数为正，BSGS 内部会清空工作哈希表。
-#include <algorithm>
 #include <cmath>
-#include <cstdio>
-#include <cstring>
 #include <unordered_map>
 
 using namespace std;
@@ -14,7 +11,6 @@ typedef long long ll;
 
 const int INF = 0x3f3f3f3f;
 
-int a, b, p;
 unordered_map<int, int> hs;
 
 int exgcd(int a, int b, int& x, int& y) {
@@ -55,15 +51,4 @@ int exBSGS(int a, int b, int p) {
         return exBSGS(a, (ll)b / d * x % (p / d), p / d) + 1;
     }
     return BSGS(a, b, p);
-}
-
-int main() {
-    while (~scanf("%d%d%d", &a, &p, &b), a || b || p) {
-        int res = exBSGS(a, b, p);
-        if (res < 0)
-            puts("No Solution");
-        else
-            printf("%d\n", res);
-    }
-    return 0;
 }

@@ -25,9 +25,6 @@ namespace virtualtree {
 namespace comb {
 #include "../src/math/组合数带模运算ca.cpp"
 }
-namespace comb2 {
-#include "../src/math/组合数带模运算CA(ll).cpp"
-}
 namespace lagrange {
 #include "../src/math/拉格朗日插值.cpp"
 }
@@ -388,7 +385,6 @@ void test_virtual_centroid_ancestor() {
 void test_number_theory() {
     for (int prime : vector<int>{101, 998244353, 1000000007}) {
         comb::Comb c(60, prime);
-        comb2::Comb c2(60, prime);
         vector<vector<int>> pascal(61, vector<int>(61));
         pascal[0][0] = 1;
         for (int n = 1; n <= 60; n++) {
@@ -400,7 +396,6 @@ void test_number_theory() {
         for (int n = 0; n <= 60; n++)
             for (int k = 0; k <= n + 1; k++) {
                 CHECK(c.C(n, k) == (k <= n ? pascal[n][k] : 0));
-                CHECK(c2.C(n, k) == c.C(n, k));
                 ll expected = 1;
                 for (int i = 0; i < k; i++)
                     expected = expected * (n - i) % prime;
@@ -608,14 +603,6 @@ void test_bitset_recurrence() {
             b.setBit(i, y[i]);
         }
         CHECK(a.count() == accumulate(x.begin(), x.end(), 0));
-        auto shifted = a;
-        shifted.shift1();
-        for (int i = 0; i < n; i++)
-            CHECK(shifted.getBit(i) == bool(i ? x[i - 1] : 0));
-        bitsetimpl::Bitset added(n);
-        for (int i = 0; i < n; i++)
-            if (x[i]) added.add(i);
-        CHECK(added.v == a.v);
         for (int shift : vector<int>{0, 1, 63, 64, 65, n, n + 10}) {
             auto left = a << shift, right = a >> shift;
             for (int i = 0; i < n; i++) {
@@ -813,6 +800,6 @@ int main() {
     test_bitset_recurrence();
     test_specialized();
     test_bounded_flow();
-    cout << "PASS: third batch 27 templates, " << checks
+    cout << "PASS: third batch 26 templates, " << checks
          << " checks, seed 20261004\n";
 }

@@ -4,6 +4,9 @@
 // int relation = a.is_inter(b);  // 1：严格相交。
 // int on = a.is_on(Point{0,0});  // -1：在线段端点；0 不在，1 严格在内部。
 // auto distance = a.dis(Point{1,2});  // 点到线段距离为 2。
+// 原理：叉积判断共线/跨立，点积判断点是否夹在两个端点之间。
+// 两线段严格相交须互相跨立；端点接触或共线重叠先单独判断。
+// 点到线段距离先看投影是否越过端点；基本操作 O(1)，距离接口要求 a!=b。
 template <typename T>
 struct segment {
     point<T> a, b;
@@ -39,6 +42,7 @@ struct segment {
 
     // 点到线段距离
     long double dis(const point<T>& p) const {
+        // 投影在线段外取较近端点，否则取点到支撑直线的垂距。
         if ((p - a) * (b - a) < -eps || (p - b) * (a - b) < -eps)
             return min(p.dis(a), p.dis(b));
         const line<T> l{a, b - a};

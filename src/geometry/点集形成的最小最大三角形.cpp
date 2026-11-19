@@ -3,6 +3,9 @@
 // vector<Point> points = {{0,0}, {2,0}, {0,2}};
 // auto [small, large] = minmax_triangle(points);  // 本例均为 4。
 // 返回最小、最大三角形面积的两倍；实际面积需除以 2。
+// 原理：转动投影方向；两点投影相等时交换次序，按法向量极角处理这些事件。
+// 固定底边时面积正比于第三点到直线的距离：最小看邻近点，最大看两端极点。
+// 共 O(n²) 个事件，排序 O(n² log n)，vx/pos 分别维护投影序及其逆排列。
 pair<pt, pt> minmax_triangle(const vector<Point>& vec) {
     if (vec.size() <= 2) return {0, 0};
     vector<pair<int, int>> evt;
@@ -28,6 +31,7 @@ pair<pt, pt> minmax_triangle(const vector<Point>& vec) {
     sort(vx.begin(), vx.end(), [&](int x, int y) { return vec[x] < vec[y]; });
     for (size_t i = 0; i < vx.size(); i++) pos[vx[i]] = i;
     for (auto [u, v] : evt) {
+        // 当前 u,v 给出底边；先按交换前的投影序取最近/最远候选，再更新次序。
         const size_t i = pos[u], j = pos[v];
         const size_t l = min(i, j), r = max(i, j);
         const Point vecu = vec[u], vecv = vec[v];

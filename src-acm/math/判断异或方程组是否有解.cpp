@@ -1,37 +1,32 @@
-// 原实现：用 bitset 存储异或方程，逐列消元，检查是否出现 0=1。
-// 用法：需提供标准库头文件、using namespace std; 和全局 int n;。
-// n 个方程、n 个未知量，下标 1base；b[i][n+1] 为第 i 个方程右端值。
-// 每次使用前清空 b；设置系数与右端后调用 solve()，返回是否有解。
-// solve() 会修改 b；须满足 n+1 < maxn。
-const int maxn=1e2+5;
-//每个方程组一定是xi1^xi2^xi3...=1/0的形式
-bitset<maxn>b[maxn];//1表示这个方程组存在Xi 比如x3^x5=1就应该是3 和5的地方上是1
-//b[n+1]存方程右边等于0/1
-int sum[maxn];
-bool check(int x)
-{
-    for(int i=1;i<=n;i++)if(b[x][i])return true;
-    return !b[x][n+1];
-}
-bool solve()
-{
-    for(int i=1,p=1;i<=n;i++,p++)
-    {
-        if(!b[p][i])
-        {
-            int pos=0;
-            for(int j=p+1; j<=n; j++)
-                if(b[j][i])
-                {
-                    pos=j;
-                    break;
-                }
-            if(pos)swap(b[p],b[pos]);
-        }
-        int flag=b[p][i];
-        for(int j=p+1; j<=n; j++) if(b[j][i]) b[j]^=b[p],flag=1;
-        if(!flag) p--;
+// 用户要求：封装原 bitset 高斯消元，判断异或方程组是否有解。
+// XorEquations<> eq(3);  // 3 个未知量，编号 0..2；方程数量不限。
+// eq.add({0, 1}, 1); eq.add({1, 2}, 0);  // x0^x1=1，x1^x2=0。
+// bool ok = eq.solve();  // true；只判断是否有解，不输出一组解。
+// 需标准库头文件和 using namespace std；n<N，b[i][n] 为右端值。
+// solve() 原地消元，可重复调用或继续加方程；clear() 清空所有方程。
+template<int N = 105>
+struct XorEquations {
+    int n;
+    vector<bitset<N>> b;
+    XorEquations(int n) : n(n) { assert(0 <= n && n < N); }
+    void clear() { b.clear(); }
+    void add(const vector<int>& vars, bool rhs) {
+        bitset<N> row;
+        for (int i : vars) { assert(0 <= i && i < n); row.flip(i); }
+        row[n] = rhs;
+        b.push_back(row);
     }
-    for(int i=1; i<=n; i++) if(!check(i)) return false;
-    return true;
-}
+    bool solve() {
+        int m = b.size(), p = 0;
+        for (int i = 0; i < n && p < m; i++) {
+            int j = p;
+            while (j < m && !b[j][i]) j++;
+            if (j == m) continue;
+            swap(b[p], b[j]);
+            for (j = p + 1; j < m; j++) if (b[j][i]) b[j] ^= b[p];
+            p++;
+        }
+        for (int i = p; i < m; i++) if (b[i][n]) return false;
+        return true;
+    }
+};

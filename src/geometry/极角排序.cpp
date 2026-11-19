@@ -4,6 +4,8 @@
 // sort(vectors.begin(), vectors.end(), argcmp());
 // 按 (-1,0) 方向作为结尾的逆时针极角序排序，同方向视为等价。
 // argcmp 是比较器，用于 sort，不是需要预处理的数据结构。
+// 原理：先按上下半平面及坐标轴分组，同组再用叉积比较转角。
+// 避免 atan2；单次 O(1)，排序 O(n log n)。零向量单独分组，没有极角。
 struct argcmp {
     bool operator()(const Point& a, const Point& b) const {
         const auto quad = [](const Point& a) {

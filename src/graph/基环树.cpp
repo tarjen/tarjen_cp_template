@@ -1,46 +1,32 @@
-// 用法：
-// Graph tr(3);  // 节点 1base，连通无向简单图，恰有一个环。
-// tr.addedge(1, 2);
-// tr.addedge(2, 3);
-// tr.addedge(3, 1);
-// tr.Get();  // 加完边后预处理。
+/*
+用户要求：直接传入 vector<vector<int>> 邻接表，构造时完成预处理。
+保留原有 DFS 找环、环上挂树和倍增求距离的方法。
+*/
+// 用法：节点 1base，连通无向简单图，恰有一个环。
+// vector<vector<int>> ve = {{}, {2,3}, {1,3}, {1,2}};
+// Graph tr(ve);  // 传入双向邻接表，第 0 格不用；自动预处理。
 // int distance = tr.dis(1, 3);  // 无权最短距离为 1。
+// 对象保存邻接表副本；外部 ve 可在构造后修改或销毁。
 #include <bits/stdc++.h>
 using namespace std;
-/*
-1 init
-2 addedge
-3 Get
-*/
 struct Graph {
+    int n, lg, len = 0;
     vector<vector<int>> ve;
     vector<int> base, id;
     vector<char> Incircle;
     vector<int> Circle;
-    int len = 0;
     vector<int> dep;
     vector<vector<int>> f;
-    int lg;
-    int n;
-    explicit Graph(int n)
-        : ve(n + 1),
+    explicit Graph(const vector<vector<int>>& g)
+        : n((int)g.size() - 1),
+          lg(n ? __lg(n) + 1 : 1),
+          ve(g),
           base(n + 1),
           id(n + 1, -1),
           Incircle(n + 1),
           dep(n + 1),
-          f(n ? __lg(n) + 1 : 1, vector<int>(n + 1)),
-          lg(n ? __lg(n) + 1 : 1),
-          n(n) {
-        iota(base.begin(), base.end(), 0);
-    }
-    explicit Graph(const vector<vector<int>>& graph)
-        : Graph((int)graph.size() - 1) {
-        ve = graph;
+          f(lg, vector<int>(n + 1)) {
         Get();
-    }
-    void addedge(int x, int y) {
-        ve[x].push_back(y);
-        ve[y].push_back(x);
     }
     void dfs(int x, int fa) {
         base[x] = base[fa];

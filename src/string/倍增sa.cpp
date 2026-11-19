@@ -1,10 +1,10 @@
 // 用法：
 // Suffix tr("banana");  // 构造即建后缀数组及 LCP 查询表。
-// int first = tr.sa[1];  // 字典序最小后缀起点为 6。
-// int length = tr.lcp(2, 4);  // 两个后缀的 LCP 长度为 3。
-// int cmp = tr.query(2, 4, 4, 6);  // 比较两个闭区间子串，结果 0（相等）。
-// 原串位置、sa/rk/ht 均 1base；cmp=-1/0/1 表示小于/等于/大于。
-// ht[i] 是排名 i 与 i-1 的相邻后缀的 LCP。
+// int first = tr.sa[0];  // 字典序最小后缀起点为 5。
+// int length = tr.lcp(1, 3);  // 两个后缀的 LCP 长度为 3。
+// int cmp = tr.query(1, 3, 3, 5);  // 比较两个闭区间子串，结果 0（相等）。
+// 用户要求：倍增算法不变，原串位置、sa/rk/ht 和查询统一 0base。
+// ht[0]=0；ht[i] 是排名 i 与 i-1 后缀的 LCP；cmp=-1/0/1。
 #include <bits/stdc++.h>
 using namespace std;
 struct Suffix {
@@ -12,62 +12,59 @@ struct Suffix {
     int n, m;
     string s;
     vector<vector<int>> st;
-    explicit Suffix(const string& text) : s(" " + text) { init(); }
+    explicit Suffix(const string& text) : s(text) { init(); }
     void init() {
-        n = s.size() - 1;
-        ht.assign(n + 1, 0);
-        rk.assign(2 * n + 2, 0);
-        sa.assign(n + 1, 0);
-        y.assign(2 * n + 2, 0);
-        c.assign(max(n + 1, 301), 0);
+        n = s.size();
+        ht.assign(n, 0);
+        rk.assign(2 * n + 1, -1);  // 越界排名为 -1，小于所有有效排名。
+        sa.assign(n, 0);
+        y.assign(2 * n + 1, -1);
+        c.assign(max(n, 256), 0);
         if (!n) {
             st.clear();
             return;
         }
-        m = 300;
-        for (int i = 0; i <= m; i++) c[i] = 0;
-        for (int i = 0; i <= 2 * n; i++) y[i] = 0;
-        for (int i = 1; i <= n; i++) c[rk[i] = (unsigned char)s[i]]++;
-        for (int i = 1; i <= m; i++) c[i] += c[i - 1];
-        for (int i = n; i >= 1; i--) sa[c[rk[i]]--] = i;
+        m = 256;
+        for (int i = 0; i < n; i++) c[rk[i] = (unsigned char)s[i]]++;
+        for (int i = 1; i < m; i++) c[i] += c[i - 1];
+        for (int i = n - 1; i >= 0; i--) sa[--c[rk[i]]] = i;
         for (int k = 1; k <= n; k <<= 1) {
             int p = 0;
-            for (int i = n - k + 1; i <= n; i++) y[++p] = i;
-            for (int i = 1; i <= n; i++) {
-                if (sa[i] > k) {
-                    y[++p] = sa[i] - k;
+            for (int i = n - k; i < n; i++) y[p++] = i;
+            for (int i = 0; i < n; i++) {
+                if (sa[i] >= k) {
+                    y[p++] = sa[i] - k;
                 }
             }
-            for (int i = 0; i <= m; i++) c[i] = 0;
-            for (int i = 1; i <= n; i++) c[rk[i]]++;
-            for (int i = 1; i <= m; i++) c[i] += c[i - 1];
-            for (int i = n; i >= 1; i--) sa[c[rk[y[i]]]--] = y[i];
-            for (int i = 0; i <= n; i++) swap(rk[i], y[i]);
-            rk[sa[1]] = p = 1;
-            for (int i = 2; i <= n; i++) {
+            for (int i = 0; i < m; i++) c[i] = 0;
+            for (int i = 0; i < n; i++) c[rk[i]]++;
+            for (int i = 1; i < m; i++) c[i] += c[i - 1];
+            for (int i = n - 1; i >= 0; i--) sa[--c[rk[y[i]]]] = y[i];
+            for (int i = 0; i < n; i++) swap(rk[i], y[i]);
+            rk[sa[0]] = p = 0;
+            for (int i = 1; i < n; i++) {
                 rk[sa[i]] = (y[sa[i]] == y[sa[i - 1]] &&
                                      y[sa[i] + k] == y[sa[i - 1] + k]
                                  ? p
                                  : ++p);
             }
-            if (p >= n) break;
-            m = p;
+            m = p + 1;
+            if (m == n) break;
         }
-        for (int i = 1, k = 0; i <= n; i++) {
+        for (int i = 0, k = 0; i < n; i++) {
             if (k) k--;
-            if (rk[i] == 1) {
-                ht[1] = 0;
+            if (rk[i] == 0) {
                 k = 0;
                 continue;
             }
             int j = sa[rk[i] - 1];
-            while (i + k <= n && j + k <= n && s[i + k] == s[j + k]) k++;
+            while (i + k < n && j + k < n && s[i + k] == s[j + k]) k++;
             ht[rk[i]] = k;
         }
-        st.assign(__lg(n) + 1, vector<int>(n + 1));
-        for (int i = 1; i <= n; i++) st[0][i] = ht[i];
+        st.assign(__lg(n) + 1, vector<int>(n));
+        for (int i = 0; i < n; i++) st[0][i] = ht[i];
         for (int j = 1; j < (int)st.size(); j++) {
-            for (int i = 1; i + (1 << j) - 1 <= n; i++)
+            for (int i = 0; i + (1 << j) <= n; i++)
                 st[j][i] = min(st[j - 1][i], st[j - 1][i + (1 << (j - 1))]);
         }
     }
@@ -76,7 +73,7 @@ struct Suffix {
         return min(st[g][l], st[g][r - (1 << g) + 1]);
     }
     int lcp(int x, int y) {
-        if (x == y) return n - x + 1;
+        if (x == y) return n - x;
         x = rk[x], y = rk[y];
         if (x > y) swap(x, y);
         return get(x + 1, y);
@@ -95,15 +92,12 @@ struct Suffix {
         return -1;
     }
     void writ() {
-        cout << s.substr(1) << "\n";
-        for (int i = 1; i <= n; i++) cout << sa[i] << " ";
-        ;
+        cout << s << "\n";
+        for (int i = 0; i < n; i++) cout << sa[i] << " ";
         cout << "\n";
-        for (int i = 1; i <= n; i++) cout << ht[i] << " ";
-        ;
+        for (int i = 0; i < n; i++) cout << ht[i] << " ";
         cout << "\n";
-        for (int i = 1; i <= n; i++) cout << rk[i] << " ";
-        ;
+        for (int i = 0; i < n; i++) cout << rk[i] << " ";
         cout << "\n";
     }
 };

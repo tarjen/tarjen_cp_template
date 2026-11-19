@@ -5,6 +5,8 @@
 // auto perimeter = poly.circ();  // 周长。
 // auto [boundary, winding] = poly.winding(Point{0.5,0.5});
 // boundary 判断在边上；不在边上时 winding!=0 表示在狭义多边形内部。
+// 原理：有向边的叉积累加是鞋带公式，得到有向面积的两倍。
+// 点包含用绕数：向右作射线，上穿/下穿分别计 +1/-1；每个接口 O(n)。
 struct polygon {
     vector<point> p;  // 以逆时针顺序存储
 
@@ -21,6 +23,7 @@ struct polygon {
             if (abs((a - u) ^ (a - v)) <= eps && (a - u) * (a - v) <= eps)
                 return {true, 0};
             if (abs(u.y - v.y) <= eps) continue;
+            // 高度区间取一开一闭，使经过顶点的射线只被计数一次。
             const Line uv = {u, v - u};
             if (u.y < v.y - eps && uv.toleft(a) <= 0) continue;
             if (u.y > v.y + eps && uv.toleft(a) >= 0) continue;
