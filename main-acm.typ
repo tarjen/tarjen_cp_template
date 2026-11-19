@@ -57,6 +57,7 @@
 #import_code("src-acm/others/求s所有前缀对于t的所有子串的lcs长度.cpp")
 == 线性基
 #import_code("src-acm/others/线性基.cpp")
+#pagebreak(weak: true)
 == 维护多个二维向量能够表示的范围
 #import_code("src-acm/others/维护多个二维向量能够表示的范围.cpp")
 == relu
@@ -73,6 +74,7 @@
 #import_code("src-acm/string/dequehash.cpp")
 == Exkmp
 #import_code("src-acm/string/exkmp.cpp")
+#pagebreak(weak: true)
 == Hash
 #import_code("src-acm/string/hash.cpp")
 == Kmp
@@ -112,6 +114,7 @@
 #import_code("src-acm/graph/二分图匹配.cpp")
 == HK 二分图最大匹配
 #import_code("src-acm/graph/HK.cpp")
+#pagebreak(weak: true)
 == 二分图最优匹配
 #import_code("src-acm/graph/二分图最优匹配.cpp")
 == 二分图染色
@@ -132,6 +135,7 @@
 #import_code("src-acm/graph/最小环.cpp")
 == 最小费用最大流
 #import_code("src-acm/graph/最小费用最大流.cpp")
+#pagebreak(weak: true)
 == 欧拉回路
 #import_code("src-acm/graph/欧拉回路.cpp")
 == 三四元环计数
@@ -147,18 +151,21 @@
 #import_code("src-acm/data_structure/SegmentSet.cpp")
 == SegmentTree
 #import_code("src-acm/data_structure/SegmentTree.cpp")
+#pagebreak(weak: true)
 == SegmentTree单点
 #import_code("src-acm/data_structure/SegmentTree单点.cpp")
 == 线段树区间加区间求和
 #import_code("src-acm/data_structure/线段树区间加区间求和getsum.cpp")
 == 线段树区间加区间最小值
 #import_code("src-acm/data_structure/线段树区间加区间getmin.cpp")
+#pagebreak(weak: true)
 == 线段树区间赋值区间最小值
 #import_code("src-acm/data_structure/线段树区间赋值区间getmin.cpp")
 == 01Trie
 #import_code("src-acm/data_structure/01trie.cpp")
 == 树状数组单点修改区间查询
 #import_code("src-acm/data_structure/树状数组单点修改区间查询tree.cpp")
+#pagebreak(weak: true)
 == 树状数组区间修改区间查询
 #import_code("src-acm/data_structure/树状数组.cpp")
 == 三维偏序cdq
@@ -175,6 +182,7 @@
 #import_code("src-acm/data_structure/最近公共祖先LCA.cpp")
 == Lca(o1)
 #import_code("src-acm/data_structure/lca(o1).cpp")
+#pagebreak(weak: true)
 == 点分治
 #import_code("src-acm/data_structure/点分治.cpp")
 == 珂朵莉树
@@ -185,10 +193,12 @@
 #import_code("src-acm/data_structure/线段树区间加区间历史最小值.cpp")
 == 线段树合并
 #import_code("src-acm/data_structure/线段树合并.cpp")
+#pagebreak(weak: true)
 == 左偏树（可合并堆）
 #import_code("src-acm/data_structure/左偏树.cpp")
 == 可持久化线段树
 #import_code("src-acm/data_structure/可持久化线段树.cpp")
+#pagebreak(weak: true)
 == 动态树直径
 #import_code("src-acm/data_structure/动态树直径.cpp")
 == 莫队
@@ -197,6 +207,7 @@
 #import_code("src-acm/data_structure/虚树xushu.cpp")
 == LCT维护联通性
 #import_code("src-acm/data_structure/LCT维护联通性.cpp")
+#pagebreak(weak: true)
 == 树链剖分
 #import_code("src-acm/data_structure/树链剖分.cpp")
 == 树上k级祖先
@@ -219,6 +230,7 @@
 #import_code("src-acm/math/exgcd.cpp")
 == FFT
 #import_code("src-acm/math/FFT.cpp")
+#pagebreak(weak: true)
 == FWT
 #import_code("src-acm/math/FWT.cpp")
 == 莫比乌斯反演
@@ -233,10 +245,12 @@
 #import_code("src-acm/math/大数分解质因数.cpp")
 == 扩展中国剩余定理
 #import_code("src-acm/math/扩展中国剩余定理.cpp")
+#pagebreak(weak: true)
 == 拉格朗日插值
 #import_code("src-acm/math/拉格朗日插值.cpp")
 == 拉格朗日插值没有模数
 #import_code("src-acm/math/拉格朗日插值没有模数.cpp")
+#pagebreak(weak: true)
 == 杜教筛
 #import_code("src-acm/math/杜教筛.cpp")
 == 线性筛质数
@@ -249,14 +263,17 @@
 #import_code("src-acm/math/辛普森积分.cpp")
 == 高斯消元(模意义)
 #import_code("src-acm/math/高斯消元(模意义).cpp")
+#pagebreak(weak: true)
 == 高斯消元(浮点数)
 #import_code("src-acm/math/高斯消元(浮点数).cpp")
 == 分数类
 #import_code("src-acm/math/分数类.cpp")
+#pagebreak(weak: true)
 == 判断异或方程组是否有解
 #import_code("src-acm/math/判断异或方程组是否有解.cpp")
 == Matrix
 #import_code("src-acm/math/matrix.cpp")
+#pagebreak(weak: true)
 == MIN25
 #import_code("src-acm/math/min25(质数幂次和).cpp")
 
@@ -270,6 +287,7 @@
 #import_code("src-acm/geometry/极角排序.cpp")
 == 直线
 #import_code("src-acm/geometry/直线.cpp")
+#pagebreak(weak: true)
 == 两点求直线标准式
 #import_code("src-acm/geometry/两点求直线.cpp")
 == 线段
@@ -282,6 +300,7 @@
 #import_code("src-acm/geometry/凸多边形.cpp")
 == 圆
 #import_code("src-acm/geometry/圆.cpp")
+#pagebreak(weak: true)
 == 判断多条线段是否有交点
 #import_code("src-acm/geometry/判断多条线段是否有交点.cpp")
 == 半平面交
