@@ -84,7 +84,7 @@ typst compile main.typ main.pdf
 
 请先将 Typst 加入 PATH，再执行上述命令。
 
-GitHub Actions 在 Ubuntu 24.04 上安装 Noto CJK 与 Liberation 字体，使用同一 Typst 版本编译三份 PDF；可在每次成功构建的 `template-pdf` artifact 中下载，推送标签时也会上传到 Release。独立测试工作流会分别验证完整版和手抄版，并启用 AddressSanitizer / UndefinedBehaviorSanitizer。
+GitHub Actions 只负责 PDF 构建：在 Ubuntu 24.04 上安装 Noto CJK 与 Liberation 字体，使用同一 Typst 版本编译三份 PDF；可在每次成功构建的 `template-pdf` artifact 中下载，推送标签时也会上传到 Release。本地回归测试仍可按需运行。
 
 2026年10月6日修复了 `NTT.cpp` 与实际文件 `ntt.cpp` 的大小写不一致，更新了已停用的 artifact 下载步骤，并固定构建系统与编译器版本。
 

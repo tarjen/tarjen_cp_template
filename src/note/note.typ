@@ -206,3 +206,94 @@ $S$ 到 $T$ 的最大流直接在跑完有源汇上下界可行的残量网络�
 否则我们考虑删去所有附加边之后的残量网络。
 
 我们在残量网络上再跑一次 $T$ 到 $S$ 的最大流，将可行流流量减去最大流流量即为答案。
+
+#pagebreak(weak: true)
+
+== Primal-Dual 费用流（势能 + Dijkstra）
+
+Primal-Dual（原始对偶）在残量网络上反复找最短增广路，用势能 $h[v]$ 把可达残量边的费用变成非负，从而每轮都能使用 Dijkstra。
+这里要求容量为整数、$s != t$，目标是从 $s$ 到 $t$ 发送 $K$ 单位流，并使总费用最小；要求初始残量网络没有负费用环。
+
+*约化费用与距离还原*
+
+对残量边 $u -> v$，原单位费用为 $c(u,v)$，定义约化费用
+
+$ c'(u,v) = c(u,v) + h[u] - h[v]. $
+
+同起终点路径上的势能项会相消，所以路径费用统一增加 $h[s]-h[t]$，最短路的选择不变。
+若 Dijkstra 得到约化图距离 $d$，则本轮增广路的原单位费用为
+
+$ ell = d[t] + h[t] - h[s]. $
+
+*每轮更新 h*
+
+Dijkstra 跑完所有可达点后，仅对 $d[v] < infinity$ 的点更新
+
+$ h[v] <- h[v] + d[v]. $
+
+注意：加的是*约化图距离 d[v]*，不是重复累加原图增广路费用。
+更新后 $h[t]-h[s]=ell$，所以增广 $f$ 单位时，总费用增加 $f times (h[t]-h[s])$。
+
+对从 $s$ 可达的残量边，由最短路不等式 $d[v] <= d[u]+c'(u,v)$，更新后的约化费用为
+
+$ c''(u,v) = c'(u,v) + d[u] - d[v] >= 0. $
+
+最短增广路上的边取等号，增广后新增的反向残量边约化费用也为 0，因此下一轮仍可使用 Dijkstra。
+原费用不要改写；重标费用只在松弛时计算，反向边的原费用始终为 $-c$。
+
+*初始化与 K 条路的含义*
+
+- 原边费用全非负时，初始 $h=0$。有负费用边但无负环时，先从 $s$ 跑一次 Bellman-Ford / SPFA，以最短距离初始化可达点的 $h$，不可达点置 0。
+- 每轮必须在*当前残量图*上找路；到不了 $t$ 就停止。最终流量小于 $K$ 表示无法送满。
+- 单位容量可建模为总长度最小的 $K$ 条边不相交路。反向边允许撤销、重排已有流；每轮增广路不一定是最终路径，最后须按流量分解。
+- 这与原图允许重复点、边的“前 K 短路”是不同的问题。每次增广的 $ell$ 是增加一单位流的*边际费用*，不是原图第几短路的长度。
+- 若要记录每个流量的最小费用 $F(q)$，一次增广 $f$ 单位对应斜率为 $ell$ 的线段；容量为整数时最多增广 $K$ 轮，复杂度 $O(K(n+m) log(n+m))$，负边初始化另计。
+
+#pagebreak(weak: true)
+
+=== 伪代码
+
+每条正向边均配一条初始容量为 0、费用取反的反向边；`e ^ 1` 表示配对边。以下从零流开始，`h/dist/ans` 和费用运算使用足够宽的有符号整数。
+
+```text
+min_cost_flow(s, t, K):
+    h[*] = 0
+    若存在负费用原边:
+        h = BellmanFord(s, 仅考虑 cap > 0 的边)
+        若检测到可达负环: 本算法不能直接使用
+        将 h 中不可达点的 INF 改为 0
+    flow = ans = 0
+    while flow < K:
+        dist[*] = INF; dist[s] = 0
+        pre[*] = -1
+        pq = {(0, s)}
+        while pq 非空:  // 跑完所有可达点，不在弹出 t 时提前退出
+            (du, u) = pq.pop_min()
+            if du != dist[u]: continue
+            for e in adj[u]:
+                if cap[e] == 0: continue
+                v = to[e]
+                nd = du + cost[e] + h[u] - h[v]
+                if nd < dist[v]:
+                    dist[v] = nd; pre[v] = e
+                    pq.push((nd, v))
+        if dist[t] == INF: break
+        for v with dist[v] < INF:
+            h[v] += dist[v]
+        f = K - flow
+        for e on pre 路径 t -> s:
+            f = min(f, cap[e])
+        for e on pre 路径 t -> s:
+            cap[e] -= f; cap[e ^ 1] += f
+        flow += f
+        ans += f * (h[t] - h[s])
+    return (flow, ans)  // flow == K 才送满
+```
+
+参考：#link("https://github.com/atcoder/ac-library/blob/master/atcoder/mincostflow.hpp")[AC Library 最小费用流实现]。
+
+= 优化技巧
+
+== WQS二分
+
+#include "../others/wqs二分.typ"

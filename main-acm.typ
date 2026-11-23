@@ -45,14 +45,13 @@
 #import_code("src-acm/others/bitset手写.cpp")
 == Lcslen(n2/w)
 #import_code("src-acm/others/lcslen(n2w).cpp")
-== wqs二分
-#include "src/others/wqs二分.typ"
 == 可以判断不同或相同的并查集
 #import_code("src-acm/others/可以判断不同或相同的并查集.cpp")
 == Int128
 #import_code("src-acm/others/大数int128.cpp")
 == 树哈希
 #import_code("src-acm/others/树哈希.cpp")
+#pagebreak(weak: true)
 == 求s所有前缀对于t的所有子串的最长公共子序列长度
 #import_code("src-acm/others/求s所有前缀对于t的所有子串的lcs长度.cpp")
 == 线性基

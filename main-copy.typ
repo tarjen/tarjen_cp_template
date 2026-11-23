@@ -45,8 +45,6 @@
 #import_code("src/others/bitset手写.cpp")
 == Lcslen(n2/w)
 #import_code("src/others/lcslen(n2w).cpp")
-== wqs二分
-#include "src/others/wqs二分.typ"
 == 可以判断不同或相同的并查集
 #import_code("src/others/可以判断不同或相同的并查集.cpp")
 == Int128
