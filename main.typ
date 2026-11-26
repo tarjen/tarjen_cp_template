@@ -193,7 +193,7 @@
 #import_code("src/data_structure/莫队mo.cpp")
 == 虚树
 #import_code("src/data_structure/虚树xushu.cpp")
-== LCT维护联通性
+== LCT（动态森林与链和）
 #import_code("src/data_structure/LCT维护联通性.cpp")
 == 树链剖分
 #import_code("src/data_structure/树链剖分.cpp")

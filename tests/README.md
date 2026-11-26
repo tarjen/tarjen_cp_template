@@ -26,7 +26,7 @@ python tests/run_all.py
 | `line_abc.cpp` | 整数两点求直线的系数归一化，10000 组随机点对、同线换点、方向翻转、平移、水平/竖直线与 ±1e9 坐标边界 |
 | `test_duipai.py` | 10 行 Python 对拍的多轮运行、忽略空白、WA 反例保存、程序报错、超时及含空格路径 |
 | `template_refactor.cpp` | 36 个模板，覆盖树状数组、线段树、字符串、图论等；另运行 76 组非法线段树输入检查断言 |
-| `template_refactor_third.cpp` | 26 个模板，覆盖可持久化结构、节点池扩容、树结构、数论、矩阵、递推、费用流等 |
+| `template_refactor_third.cpp` | 26 个模板，覆盖可持久化结构、节点池扩容、树结构、数论、矩阵、递推、费用流等；LCT 点权和链和与朴素森林对拍，覆盖负权、换根、断连重接及 100000 点链 |
 | `template_indexing.cpp` | 8 个模板的下标迁移、边界与朴素结果对照 |
 | `template_dynamic_diameter.cpp` | 动态树直径与朴素全点对距离对照 |
 | `handcopy_fixed_types.cpp` | 手抄版固定 ll 的左偏树与优先队列对拍，pt 几何接口及 vector 存储检查 |

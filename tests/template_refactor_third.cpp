@@ -208,6 +208,11 @@ void test_dynamic_structures() {
         int n = 15;
         lct::LCT t(n), other(n);
         vector<vector<int>> g(n + 1);
+        vector<ll> weights(n + 1);
+        for (int u = 1; u <= n; u++) {
+            weights[u] = 1000000000LL * rnd(-10, 10);
+            t.point_set(u, weights[u]);
+        }
         for (int q = 0; q < 300; q++) {
             int u = rnd(1, n), v = rnd(1, n);
             bool connected = reach(g, u)[v];
@@ -224,8 +229,35 @@ void test_dynamic_structures() {
                 erase(u, v);
                 erase(v, u);
             }
+            if (q % 3 == 2) {
+                ll w = 1000000000LL * rnd(-10, 10);
+                if (q % 2) {
+                    t.point_set(u, w);
+                    weights[u] = w;
+                } else {
+                    t.point_add(u, w);
+                    weights[u] += w;
+                }
+            }
             CHECK(t.query(u, v) == bool(reach(g, u)[v]));
             CHECK(other.query(u, v) == (u == v));
+            CHECK(t.point_sum(u) == weights[u]);
+            CHECK(t.chain_sum(u, u) == weights[u]);
+            CHECK(other.point_sum(u) == 0);
+            CHECK(other.chain_sum(u, u) == 0);
+            vector<int> parent(n + 1, -1), todo{u};
+            parent[u] = 0;
+            for (int i = 0; i < (int)todo.size(); i++)
+                for (int x : g[todo[i]])
+                    if (parent[x] == -1) parent[x] = todo[i], todo.push_back(x);
+            if (parent[v] != -1) {
+                ll expected = 0;
+                for (int x = v; x; x = parent[x]) expected += weights[x];
+                CHECK(t.chain_sum(u, v) == expected);
+                CHECK(t.chain_sum(v, u) == expected);
+                t.makeroot(rnd(1, n));
+                CHECK(t.chain_sum(u, v) == expected);
+            }
         }
         treap::Splay tr;
         multiset<int> data;
@@ -255,7 +287,29 @@ void test_dynamic_structures() {
             }
         }
     }
-    cout << "LCT / Treap / extreme values OK\n";
+    int n = 100000, mid = n / 2;
+    lct::LCT chain(n);
+    for (int u = 1; u <= n; u++) chain.point_set(u, 2000000000LL);
+    for (int u = 1; u < n; u++) chain.addedge(u, u + 1);
+    CHECK(chain.chain_sum(1, n) == 2000000000LL * n);
+    chain.point_add(mid, -5000000000LL);
+    chain.point_set(n, -7);
+    ll total = 2000000000LL * n - 5000000000LL - 2000000000LL - 7;
+    CHECK(chain.chain_sum(n, 1) == total);
+    CHECK(chain.point_sum(mid) == -3000000000LL);
+    chain.deledge(mid, mid + 1);
+    CHECK(!chain.query(1, n));
+    CHECK(chain.chain_sum(1, mid) == 2000000000LL * mid - 5000000000LL);
+    CHECK(chain.chain_sum(mid + 1, n) == 2000000000LL * (n - mid - 1) - 7);
+    chain.addedge(1, n);
+    CHECK(chain.chain_sum(mid, mid + 1) == total);
+    chain.deledge(1, mid + 1);  // 非边，不应影响原森林及链和。
+    CHECK(chain.chain_sum(mid + 1, mid) == total);
+    lct::LCT isolated(1);
+    isolated.point_set(1, -10);
+    isolated.clear(1);
+    CHECK(isolated.point_sum(1) == 0 && isolated.chain_sum(1, 1) == 0);
+    cout << "LCT point weights / path sums / 100000-vertex chain / Treap OK\n";
 }
 
 void test_virtual_centroid_ancestor() {
